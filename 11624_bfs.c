@@ -3,8 +3,7 @@
 #include<stdbool.h>
 #include <string.h>
 #include <assert.h>
-
-const int MAX_NUM = 100000000;
+#include<limits.h>
 
 int minTime;
 
@@ -23,6 +22,7 @@ typedef struct {
 
 #define Q_LEN 10000
 #define STATE_N 100
+#define MAX_NUM INT_MAX
 
 typedef struct 
 {
@@ -83,51 +83,40 @@ void print(int R, int C, char grid[][C])
     }
 }
 
-void printTrace(int R, int C, int trace[][C]) {
+void printArray(int R, int C, int arr[][C]) {
     int i, j;
     for (i = 0; i < R; i++)
     {
         for (j = 0; j < C;j++){
-            printf("%d ", trace[i][j]);
+            printf("%d ", arr[i][j]);
         }
         printf("\n");
     }    
 }
 
-int computeState(int R, int C, char (*states)[R][C], int fn, 
-                 Pos fire[], int n, int *maxState, bool *spread) { 
-    if (!(*spread)) {
-        return *maxState;
-    }
-    if (*maxState >= STATE_N -1) {
-        return *maxState;
-    }
-    if (n >= STATE_N - 1) {
-        return *maxState;
-    }
-    if (n <= *maxState) {
-        return n;
-    }
-    assert(n == *maxState + 1); 
-
-    memcpy(states[n], states[n-1], sizeof(char[R][C]));
+void computeState(int R, int C, int fn, 
+                 Pos fires[], int (*fgrid)[C], char (*grid)[C]) { 
     int k, l;
     Queue fireQ = {};
-    initQueue(&fireQ);
+    initQueue(&fireQ);    
 
-    int vis[R][C];
-    memset(vis, 0, R * C * sizeof(int));
+    for (k = 0; k < R; k++){
+        for (l = 0; l < C;l++) {
+            fgrid[k][l] = MAX_NUM;
+        }
+    }
 
     for (k = 0; k < fn; k++)
     {
-        enqueue(&fireQ, fire[k]);
-        vis[fire[k].x][fire[k].y] = 1;        
+        enqueue(&fireQ, fires[k]);
+        fgrid[fires[k].x][fires[k].y] = 0;
     }
-    bool spread1 = false;
+    char (*ngrid)[C] = malloc(sizeof(char) * R * C);
+    memcpy(ngrid, grid, sizeof(char) * R * C);    
+
     while (!empty(fireQ))
     {
         Pos firePos = dequeue(&fireQ);
-        // printf("dequeue\n");
         int d;
         for (d = 0; d < 4; d++)
         {             
@@ -136,33 +125,22 @@ int computeState(int R, int C, char (*states)[R][C], int fn,
             if (nx < 0 || nx >=R || ny < 0 || ny>=C) {
                 continue;
             }
-            if (vis[nx][ny] == 1) {
+            if (fgrid[nx][ny] != MAX_NUM) {
+                continue;
+            }            
+            if (ngrid[nx][ny] == '#' || ngrid[nx][ny] == 'F') {
                 continue;
             }
-            vis[nx][ny] = 1;
+            fgrid[nx][ny] = fgrid[firePos.x][firePos.y] + 1;
+            // J , .
+            ngrid[nx][ny] = 'F';
 
-            if (states[n-1][nx][ny] == 'J' || states[n-1][nx][ny] == '.') {
-                states[n][nx][ny] = 'F';
-                // printf("setf\n");
-                // print(R, C, states[n]);
-                spread1 = true;
-            }
-            if (states[n-1][nx][ny]=='F') {
-                Pos np;
-                np.x = nx;
-                np.y = ny;
-                // printf("enqueue\n");
-                enqueue(&fireQ, np);
-            }
+            Pos np;
+            np.x = nx;
+            np.y = ny;
+            enqueue(&fireQ, np);
         }
-    }
-    if (!spread1) {
-        *spread = false;
-    } 
-    // printf("n:%d\n", n);
-    // print(R, C, states[n]);
-    *maxState = n;
-    return n;
+    }    
 }
 
 int main() {
@@ -183,7 +161,7 @@ int main() {
         }
 
         int jx ,jy;
-        Pos fires[100];
+        Pos fires[100000];
         int fireN = 0;
 
         for (j = 0; j < R;j++) {
@@ -204,13 +182,6 @@ int main() {
             } 
         }
 
-        char (*states)[R][C] = malloc(STATE_N * sizeof(char[R][C]));
-        memcpy(states[0], grid, sizeof(char[R][C]));
-
-        int maxState = 0;
-        bool spread = true;           
-
-
         Queue q = {};
 
         initQueue(&q);
@@ -223,16 +194,11 @@ int main() {
         root.t = 0;
         vis[jx][jy] = 1;
         enqueue(&q, root);
-        // printf("%d %d\n", q.qfront, q.qend);
-        // int stateI = 1;
-        // for (;stateI < 4;stateI++) {
-        //     int n = computeState(R, C, states, fireN, fires, stateI, &maxState, &spread);
 
-        //     // print(R, C, states[n]);
-        //     // printf("\n");
-        //     // printf("%d %d\n", R, C);
-        //     // printf("%d\n", n);
-        // }
+        int (*fgrid)[C] = malloc(R * C * sizeof(int));
+        computeState(R, C, fireN, fires,  fgrid, grid);
+
+        // printArray(R, C, fgrid);
 
         while (!empty(q))
         {
@@ -259,15 +225,14 @@ int main() {
                     // printf("vis continue\n");
                     continue;
                 }
-                if (states[n][nx][ny] == '#' || states[n][nx][ny] == 'F')
+                if (grid[nx][ny] == '#')
                 {
                     // printf("state continue\n");
                     continue;
-                }                
-                int stateI = p.t + 1;
-                int n = computeState(R, C, states,fireN, fires, stateI, &maxState, &spread);
-                // print(R, C, states[stateI]);
-                // printf("n:%d\n", n);
+                }
+                if (p.t+1 >= fgrid[nx][ny]) {
+                    continue;
+                }
                 vis[nx][ny] = 1;
                 Pos np;
                 np.x = nx;
