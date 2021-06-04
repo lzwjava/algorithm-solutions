@@ -31,32 +31,32 @@ typedef struct
     int qend;
 } Queue;
 
-void printQueue(Queue q) {
-    int i = q.qfront;
-    while(i!=q. qend){
-        printf("%d %d %d\n", q.queue[i].x, q.queue[i].y, q.queue[i].t);
+void printQueue(Queue *q) {
+    int i = q->qfront;
+    while(i!=q->qend){
+        printf("%d %d %d\n", q->queue[i].x, q->queue[i].y, q->queue[i].t);
         i = (i + 1) % Q_LEN;
     }
 }
 
-void enqueue(Queue q, Pos p) {
-    q.queue[q.qend] = p;
-    q.qend = (q.qend + 1) % Q_LEN;
-/*     printf("%d %d\n", qfront, qend); */
+void enqueue(Queue *q, Pos p) {
+    q->queue[q->qend] = p;
+    q->qend = (q->qend + 1) % Q_LEN;
+    // printf("%d %d\n", q->qfront, q->qend);
 }
 
-Pos dequeue(Queue q) {
-    assert(q.qfront != q.qend);
-    // printf("%d %d\n", q.qfront, q.qend);
-    Pos p = q.queue[q.qfront];
-    q.qfront = (q.qfront + 1) % Q_LEN;
+Pos dequeue(Queue *q) {
+    assert(q->qfront != q->qend);
+    // printf("%d %d\n", q->qfront, q->qend);
+    Pos p = q->queue[q->qfront];
+    q->qfront = (q->qfront + 1) % Q_LEN;
     return p;
 }
 
-void initQueue(Queue q){
-    memset(q.queue, 0, sizeof(int) * Q_LEN);
-    q.qfront = 0;
-    q.qend = 0;
+void initQueue(Queue *q){
+    memset(q->queue, 0, sizeof(int) * Q_LEN);
+    q->qfront = 0;
+    q->qend = 0;
 }
 
 int queueLength(Queue q){
@@ -113,44 +113,54 @@ int computeState(int R, int C, char (*states)[R][C], int fn,
     memcpy(states[n], states[n-1], sizeof(char[R][C]));
     int k, l;
     Queue fireQ = {};
-    initQueue(fireQ);
+    initQueue(&fireQ);
 
     int vis[R][C];
     memset(vis, 0, R * C * sizeof(int));
 
     for (k = 0; k < fn; k++)
     {
-        enqueue(fireQ, fire[k]);
+        enqueue(&fireQ, fire[k]);
         vis[fire[k].x][fire[k].y] = 1;        
     }
     bool spread1 = false;
     while (!empty(fireQ))
     {
-        Pos firePos = dequeue(fireQ);
+        Pos firePos = dequeue(&fireQ);
+        // printf("dequeue\n");
         int d;
         for (d = 0; d < 4; d++)
         {             
-            int nx = k + Dir[d][0];
-            int ny = l + Dir[d][1];
+            int nx = firePos.x + Dir[d][0];
+            int ny = firePos.y + Dir[d][1];
             if (nx < 0 || nx >=R || ny < 0 || ny>=C) {
                 continue;
-            }
-            if (states[n-1][nx][ny] == 'J' || states[n-1][nx][ny] == '.') {
-                   states[n][nx][ny] = 'F';
-                   spread1 = true;
             }
             if (vis[nx][ny] == 1) {
                 continue;
             }
-            Pos np;
-            np.x = nx;
-            np.y = ny;
-            enqueue(fireQ, np);            
+            vis[nx][ny] = 1;
+
+            if (states[n-1][nx][ny] == 'J' || states[n-1][nx][ny] == '.') {
+                states[n][nx][ny] = 'F';
+                // printf("setf\n");
+                // print(R, C, states[n]);
+                spread1 = true;
+            }
+            if (states[n-1][nx][ny]=='F') {
+                Pos np;
+                np.x = nx;
+                np.y = ny;
+                // printf("enqueue\n");
+                enqueue(&fireQ, np);
+            }
         }
     }
     if (!spread1) {
         *spread = false;
-    }
+    } 
+    // printf("n:%d\n", n);
+    // print(R, C, states[n]);
     *maxState = n;
     return n;
 }
@@ -158,7 +168,7 @@ int computeState(int R, int C, char (*states)[R][C], int fn,
 int main() {
     int n;
 #ifndef ONLINE_JUDGE    
-    freopen("1.in", "r", stdin);
+    freopen("2.in", "r", stdin);
 #endif
     scanf("%d", &n);
     int i, j;
@@ -197,9 +207,13 @@ int main() {
         char (*states)[R][C] = malloc(STATE_N * sizeof(char[R][C]));
         memcpy(states[0], grid, sizeof(char[R][C]));
 
+        int maxState = 0;
+        bool spread = true;           
+
+
         Queue q = {};
 
-        initQueue(q);
+        initQueue(&q);
 
         int vis[R][C];
         memset(vis, 0, R * C * sizeof(int));
@@ -208,12 +222,22 @@ int main() {
         root.y = jy;
         root.t = 0;
         vis[jx][jy] = 1;
-        enqueue(q, root);
-        int maxState = 0;
-        bool spread = true;        
+        enqueue(&q, root);
+        // printf("%d %d\n", q.qfront, q.qend);
+        // int stateI = 1;
+        // for (;stateI < 4;stateI++) {
+        //     int n = computeState(R, C, states, fireN, fires, stateI, &maxState, &spread);
+
+        //     // print(R, C, states[n]);
+        //     // printf("\n");
+        //     // printf("%d %d\n", R, C);
+        //     // printf("%d\n", n);
+        // }
+
         while (!empty(q))
         {
-            Pos p = dequeue(q);
+            Pos p = dequeue(&q);
+            // printf("dequeue\n");
             /* printf("%d\n", queueLength()); */
             if (p.x == 0 || p.x == R - 1 || p.y == 0 || p.y == C - 1)
             {
@@ -231,29 +255,26 @@ int main() {
                 if (nx < 0 || nx >=R || ny < 0 || ny>=C) {
                     continue;
                 }
-                int stateI = p.t + 1;
-                int n = computeState(R, C, states,fireN, fires, stateI, &maxState, &spread);
-
-               /*  print(R, C, states[stateI]);
-                printf("%d %d\n", R, C);
-                printf("%d\n", n); */
-
+                if (vis[nx][ny]) {
+                    // printf("vis continue\n");
+                    continue;
+                }
                 if (states[n][nx][ny] == '#' || states[n][nx][ny] == 'F')
                 {
-                    /* printf("state continue\n"); */
+                    // printf("state continue\n");
                     continue;
-                }
-                if (vis[nx][ny]) {
-                    /* printf("vis continue\n"); */
-                    continue;
-                }
+                }                
+                int stateI = p.t + 1;
+                int n = computeState(R, C, states,fireN, fires, stateI, &maxState, &spread);
+                // print(R, C, states[stateI]);
+                // printf("n:%d\n", n);
                 vis[nx][ny] = 1;
                 Pos np;
                 np.x = nx;
                 np.y = ny;
                 np.t = p.t + 1;
-                /* printf("enqueue\n"); */
-                enqueue(q, np);
+                // printf("enqueue\n");
+                enqueue(&q, np);
             }
         }
   
