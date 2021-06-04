@@ -21,39 +21,54 @@ typedef struct {
     int t;
 } Pos;
 
-const int Q_LEN = 1000;
-Pos queue[Q_LEN];
-int qfront = 0 , qend = 0;
+#define Q_LEN 10000
+#define STATE_N 100
 
-void printQueue() {
-    int i = qfront;
-    while(i!=qend){
-        printf("%d %d %d\n", queue[i].x, queue[i].y, queue[i].t);
+typedef struct 
+{
+    Pos queue[Q_LEN];
+    int qfront;
+    int qend;
+} Queue;
+
+void printQueue(Queue q) {
+    int i = q.qfront;
+    while(i!=q. qend){
+        printf("%d %d %d\n", q.queue[i].x, q.queue[i].y, q.queue[i].t);
         i = (i + 1) % Q_LEN;
     }
 }
 
-void enqueue(Pos p) {
-    queue[qend] = p;
-    qend = (qend + 1) % Q_LEN;
-    // printf("%d %d\n", qfront, qend);
+void enqueue(Queue q, Pos p) {
+    q.queue[q.qend] = p;
+    q.qend = (q.qend + 1) % Q_LEN;
+/*     printf("%d %d\n", qfront, qend); */
 }
 
-Pos dequeue() {
-    assert(qfront != qend);
-    Pos p = queue[qfront];
-    qfront = (qfront + 1) % Q_LEN;
-    // printf("%d %d\n", qfront, qend);    
+Pos dequeue(Queue q) {
+    assert(q.qfront != q.qend);
+    // printf("%d %d\n", q.qfront, q.qend);
+    Pos p = q.queue[q.qfront];
+    q.qfront = (q.qfront + 1) % Q_LEN;
     return p;
 }
 
-void initQueue(){
-    qfront = 0;
-    qend = 0;
+void initQueue(Queue q){
+    memset(q.queue, 0, sizeof(int) * Q_LEN);
+    q.qfront = 0;
+    q.qend = 0;
 }
 
-bool empty() {
-    return qfront == qend;
+int queueLength(Queue q){
+    if (q.qfront <= q.qend) {
+        return q.qend - q.qfront;
+    } else {
+        return q.qend + Q_LEN - q.qfront;
+    }
+}
+
+bool empty(Queue q) {
+    return q.qfront == q.qend;
 }
 
 void print(int R, int C, char grid[][C])
@@ -79,6 +94,67 @@ void printTrace(int R, int C, int trace[][C]) {
     }    
 }
 
+int computeState(int R, int C, char (*states)[R][C], int fn, 
+                 Pos fire[], int n, int *maxState, bool *spread) { 
+    if (!(*spread)) {
+        return *maxState;
+    }
+    if (*maxState >= STATE_N -1) {
+        return *maxState;
+    }
+    if (n >= STATE_N - 1) {
+        return *maxState;
+    }
+    if (n <= *maxState) {
+        return n;
+    }
+    assert(n == *maxState + 1); 
+
+    memcpy(states[n], states[n-1], sizeof(char[R][C]));
+    int k, l;
+    Queue fireQ = {};
+    initQueue(fireQ);
+
+    int vis[R][C];
+    memset(vis, 0, R * C * sizeof(int));
+
+    for (k = 0; k < fn; k++)
+    {
+        enqueue(fireQ, fire[k]);
+        vis[fire[k].x][fire[k].y] = 1;        
+    }
+    bool spread1 = false;
+    while (!empty(fireQ))
+    {
+        Pos firePos = dequeue(fireQ);
+        int d;
+        for (d = 0; d < 4; d++)
+        {             
+            int nx = k + Dir[d][0];
+            int ny = l + Dir[d][1];
+            if (nx < 0 || nx >=R || ny < 0 || ny>=C) {
+                continue;
+            }
+            if (states[n-1][nx][ny] == 'J' || states[n-1][nx][ny] == '.') {
+                   states[n][nx][ny] = 'F';
+                   spread1 = true;
+            }
+            if (vis[nx][ny] == 1) {
+                continue;
+            }
+            Pos np;
+            np.x = nx;
+            np.y = ny;
+            enqueue(fireQ, np);            
+        }
+    }
+    if (!spread1) {
+        *spread = false;
+    }
+    *maxState = n;
+    return n;
+}
+
 int main() {
     int n;
 #ifndef ONLINE_JUDGE    
@@ -97,6 +173,8 @@ int main() {
         }
 
         int jx ,jy;
+        Pos fires[100];
+        int fireN = 0;
 
         for (j = 0; j < R;j++) {
             int k;
@@ -104,49 +182,24 @@ int main() {
             {
                 if (grid[j][k] == 'J'){
                     jx = j;
-                    jy = j;
-                    break;
+                    jy = k;
                 }
-            }
-            if (k < C) {
-                break;
-            }
+                if (grid[j][k] == 'F') {
+                    Pos p;
+                    p.x = j;
+                    p.y = k;
+                    fires[fireN] = p;
+                    fireN++;
+                }
+            } 
         }
 
-        int stateN = 1000;
-        char (*states)[R][C] = malloc(stateN * sizeof(char[R][C]));
+        char (*states)[R][C] = malloc(STATE_N * sizeof(char[R][C]));
         memcpy(states[0], grid, sizeof(char[R][C]));
-        int k, l;
-        // print(R, C, states[0]);
-        for (j = 1; j < stateN; j++)
-        {
-            memcpy(states[j], states[j-1], sizeof(char[R][C]));
-            bool spread = false;
-            for (k = 0; k < R; k++)
-            {
-                for (l = 0; l < C;l++){
-                    if (states[j-1][k][l] == 'F') {
-                        int d;
-                        for (d = 0; d < 4; d++)
-                        {             
-                            int nx = k + Dir[d][0];
-                            int ny = l + Dir[d][1];
-                            if (states[j-1][nx][ny] == 'J' || states[j-1][nx][ny] == '.') {
-                                states[j][nx][ny] = 'F';
-                                spread = true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (!spread) {
-                break;                
-            }
-            // print(R, C, states[j]);
-        }
-        int maxState = j - 1;
 
-        initQueue();
+        Queue q = {};
+
+        initQueue(q);
 
         int vis[R][C];
         memset(vis, 0, R * C * sizeof(int));
@@ -155,16 +208,18 @@ int main() {
         root.y = jy;
         root.t = 0;
         vis[jx][jy] = 1;
-        enqueue(root);        
-        // printf("%d %d\n", jx, jy);
-        while (!empty())
+        enqueue(q, root);
+        int maxState = 0;
+        bool spread = true;        
+        while (!empty(q))
         {
-            Pos p = dequeue();   
-            // printf("%d %d\n", p.x, p.y);         
-            if (p.x == 0 || p.x == R-1 || p.y==0 || p.y == C-1) {
-                // border
-                // printf("%d %d\n", p.x, p.y);
-                // printf("border\n");
+            Pos p = dequeue(q);
+            /* printf("%d\n", queueLength()); */
+            if (p.x == 0 || p.x == R - 1 || p.y == 0 || p.y == C - 1)
+            {
+                /*                 border
+                printf("%d %d\n", p.x, p.y);
+                printf("border\n"); */
                 minTime = p.t;
                 break;
             }
@@ -173,19 +228,23 @@ int main() {
             {               
                 int nx = p.x + Dir[d][0];
                 int ny = p.y + Dir[d][1];
-                int stateI = p.t + 1;
-                if (stateI > maxState) {
-                    stateI = maxState;
+                if (nx < 0 || nx >=R || ny < 0 || ny>=C) {
+                    continue;
                 }
-                // print(R, C, states[stateI]);
-                // printf("%d %d\n", R, C);
-                if (states[stateI][nx][ny] == '#' || states[stateI][nx][ny] == 'F')
+                int stateI = p.t + 1;
+                int n = computeState(R, C, states,fireN, fires, stateI, &maxState, &spread);
+
+               /*  print(R, C, states[stateI]);
+                printf("%d %d\n", R, C);
+                printf("%d\n", n); */
+
+                if (states[n][nx][ny] == '#' || states[n][nx][ny] == 'F')
                 {
-                    // printf("state continue\n");
+                    /* printf("state continue\n"); */
                     continue;
                 }
                 if (vis[nx][ny]) {
-                    // printf("vis continue\n");
+                    /* printf("vis continue\n"); */
                     continue;
                 }
                 vis[nx][ny] = 1;
@@ -193,10 +252,11 @@ int main() {
                 np.x = nx;
                 np.y = ny;
                 np.t = p.t + 1;
-                // printf("enqueue\n");
-                enqueue(np);
+                /* printf("enqueue\n"); */
+                enqueue(q, np);
             }
         }
+  
         if (minTime == MAX_NUM) {
             printf("IMPOSSIBLE\n");
         } else {

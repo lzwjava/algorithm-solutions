@@ -7,7 +7,7 @@ int main(){
     FILE *f;
     f = fopen("2.in", "w+");
     fprintf(f, "%d\n", 1);
-    int N = 200;
+    int N = 1000;
     fprintf(f, "%d %d\n", N, N);
     int jx = N/2, jy = N/2;
     int fx = N/2, fy = N/2+1;
