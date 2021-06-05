@@ -16,6 +16,7 @@ struct TreeNode {
 typedef struct TreeNode Node;
 
 void buildTree(char *s, Node *root) {
+    // printf("buildTree\n");
     int len = strlen(s);
     char *lptr;
     lptr = strchr(s, '(');
@@ -29,10 +30,10 @@ void buildTree(char *s, Node *root) {
         for (; mptr - s < len; mptr++)
         {
             if (*mptr=='('){
-                printf("depth++\n");
+                // printf("depth++\n");
                 depth++;
             } else if (*mptr==')'){
-                printf("depth++\n");
+                // printf("depth++\n");
                 depth--;
             } else if (*mptr == ',') {
                 if (depth == 0) {
@@ -54,16 +55,27 @@ void buildTree(char *s, Node *root) {
         char *rstr = malloc(rlen);
         strncpy(rstr, mptr + 1, rlen);
 
-        root->left = (Node *)malloc(sizeof(Node *));
-
+        assert(llen > 0);
+        assert(rlen > 0);
+        root->left = (Node *)malloc(sizeof(Node));
         buildTree(lstr, root->left);
 
-        root->right = (Node *)malloc(sizeof(Node *));
-        buildTree(rstr, root->right);
+        root->right = (Node *)malloc(sizeof(Node));
+        buildTree(rstr, root->right);        
     }
     else
     {
-        // leaf        
+        root->v = s;    
+    }
+}
+
+void traverse(Node *root) {
+    printf("%s\n", root->v);    
+    if (root->left) {
+        traverse(root->left);
+    }
+    if (root->right) {
+        traverse(root->right);
     }    
 }
 
@@ -80,6 +92,7 @@ int main() {
         // printf("%s\n", s);
         Node root;
         buildTree(s, &root);
+        traverse(&root);
     }
     return 0;
 }
