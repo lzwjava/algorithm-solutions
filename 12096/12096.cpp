@@ -51,52 +51,29 @@ int main() {
             {
                 st.push(st.top());
             }
-            else if (s.compare("UNION") == 0)
-            {
+            else  {
                 int id1 = st.top();
                 st.pop();
                 int id2 = st.top();
                 st.pop();
                 Set s1 = rcaches[id1];
                 Set s2 = rcaches[id2];
-                Set s3 = Set(s1);
-                for (Set::iterator it = s2.begin(); it != s2.end(); it++) {
-                    s3.insert(*it);
+                Set s3;                
+                if (s.compare("UNION") == 0)
+                {            
+                    set_union(s1.begin(), s1.end(), s2.begin(),
+                          s2.end(), inserter(s3, s3.begin()));            
+                } else if (s.compare("INTERSECT") == 0)
+                {     
+                    set_intersection(s1.begin(), s1.end(), s2.begin(),
+                                 s2.end(), inserter(s3, s3.begin()));   
                 }
-                int id = id_by_set(s3);
-                st.push(id);
-            }
-            else if (s.compare("INTERSECT") == 0)
-            {
-                int id1 = st.top();
-                st.pop();
-                int id2 = st.top();
-                st.pop();
-                Set s1 = rcaches[id1];
-                Set s2 = rcaches[id2];
-                Set s3;
-                for (Set::iterator it = s2.begin(); it != s2.end(); it++) {
-                    if (s1.count(*it) > 0) {
-                        s3.insert(*it);
-                    }
+                else if (s.compare("ADD") == 0)
+                {
+                    s3 = Set(s2);
+                    s3.insert(id1);
                 }
-                int id = id_by_set(s3);
-                st.push(id);
-            }
-            else if (s.compare("ADD") == 0)
-            {
-                int id1 = st.top();
-                st.pop();
-                int id2 = st.top();
-                st.pop();
-                Set s1 = rcaches[id1];
-                Set s2 = rcaches[id2];
-                Set s3(s2);
-                s3.insert(id1);
-                int id = id_by_set(s3);
-                st.push(id);
-            } else {
-                assert(false);
+                st.push(id_by_set(s3));
             }
             int top_id = st.top();
             Set top_set = rcaches[top_id];
