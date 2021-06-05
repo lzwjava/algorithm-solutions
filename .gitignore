@@ -1,5 +1,7 @@
+*
+!*/
+!*.*
 *.dSYM
-11624
-11624_bfs
 data
 .vscode
+.DS_Store
