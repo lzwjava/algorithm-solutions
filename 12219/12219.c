@@ -70,13 +70,13 @@ void buildTree(char *s, Node *root) {
 }
 
 void traverse(Node *root) {
-    printf("%s\n", root->v);    
+    printf("%s,", root->v);    
     if (root->left) {
         traverse(root->left);
     }
     if (root->right) {
         traverse(root->right);
-    }    
+    }
 }
 
 int main() {
