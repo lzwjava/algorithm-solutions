@@ -17,45 +17,54 @@ public class Main {
         TreeNode() {
         }
 
-    }    
+    }
+    
+    private static int pos;
     
     private static TreeNode buildTree(String str) {
-        int left = str.indexOf('(');
-        if (left != -1) {
-            int len = str.length();
-            String value = str.substring(0, left);
-            int depth = 0;
-
-            int middle = left + 1;
-            for (; middle < len; middle++) {
-                char ch = str.charAt(middle);
-                if (ch == '(') {
-                    depth++;
-                } else if (ch == ')') {
-                    depth--;
-                } else if (ch == ',') {
-                    if (depth == 0) {
-                        break;
-                    }
-                }
+        // System.out.println(pos);
+        StringBuilder value = new StringBuilder();
+        for (;;) {
+            if (pos >= str.length()) {
+                break;
             }
-            assert (middle < len);
+            char ch = str.charAt(pos);
+            if (Character.isLetter(ch)) {
+                value.append(ch);
+                pos++;
+            } else {
+                break;
+            }
+        }
 
-            int right = str.lastIndexOf(')');
+        if (pos < str.length()) {
+        
+            char pch = str.charAt(pos);
 
-            String leftStr = str.substring(left + 1, middle);
-            String rightStr = str.substring(middle + 1, right);
-
-            TreeNode root = new TreeNode();
-            root.value = value;
-            root.left = buildTree(leftStr);
-            root.right = buildTree(rightStr);
-            return root;
+            if (pch == '(') {
+                String v = value.toString();
+                pos++;
+                TreeNode leftNode = buildTree(str);
+                pos++;
+                TreeNode rightNode = buildTree(str);
+                pos++;
+    
+                TreeNode node = new TreeNode();
+                node.value = v;
+                node.left = leftNode;
+                node.right = rightNode;
+                return node;
+            } else if (pch == ',' || pch == ')') {
+                TreeNode node = new TreeNode();
+                node.value = value.toString();
+                return node;            
+            }
         } else {
             TreeNode node = new TreeNode();
-            node.value = str;
+            node.value = value.toString();
             return node;
         }
+        return null;
     }
     
     private static String traverse(TreeNode root) {
@@ -128,8 +137,12 @@ public class Main {
 
         int c = sc.nextInt();
         for (int i = 0; i < c; i++) {
+            pos = 0;
             String expression = sc.next();
+            // System.out.println(expression);
             TreeNode root = buildTree(expression);
+
+            // traverse(root);
 
             HashMap<String, Integer> map = new HashMap<>();
             calNum(root, map);
