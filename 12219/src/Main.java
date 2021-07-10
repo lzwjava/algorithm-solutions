@@ -72,23 +72,40 @@ public class Main {
     }
 
     private static void calNum(TreeNode node, HashMap<String, Integer> map) {
-        String expr = traverse(node);
-        Integer num = map.get(expr);
-        if (num == null) {
-            int nextNum = map.size() + 1;
-            map.put(expr, nextNum);
-            node.num = nextNum;
-        } else {
-            node.num = num;
-        }
         if (node.left != null && node.right != null) {
             calNum(node.left, map);
             calNum(node.right, map);
         }
+        String expr = getExpression(node);
+        Integer num = map.get(expr);
+        if (num == null) {
+            int num1 = map.size()+1;
+            map.put(expr, num1);
+            node.num = num1;
+        } else {
+            node.num = num;
+        }
+    }
+
+    private static String getExpression(TreeNode node) {
+        int left = 0, right = 0;        
+        if (node.left != null && node.right != null) {
+            left = node.left.num;
+            right = node.right.num;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        sb.append(node.value);
+        sb.append(",");
+        sb.append(left);
+        sb.append(",");
+        sb.append(right);
+        sb.append(")");
+        return sb.toString();
     }
 
     private static void printTree(TreeNode node, HashMap<String, Integer> map) {
-        String expr = traverse(node);
+        String expr = getExpression(node);
         Integer num = map.get(expr);
         if (num == null) {
             int nextNum = map.size() + 1;
