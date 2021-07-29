@@ -14,7 +14,7 @@ public class Main {
         BEGIN_MUTUAL_EXCLUSION,
         END_MUTUAL_EXCLUSION,
         STOP_EXCLUSION
-    }
+    }    
     
     class Statement {
         StatementType type;
@@ -60,6 +60,7 @@ public class Main {
         ArrayList<Statement> statements;
         int currentIndex;
         int quantum;
+        ProgramStatus status;
         
         Program() {
             variables = new HashMap<>();
@@ -121,7 +122,7 @@ public class Main {
                 }
                 if (allFinished) {
                     break;
-                }                
+                }
             }
             System.out.println();
             t--;            
