@@ -21,7 +21,7 @@ public class Main {
             int bx1 = b.x;
             int bx2 = b.x + b.w;
             if (strict) {
-                return ax1 < bx1 && bx2 < ax2;
+                return ax1 <= bx1 && bx2 <= ax2 && !(ax1 == bx1 && bx2 == ax2);
             } else {
                 return ax1 <= bx1 && bx2 <= ax2;
             }
