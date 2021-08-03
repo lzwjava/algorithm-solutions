@@ -1,7 +1,11 @@
 import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
@@ -15,49 +19,28 @@ public class Main {
         int h;
 
         // a cover b
-        boolean cover(Building b, boolean strict) {
+        boolean cover(double mx) {
             int ax1 = x;
             int ax2 = x + w;
-            int bx1 = b.x;
-            int bx2 = b.x + b.w;
-            if (strict) {
-                return ax1 <= bx1 && bx2 <= ax2 && !(ax1 == bx1 && bx2 == ax2);
-            } else {
-                return ax1 <= bx1 && bx2 <= ax2;
-            }
-        }
-        
-        boolean cover(Building b) {
-            return cover(b, false);
+            return ax1 <= mx + 1e-10 && mx - 1e-10 <= ax2;          
         }
 
-        boolean intersect(Building b) {
-            return cover(b) || b.cover(this);
-        }
-
-        boolean visibleBy(Building b) {
-            if (num == 9 && b.num == 5) {
-                System.out.println();
+        boolean visibleAt(ArrayList<Building> buildings, double mx) {
+            if (!cover(mx)) {
+                return false;
             }
-            if (cover(b, true)) {
-                return true;
-            }
-            boolean intersect = intersect(b);
-            if (!intersect) {
-                return true;
-            }
-            if (y < b.y) {
-                assert (y + d < b.y);
-                return true;
-            } else {
-                if (h > b.h) {
-                    return true;
-                } else {
+            for (int i = 0; i < buildings.size(); i++) {
+                Building b = buildings.get(i);
+                if (num == b.num) {
+                    continue;
+                }
+                if (b.cover(mx) && b.y < y && b.h >= h) {
                     return false;
                 }
             }
+            return true;
         }
-    }
+    }  
    
     void work() {
         Scanner sc = new Scanner(System.in);
@@ -68,6 +51,7 @@ public class Main {
                 break;
             }
             ArrayList<Building> buildings = new ArrayList<>();
+            HashSet<Integer> xs = new HashSet<>();
             for (int i = 0; i < n; i++) {
                 Building b = new Building();
                 b.x = sc.nextInt();
@@ -77,39 +61,39 @@ public class Main {
                 b.h = sc.nextInt();
                 b.num = i + 1;
                 buildings.add(b);
-            }
-            buildings.sort(new Comparator<Building>(){
-                @Override
-                public int compare(Building o1, Building o2) {
-                    if (o1.x != o2.x) {
-                        return o1.x - o2.x;
-                    } else {
-                        return o1.y - o2.y;
-                    }
-                }                
-            });            
 
+                xs.add(b.x);
+                xs.add(b.x + b.w);
+            }
+            ArrayList<Integer> xsList = new ArrayList<>();
+            xsList.addAll(xs);
+            Collections.sort(xsList);
             ArrayList<Building> visibles = new ArrayList<>();            
-            for (Building a : buildings) {
-                boolean visible = true;
-                for (Building b : buildings) {
-                    if (b != a) {
-                        if (!a.visibleBy(b)) {
-                            visible = false;
-                            break;
-                        }
+            for (int i = 0; i < n; i++) {
+                Building b = buildings.get(i);
+                for (int j = 0; j < xsList.size() - 1; j++) {
+                    double mx = (xsList.get(j) + xsList.get(j + 1)) / 2.0;
+                    if (b.visibleAt(buildings, mx)) {
+                        visibles.add(b);
+                        break;
                     }
                 }
-                if (visible) {
-                    visibles.add(a);
-                }
             }
+
             visibles.sort(new Comparator<Building>() {
                 @Override
                 public int compare(Main.Building o1, Main.Building o2) {
-                    return o1.x - o2.x;                 
-                }                                
+                    if (o1.x != o2.x) {
+                        return o1.x - o2.x;                 
+                    } else {
+                        return o1.y - o2.y;
+                    }
+                }
             });
+
+            if (num > 1) {
+                System.out.println();
+            }
             System.out.println(String.format("For map #%d, the visible buildings are numbered as follows:", num));
             for (int i = 0; i < visibles.size(); i++) {
                 Building v = visibles.get(i);
@@ -118,6 +102,7 @@ public class Main {
                 }
                 System.out.print(v.num);
             }
+            num++;
             System.out.println();
         }
        
@@ -130,7 +115,7 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            // outStream = new PrintStream("2.out");
             System.setIn(inStream);
             // System.setOut(outStream);
         }
