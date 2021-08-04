@@ -2,6 +2,7 @@ import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -13,22 +14,34 @@ public class Main {
             if (n == 0) {
                 break;
             }
-            ArrayList<Integer> originals = new ArrayList<>();
-            ArrayList<Integer> targets = new ArrayList<>();            
+            HashMap<String, Integer> routes = new HashMap<>();
             for (int i = 0; i < n; i++) {
                 int o = sc.nextInt();
                 int t = sc.nextInt();
-                originals.add(o);
-                targets.add(t);
+                String key = o + "," + t;
+                Integer count = routes.get(key);
+                if (count == null) {
+                    count = 0;
+                }
+                count++;
+                routes.put(key, count);
             }
-            Collections.sort(originals);
-            Collections.sort(targets);
             boolean ok = true;
-            for (int i = 0; i < n; i++) {
-                if (!originals.get(i).equals(targets.get(i))) {
+            ArrayList<String> visited = new ArrayList<>();
+            for (String route : routes.keySet()) {
+                if (visited.contains(route)) {
+                    continue;
+                }
+                int count = routes.get(route);
+                int middle = route.indexOf(",");
+                String reversed =route.substring(middle + 1)  + "," + route.substring(0, middle);
+                Integer reversedCount = routes.get(reversed);
+                if (reversedCount == null || count != reversedCount) {
                     ok = false;
                     break;
                 }
+                visited.add(route);
+                visited.add(reversed);
             }
             if (ok) {
                 System.out.println("YES");
