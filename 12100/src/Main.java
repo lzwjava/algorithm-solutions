@@ -1,10 +1,7 @@
 import java.io.FileInputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 
