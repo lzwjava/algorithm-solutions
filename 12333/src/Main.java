@@ -26,7 +26,7 @@ public class Main {
             }
             char chb = b.charAt(blen - 1 - i);
             sum += (chb - '0');
-            if (sum > 10) {
+            if (sum >= 10) {
                 carry = 1;
                 sum = sum % 10;
             } else {
@@ -42,8 +42,7 @@ public class Main {
    
     void work() {
         Scanner sc = new Scanner(System.in);
-
-        System.out.println(add("5", "8"));
+        // System.out.println(add("4181", "6765"));
 
         int t = sc.nextInt();
         ArrayList<String> fs = new ArrayList<>();
@@ -52,7 +51,7 @@ public class Main {
         fs.add(fb2);
         fs.add(fb1);
         int n = 2;
-        for (; n < 1000; n++) {
+        for (; n < 100000; n++) {
             String fb = add(fb1, fb2);
             fs.add(fb);
         
