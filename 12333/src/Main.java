@@ -1,16 +1,19 @@
 import java.io.FileInputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
+    int ch[][] = new int[5000005][10];
+    int val[] = new int[5000005];
+    int cnt;
     
     String add(String a, String b) {
         if (a.length() > b.length()) {
             String tmp = a;
             a = b;
             b = tmp;
-        }      
+        }
         int alen = a.length();
         int blen = b.length();
         int carry = 0;
@@ -35,27 +38,53 @@ public class Main {
         if (carry > 0) {
             sb.append("1");
         }
-        String s = sb.reverse().toString();       
-        if (s.length() > 100) {
-            s = s.substring(0, 100);
-        }
+        String s = sb.reverse().toString();
         return s;
+    }
+
+    void insert(String str, int index) {
+        int u = 0;
+        for (int i = 0; i < str.length(); i++) {
+            int k = str.charAt(i) - '0';
+            if (ch[u][k] == 0) {
+                val[cnt] = index;
+                ch[u][k] = cnt;
+                cnt++;
+            }
+            u = ch[u][k];
+        }
+    }
+
+    int query(String str) {
+        int u = 0;
+        for (int i = 0; i < str.length(); i++) {
+            int k = str.charAt(i) - '0';
+            if (ch[u][k] == 0) {
+                return -1;
+            }
+            u = ch[u][k];
+        }
+        return val[u];
     }
    
     void work() {
         Scanner sc = new Scanner(System.in);
-        // System.out.println(add("4181", "6765"));
+        cnt = 1;
 
         int t = sc.nextInt();
-        ArrayList<String> fs = new ArrayList<>();
         String fb2 = "1";
         String fb1 = "1";
-        fs.add(fb2);
-        fs.add(fb1);
+        insert(fb2, 0);
+        insert(fb1, 1);
         int n = 2;
+      
         for (; n < 100000; n++) {
+            if (fb1.length() > 50) {
+                fb1 = fb1.substring(0, fb1.length() - 1);
+                fb2 = fb2.substring(0, fb2.length() - 1);
+            }
             String fb = add(fb1, fb2);
-            fs.add(fb);
+            insert(fb, n);
         
             fb2 = fb1;
             fb1 = fb;            
@@ -66,21 +95,12 @@ public class Main {
             String str = sc.next();
 
             System.out.print(String.format("Case #%d: ", caseNum));
-            boolean found = false;
-            int i = 0;
-            for (i = 0; i < fs.size(); i++) {
-                String fb = fs.get(i);
-                if (fb.startsWith(str)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {
+            int i = query(str);         
+            if (i != -1) {
                 System.out.println(i);
             } else {
                 System.out.println("-1");
             }
-
             t--;
             caseNum++;
         }
