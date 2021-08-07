@@ -6,22 +6,6 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
-
-    class FiBigInteger {
-        BigInteger bi;
-        String str;
-        int index;
-
-        FiBigInteger() {
-
-        }
-
-        FiBigInteger(BigInteger bi, int index) {
-            this.bi = bi;
-            this.index = index;
-            this.str = bi.toString(10);
-        }
-    }
     
     String add(String a, String b) {
         if (a.length() > b.length()) {
@@ -48,26 +32,28 @@ public class Main {
             } else {
                 carry = 0;
             }
-            sb.append((char)('0' + sum));
-        }   
+            sb.append((char) ('0' + sum));
+        }
+        if (carry > 0) {
+            sb.append("1");
+        }
         return sb.reverse().toString();                
-    }
+    }    
    
     void work() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(add("10", "11"));
+        System.out.println(add("5", "8"));
 
         int t = sc.nextInt();
-        ArrayList<FiBigInteger> fs = new ArrayList<>();
-        FiBigInteger fb2 = new FiBigInteger(new BigInteger("1"), 0);
-        FiBigInteger fb1 = new FiBigInteger(new BigInteger("1"), 1);
+        ArrayList<String> fs = new ArrayList<>();
+        String fb2 = "1";
+        String fb1 = "1";
         fs.add(fb2);
         fs.add(fb1);
         int n = 2;
         for (; n < 1000; n++) {
-            BigInteger bn = fb1.bi.add(fb2.bi);
-            FiBigInteger fb = new FiBigInteger(bn, n);
+            String fb = add(fb1, fb2);
             fs.add(fb);
         
             fb2 = fb1;
@@ -82,14 +68,14 @@ public class Main {
             boolean found = false;
             int i = 0;
             for (i = 0; i < fs.size(); i++) {
-                FiBigInteger fb = fs.get(i);
-                if (fb.str.startsWith(str)) {
+                String fb = fs.get(i);
+                if (fb.startsWith(str)) {
                     found = true;
                     break;
                 }
             }
             if (found) {
-                System.out.println(fs.get(i).index);
+                System.out.println(i);
             } else {
                 System.out.println("-1");
             }
