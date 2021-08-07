@@ -1,13 +1,13 @@
 import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
 
-    class Book {
+    class Book implements Comparable<Book> {
         String title;
         String author;
 
@@ -21,6 +21,16 @@ public class Main {
                 return true;
             } else {
                 return false;
+            }
+        }
+
+        @Override
+        public int compareTo(Main.Book o) {
+            Book b = (Book) o;
+            if (!author.equals(b.author)) {
+                return author.compareTo(b.author);
+            } else {
+                return title.compareTo(b.title);
             }
         }
     }
@@ -37,13 +47,15 @@ public class Main {
             int begin = record.indexOf("\"");
             int end = record.lastIndexOf("\"");
             String title = record.substring(begin + 1, end);
-            String author = record.substring(end +"\" by".length()).trim();
+            String author = record.substring(end + "\" by".length()).trim();
             Book b = new Book();
             b.title = title;
             b.author = author;
             books.add(b);
             cachedBooks.put(title, b);
         }
+        Collections.sort(books);
+
         ArrayList<Book> shelve = new ArrayList<>();
         shelve.addAll(books);
 
@@ -73,41 +85,34 @@ public class Main {
             } else {
                 String command = record;
                 assert (command.equals("SHELVE"));
-                returned.sort(new Comparator<Book>(){
-                    @Override
-                    public int compare(Main.Book o1, Main.Book o2) {
-                        if (!o1.author.equals(o2.author)) {
-                            return o1.author.compareTo(o2.author);
-                        } else {
-                            return o1.title.compareTo(o2.title);
-                        }
-                    }
-                });            
+                Collections.sort(returned);
                 for (int i = 0; i < returned.size(); i++) {
                     Book b = returned.get(i);
-                    int bIndex = books.indexOf(b);
 
-                    int beforeGap = books.size();
-                    Book beforeBook = null;
-                    int beforeIndex = 0;
-
-                    for (int j = 0; j < shelve.size(); j++) {
-                        Book sb = shelve.get(i);
-                        int origin = books.indexOf(sb);
-                        if (origin < bIndex && bIndex - origin < beforeGap) {
-                            beforeGap = bIndex - origin;
-                            beforeIndex = origin;
-                            beforeBook = sb;
+                    int j = 0;
+                    for (j = 0; j < shelve.size(); j++) {
+                        Book sb = shelve.get(j);
+                        // if j is smaller than b, then continue
+                        if (sb.compareTo(b) > 0) {
+                            break;
                         }
                     }
-                    if (beforeBook == null) {
-                        System.out.println(String.format("Put \"%s\" first", b.title));
-                        shelve.add(b);
+                    // book j bigger than b
+                    boolean first;
+                    String beforeTitle = "";
+                    if (j == 0) {
+                        first = true;
                     } else {
-                        String beforeTitle = books.get(beforeIndex).title;
-                        System.out.println(String.format("Put \"%s\" after \"%s\"", b.title, beforeTitle));
-                        shelve.add(beforeIndex, b);
+                        first = false;
+                        beforeTitle = shelve.get(j - 1).title;
                     }
+                    if (first) {
+                        System.out.println(String.format("Put \"%s\" first", b.title));
+                        shelve.add(0, b);
+                    } else {
+                        System.out.println(String.format("Put \"%s\" after \"%s\"", b.title, beforeTitle));
+                        shelve.add(j, b);
+                    }            
                 }
                 System.out.println("END");
                 returned.clear();
@@ -122,9 +127,9 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         new Main().work();
