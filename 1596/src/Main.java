@@ -7,7 +7,7 @@ public class Main {
    
     void work() {
         Scanner sc = new Scanner(System.in);
-    
+        
         sc.close();
     }
 
