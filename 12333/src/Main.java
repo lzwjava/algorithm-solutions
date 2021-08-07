@@ -1,8 +1,6 @@
 import java.io.FileInputStream;
 import java.io.PrintStream;
-import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +10,7 @@ public class Main {
             String tmp = a;
             a = b;
             b = tmp;
-        }
+        }      
         int alen = a.length();
         int blen = b.length();
         int carry = 0;
@@ -37,8 +35,12 @@ public class Main {
         if (carry > 0) {
             sb.append("1");
         }
-        return sb.reverse().toString();                
-    }    
+        String s = sb.reverse().toString();       
+        if (s.length() > 100) {
+            s = s.substring(0, 100);
+        }
+        return s;
+    }
    
     void work() {
         Scanner sc = new Scanner(System.in);
