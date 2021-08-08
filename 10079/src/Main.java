@@ -7,14 +7,11 @@ public class Main {
     void solve() {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            int n = sc.nextInt();
+            long n = sc.nextInt();
             if (n < 0) {
                 break;
             }
-            long ans = 1;
-            for (int i = 1; i <= n; i++) {
-                ans += i;                
-            }
+            long ans = n*(n+1)/2+1;
             System.out.println(ans);
         }
         sc.close();
