@@ -15,9 +15,10 @@ public class Main {
                     c += n;
                     break;
                 }
-                n -= k;
-                c += k;
-                n += 1;
+                int a = n / k;
+                n -= a * k;
+                c += a * k;
+                n += a;
             }
             System.out.println(c);
         }
