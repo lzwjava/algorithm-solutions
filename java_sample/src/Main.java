@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
    
-    void work() {
+    void solve() {
         Scanner sc = new Scanner(System.in);    
         sc.close();
     }
@@ -20,7 +20,7 @@ public class Main {
             // System.setOut(outStream);
         }
 
-        new Main().work();
+        new Main().solve();
 
         if (isLocal) {
             inStream.close();
