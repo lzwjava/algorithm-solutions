@@ -3,10 +3,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 public class Main {
 
-    int readInt(BufferedReader br) throws IOException {
+    String readLine(BufferedReader br) throws IOException {
         while (true) {
             String str = br.readLine();
             if (str == null) {
@@ -15,15 +16,43 @@ public class Main {
             if (str.isEmpty()) {
                 continue;
             }
-            return Integer.parseInt(str);
+            return str;
         }
     }
    
     void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
-            
+            String nstr = br.readLine();
+            int n = Integer.parseInt(nstr);
+            if (n == 0) {
+                break;
+            }
+            String line = br.readLine();
+            int nums[] = new int[n];
+            int begin = 0;
+            for (int i = 0; i < n; i++) {
+                int end = line.indexOf(" ", begin);
+                if (end == -1) {
+                    end = line.length();
+                }
+                String s = line.substring(begin, end);
+                if (s.isEmpty()) {
+                    System.out.println();
+                }
+                nums[i] = Integer.parseInt(s);
+                begin = end+1;
+            }
+            Arrays.sort(nums);
+            for (int i = 0; i < n; i++) {
+                if (i != 0) {
+                    System.out.print(" ");
+                }
+                System.out.print(nums[i]);
+            }
+            System.out.println();
         }
+        br.close();
     }
 
     public static void main(String[] args) throws Exception {
