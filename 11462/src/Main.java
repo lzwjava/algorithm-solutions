@@ -29,19 +29,11 @@ public class Main {
                 break;
             }
             String line = br.readLine();
+            String numStrs[] = line.split(" ");
+            assert (numStrs.length == n);
             int nums[] = new int[n];
-            int begin = 0;
-            for (int i = 0; i < n; i++) {
-                int end = line.indexOf(" ", begin);
-                if (end == -1) {
-                    end = line.length();
-                }
-                String s = line.substring(begin, end);
-                if (s.isEmpty()) {
-                    System.out.println();
-                }
-                nums[i] = Integer.parseInt(s);
-                begin = end+1;
+            for (int i = 0; i < n; i++) {  
+                nums[i] = Integer.parseInt(numStrs[i]);
             }
             Arrays.sort(nums);
             for (int i = 0; i < n; i++) {
