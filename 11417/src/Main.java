@@ -16,11 +16,11 @@ public class Main {
                     gcd *= p;
                     i /= p;
                     j /= p;
-                    if (i == 1 || j == 1) {
-                        return gcd;
-                    }
                 }
-            }            
+            }
+            if (i == 1 || j == 1) {
+                return gcd;
+            }
         }
         return gcd;
     }
@@ -46,10 +46,11 @@ public class Main {
                 break;
             }
             int G=0;
-            for(int i=1;i<n;i++)
-            for(int j=i+1;j<=n;j++)
-            {
-                G += GCD(i, j);
+            for (int i = 1; i < n; i++) {
+                for (int j = i + 1; j <= n; j++)
+                {
+                    G += GCD(i, j);
+                }
             }
             System.out.println(G);      
         }
