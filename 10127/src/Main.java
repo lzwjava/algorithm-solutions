@@ -7,37 +7,34 @@ public class Main {
    
     void solve() {
         Scanner sc = new Scanner(System.in);
-        // int n = 0;
         while(true){
             int n = 0;
-            // n++;
-            // if (n % 2 == 0 || n % 5 == 0) {
-            //     continue;
-            // }
             try {
                 n = sc.nextInt();
             } catch (NoSuchElementException e) {
                 break;
             }
-            int x;
-            int mods[] = new int[1000];
-            mods[0] = 1 % n;
-            for (int i=1;i<1000;i++){
-                mods[i] =  (mods[i-1] * 10)%n;
+            if (n == 0) {
+                System.out.println(0);
+                continue;
             }
-            for (x = 1;; x++) {
-                int p = 0;
-                for (int i = 0; i <= x - 1; i++) {
-                    p = (p + mods[i]) % n;
-                }
+            int mods[] = new int[10000];
+            mods[0] = 1 % n;
+            for (int i = 1; i < 10000; i++) {
+                mods[i] = (mods[i - 1] * 10) % n;
+            }
+            int p = 0;
+            int i;
+            for (i = 0;; i++) {
+                p = (p + mods[i]) % n;                
                 if (p == 0) {
                     break;
                 }
             }
             // System.out.println(n);
-            System.out.println(x);
+            System.out.println(i+1);
         }
-        // sc.close();
+        sc.close();
     }
 
     public static void main(String[] args) throws Exception {
