@@ -7,33 +7,11 @@ import java.util.Scanner;
 
 public class Main {
    
-    void solve() {    
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Integer> inputs = new ArrayList<>();
-        int maxNum = 0;
-        while (true) {
-            int n = 0;
-            try {
-                n = sc.nextInt();
-            } catch (NoSuchElementException e) {
-                break;
-            }
-            String s = String.format("%d", n);
-            String rs = new StringBuilder(s).reverse().toString();
-            int rn = Integer.parseInt(rs);
-            if (n > maxNum) {
-                maxNum = n;
-            }
-            if (rn > maxNum) {
-                maxNum = rn;
-            }
-            inputs.add(n);         
-        }
-
+    void solve() {
         ArrayList<Integer> primes = new ArrayList<>();
-        for (int i = 2; i <= maxNum; i++) {
+        for (int i = 2; i <= 1000005; i++) {
             boolean ok = true;
-            int si = (int) Math.sqrt(i);
+            int si = (int)Math.sqrt(i);
             for (int j = 0; j < primes.size(); j++) {
                 int pj = primes.get(j);
                 if (pj > si) {
@@ -49,11 +27,18 @@ public class Main {
             }
         }
 
-        for (int i = 0; i < inputs.size(); i++) {
-            int n = inputs.get(i);
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            int n = 0;
+            try {
+                n = sc.nextInt();
+            } catch (NoSuchElementException e) {
+                break;
+            }
             String s = String.format("%d", n);
             String rs = new StringBuilder(s).reverse().toString();
             int rn = Integer.parseInt(rs);
+
             boolean reversePrime = Collections.binarySearch(primes, rn) >= 0;
             boolean prime = Collections.binarySearch(primes, n) >= 0;
             boolean emirp = prime && reversePrime && rn != n;
@@ -65,7 +50,7 @@ public class Main {
             } else {
                 System.out.println(" is emirp.");
             }
-        }        
+        }
         sc.close();
     }
 
