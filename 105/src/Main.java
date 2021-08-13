@@ -56,13 +56,14 @@ public class Main {
                     System.out.print(" ");
                 }
                 lastHeight = heights.get(i);
-                
+
                 System.out.print(ss.get(i));
 
                 System.out.print(" ");
                 System.out.print(heights.get(i));
             }
         }
+        System.out.println();
 
         sc.close();
     }
@@ -73,9 +74,9 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         new Main().solve();
