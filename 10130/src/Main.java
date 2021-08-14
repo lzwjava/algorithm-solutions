@@ -33,7 +33,7 @@ public class Main {
         Obj o = objs.get(i);
         if (mw>= o.w){
             used.set(i, true);
-            int p2 = calObjs(objs, used, i + 1, n, mw - o.w, value+o.p);
+            int p2 = calObjs(objs, used, i + 1, n, mw - o.w, value + o.p);
             return p1 > p2 ? p1 : p2;
         } else {
             return p1;
@@ -56,11 +56,7 @@ public class Main {
             ArrayList<Integer> mws = new ArrayList<>();
             for (int i = 0; i < g; i++) {
                 mws.add(sc.nextInt());
-            }
-            
-            Collections.sort(mws);
-
-            Collections.sort(objs);         
+            }              
 
             int maxValue = 0;
             for (int i = 0; i < mws.size(); i++) {
@@ -70,7 +66,7 @@ public class Main {
                 }
 
                 int mw = mws.get(i);
-                int p = calObjs(objs, used, i, n, mw, 0);
+                int p = calObjs(objs, used, 0, n, mw, 0);
                 maxValue += p;
             }
 
