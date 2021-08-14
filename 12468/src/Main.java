@@ -12,10 +12,15 @@ public class Main {
             if (a == -1 && b == -1) {
                 break;
             }
+            if (a > b) {
+                int tmp = a;
+                a = b;
+                b = tmp;
+            }
             int len = b - a;
             int cyclic = a + 100 - b;
             int min = len < cyclic ? len : cyclic;
-            System.out.println(min);         
+            System.out.println(min);
         }
         sc.close();
     }
