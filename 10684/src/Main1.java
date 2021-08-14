@@ -2,7 +2,7 @@ import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Main {
+public class Main1 {
    
     void solve() {
         Scanner sc = new Scanner(System.in);
@@ -15,16 +15,22 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 nums[i] = sc.nextInt();
             }
-            int max = 0;
-            int tmp = 0;
+            int max = Integer.MIN_VALUE;
+            int d[][] = new int[n][n];
             for (int i = 0; i < n; i++) {
-                tmp += nums[i];
-                if (tmp > max) {
-                    max = tmp;
+                d[i][i] = nums[i];
+                if (d[i][i] > max) {
+                    max = d[i][i];
                 }
-                if (tmp < 0) {
-                    tmp = 0;
-                }        
+            }
+            for (int w = 1; w <= n - w; w++) {
+                for (int i = 0; i < n - w; i++) {
+                    int j = i + w;
+                    d[i][j] = Math.max(d[i][j - 1], d[i][j - 1] + nums[j]);
+                    if (d[i][j] > max) {
+                        max = d[i][j];
+                    }
+                }
             }
             if (max > 0) {
                 System.out.println(String.format("The maximum winning streak is %d.", max));
