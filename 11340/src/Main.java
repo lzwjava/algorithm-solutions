@@ -1,30 +1,32 @@
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
    
-    void solve() {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    void solve() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    
+        int n = Integer.parseInt(br.readLine());
         while (n > 0) {
-            int k = sc.nextInt();
+            int k = Integer.parseInt(br.readLine());
             HashMap<Character, Integer> map = new HashMap<>();
             for (int i = 0; i < k; i++) {
-                String s = sc.next();
-                int cents = sc.nextInt();
+                String line = br.readLine();
+                StringTokenizer st = new StringTokenizer(line);
+                String s = st.nextToken();
+                int cents = Integer.parseInt(st.nextToken());
                 Character ch = s.charAt(0);
                 map.put(ch, cents);
             }
-            int m = sc.nextInt();
+            int m = Integer.parseInt(br.readLine());
             int total = 0;
             for (int i = 0; i < m; i++) {
-                String s = sc.nextLine();
-                if (s.isEmpty()) {
-                    s = sc.nextLine();
-                }
+                String s = br.readLine();
                 for (int j = 0; j < s.length(); j++) {
                     Character ch = s.charAt(j);
                     Integer cents = map.get(ch);
@@ -36,7 +38,7 @@ public class Main {
             System.out.println(String.format("%.2f$", total * 1.0 / 100));
             n--;
         }
-        sc.close();
+        br.close();
     }
 
     public static void main(String[] args) throws Exception {
