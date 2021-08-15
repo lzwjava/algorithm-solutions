@@ -1,46 +1,50 @@
 import java.io.FileInputStream;
 import java.io.PrintStream;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
+public class Main1 {
 
-    int nums[];
-    int total;
-    int map[][];
+    int minDiff;
 
-    int dp(int sum, int index) {        
-        if (index == nums.length) {
-            int sum2 = total - sum;
-            return Math.abs(sum - sum2);
+    void permutation(int nums[], boolean selected[], int i) {
+        if (minDiff == 0) {
+            return;
         }
-        if (map[sum][index]!=-1) {
-            return map[sum][index];
-        }        
-        int take = dp(sum+nums[index], index+1);
-        int leave = dp(sum, index + 1);
-        int ans = Math.min(take, leave);
-        map[sum][index] = ans;
-        return ans;
+        if (i == selected.length) {
+            int s1 = 0;
+            int s2 = 0;
+            for (int j = 0; j < selected.length; j++) {
+                if (selected[j]) {
+                    s1 += nums[j];
+                } else {
+                    s2 += nums[j];
+                }
+            }
+            if (Math.abs(s1 - s2) < minDiff) {
+                minDiff = Math.abs(s1 - s2);
+            }
+            return;
+        }
+        selected[i] = false;
+        permutation(nums, selected, i + 1);
+        selected[i] = true;
+        permutation(nums, selected, i+1);
     }
-
+   
     void solve() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         while (n > 0) {
             int m = sc.nextInt();
-            nums = new int[m];
-            total = 0;
+            int nums[] = new int[m];
             for (int i = 0; i < m; i++) {
                 nums[i] = sc.nextInt();
-                total += nums[i];
             }
-            map = new int[total][m];
-            for (int[] a : map) {
-                Arrays.fill(a, -1);
-            }
-            int ans = dp(0, 0);
-            System.out.println(ans);
+            minDiff = Integer.MAX_VALUE;
+            boolean selected[] = new boolean[m];            
+            permutation(nums, selected, 0);
+            
+            System.out.println(minDiff);
             n--;
         }
         sc.close();
