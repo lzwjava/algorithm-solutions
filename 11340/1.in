@@ -1,0 +1,8 @@
+1
+2
+a 1
+b 2
+2
+For extended ascii code (128 ~ 255), if you use char in C, it is signed.
+char occupies 1 byte (8 bit) in most machines, that is, -128 ~ 127
+Thus, for extended ascii code, like À È Û, char will exceed it bound, and get undefined results.
