@@ -5,25 +5,10 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 public class Main {
-
-    int readInt(BufferedReader br) throws IOException {
-        while (true) {
-            String str = br.readLine();
-            if (str == null) {
-                throw new IOException("end");
-            }
-            if (str.isEmpty()) {
-                continue;
-            }
-            return Integer.parseInt(str);
-        }
-    }
    
     void solve() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        while (true) {
-            
-        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));           
+        br.close();
     }
 
     public static void main(String[] args) throws Exception {
@@ -35,11 +20,10 @@ public class Main {
             // outStream = new PrintStream("1.out");
             System.setIn(inStream);
             // System.setOut(outStream);
-        }        
-        try {
-            new Main().solve();
-        } catch (IOException e) {
-        }        
+        }
+
+        new Main().solve();
+
         if (isLocal) {
             inStream.close();
             // outStream.close();
