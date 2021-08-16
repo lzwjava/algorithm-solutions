@@ -5,32 +5,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 public class Main {
-
-    String numsToString(int nums[], int i, int j) {
-        StringBuilder sb = new StringBuilder();
-        for (int k = i; k < j; k++) {
-            sb.append(nums[k]);
-        }
-        return sb.toString();
-    }
-
-    void permutation(int nums[], int i, int n) {
-        if (i == n) {            
-            String a = numsToString(nums, 0, n/2);        
-            String b = numsToString(nums, n / 2, n);           
-            int s = Integer.parseInt(a) + Integer.parseInt(b);
-
-            String c = numsToString(nums, 0, n);            
-            if (s * s == Integer.parseInt(c)) {
-                System.out.println(c);
-            }
-            return;
-        }
-        for (int j = 0; j <= 9; j++) {
-            nums[i] = j;
-            permutation(nums, i+1, n);
-        }
-    }
    
     void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,8 +14,15 @@ public class Main {
                 break;
             }
             int n = Integer.parseInt(line);
-            int nums[] = new int[n];
-            permutation(nums, 0, n);
+            int half = (int) Math.pow(10, n / 2);
+            for (int i = 0; i < half; i++) {
+                int square = i * i;
+                int left = square / half;
+                int right = square % half;
+                if (Math.pow(left + right, 2) == square) {
+                    System.out.println(String.format("%" + n + "d", square).replace(" ", "0"));
+                }
+            }
         }
         br.close();
     }
