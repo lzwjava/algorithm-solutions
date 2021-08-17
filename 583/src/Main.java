@@ -59,6 +59,15 @@ public class Main {
                     }
                     fs.add(f);
                 }
+                if (n == 1) {
+                    break;
+                }
+            }
+            if (fs.size() == 0) {
+                Factor f = new Factor();
+                f.prime = n;
+                f.count = 1;
+                fs.add(f);
             }
             if (minus) {
                 System.out.print(String.format("%d = %d x", no, -1));
