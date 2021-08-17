@@ -1,7 +1,6 @@
 import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -54,34 +53,11 @@ public class Main {
         }
         return d;
     }
-    
-    // 先把所有连的找到，然后删掉最长的    
-    void dfs(int ids[], boolean vis[], float d, int i, int n) {
-        if (d > minDist) {
-            return;
-        }
-        if (i == n) {
-            d += dist[i - 1][0];
-            if (minDist > d) {
-                minDist = d;
-                minIds = Arrays.copyOf(ids, ids.length);
-            }
-            return;
-        }
-        for (int j = 0; j < n; j++) {
-            if (!vis[j]) {
-                vis[j] = true;
-                ids[i] = j;
-                d += dist[ids[i - 1]][j];
-                dfs(ids, vis, d, i + 1, n);
-                vis[j] = false;
-            }
-        }
-    }
    
     void solve() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
+        boolean first = true;
         while (t > 0) {
             int n = sc.nextInt();        
             Point[] pts = new Point[n];
@@ -89,6 +65,11 @@ public class Main {
                 float x = sc.nextFloat();
                 float y = sc.nextFloat();
                 pts[i] = new Point(x, y);
+            }
+            if (first) {
+                first = false;
+            } else {
+                System.out.println();
             }
 
             if (n == 1) {
