@@ -1,32 +1,13 @@
 import java.io.FileInputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 
-public class Main {
+public class Main1 {
 
     float dist[][];
     float minDist;
     int minIds[];
-
-    class Distance implements Comparable<Distance> {
-        float dist;
-        int a;
-        int b;
-
-        Distance(float dist, int a, int b) {
-            this.dist = dist;
-            this.a = a;
-            this.b = b;
-        }
-
-        @Override
-        public int compareTo(Main.Distance o) {
-            return Float.compare(dist, o.dist);
-        }
-    }
 
     class Point {
         float x;
@@ -83,50 +64,38 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
         while (t > 0) {
-            int n = sc.nextInt();        
+            int n = sc.nextInt();
             Point[] pts = new Point[n];
             for (int i = 0; i < n; i++) {
                 float x = sc.nextFloat();
                 float y = sc.nextFloat();
                 pts[i] = new Point(x, y);
-            }
-
-            if (n == 1) {
-                System.out.println(String.format("%.2f", 0.0));
-                t--;
-                continue;
-            }
-
+            }      
             dist = new float[n][n];
-            ArrayList<Distance> ds = new ArrayList<>();
             for (int i = 0; i < n - 1; i++) {
                 for (int j = i + 1; j < n; j++) {
-                    float len = distOfPoints(pts[i], pts[j]);
-                    Distance d = new Distance(len, i, j);
-                    ds.add(d);
+                    dist[i][j] = distOfPoints(pts[i], pts[j]);
+                    dist[j][i] = dist[i][j];
                 }
             }
 
-            boolean connected[] = new boolean[n];
-            Collections.sort(ds);
-
-            Distance d0 = ds.get(0);
-            float sum = 0;
-            sum += d0.dist;
-            connected[d0.a] = true;
-            connected[d0.b] = true;
-            for (int i = 0; i < n - 2; i++) {
-                for (int j = 0; j < ds.size(); j++) {
-                    Distance d = ds.get(j);
-                    if (connected[d.a] == !connected[d.b]) {
-                        connected[d.a] = true;
-                        connected[d.b] = true;
-                        sum += d.dist;
-                        break;
-                    }
+            minDist = Float.MAX_VALUE;
+            int ids[] = new int[n];
+            ids[0] = 0;
+            boolean vis[] = new boolean[n];
+            vis[0] = true;
+            dfs(ids, vis, 0, 1, n);
+            float maxDist = 0;
+            for (int i = 0; i < n; i++) {
+                int ni = i + 1;
+                if (ni == n) {
+                    ni = 0;
+                }
+                if (dist[minIds[i]][minIds[ni]] > maxDist) {
+                    maxDist = dist[minIds[i]][minIds[ni]];                    
                 }
             }
-            System.out.println(String.format("%.2f", sum));
+            System.out.println(String.format("%.2f", minDist-maxDist));
             t--;
         }
         sc.close();
