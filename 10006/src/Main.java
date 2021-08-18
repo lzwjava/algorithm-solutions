@@ -3,10 +3,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-public class Main {
+public class Main {    
 
     int cal(int a, int n) {
         int mod = 1;
@@ -39,6 +40,8 @@ public class Main {
         }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        PrintWriter out = new PrintWriter(System.out);
         while (true) {
             String s = br.readLine();
             int n = Integer.parseInt(s);
@@ -46,28 +49,38 @@ public class Main {
                 break;
             }
             boolean isPrime = isp[n];
-            boolean carmichael = false;            
+            boolean carmichael = false;
             if (!isPrime) {
                 boolean pass = true;
-                BigInteger bn = BigInteger.valueOf(n);                
+                BigInteger bn = BigInteger.valueOf(n);
                 for (int a = 2; a <= n - 1; a++) {
                     BigInteger bi = BigInteger.valueOf(a);
                     BigInteger bmod = bi.modPow(bn, bn);
+
+                    // int mod = cal(a, n);
                     if (bmod.compareTo(bi) != 0) {
                         pass = false;
                         break;
                     }
+
+                    // if (mod != a) {
+                    //     pass = false;
+                    //     break;                        
+                    // }
                 }
                 if (pass) {
                     carmichael = true;
                 }
             }
             if (carmichael) {
-                System.out.println(String.format("The number %d is a Carmichael number.", n));
+                out.append(String.format("The number %d is a Carmichael number.\n", n));
             } else {
-                System.out.println(String.format("%d is normal.", n));
+                out.append(String.format("%d is normal.\n", n));
             }
         }
+        out.flush();
+        
+        out.close();
         br.close();
     }
 
