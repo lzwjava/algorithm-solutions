@@ -3,12 +3,30 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 public class Main {
+
+    BufferedReader in;
+    PrintWriter out;
+
+    Main() {
+        in = new BufferedReader(new InputStreamReader(System.in));
+        out = new PrintWriter(System.out);        
+    }
    
-    void solve() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));           
-        br.close();
+    void solve() {
+
+    }
+
+    void close() throws IOException {
+        if (in != null) {
+            in.close();
+        }
+        if (out != null) {
+            out.flush();
+            out.close();              
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -22,7 +40,9 @@ public class Main {
             // System.setOut(outStream);
         }
 
-        new Main().solve();
+        Main main = new Main();
+        main.solve();
+        main.close();
 
         if (isLocal) {
             inStream.close();
