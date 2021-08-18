@@ -3,6 +3,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Main {
@@ -18,6 +19,7 @@ public class Main {
    
     void solve() throws IOException {
         ArrayList<Integer> primes = new ArrayList<>();
+        boolean isp[] = new boolean[65000];
         for (int i = 2; i < 65000; i++) {
             boolean ok = true;
             int si = (int) Math.sqrt(i);
@@ -32,8 +34,10 @@ public class Main {
             }
             if (ok) {
                 primes.add(i);
+                isp[i] = true;
             }
-        }                
+        }
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             String s = br.readLine();
@@ -41,13 +45,15 @@ public class Main {
             if (n == 0) {
                 break;
             }
-            boolean isPrime = primes.contains(n);
-            boolean carmichael = false;
+            boolean isPrime = isp[n];
+            boolean carmichael = false;            
             if (!isPrime) {
                 boolean pass = true;
+                BigInteger bn = BigInteger.valueOf(n);                
                 for (int a = 2; a <= n - 1; a++) {
-                    int mod = cal(a, n);
-                    if (mod != a) {
+                    BigInteger bi = BigInteger.valueOf(a);
+                    BigInteger bmod = bi.modPow(bn, bn);
+                    if (bmod.compareTo(bi) != 0) {
                         pass = false;
                         break;
                     }
