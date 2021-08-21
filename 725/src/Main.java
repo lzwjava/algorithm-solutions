@@ -57,12 +57,17 @@ public class Main {
             String str1 = String.format("%d", a1);
             int len = str1.length();
             int min = i < len ? i : len;
+            boolean vis1[] = new boolean[10];
             for (int j = 0; j < min; j++) {            
                 char ch = str1.charAt(len - 1 - j);
                 int num = ch - '0';
                 if (vis[num]) {
                     return;
                 }
+                if (vis1[num]) {
+                    return;
+                }
+                vis1[num] = true;
             }
         }
         if (i == 5) {
