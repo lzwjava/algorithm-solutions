@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -28,6 +30,7 @@ public class Main {
     int dx[] = { -1, 0, 1, 0 };
     int dy[] = { 0, 1, 0, -1 };
     int size;
+    int total;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
@@ -57,12 +60,18 @@ public class Main {
             int ny = dy[i] + y;            
             if (inside(nx, ny) &&  molecules[nx][ny] == null) {
                 String label = m.labels[i];
+                HashSet<String> typeSet = new HashSet<>();
                 for (int j = 0; j < types.length; j++) {
                     String[] type = types[j];
                     for (int degree = 0; degree < 4; degree++) {
                         String[] dtype = rotateType(type, degree);                        
-                        for (int invert = 0; invert < 3; invert++) {
+                        for (int invert = 0; invert < 2; invert++) {
                             String[] ntype = invertType(dtype, invert);
+                            String ntypeString = String.join("", ntype);
+                            if (typeSet.contains(ntypeString)) {
+                                continue;
+                            }
+                            typeSet.add(ntypeString);
                             boolean match = match(ntype, label, i);
                             if (match) {                                
                                 boolean ok = true;
@@ -82,7 +91,8 @@ public class Main {
                                     }
                                 }
                                 if (ok) {
-                                    molecules[nx][ny] = new Molecule(ntype);                                                                
+                                    molecules[nx][ny] = new Molecule(ntype);
+                                    total++;                                    
                                     extend(molecules, nx, ny, types);
                                 }
                             }
@@ -167,14 +177,21 @@ public class Main {
                 moleculeStrings[i] = st.nextToken();
                 types[i] = makeLabels(moleculeStrings[i]);
             }
-            size = 25;
+            size = 51;
+            total = 0;
             Molecule molecules[][] = new Molecule[size][size];
             int center = size / 2;
 
             molecules[center][center] = new Molecule(types[0].clone());
+            total++;      
 
             extend(molecules, center, center, types);
-            System.out.println("bounded"); 
+
+            if (total == size * size) {
+                System.out.println("unbounded");                
+            } else {
+                System.out.println("bounded"); 
+            }
         }
     }
 
