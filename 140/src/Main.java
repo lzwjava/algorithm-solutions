@@ -41,7 +41,7 @@ public class Main {
         for (int j = 0; j < n; j++) {
             int bandwidth = 0;
             for (int k = 0; k < n; k++) {
-                if (j != k && grid[j][k]) {
+                if (j != k && grid[nums[j]][nums[k]]) {
                     int w = Math.abs(j - k);
                     if (w > bandwidth) {
                         bandwidth = w;
@@ -122,9 +122,19 @@ public class Main {
             }
             minBandwidth = Integer.MAX_VALUE;
             int nums[] = new int[size];
-            boolean vis[] = new boolean[size];
+            // nums[0] = 0;
+            // nums[1] = 1;
+            // nums[2] = 2;
+            // nums[3] = 5;
+            // nums[4] = 6;
+            // nums[5] = 3;
+            // nums[6] = 7;
+            // nums[7] = 4;
+            boolean vis[] = new boolean[size];            
+            // int b = bandwidth(nums, size);
+            // System.out.println(b);
             permutation(nums, vis, 0, size);
-            
+                        
             for (int i = 0; i < minOrdering.length; i++) {
                 Character ch = rmap.get(minOrdering[i]);
                 out.append(ch).append(' ');
