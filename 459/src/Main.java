@@ -6,7 +6,6 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 
 public class Main {
 
@@ -26,32 +25,25 @@ public class Main {
         in.readLine();        
         while (t > 0) {
             String maxNode = in.readLine();
-            ArrayList<String> edges = new ArrayList<>();
-            HashSet<Character> nodes = new HashSet<>();
-            nodes.add(maxNode.charAt(0));
+            char maxChar = maxNode.charAt(0);
+            int charCount = maxChar - 'A' + 1;
+            ArrayList<Character> nodeList = new ArrayList<>();            
+            for (int i = 0; i < charCount; i++) {
+                nodeList.add((char) ('A' + i));
+            }
+            n = nodeList.size();
+            graph = new boolean[n][n];                        
             while (true) {
                 String e = in.readLine();
                 if (e == null || e.isEmpty()) {
                     break;
                 }
-                edges.add(e);
-                char n1 = e.charAt(0);
-                char n2 = e.charAt(1);
-                nodes.add(n1);
-                nodes.add(n2);
-            }
-            ArrayList<Character> nodeList = new ArrayList<>();
-            nodeList.addAll(nodes);
-            Collections.sort(nodeList);
-            n = nodes.size();
-            graph = new boolean[n][n];
-            for (String e : edges) {
                 char n1 = e.charAt(0);
                 char n2 = e.charAt(1);
                 int p1 = Collections.binarySearch(nodeList, n1);
                 int p2 = Collections.binarySearch(nodeList, n2);
                 graph[p1][p2] = graph[p2][p1] = true;
-            }
+            }        
             vis = new boolean[n];
             int count = 0;
             for (int i = 0; i < n; i++) {
