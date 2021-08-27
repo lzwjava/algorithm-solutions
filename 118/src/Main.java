@@ -13,6 +13,7 @@ public class Main {
 
     int gx;
     int gy;
+    boolean vis[][];
 
     class Pos {
         int x;
@@ -62,9 +63,14 @@ public class Main {
             if (nx >= 0 && nx <= gx && ny >= 0 && ny <= gy) {
                 x = nx;
                 y = ny;
-                return true;
+                return true;                                        
             } else {
-                return false;
+                if (!vis[x][y]) {
+                    vis[x][y] = true;
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
         
@@ -93,6 +99,7 @@ public class Main {
         StringTokenizer st = new StringTokenizer(s);
         gx = Integer.parseInt(st.nextToken());
         gy = Integer.parseInt(st.nextToken());
+        vis = new boolean[gx + 1][gy + 1];        
         while (true) {
             s = in.readLine();
             if (s == null){
@@ -113,7 +120,7 @@ public class Main {
                     ok = false;
                     break;
                 }                
-                out.append(String.format("%d %d %c\n", pos.x, pos.y, pos.dir));                
+                // out.append(String.format("%d %d %c\n", pos.x, pos.y, pos.dir));                
             }
             if (ok) {
                 out.append(String.format("%d %d %c\n", pos.x, pos.y, pos.dir));
