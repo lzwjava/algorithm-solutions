@@ -4,37 +4,45 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
 
     BufferedReader in;
     PrintWriter out;
+    int nums1[];
+    int nums2[];
+    int map[][];
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
     
-    int dp(int n1, int n2, int s1, int s2, int nums1[], int nums2[]) {       
-        if (s1 == s2) {
-            return 0;
-        }
+    int dp(int n1, int n2) {        
         if (n1 == 0 && n2 == 0) {
             return 0;
         }
         if (n1 == 0) {
-            return n2;
+            return 0;
         } else if (n2 == 0) {
-            return n1;
+            return 0;
         }
-        int v1 = dp(n1 - 1, n2, s1 - nums1[n1], s2, nums1, nums2);
-        int v2 = dp(n1, n2 - 1, s1, s2 - nums2[n2], nums1, nums2);
-        if (v1 < v2) {
-            return v1 + 1;
+        if (map[n1][n2] != -1) {
+            return map[n1][n2];
+        }
+        int ans;
+        if (nums1[n1] == nums2[n2]) {
+            int v = dp(n1 - 1, n2 - 1);
+            ans = v + 1;            
         } else {
-            return v2 + 1;
+            int v1 = dp(n1 - 1, n2);
+            int v2 = dp(n1, n2 - 1);
+            ans = Math.max(v1, v2);
         }
+        map[n1][n2] = ans;
+        return ans;        
     }
    
     void solve() throws IOException {
@@ -49,25 +57,25 @@ public class Main {
             }
             s = in.readLine();
             st = new StringTokenizer(s);
-            int s1 = 0;
-            int nums1[] = new int[n1 + 1];
+            nums1 = new int[n1 + 1];
             for (int i = 0; i < n1; i++) {
                 int num = Integer.parseInt(st.nextToken());
                 nums1[n1-i] = num;
-                s1 += num;
             }
             s = in.readLine();
             st = new StringTokenizer(s);
-            int nums2[] = new int[n2 + 1];
-            int s2 = 0;
+            nums2 = new int[n2 + 1];
             for (int i = 0; i < n2; i++) {
                 int num = Integer.parseInt(st.nextToken());
-                nums2[n2-i] = num;
-                s2 += num;
+                nums2[n2 - i] = num;
             }
-            int count = dp(n1, n2, s1, s2, nums1, nums2);
+            map = new int[n1 + 1][n2 + 1];
+            for (int i = 0; i < n1 + 1; i++) {
+                Arrays.fill(map[i], -1);
+            }
+            int count = dp(n1, n2);
             out.append(String.format("Twin Towers #%d\n", caseNum));
-            out.append(String.format("Number of Tiles : %d\n", n1+n2- count));
+            out.append(String.format("Number of Tiles : %d\n", count));
             out.append("\n");
             caseNum++;
         }
