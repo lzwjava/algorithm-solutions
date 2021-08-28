@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -18,20 +17,27 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    int calLen(int x) {
-        int len = 0;
-        while (true) {
-            if (x % 2 == 0) {
-                x /= 2;
-            } else {
-                x = 3 * x + 1;
-            }
-            len++;
-            if (x == 1) {
-                break;
-            }
+    HashMap<Long, Integer> lens;
+
+    int calLen(long x) {
+        Integer v = lens.get(x);
+        if (v != null) {
+            return v;
         }
-        return len;
+        long nx;
+        if (x % 2 == 0) {
+            nx = x/2;
+        } else {
+            nx = 3 * x + 1;
+        }
+        int nv;
+        if (nx == 1) {
+            nv = 1;
+        } else {
+            nv = 1 + calLen(nx);
+        }
+        lens.put(x, nv);
+        return nv;           
     }
     
     class Query {
@@ -47,10 +53,8 @@ public class Main {
         }
     }
    
-    void solve() throws IOException {
-        ArrayList<Query> qs = new ArrayList<>();
-        int minL = Integer.MAX_VALUE;
-        int maxH = 0;
+    void solve() throws IOException { 
+        lens = new HashMap<>();
         while (true) {
             String s = in.readLine();
             StringTokenizer st = new StringTokenizer(s);
@@ -59,33 +63,22 @@ public class Main {
             if (l == 0 && h == 0) {
                 break;
             }
-            Query q = new Query(l, h);
-            qs.add(q);
-            if (l < minL) {
-                minL = l;
+            if (l > h) {
+                int tmp = l;
+                l = h;
+                h = tmp;
             }
-            if (h > maxH) {
-                maxH = h;
-            }
-         
-        }
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = minL; i <= maxH; i++) {
-            int len = calLen(i);
-            map.put(i, len);
-        }
-        for (Query q : qs) {
             int maxLen = 0;
             int maxI = 0;
-            for (int i = q.l; i <= q.h; i++) {
-                int ilen = map.get(i);
+            for (int i = l; i <= h; i++) {
+                int ilen = calLen((long) i);
                 if (ilen > maxLen) {
                     maxLen = ilen;
                     maxI = i;
                 }
             }
             out.append(String.format("Between %d and %d, %d generates the longest sequence of %d values.\n",
-             q.l, q.h, maxI , maxLen));
+             l, h, maxI , maxLen));
         }
     }
 
@@ -105,9 +98,9 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
