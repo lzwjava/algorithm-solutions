@@ -50,28 +50,17 @@ public class Main {
    
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
+        // int g = gcd(3, 6);
+        // int l = lcm(3, 6);
+        // out.append(String.format("%d %d", g, l));
         while (t > 0) {
             String s = in.readLine();
             StringTokenizer st = new StringTokenizer(s);
             int g = Integer.parseInt(st.nextToken());
             int l = Integer.parseInt(st.nextToken());
-            int a = 0, b = 0;
-            boolean found = false;
-            for (a = 1; a <= 100; a++) {
-                for (b = a; b <= 100; b++) {
-                    int g1 = gcd(a, b);
-                    int l1 = lcm(a, b);
-                    if (g1 == g && l1 == l) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found) {
-                    break;
-                }
-            }
-            if (found) {
-                out.append(String.format("%d %d\n", a, b));                
+            
+            if (l % g == 0) {           
+                out.append(String.format("%d %d\n", g, l));
             } else {
                 out.append("-1\n");
             }
