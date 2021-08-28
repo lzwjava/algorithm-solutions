@@ -4,41 +4,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
 
     BufferedReader in;
     PrintWriter out;
-    boolean connected[][];
-    int g[][];
-    boolean vis[];
-    boolean gvis[];
-    int n;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
     
-    boolean dfs(int i, int year, int start) {                
-        for (int j = 0; j < n; j++) {
-            if (connected[i][j] && (!vis[j] || (vis[j] && j == start))) {
-                int nyear = year + g[i][j];
-                if (j == start) {
-                    if (nyear < 0) {
-                        return true;
-                    }                   
-                } else {
-                    vis[j] = true;
-                    if (dfs(j, nyear, start)) {
-                        return true;
-                    }
-                    vis[j] = false;
-                }
-            }
+    class Edge {
+        int x;
+        int y;
+        int t;
+
+        Edge() {
         }
-        return false;
+        
+        Edge(int x, int y, int t) {
+            this.x = x;
+            this.y = y;
+            this.t = t;
+        }
     }
    
     void solve() throws IOException {
@@ -46,31 +37,34 @@ public class Main {
         while (c > 0) {
             String s = in.readLine();
             StringTokenizer st = new StringTokenizer(s);
-            n = Integer.parseInt(st.nextToken());
+            int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
-            connected = new boolean[n][n];
-            g = new int[n][n];
+            ArrayList<Edge> edges = new ArrayList<>();
             for (int i = 0; i < m; i++) {
                 s = in.readLine();
                 st = new StringTokenizer(s);
                 int x = Integer.parseInt(st.nextToken());
                 int y = Integer.parseInt(st.nextToken());
                 int t = Integer.parseInt(st.nextToken());
-                connected[x][y] = true;
-                g[x][y] = t;
+                edges.add(new Edge(x, y, t));
             }
-            vis = new boolean[n];
-            gvis = new boolean[n];
-            boolean ok = false;
+            int dist[] = new int[n];
             for (int i = 0; i < n; i++) {
-                if (gvis[i]) {
-                    continue;
+                dist[i] = Integer.MAX_VALUE / 2;
+            }
+            dist[0] = 0;
+            for (int i = 0; i < n - 1; i++) {
+                for (int j = 0; j < m; j++) {
+                    Edge e = edges.get(j);
+                    if (dist[e.y] > dist[e.x] + e.t) {
+                        dist[e.y] = dist[e.x] + e.t;
+                    }
                 }
-                vis[i] = true;
-                gvis[i] = true;
-                boolean res = dfs(i, 0, i);
-                vis[i] = false;
-                if (res) {
+            }
+            boolean ok = false;
+            for (int j = 0; j < m; j++) {
+                Edge e = edges.get(j);
+                if (dist[e.y] > dist[e.x] + e.t) {
                     ok = true;
                     break;
                 }
