@@ -10,29 +10,54 @@ public class Main {
 
     BufferedReader in;
     PrintWriter out;
+    boolean graph[][];
+    int n;
+    boolean vis[];
+    int count;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
+    }
+    
+    void dfs(int i) {
+        for (int j = 0; j < n; j++) {
+            if (graph[i][j] && !vis[j]) {
+                count++;                
+                vis[j] = true;
+                dfs(j);
+            }
+        }
     }
    
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        int caseNum = 1;
         while (t > 0) {
             String s = in.readLine();
             StringTokenizer st = new StringTokenizer(s);
-            int n = Integer.parseInt(st.nextToken());
-            int k = Integer.parseInt(st.nextToken());
-            int p = Integer.parseInt(st.nextToken());
-            for (int i = 0; i < p; i++) {
-                k++;
-                if (k == n + 1) {
-                    k = 1;
+            n = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+            graph = new boolean[n][n];
+            vis = new boolean[n];
+            for (int i = 0; i < m; i++) {
+                s = in.readLine();
+                st = new StringTokenizer(s);
+                int a = Integer.parseInt(st.nextToken());
+                int b = Integer.parseInt(st.nextToken());
+                graph[a - 1][b - 1] = graph[b - 1][a - 1] = true;
+            }
+            int max = 0;            
+            for (int i = 0; i < n; i++) {
+                if (!vis[i]) {
+                    vis[i] = true;
+                    count = 1;
+                    dfs(i);
+                    if (count > max) {
+                        max = count;
+                    }
                 }
             }
-            out.append(String.format("Case %d: %d\n", caseNum, k));
-            caseNum++;
+            out.append(String.format("%d\n", max));
             t--;
         }
     }

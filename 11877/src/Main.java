@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.StringTokenizer;
 
 public class Main {
 
@@ -17,23 +16,39 @@ public class Main {
     }
    
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
-        int caseNum = 1;
-        while (t > 0) {
-            String s = in.readLine();
-            StringTokenizer st = new StringTokenizer(s);
-            int n = Integer.parseInt(st.nextToken());
-            int k = Integer.parseInt(st.nextToken());
-            int p = Integer.parseInt(st.nextToken());
-            for (int i = 0; i < p; i++) {
-                k++;
-                if (k == n + 1) {
-                    k = 1;
-                }
+        while (true) {
+            int n = Integer.parseInt(in.readLine());
+            if (n == 0) {
+                break;
             }
-            out.append(String.format("Case %d: %d\n", caseNum, k));
-            caseNum++;
-            t--;
+            int empty = n;            
+            n = 0;
+            int total = 0;
+            while (true) {
+                // drink
+                total += n;
+                empty += n;
+                n -= n;
+
+                // change
+                int sn = empty / 3;
+                empty -= sn * 3;
+                n = sn;
+
+                if (n != 0) {
+                    continue;
+                } else {
+                    if (empty == 0){
+                        break;
+                    } else if (empty == 2) {
+                        total += 1;
+                        break;
+                    } else if (empty == 1) {
+                        break;
+                    }
+                }          
+            }
+            out.append(String.format("%d\n", total));
         }
     }
 
