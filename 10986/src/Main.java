@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
@@ -89,7 +88,6 @@ public class Main {
                     }
                 }
             }
-                    
             if (dist[t] == Integer.MAX_VALUE / 2) {
                 out.append(String.format("Case #%d: unreachable\n", caseNum));
             } else {
