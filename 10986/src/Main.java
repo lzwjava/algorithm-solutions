@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -12,7 +14,26 @@ public class Main {
     BufferedReader in;
     PrintWriter out;
 
+    class Edge implements Comparable<Edge> {
+        int a;
+        int b;
+        int w;
 
+        Edge() {
+        }
+
+        Edge(int a, int b, int w) {
+            this.a = a;
+            this.b = b;
+            this.w = w;
+        }
+
+        @Override
+        public int compareTo(Main.Edge o) {
+            return w - o.w;
+        }
+    }
+    
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
@@ -28,40 +49,47 @@ public class Main {
             int m = Integer.parseInt(st.nextToken());
             int s = Integer.parseInt(st.nextToken());
             int t = Integer.parseInt(st.nextToken());
-            int graph[][] = new int[n][n];
-            for (int i = 0; i < n; i++) {
-                Arrays.fill(graph[i], -1);
-            }
+
+            ArrayList<Edge>[] edgeList = new ArrayList[n];            
             for (int i = 0; i < m; i++) {
                 str = in.readLine();
                 st = new StringTokenizer(str);
                 int a = Integer.parseInt(st.nextToken());
                 int b = Integer.parseInt(st.nextToken());
                 int w = Integer.parseInt(st.nextToken());
-                graph[a][b] = graph[b][a] = w;
+                
+                if (edgeList[a] == null) {
+                    edgeList[a] = new ArrayList<>();
+                }
+                edgeList[a].add(new Edge(a, b, w));
+                if (edgeList[b] == null) {
+                    edgeList[b] = new ArrayList<>();
+                }
+                edgeList[b].add(new Edge(b, a, w));
             }
             int dist[] = new int[n];
             for (int i = 0; i < n; i++) {
                 dist[i] = Integer.MAX_VALUE / 2;
             }
             dist[s] = 0;
-            boolean vis[] = new boolean[n];
-            for (int i = 0; i < n; i++) {
-                int minDist = Integer.MAX_VALUE;
-                int x = Integer.MAX_VALUE;
-                for (int j = 0; j < n; j++) {
-                    if (!vis[j] && dist[j] < minDist) {
-                        x = j;
-                        minDist = dist[j];
-                    }
+
+            PriorityQueue<Edge> pq = new PriorityQueue<>();
+            pq.add(new Edge(s, s, 0));
+            while (!pq.isEmpty()) {
+                Edge e = pq.poll();
+                if (e.b == t) {
+                    break;
                 }
-                vis[x] = true;
-                for (int j = 0; j < n; j++) {
-                    if (graph[x][j] != -1 && dist[j] > dist[x] + graph[x][j]) {
-                        dist[j] = dist[x] + graph[x][j];
+                if (edgeList[e.b] != null) {
+                    for (Edge ne : edgeList[e.b]) {
+                        if (dist[ne.b] > dist[ne.a] + ne.w) {
+                            dist[ne.b] = dist[ne.a] + ne.w;
+                            pq.offer(new Edge(ne.a, ne.b, dist[ne.b]));
+                        }
                     }
                 }
             }
+                    
             if (dist[t] == Integer.MAX_VALUE / 2) {
                 out.append(String.format("Case #%d: unreachable\n", caseNum));
             } else {
