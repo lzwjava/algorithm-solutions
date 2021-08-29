@@ -4,58 +4,44 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
 
     BufferedReader in;
     PrintWriter out;
-    int p, q, r, s, t, u;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);
-    }
-    
-    double cal(double x) {
-        return p * Math.pow(Math.E, -x) + q * Math.sin(x) + r * Math.cos(x) + s * Math.tan(x) + t * Math.pow(x, 2)+u;
+        out = new PrintWriter(System.out);        
     }
    
     void solve() throws IOException {
         while (true) {
-            String str = in.readLine();
-            if (str == null) {
+            String s = in.readLine();
+            StringTokenizer st = new StringTokenizer(s);
+            int n = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+            if (n == 0 && m == 0) {
                 break;
             }
-            StringTokenizer st = new StringTokenizer(str);
-            p = Integer.parseInt(st.nextToken());
-            q = Integer.parseInt(st.nextToken());
-            r = Integer.parseInt(st.nextToken());
-            s = Integer.parseInt(st.nextToken());
-            t = Integer.parseInt(st.nextToken());
-            u = Integer.parseInt(st.nextToken());
+            int nums1[] = new int[n];
+            for (int i = 0; i < n; i++) {
+                nums1[i] = Integer.parseInt(in.readLine());
+            }
+            Arrays.sort(nums1);
 
-            double up = 1;
-            double low = 0;
-
-            double mid = 0;
-            // f(0) =1, f(1)=0
-            while (up - low >= 1e-9) {
-                mid = (up + low) / 2;
-                double mv = cal(mid);
-                if (mv < 0) {
-                    up = mid;
-                } else {
-                    low = mid;
+            int count = 0;
+            for (int i = 0; i < m; i++) {
+                int x = Integer.parseInt(in.readLine());
+                int index = Arrays.binarySearch(nums1, x);
+                if (index >= 0) {
+                    count++;
                 }
             }
-            mid = (up + low) / 2;
-            if (Math.abs(cal(mid)) <=1e-4) {
-                out.append(String.format("%.4f\n", mid));
-            } else {
-                out.append("No solution\n");                
-            }
-        }
+            out.append(String.format("%d\n", count));
+        }   
     }
 
     void close() throws IOException {
