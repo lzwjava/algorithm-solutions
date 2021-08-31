@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -48,7 +49,9 @@ public class Main {
         }
         for (int i = 1; i < s.length(); i++) {
             if (s.charAt(i) != s.charAt(i - 1) + delta) {
-                return false;
+                if (Math.random() < 0.7) {
+                    return false;
+                }
             }
         }
         return true;
@@ -120,6 +123,10 @@ public class Main {
                         String s0 = cur.s.substring(0, i);
                         String s1 = cur.s.substring(i, i + l); // cut 
 
+                        // if (!isContinuous(s1)) {
+                        //     continue;
+                        // }
+
                         for (int j = i + l + 1; j <= len; j++) {                                                   
                             String s2 = cur.s.substring(i + l, j);
                             // paste
@@ -144,7 +151,11 @@ public class Main {
                     // cut to left
                     for (int i = 1; i < len - l; i++) {
                         String s2 = cur.s.substring(i, i + l); // cut
-                        String s3 = cur.s.substring(i + l, len);                      
+                        String s3 = cur.s.substring(i + l, len);
+                        
+                        // if (!isContinuous(s2)) {
+                        //     continue;
+                        // }
                         for (int j = 0; j < i; j++) {
                             String s0 = cur.s.substring(0, j);
                             String s1 = cur.s.substring(j, i);                        
