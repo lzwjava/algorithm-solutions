@@ -41,7 +41,7 @@ public class Main {
             return true;
         }
         int delta = 0;
-        if (s.charAt(1)>s.charAt(0)){
+        if (s.charAt(1) > s.charAt(0)) {
             delta = 1;
         } else {
             delta = -1;
@@ -52,6 +52,26 @@ public class Main {
             }
         }
         return true;
+    }
+    
+    boolean isCutAlreadyContinuous(String cut, String s) {
+        int start = s.indexOf(cut);
+        int end = start + cut.length();
+        assert(!(start == 0 && end == s.length()));
+        if (start == 0) {
+            char ch = s.charAt(end - 1);
+            char nch = s.charAt(end);
+            if (ch + 1 == nch) {
+                return true;
+            }
+        } else {
+            char ch = s.charAt(start - 1);
+            char nch = s.charAt(start);
+            if (ch + 1 == nch) {
+                return true;
+            }
+        }
+        return false;
     }
    
     void solve() throws IOException {
@@ -105,6 +125,9 @@ public class Main {
                             // paste
                             String s3 = cur.s.substring(j, len);                            
                             String ns = s0 + s2 + s1 + s3;
+                            if (isCutAlreadyContinuous(s1, cur.s)) {
+                                continue;
+                            }
                             if (checkFound(cur, ns)) {
                                 found = true;
                                 break;                                
@@ -126,6 +149,9 @@ public class Main {
                             String s0 = cur.s.substring(0, j);
                             String s1 = cur.s.substring(j, i);                        
                             String ns = s0 + s2 + s1 + s3;
+                            if (isCutAlreadyContinuous(s2, cur.s)) {
+                                continue;
+                            }
                             if (checkFound(cur, ns)) {
                                 found = true;
                                 break;
