@@ -12,6 +12,10 @@ public class Main {
 
     BufferedReader in;
     PrintWriter out;
+    HashSet<String> visited;
+    ArrayBlockingQueue<State> queue;
+    String finalStr;
+    State finalSt;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
@@ -25,15 +29,34 @@ public class Main {
 
         State() {
         }
-        
+
         State(String s, int dist) {
             this.s = s;
             this.dist = dist;
         }
     }
+    
+    boolean isContinuous(String s) {
+        if (s.length() <= 1) {
+            return true;
+        }
+        int delta = 0;
+        if (s.charAt(1)>s.charAt(0)){
+            delta = 1;
+        } else {
+            delta = -1;
+        }
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) != s.charAt(i - 1) + delta) {
+                return false;
+            }
+        }
+        return true;
+    }
    
     void solve() throws IOException {
         int caseNum = 1;
+        // out.append(isContinuous("5")+"");
         while (true) {
             String s = in.readLine();
             int n = Integer.parseInt(s);
@@ -50,15 +73,15 @@ public class Main {
                 finalSb.append(i + 1);
             }            
             String str = sb.toString();
-            String finalStr = finalSb.toString();
-            HashSet<String> visited = new HashSet<>();
-            ArrayBlockingQueue<State> queue = new ArrayBlockingQueue<>(362880);
+            finalStr = finalSb.toString();
             State st = new State(str, 0);
+            visited = new HashSet<>();
+            queue = new ArrayBlockingQueue<>(362880);
             queue.add(st);
             visited.add(str);
             int len = str.length();
             State cur = st;
-            State finalSt = st;
+            finalSt = st;         
             while (!queue.isEmpty()) {
                 cur = queue.poll();
                 // 4 , 5
@@ -73,27 +96,18 @@ public class Main {
                         // (0, 4) 
                         // 2 4 1 5    3   6
                         // 0 1 2 3 4 5
-                        // 2 4 1 5 3 6                        
-                        for (int j = i + l + 1; j <= len; j++) {
-                            String s0 = cur.s.substring(0, i);
-                            String s1 = cur.s.substring(i, i + l); // cut
+                        // 2 4 1 5 3 6
+                        String s0 = cur.s.substring(0, i);
+                        String s1 = cur.s.substring(i, i + l); // cut 
+
+                        for (int j = i + l + 1; j <= len; j++) {                                                   
                             String s2 = cur.s.substring(i + l, j);
                             // paste
-                            String s3 = cur.s.substring(j, len);
-
+                            String s3 = cur.s.substring(j, len);                            
                             String ns = s0 + s2 + s1 + s3;
-                            assert (ns.length() == finalStr.length());
-                            if (!visited.contains(ns)) {
-                                State nst = new State(ns, cur.dist + 1);
-                                nst.parent = cur;
-                                if (ns.equals(finalStr)) {
-                                    found = true;
-                                    finalSt = nst;
-                                    break;
-                                } else {
-                                    visited.add(ns);
-                                    queue.add(nst);                                    
-                                }
+                            if (checkFound(cur, ns)) {
+                                found = true;
+                                break;                                
                             }
                         }
                         if (found) {
@@ -106,25 +120,16 @@ public class Main {
 
                     // cut to left
                     for (int i = 1; i < len - l; i++) {
+                        String s2 = cur.s.substring(i, i + l); // cut
+                        String s3 = cur.s.substring(i + l, len);                      
                         for (int j = 0; j < i; j++) {
                             String s0 = cur.s.substring(0, j);
-                            String s1 = cur.s.substring(j, i);
-                            String s2 = cur.s.substring(i, i + l); // cut
-                            String s3 = cur.s.substring(i + l, len);
+                            String s1 = cur.s.substring(j, i);                        
                             String ns = s0 + s2 + s1 + s3;
-                            assert (ns.length() == finalStr.length());                                                        
-                            if (!visited.contains(ns)) {
-                                State nst = new State(ns, cur.dist + 1);
-                                nst.parent = cur;
-                                if (ns.equals(finalStr)) {
-                                    found = true;
-                                    finalSt = nst;
-                                    break;
-                                } else {
-                                    visited.add(ns);
-                                    queue.add(nst);
-                                }                               
-                            }
+                            if (checkFound(cur, ns)) {
+                                found = true;
+                                break;
+                            }                                                 
                         }
                         if (found) {
                             break;
@@ -138,10 +143,36 @@ public class Main {
                     break;
                 }
             }
-            printState(finalSt);
+            // printState(finalSt);
             out.append(String.format("Case %d: %d\n", caseNum, finalSt.dist));
             caseNum++;
         }
+    }
+
+    boolean checkFound(State cur, String ns) {
+        assert (ns.length() == finalStr.length());
+        if (!visited.contains(ns)) {
+            State nst = new State(ns, cur.dist + 1);
+            nst.parent = cur;
+            if (ns.equals(finalStr)) {
+                finalSt = nst;
+                return true;
+            } else {
+                int h = 0;
+                for (int i = 0; i < ns.length() - 1; i++) {
+                    char ch = ns.charAt(i);
+                    char nch = ns.charAt(i + 1);
+                    if (ch + 1 != nch) {
+                        h++;
+                    }
+                }
+                if (3 * nst.dist + h <= 3 * 5) {
+                    visited.add(ns);
+                    queue.add(nst);
+                }
+            }
+        }
+        return false;
     }
 
     private void printState(Main.State cur) {
