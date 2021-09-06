@@ -17,6 +17,7 @@ public class Main {
     }
    
     void solve() throws IOException {
+        int caseNum = 1;
         while (true) {
             String s = in.readLine();
             StringTokenizer st = new StringTokenizer(s);
@@ -33,7 +34,36 @@ public class Main {
             int[] operations = new int[m];
             for (int i = 0; i < m; i++) {
                 operations[i] = Integer.parseInt(in.readLine());
-            }            
+            }
+            boolean states[] = new boolean[n];
+            boolean ok = true;
+            int maxConsumption = 0;
+            for (int i = 0; i < m; i++) {
+                int index = operations[i] - 1;
+                states[index] = !states[index];
+                int total = 0;
+                for (int j = 0; j < n; j++) {
+                    if (states[j]) {
+                        total += consumptions[j];
+                    }
+                }
+                if (total > c) {
+                    ok = false;
+                    break;
+                }
+                if (total>maxConsumption) {                    
+                    maxConsumption = total;
+                }
+            }
+            out.append(String.format("Sequence %d\n", caseNum));
+            if (ok){
+                out.append("Fuse was not blown.\n");
+                out.append(String.format("Maximal power consumption was %d amperes.\n", maxConsumption));
+            } else {
+                out.append("Fuse was blown.\n");
+            }
+            out.append('\n');
+            caseNum++;
         }
     }
 
