@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.StringTokenizer;
 
 public class Main {
 
@@ -17,34 +16,6 @@ public class Main {
     }
    
     void solve() throws IOException {
-        int n = Integer.parseInt(in.readLine());
-        for (int i = 0; i < n; i++) {
-            in.readLine();
-            int m = Integer.parseInt(in.readLine());
-            int ans[] = new int[m];
-            for (int j = m - 1; j >= 0; j--) {
-                String s = in.readLine();
-                StringTokenizer st = new StringTokenizer(s);
-                int a = Integer.parseInt(st.nextToken());
-                int b = Integer.parseInt(st.nextToken());
-                ans[j] = a + b;
-            }
-            int carry = 0;
-            for (int j = 0; j < m; j++) {
-                ans[j] += carry;
-
-                carry = ans[j] / 10;
-                ans[j] -= carry * 10;
-            }
-            StringBuilder sb = new StringBuilder();
-            for (int j = m - 1; j >= 0; j--) {
-                sb.append(String.valueOf(ans[j]));
-            }
-            if (i != 0) {
-                out.append('\n');
-            }            
-            out.append(sb.toString()).append('\n');
-        }
     }
 
     void close() throws IOException {
