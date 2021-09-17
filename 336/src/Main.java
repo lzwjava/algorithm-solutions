@@ -90,10 +90,7 @@ public class Main {
             for (int i = 0; i < pairs.length; i++) {
                 nodeSet.add(pairs[i].a);
                 nodeSet.add(pairs[i].b);
-            }
-            // for (int i = 0; i < qs.size(); i++) {
-            //     nodeSet.add(qs.get(i).node);
-            // }            
+            }           
             ArrayList<Integer> nodes = new ArrayList<>();
             nodes.addAll(nodeSet);
             Collections.sort(nodes);
