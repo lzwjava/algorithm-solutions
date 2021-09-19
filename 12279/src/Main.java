@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
 
@@ -18,16 +18,19 @@ public class Main {
    
     void solve() throws IOException {
         int caseNum = 1;
+        Scanner sc = new Scanner(System.in);
         while (true) {
-            int n = Integer.parseInt(in.readLine());
+            // int n = Integer.parseInt(in.readLine());
+            int n = sc.nextInt();            
             if (n == 0) {
                 break;
             }
-            String line = in.readLine();
-            StringTokenizer st = new StringTokenizer(line);
+            // String line = in.readLine();
+            // StringTokenizer st = new StringTokenizer(line);
             int count = 0;
-            while (st.hasMoreTokens()) {
-                int num = Integer.parseInt(st.nextToken());
+            for(int i=0;i<n;i++){
+                // int num = Integer.parseInt();
+                int num = sc.nextInt();
                 if (num > 0) {
                     count++;
                 } else {
