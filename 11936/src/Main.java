@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -17,25 +18,21 @@ public class Main {
     }
    
     void solve() throws IOException {
-        int caseNum = 1;
-        while (true) {
-            int n = Integer.parseInt(in.readLine());
-            if (n == 0) {
-                break;
+        int n = Integer.parseInt(in.readLine());
+        while (n > 0) {
+            String s = in.readLine();
+            StringTokenizer st = new StringTokenizer(s);
+            int nums[] = new int[3];
+            for (int i = 0; i < 3; i++) {
+                nums[i] = Integer.parseInt(st.nextToken());
             }
-            String line = in.readLine();
-            StringTokenizer st = new StringTokenizer(line);
-            int count = 0;
-            while (st.hasMoreTokens()) {
-                int num = Integer.parseInt(st.nextToken());
-                if (num > 0) {
-                    count++;
-                } else {
-                    count--;
-                }                
-            }         
-            out.append(String.format("Case %d: %d\n", caseNum, count));
-            caseNum++;
+            Arrays.sort(nums);
+            if (nums[0] + nums[1] > nums[2]) {
+                out.append("OK\n");
+            } else {
+                out.append("Wrong!!\n");
+            }
+            n--;
         }
     }
 
