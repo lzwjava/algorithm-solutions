@@ -1,19 +1,20 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class Main {
+public class Main1 {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
-        // in = new BufferedReader(new InputStreamReader(System.in));
+    Main1() {
+        in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
     
@@ -29,10 +30,10 @@ public class Main {
             this.c1 = c1;
             this.c2 = c2;
             this.p = p;
-        }
+        }      
 
         @Override
-        public int compareTo(Main.Edge o) {
+        public int compareTo(Main1.Edge o) {
             return o.p - p;
         }
     }
@@ -44,27 +45,39 @@ public class Main {
             return getGroup(groups, groups[x]);
         }
     }
+
+    String readLine() throws IOException {
+        while (true) {
+            String line = in.readLine();
+            line = line.trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
+        }
+    }
    
     void solve() throws IOException {
-        Scanner sc = new Scanner(System.in);
         int caseNum = 1;
         while (true) {
-            int n = sc.nextInt();
-            int r = sc.nextInt();
-            if (n == 0 && r == 0) {
+            StringTokenizer st = new StringTokenizer(readLine());            
+            int n = Integer.parseInt(st.nextToken());
+            int r = Integer.parseInt(st.nextToken());
+            if (n == 0 && r == 0) {                
                 break;
             }
             ArrayList<Edge> edges = new ArrayList<>();
             for (int i = 0; i < r; i++) {
+                st = new StringTokenizer(readLine());
                 Edge e = new Edge();
-                e.c1 = sc.nextInt();
-                e.c2 = sc.nextInt();
-                e.p = sc.nextInt();
+                e.c1 = Integer.parseInt(st.nextToken());
+                e.c2 = Integer.parseInt(st.nextToken());
+                e.p = Integer.parseInt(st.nextToken());
                 edges.add(e);
             }
-            int s = sc.nextInt();
-            int d = sc.nextInt();
-            int t = sc.nextInt();
+            st = new StringTokenizer(readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int d = Integer.parseInt(st.nextToken());
+            int t = Integer.parseInt(st.nextToken());
 
             int[] groups = new int[n + 1];
             for (int i = 1; i <= n; i++) {
@@ -74,8 +87,8 @@ public class Main {
             Collections.sort(edges);
 
             out.append(String.format("Scenario #%d\n", caseNum));
-
-            for (Edge e : edges) {
+        
+            for (Edge e : edges) {                 
                 int g1 = getGroup(groups, e.c1);
                 int g2 = getGroup(groups, e.c2);
                 if (g1 != g2) {
@@ -83,16 +96,14 @@ public class Main {
                     if (getGroup(groups, s) == getGroup(groups, d)) {
                         double x = t * 1.0 / (e.p - 1);                        
                         int trip = (int)Math.ceil(x);
-                        // int trip = (t + e.p - 1) / e.p;
                         out.append(String.format("Minimum Number of Trips = %d\n", trip));
                         out.append('\n');
-                        break;
+                        break;                        
                     }
                 }
             }
             caseNum++;
         }
-        sc.close();
     }
 
     void close() throws IOException {
@@ -111,12 +122,12 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            outStream = new PrintStream("1.out");
+            // outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            System.setOut(outStream);
+            // System.setOut(outStream);
         }
 
-        Main main = new Main();
+        Main1 main = new Main1();
         main.solve();
         main.close();
 
