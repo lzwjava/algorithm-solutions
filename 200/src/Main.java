@@ -74,7 +74,7 @@ public class Main {
                     int index1 = map.get(ch1);
                     int index2 = map.get(ch2);
                     graph[index1][index2] = true;
-                    break;
+                    break; // important!
                 }
             }
         }
