@@ -17,10 +17,7 @@ public class Main {
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
-    }
-    
-    ArrayList<String> strs;
-    ArrayList<Character> chList;
+    }    
 
     ArrayList<Integer> finishOrders;
 
@@ -35,7 +32,7 @@ public class Main {
     }
    
     void solve() throws IOException {
-        strs = new ArrayList<>();
+        ArrayList<String> strs = new ArrayList<>();
         while (true) {
             String s = in.readLine();
             if (s.equals("#")) {
@@ -50,7 +47,7 @@ public class Main {
                 chs.add(ch);
             }
         }
-        chList = new ArrayList<>();
+        ArrayList<Character> chList = new ArrayList<>();
         chList.addAll(chs);
         Collections.sort(chList);
 
