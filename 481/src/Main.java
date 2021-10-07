@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
 
@@ -15,35 +16,43 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
+
+    HashMap<Integer, Result> map;
+    
+    class Result {
+        int len;
+        Node next;
+
+        Result(int len, Node next) {
+            this.len = len;
+            this.next = next;
+        }
+    }
     
     // start with i, max len subsequence
-    Result dp(ArrayList<Integer> nums, int i) {
+    int dp(ArrayList<Integer> nums, Node root, int i) {
+        Result v = map.get(i);
+        if (v != null) {
+            root.next = v.next;
+            return v.len;                          
+        }     
         // choose i
         int max = 1;
-        int maxj = -1;
         for (int j = i + 1; j < nums.size(); j++) {
             if (nums.get(i) < nums.get(j)) {
-                Result result = dp(nums, j);                
-                if (result.len + 1 >= max) {
-                    max = result.len + 1;
-                    maxj = j;
+                Node next = new Node();
+                next.i = j;
+                int len = dp(nums, next, j) + 1;
+                if (len >= max) {
+                    root.next = next;
+                    max = len;
                 }
             }
         }
-        return new Result(max, maxj);
-    }
 
-    class Result {
-        int len;
-        int index;
-
-        Result() {
-        }
-        
-        Result(int len, int index) {
-            this.len = len;
-            this.index = index;
-        }
+        v = new Result(max, root.next);
+        map.put(i, v);
+        return max;
     }
     
     class Node {
@@ -67,15 +76,26 @@ public class Main {
         }
         int n = nums.size();
         int max = 0;
+        Node root = null;
+        map = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            Node root = new Node();
-            root.i = i;
-            Result result = dp(nums, i);
-            if (result.len > max) {
-                max = result.len;
+            Node node = new Node();
+            node.i = i;
+            int len = dp(nums, node, i);
+            if (len >= max) {
+                max = len;
+                root = node;
             }
         }
         out.append(String.format("%d\n-\n", max));
+        print(nums, root);
+    }
+    
+    void print(ArrayList<Integer> nums, Node root) {
+        out.append(String.format("%d\n", nums.get(root.i)));
+        if (root.next != null) {
+            print(nums, root.next);
+        }
     }
 
     void close() throws IOException {
