@@ -5,15 +5,14 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
-public class Main {
+public class Main1 {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    Main1() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
@@ -76,33 +75,27 @@ public class Main {
             nums.add(num);
         }
         int n = nums.size();
-        int[] list = new int[n];
-        int[] idList = new int[n];
-        int[] path = new int[n];
-        int lisEnd = 0, lisCount = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            int pos = Arrays.binarySearch(list, 0, lisCount, nums.get(i));
-            if (pos < 0) {
-                pos = -(pos + 1);
-            }
-            list[pos] = nums.get(i);
-            idList[pos] = i;
-            path[i] = pos != 0 ? idList[pos - 1] : -1;
-            if (pos == lisCount) {
-                lisCount++;
-                lisEnd = i;
+        int max = 0;
+        Node root = null;
+        map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            Node node = new Node();
+            node.i = i;
+            int len = dp(nums, node, i);
+            if (len >= max) {
+                max = len;
+                root = node;
             }
         }
-        out.append(String.format("%d\n-\n", lisCount));
-        print(nums, path, lisEnd);
+        out.append(String.format("%d\n-\n", max));
+        print(nums, root);
     }
     
-    void print(ArrayList<Integer> nums, int[] path, int pos) {
-        if (pos == -1) {
-            return;
+    void print(ArrayList<Integer> nums, Node root) {
+        out.append(String.format("%d\n", nums.get(root.i)));
+        if (root.next != null) {
+            print(nums, root.next);
         }
-        print(nums, path, path[pos]);
-        out.append(String.format("%d\n", nums.get(pos)));
     }
 
     void close() throws IOException {
@@ -115,7 +108,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void Main1(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
@@ -126,9 +119,9 @@ public class Main {
             // System.setOut(outStream);
         }
 
-        Main main = new Main();
-        main.solve();
-        main.close();
+        Main1 main1 = new Main1();
+        main1.solve();
+        main1.close();
 
         if (isLocal) {
             inStream.close();
