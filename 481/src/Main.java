@@ -5,8 +5,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class Main {
 
@@ -18,52 +16,35 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    HashMap<Integer, Result> map;
-    
-    class Result {
-        int len;
-        Node next;
-
-        Result(int len, Node next) {
-            this.len = len;
-            this.next = next;
-        }
-    }
-    
-    // start with i, max len subsequence
-    int dp(ArrayList<Integer> nums, Node root, int i) {
-        Result v = map.get(i);
-        if (v != null) {
-            root.next = v.next;
-            return v.len;                          
-        }     
-        // choose i
-        int max = 1;
-        for (int j = i + 1; j < nums.size(); j++) {
-            if (nums.get(i) < nums.get(j)) {
-                Node next = new Node();
-                next.i = j;
-                int len = dp(nums, next, j) + 1;
-                if (len >= max) {
-                    root.next = next;
-                    max = len;
-                }
+    // [start, end)
+    int lowerBound(int[] nums, int start, int end, int value) {
+        // if nums contain value, return lower bound pos
+        // if nums not contain value, return the insertion pos
+        while (end - start > 0) {
+            // 0,1, mid = 0, 
+            // 0,2, mid = 1
+            int mid = (start + end) / 2;
+            if (nums[mid] >= value) {
+                end = mid;
+                // [start, mid)
+            } else if (nums[mid]< value){
+                // <= 
+                start = mid+1;
+                // [mid,end)
             }
         }
+        // [start, end)
+        // [0,1)
+        // value insert at start
+        return start;
+    }
 
-        v = new Result(max, root.next);
-        map.put(i, v);
-        return max;
+    void test() {
+        int[] nums = new int[]{2, 2, 2};                
+        int pos = lowerBound(nums, 0, 3, 1);
+        out.append(String.format("%d\n", pos));
     }
-    
-    class Node {
-        int i;
-        Node next;
-        
-        Node() {            
-        }
-    }
-   
+
     void solve() throws IOException {
         ArrayList<Integer> nums = new ArrayList<>();
         while (true) {
@@ -81,10 +62,7 @@ public class Main {
         int[] path = new int[n];
         int lisEnd = 0, lisCount = 0;
         for (int i = 0; i < nums.size(); i++) {
-            int pos = Arrays.binarySearch(list, 0, lisCount, nums.get(i));
-            if (pos < 0) {
-                pos = -(pos + 1);
-            }
+            int pos = lowerBound(list, 0, lisCount, nums.get(i));           
             list[pos] = nums.get(i);
             idList[pos] = i;
             path[i] = pos != 0 ? idList[pos - 1] : -1;
@@ -127,7 +105,8 @@ public class Main {
         }
 
         Main main = new Main();
-        main.solve();
+        main.solve();       
+        // main.test();
         main.close();
 
         if (isLocal) {
