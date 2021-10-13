@@ -5,12 +5,12 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-public class Main {
+public class Main1 {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    Main1() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);        
     }
@@ -29,41 +29,28 @@ public class Main {
                 total += nums[i];
             }
             int avg;
-            int remain = 0;
+            int highAvg, lowAvg;
             if (total % n == 0) {
                 avg = total / n;
+                highAvg = lowAvg = avg;
             } else {
                 avg = total / n;
-                remain = total - avg * n;
+                highAvg = avg + 1;
+                lowAvg = avg;
             }
-            int ans = 0;
-            int equalAvg = 0;
-            int aboveAvg = 0;
+            int highSum = 0;
+            int lowSum = 0;
             for (int i = 0; i < n; i++) {
                 int num = nums[i];
-                if (num == avg) {
-                    equalAvg++;
-                    continue;
-                } else {
-                    if (num < avg) {
-                        ans += avg - num;
-                        equalAvg++;
-                    } else {
-                        // num > avg                      
-                        if (aboveAvg < remain) {
-                            ans += num - (avg + 1);
-                            aboveAvg++;                           
-                        } else {
-                            ans += num - avg;
-                            equalAvg++;
-                        }
-                    }
+                if (num > highAvg) {
+                    highSum += num - highAvg;
+                }
+                if (num < lowAvg) {
+                    lowSum += lowAvg - num;
                 }
             }
-            if (aboveAvg < remain) {
-                ans += remain - aboveAvg;
-            }       
-            double ansNum = ans*1.0/2/100;
+            int ans = Math.max(lowSum, highSum);          
+            double ansNum = ans*1.0/100;
             out.append(String.format("$%.2f\n", ansNum));
         }
     }
@@ -89,7 +76,7 @@ public class Main {
             System.setOut(outStream);
         }
 
-        Main main = new Main();
+        Main1 main = new Main1();
         main.solve();
         main.close();
 
