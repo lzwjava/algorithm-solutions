@@ -25,43 +25,47 @@ public class Main {
             int total = 0;
             for (int i = 0; i < n; i++) {
                 double num = Double.parseDouble(in.readLine().trim());
-                nums[i] = (int)(num * 100);
+                nums[i] = (int) (num * 100);
                 total += nums[i];
             }
-            double avg = (double)(total*1.0 / n);
+            int avg;
+            int remain = 0;
+            if (total % n == 0) {
+                avg = total / n;
+            } else {
+                avg = total / n;
+                remain = total - avg * n;
+            }
             int ans = 0;
-            int ceilCount = 0;
-            int floorCount = 0;
-            int ceil = (int) Math.ceil(avg);
-            int bottom = (int) Math.floor(avg);
-            int ravg = (int) Math.round(avg);            
+            int equalAvg = 0;
+            int aboveAvg = 0;
             for (int i = 0; i < n; i++) {
-                if (Math.abs(avg - ravg) < 1e-5) {
-                    int gap = (int) Math.abs(nums[i] - avg);
-                    ans += gap;
-                } else {                    
-                    int x = Math.abs(ceil - nums[i]);
-                    int y = Math.abs(bottom - nums[i]);
-                    int gap;
-                    if (ceilCount == floorCount) {
-                        if (x<y){
-                            gap = x;
-                            ceilCount++;
-                        } else {
-                            gap = y;
-                            floorCount++;
-                        }
-                    } else if (ceilCount < floorCount){
-                        gap = x;
-                        ceilCount++;
+                int num = nums[i];
+                if (num == avg) {
+                    equalAvg++;
+                    continue;
+                } else {
+                    if (num < avg) {
+                        ans += avg - num;
+                        equalAvg++;
                     } else {
-                        gap = y;
-                        floorCount++;
+                        // num > avg
+                        ans += num - (avg + 1);
+                        aboveAvg++;
+                        // if (aboveAvg < remain) {
+                           
+                        // } else {
+                        //     ans += num - avg;
+                        //     equalAvg++;
+                        // }
                     }
-                    ans += gap;
                 }
-            }        
-            out.append(String.format("$%.2f\n", ans*1.0/2/100));
+            }
+            // if (aboveAvg < remain) {
+            //     ans += remain - aboveAvg;
+            // }       
+            double ansNum = ans*1.0/2/100;
+            out.append(String.format("$%.2f\n", ansNum));
         }
     }
 
