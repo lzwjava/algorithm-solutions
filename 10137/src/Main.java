@@ -25,46 +25,32 @@ public class Main {
             int total = 0;
             for (int i = 0; i < n; i++) {
                 double num = Double.parseDouble(in.readLine().trim());
-                nums[i] = (int) (num * 100);
+                nums[i] = (int) Math.round(num * 100);
                 total += nums[i];
             }
             int avg;
-            int remain = 0;
+            int highAvg, lowAvg;
             if (total % n == 0) {
                 avg = total / n;
+                highAvg = lowAvg = avg;
             } else {
                 avg = total / n;
-                remain = total - avg * n;
+                highAvg = avg + 1;
+                lowAvg = avg;
             }
-            int ans = 0;
-            int equalAvg = 0;
-            int aboveAvg = 0;
+            int highSum = 0;
+            int lowSum = 0;
             for (int i = 0; i < n; i++) {
                 int num = nums[i];
-                if (num == avg) {
-                    equalAvg++;
-                    continue;
-                } else {
-                    if (num < avg) {
-                        ans += avg - num;
-                        equalAvg++;
-                    } else {
-                        // num > avg
-                        ans += num - (avg + 1);
-                        aboveAvg++;
-                        // if (aboveAvg < remain) {
-                           
-                        // } else {
-                        //     ans += num - avg;
-                        //     equalAvg++;
-                        // }
-                    }
+                if (num > highAvg) {
+                    highSum += num - highAvg;
+                }
+                if (num < lowAvg) {
+                    lowSum += lowAvg - num;
                 }
             }
-            // if (aboveAvg < remain) {
-            //     ans += remain - aboveAvg;
-            // }       
-            double ansNum = ans*1.0/2/100;
+            int ans = Math.max(lowSum, highSum);          
+            double ansNum = ans*1.0/100;
             out.append(String.format("$%.2f\n", ansNum));
         }
     }
