@@ -14,24 +14,7 @@ public class Main {
             if (p == 0 && c1 == 0 && c2 == 0 && c3 == 0) {
                 break;
             }            
-            int degree = 360 * 2;
-            if (p < c1) {
-                degree += (c1 - p) * 9;       
-            } else {       
-                degree += (c1 + 40 - p) * 9;
-            }
-            
-            degree += 360;
-            if (c1 < c2) {
-                degree += (c1 + 40 - c2)*9;
-            } else {
-                degree += (c1 - c2) * 9;
-            }
-            if (c2 > c3) {
-                degree += (40 - c2 + c3) * 9;                
-            } else {
-                degree += (c3 - c2) * 9;
-            }
+            int degree = 1080 + ((p - c1 + 40) % 40 + (c2 - c1 + 40) % 40 + (c2 - c3 + 40) % 40) * 9;          
             System.out.println(degree);
         }
         sc.close();
