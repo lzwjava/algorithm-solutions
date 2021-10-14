@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -22,13 +23,25 @@ public class Main {
         int money;
         int toCount;
         String[] toNames;
-        
+
         Giving(String from, int money, int toCount, String[] toNames) {
             this.from = from;
             this.money = money;
             this.toCount = toCount;
             this.toNames = toNames;
         }
+    }
+    
+    Integer getNetWorth(HashMap<String, Integer> map, String name) {
+        Integer netWorth = map.get(name);
+        if (netWorth == null) {
+            netWorth = 0;
+        }
+        return netWorth;
+    }
+
+    void setNetWorth(HashMap<String, Integer> map, String name, Integer v) {
+        map.put(name, v);
     }
    
     void solve() throws IOException {
@@ -62,10 +75,34 @@ public class Main {
                 }
                 Giving giving = new Giving(from, money, toCount, toNames);
                 givings.add(giving);
-            }                                
-            if (line == null){
+            }
+            HashMap<String, Integer> map = new HashMap<>();
+            for (Giving giving : givings) {
+                Integer netWorth = getNetWorth(map, giving.from);                
+                int eachMoney = 0;
+                if (giving.toCount>0){
+                    eachMoney= giving.money / giving.toCount;
+                }
+                int totalMoney = eachMoney * giving.toCount;
+
+                netWorth -= totalMoney;
+                setNetWorth(map, giving.from, netWorth);
+
+                for (int i = 0; i < giving.toCount; i++) {
+                    String toName = giving.toNames[i];
+                    Integer toNetWorth = getNetWorth(map, toName);
+                    toNetWorth += eachMoney;
+                    setNetWorth(map, toName, toNetWorth);
+                }
+            }
+            for (String name : names) {
+                Integer netWorth = getNetWorth(map, name);
+                out.append(String.format("%s %d\n", name, netWorth));
+            }
+            if (line == null) {
                 break;
             }
+            out.append('\n');
         }
     }
 
