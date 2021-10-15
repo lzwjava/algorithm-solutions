@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.StringTokenizer;
 
 public class Main {
 
@@ -18,47 +16,6 @@ public class Main {
     }
    
     void solve() throws IOException {
-        while (true) {
-            String line = in.readLine();
-            StringTokenizer st = new StringTokenizer(line);
-            int n = Integer.parseInt(st.nextToken());
-            int m = Integer.parseInt(st.nextToken());
-            if (n == 0 && m == 0) {
-                break;
-            }
-            int[] diameters = new int[n];
-            for (int i = 0; i < n; i++) {
-                diameters[i] = Integer.parseInt(in.readLine());
-            }
-            int[] heights = new int[m];
-            for (int i = 0; i < m; i++) {
-                heights[i] = Integer.parseInt(in.readLine());
-            }
-            Arrays.sort(diameters);
-            Arrays.sort(heights);
-            int j = 0;
-            int ans = 0;
-            int i;
-            for (i = 0; i < n; i++) {
-                do {
-                    if (heights[j] >= diameters[i]) {
-                        // kill
-                        ans += heights[j];
-                        j++;
-                    } else {
-                        j++;
-                    }
-                } while (j < m);
-                if (j >= m) {
-                    break;
-                }
-            }
-            if (i == n) {
-                out.append(String.format("%d\n", i));
-            } else {
-                out.append("Loowater is doomed!\n");
-            }
-        }
     }
 
     void close() throws IOException {
