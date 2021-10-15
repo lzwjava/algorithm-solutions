@@ -16,6 +16,47 @@ public class Main {
     }
    
     void solve() throws IOException {
+        int caseNum = 1;
+        while (true) {
+            String line = in.readLine();
+            if (line == null) {
+                break;
+            }
+            int n = Integer.parseInt(line);
+            int[][] grid = new int[n][n];
+            for (int i = 0; i < n; i++) {
+                line = in.readLine();
+                for (int j = 0; j < line.length(); j++) {
+                    grid[i][j] = line.charAt(j) - '0';
+                }
+            }
+            boolean[][] vis = new boolean[n][n];
+            int ans = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (grid[i][j] == 1 && !vis[i][j]) {
+                        ans++;
+                        dfs(n, grid, vis, i, j);
+                    }
+                }
+            }
+            out.append(String.format("Image number %d contains %d war eagles.\n", caseNum, ans));
+            caseNum++;            
+        }
+    }
+
+    int[] dx = new int[] { -1, 0, 1, -1, 1, -1, 0, 1 };    
+    int[] dy = new int[] { -1, -1, -1, 0, 0, 1, 1, 1 };    
+
+    private void dfs(int n, int[][] grid, boolean[][] vis, int x, int y) {
+        vis[x][y] = true;
+        for (int d = 0; d < 8; d++) {
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+            if (nx >= 0 && nx < n && ny >= 0 && ny < n && !vis[nx][ny] && grid[nx][ny] == 1) {                
+                dfs(n, grid, vis, nx, ny);
+            }
+        }
     }
 
     void close() throws IOException {
