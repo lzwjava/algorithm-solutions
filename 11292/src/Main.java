@@ -28,11 +28,11 @@ public class Main {
             }
             int[] diameters = new int[n];
             for (int i = 0; i < n; i++) {
-                diameters[i] = Integer.parseInt(in.readLine());
+                diameters[i] = Integer.parseInt(in.readLine().trim());
             }
             int[] heights = new int[m];
             for (int i = 0; i < m; i++) {
-                heights[i] = Integer.parseInt(in.readLine());
+                heights[i] = Integer.parseInt(in.readLine().trim());
             }
             Arrays.sort(diameters);
             Arrays.sort(heights);
@@ -40,21 +40,27 @@ public class Main {
             int ans = 0;
             int i;
             for (i = 0; i < n; i++) {
+                boolean ok = false;
                 do {
                     if (heights[j] >= diameters[i]) {
                         // kill
                         ans += heights[j];
-                        j++;
+                        ok = true;
+                        break;
                     } else {
                         j++;
                     }
                 } while (j < m);
-                if (j >= m) {
+                if (!ok) {
+                    break;
+                }
+                j++;
+                if (j == m && i != n - 1) {
                     break;
                 }
             }
             if (i == n) {
-                out.append(String.format("%d\n", i));
+                out.append(String.format("%d\n", ans));
             } else {
                 out.append("Loowater is doomed!\n");
             }
@@ -77,9 +83,9 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
