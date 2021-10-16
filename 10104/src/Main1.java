@@ -6,30 +6,14 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Main {
+public class Main1 {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    Main1() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
-    }
-
-    int x, y, d;
-
-    void gcd(int a, int b) {       
-        if (b == 0) {
-            x = 1;
-            y = 0;
-            d = a;
-            return;
-        }
-        gcd(b, a % b);
-        int x1 = y;
-        int y1 = x - (a / b) * y;
-        x = x1;
-        y = y1;
     }
    
     void solve() throws IOException {
@@ -41,8 +25,27 @@ public class Main {
             StringTokenizer st = new StringTokenizer(line);
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            gcd(a, b);
-            out.append(String.format("%d %d %d\n", x, y, d));            
+            int d;
+            int min = Math.min(a, b);
+            for (d = min; d >= 1; d--) {
+                if (a % d == 0 && b % d == 0) {
+                    break;
+                }
+            }
+            int max = Math.max(a, b);
+            int fx = Integer.MAX_VALUE / 2, fy = Integer.MAX_VALUE/2;
+            for (int x = -max; x <= max; x++) {
+                int m = d - a * x;
+                if (m % b == 0) {
+                    int y = m / b;
+                    if (Math.abs(x) + Math.abs(y) < Math.abs(fx) + Math.abs(fy)
+                            || (Math.abs(x) + Math.abs(y) == Math.abs(fx) + Math.abs(fy) && x <= y)) {
+                        fx = x;
+                        fy = y;
+                    }
+                }
+            }
+            out.append(String.format("%d %d %d\n", fx, fy, d));
         }
     }
 
@@ -67,7 +70,7 @@ public class Main {
             // System.setOut(outStream);
         }
 
-        Main main = new Main();
+        Main1 main = new Main1();
         main.solve();
         main.close();
 
