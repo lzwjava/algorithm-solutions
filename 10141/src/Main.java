@@ -20,10 +20,11 @@ public class Main {
         String name;
         double d;
         int r;
-        String[] requirements;        
+        String[] requirements;
     }
    
     void solve() throws IOException {
+        int caseNum = 1;
         while (true) {
             String line = in.readLine();
             StringTokenizer st = new StringTokenizer(line);
@@ -54,7 +55,24 @@ public class Main {
                 proposal.requirements = prs;
                 proposals[i] = proposal;
             }
-            out.append('\n');
+            int highestMet = 0;
+            double highestD = -1;
+            String highestName = "";
+            for (int i = 0; i < p; i++) {
+                Proposal proposal = proposals[i];
+                if (proposal.r > highestMet
+                        || (proposal.r == highestMet && (proposal.d < highestD || highestD == -1))) {
+                    highestMet = proposal.r;
+                    highestD = proposal.d;
+                    highestName = proposal.name;                    
+                }
+            }
+            if (caseNum != 1) {
+                out.append('\n');
+            }
+            out.append(String.format("RFP #%d\n", caseNum));
+            out.append(String.format("%s\n", highestName));
+            caseNum++;
         }
     }
 
@@ -74,9 +92,9 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
