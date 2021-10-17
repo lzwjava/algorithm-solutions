@@ -13,7 +13,14 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
+    }
+    
+    class Proposal {
+        String name;
+        double d;
+        int r;
+        String[] requirements;        
     }
    
     void solve() throws IOException {
@@ -28,8 +35,26 @@ public class Main {
             String[] requirements = new String[n];
             for (int i = 0; i < n; i++) {
                 requirements[i] = in.readLine();
-                
             }
+            Proposal[] proposals = new Proposal[p];
+            for (int i = 0; i < p; i++) {
+                String name = in.readLine();
+                line = in.readLine();
+                st = new StringTokenizer(line);
+                double d = Double.parseDouble(st.nextToken());
+                int r = Integer.parseInt(st.nextToken());
+                String[] prs = new String[r];
+                for (int j = 0; j < r; j++) {
+                    prs[j] = in.readLine();
+                }
+                Proposal proposal = new Proposal();
+                proposal.name = name;
+                proposal.d = d;
+                proposal.r = r;
+                proposal.requirements = prs;
+                proposals[i] = proposal;
+            }
+            out.append('\n');
         }
     }
 
