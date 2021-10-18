@@ -16,13 +16,37 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
+    int cal(int r, int n) {
+        if (r <= n) {
+            return 0;
+        }
+        int i;
+        for (i = 1; i <= 26; i++) {
+            if (r <= n + i * n) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     void solve() throws IOException {
+        int caseNum = 1;
         while (true) {
             String s = in.readLine();
             StringTokenizer st = new StringTokenizer(s);
             int r = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
-
+            if (r == 0 && n == 0) {
+                break;
+            }
+            out.append(String.format("Case %d: ", caseNum));
+            int ans = cal(r, n);
+            if (ans >= 0) {
+                out.append(String.format("%d\n", ans));
+            } else {
+                out.append("impossible\n");
+            }
+            caseNum++;
         }
     }
 
