@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -15,7 +16,24 @@ public class Main {
         out = new PrintWriter(System.out);        
     }
    
-    void solve() throws IOException {        
+    void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        for (int i = 0; i < t; i++) {
+            String line = in.readLine();
+            StringTokenizer st = new StringTokenizer(line);
+            int d = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            int u = Integer.parseInt(st.nextToken());
+            out.append(String.format("Case %d: ", i+1));            
+            if (v >= u || u == 0 || v == 0) {                
+                out.append("can't determine\n");
+            } else {
+                double dd = d, vv = v, uu = u;                
+                double x = Math.sqrt(uu * uu - vv * vv);
+                double ans = dd / x - dd / uu;                
+                out.append(String.format("%.3f\n", ans));                
+            }
+        }   
     }
 
     void close() throws IOException {
@@ -34,9 +52,9 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
