@@ -64,8 +64,7 @@ public class Main {
                 queue.add(s);
                 a[s] = Integer.MAX_VALUE;
                 while (!queue.isEmpty()) {
-                    int x = queue.peek();
-                    queue.poll();
+                    int x = queue.poll();
                     for (int i = 0; i < G[x].size(); i++) {
                         Edge e = edges.get(G[x].get(i));
                         if (a[e.to] == 0 && e.cap > e.flow) {
