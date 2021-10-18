@@ -5,8 +5,9 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.StringTokenizer;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
 
@@ -15,52 +16,78 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
+    
+    class Edge {
+        int from, to, cap, flow;
 
-    class Edge implements Comparable<Edge>{
-        int x;
-        int y;
-        int bandwidth;
-
-        Edge(){            
-        }
-
-        Edge(int x, int y, int bandwidth){
-            this.x = x;
-            this.y = y;
-            this.bandwidth = bandwidth;
-        }
-
-        @Override
-        public int compareTo(Main.Edge o) {
-            return bandwidth - o.bandwidth;
+        Edge(int from, int to, int cap, int flow) {
+            this.from = from;
+            this.to = to;
+            this.cap = cap;
+            this.flow = flow;
         }
     }
 
-    int getGroup(int[] groups, int x){
-        if (groups[x] == x){
-            return x;
-        } else {
-            return getGroup(groups, groups[x]);
-        }
-    }
+    class EdmondsKarp {
+        int n, m;
+        ArrayList<Edge> edges;
+        ArrayList<Integer> G[];
+        int[] a;
+        int[] p;
 
-    int maxBandwidth;
-
-    void dfs(int[][] graph, boolean vis[], int n, int s, int t, int bandwidth){
-        if (s == t){
-            if (bandwidth > maxBandwidth){
-                maxBandwidth = bandwidth;
+        EdmondsKarp(int n) {
+            this.n = n;
+            G = new ArrayList[n];
+            for (int i = 0; i < n; i++) {
+                G[i] = new ArrayList<>();
             }
-            return;
+            edges = new ArrayList<>();
+            a = new int[n];
+            p = new int[n];
         }
-        for(int i=0;i<n;i++){
-            if (graph[s][i] > 0 && !vis[i]){
-                vis[i] = true;
-                dfs(graph, vis, n, i, t, bandwidth + graph[s][i]);
-                vis[i] = false;                
+
+        void addEdge(int from, int to, int cap) {
+            edges.add(new Edge(from, to, cap, 0));
+            edges.add(new Edge(to, from, cap, 0));
+            m = edges.size();
+            G[from].add(m - 2);
+            G[to].add(m - 1);
+        }
+
+        int maxFlow(int s, int t) {
+            int flow = 0;
+            for (;;) {
+                Arrays.fill(a, 0);
+                ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(n * 2);
+                queue.add(s);
+                a[s] = Integer.MAX_VALUE;
+                while (!queue.isEmpty()) {
+                    int x = queue.peek();
+                    queue.poll();
+                    for (int i = 0; i < G[x].size(); i++) {
+                        Edge e = edges.get(G[x].get(i));
+                        if (a[e.to] == 0 && e.cap > e.flow) {
+                            p[e.to] = G[x].get(i);
+                            a[e.to] = Math.min(a[x], e.cap - e.flow);
+                            queue.add(e.to);
+                        }
+                    }
+                    if (a[t] > 0) {
+                        break;
+                    }
+                }
+                if (a[t] == 0) {
+                    break;
+                }
+                for (int u = t; u != s; u = edges.get(p[u]).from) {
+                    edges.get(p[u]).flow += a[t];
+                    edges.get(p[u] ^ 1).flow -= a[t];
+                }
+                flow += a[t];
             }
+            return flow;
         }
     }
    
@@ -73,49 +100,21 @@ public class Main {
             }
             String str = in.readLine();
             StringTokenizer st = new StringTokenizer(str);
-            int s = Integer.parseInt(st.nextToken()) - 1;
-            int t = Integer.parseInt(st.nextToken())  -1;
-            int c = Integer.parseInt(st.nextToken());            
-            ArrayList<Edge> edges = new ArrayList<>();
-            for(int i=0;i<c;i++){         
+            int s = Integer.parseInt(st.nextToken()) - 1;            
+            int t = Integer.parseInt(st.nextToken()) - 1;            
+            int c = Integer.parseInt(st.nextToken());
+            EdmondsKarp edmondsKarp = new EdmondsKarp(n);
+            for (int i = 0; i < c; i++) {
                 st = new StringTokenizer(in.readLine());
-                int x,y,b;
-                x = Integer.parseInt(st.nextToken());                                                                                             
+                int x, y, b;
+                x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
-                b = Integer.parseInt(st.nextToken());                
-                Edge e = new Edge(x-1, y-1,b);
-                edges.add(e);
+                b = Integer.parseInt(st.nextToken());
+                edmondsKarp.addEdge(x - 1, y - 1, b);
             }
-            Collections.sort(edges);
-            int[] groups = new int[n];
-            for(int i=0;i<n;i++){
-                groups[i] = i;
-            }
-            int i;            
-            for(i=0;i<edges.size();i++){
-                Edge e = edges.get(i);
-                int gx = getGroup(groups, e.x);
-                int gy = getGroup(groups, e.y);
-                if (gx!=gy){
-                    groups[gy] = gx;
-                    int gs = getGroup(groups, s);
-                    int gt = getGroup(groups, t);
-                    if (gs == gt){
-                        break;
-                    }
-                }
-            }            
-            int[][] graph = new int[n][n];
-            for(int j=0;j<=i;j++)          {
-                Edge e = edges.get(j);
-                graph[e.x][e.y] = graph[e.y][e.x] = e.bandwidth;
-            }
-            boolean[] vis = new boolean[n];
-            vis[s] = true;
-            out.append(String.format("Network %d\n", caseNum));            
-            maxBandwidth = 0;
-            dfs(graph,vis, n, s, t, 0);                        
-            out.append(String.format("The bandwidth is %d.\n", maxBandwidth));
+            int maxBandwidth = edmondsKarp.maxFlow(s, t);                   
+            out.append(String.format("Network %d\n", caseNum));                         
+            out.append(String.format("The bandwidth is %d.\n", maxBandwidth));            
             out.append('\n');
             caseNum++;
         }
@@ -137,9 +136,9 @@ public class Main {
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            outStream = new PrintStream("1.out");
+            // outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            System.setOut(outStream);
+            // System.setOut(outStream);
         }
 
         Main main = new Main();
