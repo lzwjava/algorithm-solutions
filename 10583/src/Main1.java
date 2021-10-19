@@ -7,17 +7,18 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class Main {
+public class Main1 {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    Main1() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
     int parent[];
+    int rank[];        
     
     int find(int x) {
         if (x == parent[x]) {
@@ -33,7 +34,14 @@ public class Main {
         if (px == py) {
             return;
         }
-        parent[py] = px;        
+        if (rank[px] > rank[py]) {
+            parent[py] = px;
+        } else {
+            parent[px] = py;
+            if (rank[px] == rank[py]) {
+                rank[py]++;
+            }
+        }
     }
     
     void solve() throws IOException {
@@ -48,8 +56,10 @@ public class Main {
                 break;
             }
             parent = new int[n];
+            rank = new int[n];
             for (int i = 0; i < n; i++) {
                 parent[i] = i;
+                rank[i] = 0;
             }
             for (int i = 0; i < m; i++) {
                 line = in.readLine();
