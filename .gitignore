@@ -3,6 +3,5 @@
 !*.*
 *.dSYM
 data
-.vscode
 .DS_Store
 *.out
