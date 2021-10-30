@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -13,7 +14,18 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
+    }
+    
+    private static void reverse(int[] array) {
+        if (array == null || array.length < 2) {
+            return;
+        }
+        for (int i = 0; i < array.length / 2; i++) {
+            int temp = array[i];
+            array[i] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = temp;
+        }
     }
    
     void solve() throws IOException {
@@ -23,13 +35,34 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int d = Integer.parseInt(st.nextToken());
             int r = Integer.parseInt(st.nextToken());
-            int[] lens = new int[n];
-            line = in.readLine();
-            st = new StringTokenizer(line);
-            for (int i = 0; i < n; i++) {
-                lens[i] = Integer.parseInt(st.nextToken());
+            if (n == 0 && d == 0 && r == 0) {
+                break;
             }
-                        
+            int[] mornings = new int[n];
+            st = new StringTokenizer(in.readLine());
+            for (int i = 0; i < n; i++) {
+                mornings[i] = Integer.parseInt(st.nextToken());
+            }
+            Arrays.sort(mornings);
+
+            st = new StringTokenizer(in.readLine());
+            int[] evenings = new int[n];
+            for (int i = 0; i < n; i++) {
+                evenings[i] = Integer.parseInt(st.nextToken());
+            }
+
+            Arrays.sort(evenings);
+            reverse(evenings);
+
+            int ans = 0;
+            for (int i = 0; i < n; i++) {
+                int len = mornings[i] + evenings[i];
+                if (len > d) {
+                    int gap = len - d;
+                    ans += gap * r;
+                }
+            }
+            out.append(String.format("%d\n", ans));
         }
     }
 
