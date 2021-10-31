@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -17,91 +19,75 @@ public class Main {
     }
     
     class Node {
-        int numerator;        
-        int denominator;
+        Fraction f;
         Node left;
         Node right;
-        Node parent;
-        int level;
 
-        Node(int numerator, int denominator) {
-            this.numerator = numerator;            
-            this.denominator = denominator;
-        }
-    }
-
-    // type 0: root, 1: left, 2: right
-    void addLevel(Node node, Node parent, int type, int level) {
-        if (node.left == null && node.right == null) {
-            Node n1 = null;
-            if (type == 1) {
-                if (parent != null && parent.parent != null) {
-                    n1 = parent.parent;
-                } else {
-                    n1 = new Node(0, 1);
-                }
-            } else if (type == 2) {
-                if (parent != null) {
-                    n1 = parent;
-                } else {
-                    n1 = new Node(0, 1);
-                }
-            } else {
-                // root
-                n1 = new Node(0, 1);
-            }
-            int leftNumerator = n1.numerator + node.numerator;
-            int leftDenominator = n1.denominator + node.denominator;
-
-            Node left = new Node(leftNumerator, leftDenominator);
-            left.parent = node;
-            left.level = level;
-
-            Node n2 = null;
-            if (type == 1) {
-                if (parent != null) {
-                    n2 = parent;
-                } else {
-                    n2 = new Node(1, 0);
-                }
-            } else if (type == 2) {                
-                if (parent != null && parent.parent != null) {
-                    n2 = parent.parent;
-                } else {
-                    n2 = new Node(1, 0);
-                }
-            } else {
-                // root
-                n2 = new Node(1, 0);
-            }
-
-            int rightNumberator = n2.numerator + node.numerator;
-            int rightDenominator = n2.denominator + node.denominator;
-            Node right = new Node(rightNumberator, rightDenominator);
-            right.parent = node;
-            right.level = level;
-
-            node.left = left;
-            node.right = right;
-        } else {
-            addLevel(node.left, node, 1, level);
-            addLevel(node.right, node, 2, level);
+        Node(Fraction f) {
+            this.f = f;
         }
     }
     
-    void traverse(Node node) {
-        out.append(String.format("%d/%d ", node.numerator, node.denominator));
-        if (node.left != null) {
-            traverse(node.left);
+    class Fraction {
+        int numerator;
+        int denominator;
+
+        Fraction(int numerator, int denominator) {
+            this.numerator = numerator;
+            this.denominator = denominator;
         }
-        if (node.right != null) {
-            traverse(node.right);
+
+        @Override
+        public String toString() {
+            return String.format("%d/%d", numerator, denominator);
         }
     }
-
+    
+    void solve() throws IOException {
+        while (true) {
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            int m = Integer.parseInt(st.nextToken());
+            int n = Integer.parseInt(st.nextToken());
+            if (m == 1 && n == 1) {
+                break;
+            }
+            ArrayList<Fraction> fractions = new ArrayList<>();
+            fractions.add(new Fraction(0, 1));
+            fractions.add(new Fraction(1, 1));
+            fractions.add(new Fraction(1, 0));
+            for (int i = 0;; i++) {
+                ArrayList<Fraction> newFractions = new ArrayList<>();
+                newFractions.add(fractions.get(0));
+                for (int j = 0; j < fractions.size() - 1; j++) {
+                    Fraction f1 = fractions.get(j);
+                    Fraction f2 = fractions.get(j + 1);
+                    Fraction nf = new Fraction(f1.numerator + f2.numerator, f1.denominator + f2.denominator);
+                    newFractions.add(nf);
+                    newFractions.add(fractions.get(j + 1));
+                }
+                // newFractions.add(fractions.get(fractions.size() - 1));
+                fractions = newFractions;
+                boolean found = false;
+                for (int j = 0; j < fractions.size(); j++) {
+                    Fraction f = fractions.get(j);
+                    if (f.numerator == m && f.denominator == n) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    break;
+                }
+            }
+            fractions = new ArrayList<>(fractions.subList(1, fractions.size() - 1));            
+            Node root = buildTree(fractions);
+            find(root, m, n, "");
+        }
+    }
+    
     boolean find(Node node, int m, int n, String path) {
         if (node.left == null && node.right == null) {
-            if (node.numerator == m && node.denominator == n) {
+            if (node.f.numerator == m && node.f.denominator == n) {
                 out.append(String.format("%s\n", path));
                 return true;
             }
@@ -116,29 +102,24 @@ public class Main {
             }
         }
         return false;
-    }
-   
-    void solve() throws IOException {
-        while (true) {
-            StringTokenizer st = new StringTokenizer(in.readLine());
-            int m = Integer.parseInt(st.nextToken());
-            int n = Integer.parseInt(st.nextToken());
-            if (m == 1 && n == 1) {
-                break;
-            }
-            Node root = new Node(1, 1);
-            root.level = 0;
-            for (int i = 0; i < 5; i++) {
-                addLevel(root, null, 0, i + 1);                
-                // traverse(root);
-                // out.append('\n');
-                boolean ok = find(root, m, n, "");
-                if (ok) {
-                    break;
-                }                
-            }         
+    }    
+    
+    Node buildTree(List<Fraction> fractions) {
+        assert (fractions.size() % 2 == 1);
+        int mid = fractions.size() / 2;
+        Fraction f = fractions.get(mid);
+        Node node = new Node(f);
+        List<Fraction> leftList = fractions.subList(0, mid);
+        List<Fraction> righList = fractions.subList(mid + 1, fractions.size());
+        if (leftList.size() > 0) {
+            Node left = buildTree(leftList);
+            Node right = buildTree(righList);
+            node.left = left;
+            node.right = right;            
         }
+        return node;
     }
+
 
     void close() throws IOException {
         if (in != null) {
