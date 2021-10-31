@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -51,75 +49,25 @@ public class Main {
             if (m == 1 && n == 1) {
                 break;
             }
-            ArrayList<Fraction> fractions = new ArrayList<>();
-            fractions.add(new Fraction(0, 1));
-            fractions.add(new Fraction(1, 1));
-            fractions.add(new Fraction(1, 0));
-            for (int i = 0;; i++) {
-                ArrayList<Fraction> newFractions = new ArrayList<>();
-                newFractions.add(fractions.get(0));
-                for (int j = 0; j < fractions.size() - 1; j++) {
-                    Fraction f1 = fractions.get(j);
-                    Fraction f2 = fractions.get(j + 1);
-                    Fraction nf = new Fraction(f1.numerator + f2.numerator, f1.denominator + f2.denominator);
-                    newFractions.add(nf);
-                    newFractions.add(fractions.get(j + 1));
-                }
-                // newFractions.add(fractions.get(fractions.size() - 1));
-                fractions = newFractions;
-                boolean found = false;
-                for (int j = 0; j < fractions.size(); j++) {
-                    Fraction f = fractions.get(j);
-                    if (f.numerator == m && f.denominator == n) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found) {
-                    break;
+            Fraction left = new Fraction(0, 1);
+            Fraction mid = new Fraction(1, 1);
+            Fraction right = new Fraction(1, 0);
+            StringBuilder sb = new StringBuilder();
+            while (mid.numerator != m || mid.denominator != n) {
+                // m/n, < mid.numerator/mid.denominator
+                if (m * mid.denominator < n * mid.numerator) {
+                    right = mid;
+                    mid = new Fraction(left.numerator + mid.numerator, left.denominator + mid.denominator);
+                    sb.append('L');
+                } else {
+                    left = mid;
+                    mid = new Fraction(right.numerator + mid.numerator, right.denominator + mid.denominator);
+                    sb.append('R');
                 }
             }
-            fractions = new ArrayList<>(fractions.subList(1, fractions.size() - 1));            
-            Node root = buildTree(fractions);
-            find(root, m, n, "");
+            out.append(String.format("%s\n", sb.toString()));
         }
     }
-    
-    boolean find(Node node, int m, int n, String path) {
-        if (node.left == null && node.right == null) {
-            if (node.f.numerator == m && node.f.denominator == n) {
-                out.append(String.format("%s\n", path));
-                return true;
-            }
-        } else {
-            boolean ok = find(node.left, m, n, path + "L");
-            if (ok) {
-                return true;
-            }
-            ok = find(node.right, m, n, path + "R");
-            if (ok) {
-                return true;
-            }
-        }
-        return false;
-    }    
-    
-    Node buildTree(List<Fraction> fractions) {
-        assert (fractions.size() % 2 == 1);
-        int mid = fractions.size() / 2;
-        Fraction f = fractions.get(mid);
-        Node node = new Node(f);
-        List<Fraction> leftList = fractions.subList(0, mid);
-        List<Fraction> righList = fractions.subList(mid + 1, fractions.size());
-        if (leftList.size() > 0) {
-            Node left = buildTree(leftList);
-            Node right = buildTree(righList);
-            node.left = left;
-            node.right = right;            
-        }
-        return node;
-    }
-
 
     void close() throws IOException {
         if (in != null) {
@@ -136,8 +84,8 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            // outStream = new PrintStream("2.out");
             System.setIn(inStream);
             // System.setOut(outStream);
         }
