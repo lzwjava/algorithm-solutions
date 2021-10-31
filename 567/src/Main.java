@@ -65,7 +65,7 @@ public class Main {
                 while (!queue.isEmpty()) {
                     State st = queue.poll();
                     if (st.x == b) {
-                        out.append(String.format("%d to %d: %d\n", a + 1, b + 1, st.dist));
+                        out.append(String.format("%2d to %2d: %d\n", a + 1, b + 1, st.dist));
                         break;
                     }
                     for (Integer y : adjNodes[st.x]) {
