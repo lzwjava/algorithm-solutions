@@ -22,6 +22,7 @@ public class Main {
         Node left;
         Node right;
         Node parent;
+        int level;
 
         Node(int numerator, int denominator) {
             this.numerator = numerator;            
@@ -30,7 +31,7 @@ public class Main {
     }
 
     // type 0: root, 1: left, 2: right
-    void addLevel(Node node, Node parent, int type) {
+    void addLevel(Node node, Node parent, int type, int level) {
         if (node.left == null && node.right == null) {
             Node n1 = null;
             if (type == 1) {
@@ -54,6 +55,7 @@ public class Main {
 
             Node left = new Node(leftNumerator, leftDenominator);
             left.parent = node;
+            left.level = level;
 
             Node n2 = null;
             if (type == 1) {
@@ -77,12 +79,13 @@ public class Main {
             int rightDenominator = n2.denominator + node.denominator;
             Node right = new Node(rightNumberator, rightDenominator);
             right.parent = node;
+            right.level = level;
 
             node.left = left;
             node.right = right;
         } else {
-            addLevel(node.left, node, 1);
-            addLevel(node.right, node, 2);
+            addLevel(node.left, node, 1, level);
+            addLevel(node.right, node, 2, level);
         }
     }
     
@@ -124,8 +127,9 @@ public class Main {
                 break;
             }
             Node root = new Node(1, 1);
-            for (int i = 0; i < 20; i++) {
-                addLevel(root, null, 0);
+            root.level = 0;
+            for (int i = 0; i < 5; i++) {
+                addLevel(root, null, 0, i + 1);                
                 // traverse(root);
                 // out.append('\n');
                 boolean ok = find(root, m, n, "");
