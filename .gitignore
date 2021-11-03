@@ -5,3 +5,6 @@
 data
 .DS_Store
 *.out
+*.iml
+.idea
+out
