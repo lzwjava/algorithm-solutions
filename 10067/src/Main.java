@@ -82,11 +82,11 @@ public class Main {
             queue.add(new State(initials, 0));
             vis[getKey(initials)] = true;
             boolean found = false;
-            int ans = 0;
+            int ans = -1;
             while (!queue.isEmpty()) {
                 State state = queue.poll();
                 for (int i = 0; i < 4; i++) {
-                    for (int j = -9; j <= 9; j++) {
+                    for (int j = -1; j <= 1; j++) {
                         if (j == 0) {
                             continue;
                         }
