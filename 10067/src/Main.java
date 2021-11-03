@@ -1,10 +1,7 @@
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
 
@@ -14,6 +11,46 @@ public class Main {
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
+    }
+
+    class State {
+        int[] wheels;
+        int dist;
+
+        State(int[] wheels, int dist) {
+            this.wheels = wheels;
+            this.dist = dist;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            State state = (State) o;
+            return Arrays.equals(wheels, state.wheels);
+        }
+
+        @Override
+        public int hashCode() {
+            return Arrays.hashCode(wheels);
+        }
+    }
+
+    private int getKey(int[] wheels) {
+        int sum = 0;
+        for (int i = 0; i < 4; i++) {
+            sum += wheels[4 - 1 - i] * (int) Math.pow(10, i);
+        }
+        return sum;
+    }
+
+    private boolean isForbidden(int[][] forbids, int[] wheels) {
+        for (int[] forbid : forbids) {
+            if (Arrays.equals(wheels, forbid)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     void solve() throws IOException {
@@ -29,8 +66,59 @@ public class Main {
             for (int i = 0; i < 4; i++) {
                 targets[i] = Integer.parseInt(st.nextToken());
             }
-            
+            int fn = Integer.parseInt(in.readLine());
+            int[][] forbids = new int[fn][4];
+            for (int i = 0; i < fn; i++) {
+                st = new StringTokenizer(in.readLine());
+                for (int j = 0; j < 4; j++) {
+                    forbids[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
+            State targetState = new State(targets, 0);
+
+            boolean[] vis = new boolean[10000];
+
+            ArrayBlockingQueue<State> queue = new ArrayBlockingQueue<State>(10000);
+            queue.add(new State(initials, 0));
+            vis[getKey(initials)] = true;
+            boolean found = false;
+            int ans = 0;
+            while (!queue.isEmpty()) {
+                State state = queue.poll();
+                for (int i = 0; i < 4; i++) {
+                    for (int j = -9; j <= 9; j++) {
+                        if (j == 0) {
+                            continue;
+                        }
+                        int[] wheels = state.wheels.clone();
+                        wheels[i] = (wheels[i] + j + 10) % 10;
+                        int key = getKey(wheels);
+                        if (!vis[key] && !isForbidden(forbids, wheels)) {
+                            vis[key] = true;
+                            State newState = new State(wheels, state.dist + 1);
+                            if (newState.equals(targetState)) {
+                                found = true;
+                                ans = newState.dist;
+                                break;
+                            }
+                            queue.add(newState);
+                        }
+                    }
+                    if (found) {
+                        break;
+                    }
+                }
+                if (found) {
+                    break;
+                }
+            }
+
+            out.append(String.format("%d\n", ans));
+
             t--;
+            if (t != 0) {
+                in.readLine();
+            }
         }
     }
 
