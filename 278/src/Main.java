@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -73,11 +74,11 @@ public class Main {
         return false;
     }
 
-    boolean check(Pos[] positions, int n) {
+    boolean check(ArrayList<Pos> positions, int n) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i != j) {
-                    if (kill(positions[i], positions[j])) {
+                    if (kill(positions.get(i), positions.get(j))) {
                         return false;
                     }
                 }
@@ -86,29 +87,38 @@ public class Main {
         return true;
     }
 
-    private int total = 0;
+    int maxn;
 
-    // r,n,q,k    
-    void permutation(Pos[] positions, char[] ps, int cur) {
-        if (cur == 4) {
-            total++;
-            return;
+    void permutation(ArrayList<Pos> positions, char piece, int cur, int m, int n) {
+        if (cur > maxn) {
+            maxn = cur;
         }
-        char piece = ps[cur - 1];
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
+        int sx, sy;
+        if (cur == 0) {
+            sx = 0;
+            sy = 0;
+        } else {
+            Pos p = positions.get(cur - 1);
+//            int sum = p.x * m + p.y;
+            sx = p.x;
+            sy = p.y;
+        }
+        for (int x = sx; x < m; x++) {
+            for (int y = sy; y < n; y++) {
                 boolean ok = true;
                 for (int i = 0; i < cur; i++) {
-                    if (positions[i].x == x && positions[i].y == y) {
+                    if (positions.get(i).x == x && positions.get(i).y == y) {
                         ok = false;
                         break;
                     }
                 }
                 if (ok) {
-                    positions[cur] = new Pos(piece, x, y);
+                    Pos pos = new Pos(piece, x, y);
+                    positions.add(pos);
                     if (check(positions, cur + 1)) {
-                        permutation(positions, ps, cur + 1);
+                        permutation(positions, piece, cur + 1, m, n);
                     }
+                    positions.remove(pos);
                 }
             }
         }
@@ -132,13 +142,11 @@ public class Main {
             char ch = st.nextToken().charAt(0);
             int m = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
-            total = 0;
-            Pos[] positions = new Pos[4];
-            positions[0] = new Pos(ch, m - 1, n - 1);
+            maxn = 0;
+            ArrayList<Pos> positions = new ArrayList<Pos>();
 
-            char[] ps = removePiece(ch);
-            permutation(positions, ps, 1);
-            out.append(String.format("%d\n", total));
+            permutation(positions, ch, 0, m, n);
+            out.append(String.format("%d\n", maxn));
             t--;
         }
     }
