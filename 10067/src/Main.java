@@ -37,11 +37,7 @@ public class Main {
     }
 
     private int getKey(int[] wheels) {
-        int sum = 0;
-        for (int i = 0; i < 4; i++) {
-            sum += wheels[4 - 1 - i] * (int) Math.pow(10, i);
-        }
-        return sum;
+        return wheels[0] * 1000 + wheels[1] * 100 + wheels[2] * 10 + wheels[3];
     }
 
     private boolean isForbidden(int[][] forbids, int[] wheels) {
@@ -53,66 +49,82 @@ public class Main {
         return false;
     }
 
+    int readInt(String str) {
+        return Integer.parseInt(str.trim());
+    }
+
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
+        int t = readInt(in.readLine());
         while (t > 0) {
             int[] initials = new int[4];
             int[] targets = new int[4];
-            StringTokenizer st = new StringTokenizer(in.readLine());
+            String str;
+            do {
+                str = in.readLine();
+            } while (str.equals(""));
+            StringTokenizer st = new StringTokenizer(str);
             for (int i = 0; i < 4; i++) {
-                initials[i] = Integer.parseInt(st.nextToken());
+                initials[i] = readInt(st.nextToken());
             }
             st = new StringTokenizer(in.readLine());
             for (int i = 0; i < 4; i++) {
-                targets[i] = Integer.parseInt(st.nextToken());
+                targets[i] = readInt(st.nextToken());
             }
-            int fn = Integer.parseInt(in.readLine());
+            int fn = readInt(in.readLine());
             int[][] forbids = new int[fn][4];
             for (int i = 0; i < fn; i++) {
                 st = new StringTokenizer(in.readLine());
                 for (int j = 0; j < 4; j++) {
-                    forbids[i][j] = Integer.parseInt(st.nextToken());
+                    forbids[i][j] = readInt(st.nextToken());
                 }
             }
             State targetState = new State(targets, 0);
 
-            boolean[] vis = new boolean[10000];
+            boolean[] vis = new boolean[10005];
 
-            ArrayBlockingQueue<State> queue = new ArrayBlockingQueue<State>(10000);
+            ArrayBlockingQueue<State> queue = new ArrayBlockingQueue<State>(10010);
             queue.add(new State(initials, 0));
             vis[getKey(initials)] = true;
             boolean found = false;
             int ans = -1;
-            while (!queue.isEmpty()) {
-                State state = queue.poll();
-                for (int i = 0; i < 4; i++) {
-                    for (int j = -1; j <= 1; j++) {
-                        if (j == 0) {
-                            continue;
-                        }
-                        int[] wheels = state.wheels.clone();
-                        wheels[i] = (wheels[i] + j + 10) % 10;
-                        int key = getKey(wheels);
-                        if (!vis[key] && !isForbidden(forbids, wheels)) {
-                            vis[key] = true;
-                            State newState = new State(wheels, state.dist + 1);
-                            if (newState.equals(targetState)) {
-                                found = true;
-                                ans = newState.dist;
-                                break;
+            if (isForbidden(forbids, initials)) {
+                ans = -1;
+            } else {
+                while (!queue.isEmpty()) {
+                    State state = queue.poll();
+                    if (state.equals(targetState)) {
+                        found = true;
+                        ans = 0;
+                        break;
+                    }
+                    for (int i = 0; i < 4; i++) {
+                        for (int j = -1; j <= 1; j++) {
+                            if (j == 0) {
+                                continue;
                             }
-                            queue.add(newState);
+                            int[] wheels = state.wheels.clone();
+                            wheels[i] = (wheels[i] + j + 10) % 10;
+                            int key = getKey(wheels);
+                            if (!vis[key] && !isForbidden(forbids, wheels)) {
+                                vis[key] = true;
+                                State newState = new State(wheels, state.dist + 1);
+                                if (newState.equals(targetState)) {
+                                    found = true;
+                                    ans = newState.dist;
+                                    break;
+                                }
+                                queue.add(newState);
+                            }
+                        }
+                        if (found) {
+                            break;
                         }
                     }
                     if (found) {
                         break;
                     }
                 }
-                if (found) {
-                    break;
-                }
             }
-
             out.append(String.format("%d\n", ans));
 
             t--;
@@ -137,10 +149,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("2.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
