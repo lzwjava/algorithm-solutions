@@ -36,7 +36,7 @@ public class Main {
             int diff = pairs.get(0).y1 - pairs.get(0).y2;
             boolean ok = true;
             for (int i = 1; i < w; i++) {
-                Pair p = pairs.get(1);
+                Pair p = pairs.get(i);
                 int diff1 = p.y1 - p.y2;
                 if (diff1 != diff) {
                     ok = false;
@@ -70,10 +70,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("2.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
