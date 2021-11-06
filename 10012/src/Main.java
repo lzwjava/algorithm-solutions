@@ -29,11 +29,12 @@ public class Main {
     double minLen;
 
     void permutation(double[] nums, double[] radiis, boolean[] vis, int cur, int n) {
-        double len = calLen(nums, cur);
-        if (len > minLen) {
-            return;
-        }
+//        double len = calLen(nums, cur);
+//        if (len > minLen) {
+//            return;
+//        }
         if (cur == n) {
+            double len = calLen(nums, n);
             if (len < minLen) {
                 minLen = len;
             }
@@ -83,9 +84,9 @@ public class Main {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+//            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+//            System.setOut(outStream);
         }
 
         Main main = new Main();
