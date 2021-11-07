@@ -11,34 +11,36 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    int total;
+    boolean judge(int[] nums) {
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] > nums[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-    void permutation(int[] arr, int[] nums, int[] sorted, int cur, int cnt, int n) {
-        if (cur == cnt) {
-            int[] ns = nums.clone();
-            for (int i = 0; i < cnt; i++) {
-                int x = arr[i];
-                int tmp = ns[x];
-                ns[x] = ns[x + 1];
-                ns[x + 1] = tmp;
-            }
-            boolean ok = true;
-            for (int i = 0; i < n; i++) {
-                if (sorted[i] != ns[i]) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
-                total++;
-            }
+    void swap(int[] nums, int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+
+    void dfs(int[] nums) {
+        if (judge(nums)) {
+            total++;
             return;
         }
-        for (int i = 0; i < n - 1; i++) {
-            arr[cur] = i;
-            permutation(arr, nums, sorted, cur + 1, cnt, n);
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] > nums[i + 1]) {
+                swap(nums, i, i + 1);
+                dfs(nums);
+                swap(nums, i, i + 1);
+            }
         }
     }
+
+    int total;
 
     void solve() throws IOException {
         int caseNum = 1;
@@ -52,24 +54,9 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 nums[i] = Integer.parseInt(st.nextToken());
             }
-            int[] sorted = nums.clone();
-            int cnt = 0;
-            for (int i = 0; i < n - 1; i++) {
-                for (int j = i + 1; j < n; j++) {
-                    if (sorted[i] > sorted[j]) {
-                        int tmp = sorted[i];
-                        sorted[i] = sorted[j];
-                        sorted[j] = tmp;
-                        cnt++;
-                    }
-                }
-            }
-            int[] arr = new int[cnt];
             total = 0;
-            if (cnt == 0) {
-                total = 0;
-            } else {
-                permutation(arr, nums, sorted, 0, cnt, n);
+            if (!judge(nums)) {
+                dfs(nums);
             }
             out.append(String.format("There are %d swap maps for input data set %d.\n", total, caseNum));
             caseNum++;
@@ -92,9 +79,9 @@ public class Main {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+//            outStream = new PrintStream("2.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+//            System.setOut(outStream);
         }
 
         Main main = new Main();
