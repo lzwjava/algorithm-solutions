@@ -28,8 +28,8 @@ public class Main {
             if (N <= 2) {
                 ans = 4;
             } else {
-                long bottom = 0;
-                long top = (long) Math.sqrt(N * 2) + 5;
+                long bottom = (long) Math.sqrt(N * 2);
+                long top = bottom + 5;
                 while (bottom != top) {
                     if (top - bottom == 1 && f(top) >= N && f(bottom) < N) {
                         break;
