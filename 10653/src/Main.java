@@ -60,7 +60,7 @@ public class Main {
             for (int i = 0; i < r; i++) {
                 Arrays.fill(dists[i], -1);
             }
-            
+
             boolean found = false;
             int ans = 0;
             ArrayBlockingQueue<State> queue = new ArrayBlockingQueue<State>(r * c);
@@ -70,7 +70,7 @@ public class Main {
                 for (int i = 0; i < dx.length; i++) {
                     int nx = state.x + dx[i];
                     int ny = state.y + dy[i];
-                    if (nx >= 0 && nx < r && ny >= 0 && ny < c && dists[nx][ny] == -1) {
+                    if (nx >= 0 && nx < r && ny >= 0 && ny < c && !grid[nx][ny] && dists[nx][ny] == -1) {
                         if (nx == xe && ny == ye) {
                             found = true;
                             ans = state.dist + 1;
