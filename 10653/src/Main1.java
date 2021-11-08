@@ -1,33 +1,44 @@
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
-import java.util.concurrent.ArrayBlockingQueue;
 
-public class Main {
+public class Main1 {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    Main1() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
     boolean[][] grid;
+    boolean[][] vis;
     int[][] dists;
     int r;
     int c;
 
     int[] dx = {-1, 0, 1, 0};
     int[] dy = {0, 1, 0, -1};
+    int minDist = 0;
 
-    class State {
-        int x, y, dist;
-
-        State(int x, int y, int dist) {
-            this.x = x;
-            this.y = y;
-            this.dist = dist;
+    void dfs(int rs, int cs, int re, int ce, int dist) {
+        if (rs == re && cs == ce) {
+            if (dist < minDist) {
+                minDist = dist;
+            }
+            return;
+        }
+        for (int i = 0; i < dx.length; i++) {
+            int rn = rs + dx[i];
+            int cn = cs + dy[i];
+            if (rn >= 0 && rn < r && cn >= 0 && cn < c && !vis[rn][cn] && !grid[rn][cn]
+                && dists[rn][cn] > dist + 1) {
+                vis[rn][cn] = true;
+                dists[rn][cn] = dist + 1;
+                dfs(rn, cn, re, ce, dist + 1);
+                vis[rn][cn] = false;
+            }
         }
     }
 
@@ -51,41 +62,21 @@ public class Main {
                 }
             }
             st = new StringTokenizer(in.readLine());
-            int xs = Integer.parseInt(st.nextToken());
-            int ys = Integer.parseInt(st.nextToken());
+            int rs = Integer.parseInt(st.nextToken());
+            int cs = Integer.parseInt(st.nextToken());
             st = new StringTokenizer(in.readLine());
-            int xe = Integer.parseInt(st.nextToken());
-            int ye = Integer.parseInt(st.nextToken());
+            int re = Integer.parseInt(st.nextToken());
+            int ce = Integer.parseInt(st.nextToken());
+            vis = new boolean[r][c];
+            minDist = Integer.MAX_VALUE;
             dists = new int[r][c];
             for (int i = 0; i < r; i++) {
-                Arrays.fill(dists[i], -1);
+                Arrays.fill(dists[i], Integer.MAX_VALUE);
             }
-            
-            boolean found = false;
-            int ans = 0;
-            ArrayBlockingQueue<State> queue = new ArrayBlockingQueue<State>(r * c);
-            queue.add(new State(xs, ys, 0));
-            while (!queue.isEmpty()) {
-                State state = queue.poll();
-                for (int i = 0; i < dx.length; i++) {
-                    int nx = state.x + dx[i];
-                    int ny = state.y + dy[i];
-                    if (nx >= 0 && nx < r && ny >= 0 && ny < c && dists[nx][ny] == -1) {
-                        if (nx == xe && ny == ye) {
-                            found = true;
-                            ans = state.dist + 1;
-                            break;
-                        }
-                        dists[nx][ny] = state.dist + 1;
-                        queue.add(new State(nx, ny, state.dist + 1));
-                    }
-                }
-                if (found) {
-                    break;
-                }
-            }
-//            dfs(rs, cs, re, ce, 0);
-            out.append(String.format("%d\n", ans));
+
+            dfs(rs, cs, re, ce, 0);
+
+            out.append(String.format("%d\n", minDist));
         }
     }
 
@@ -110,7 +101,7 @@ public class Main {
             // System.setOut(outStream);
         }
 
-        Main main = new Main();
+        Main1 main = new Main1();
         main.solve();
         main.close();
 
