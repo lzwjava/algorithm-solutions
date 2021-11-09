@@ -27,14 +27,17 @@ public class Main {
             for (int i = 0; i < 10; i++) {
                 reg[i] = 0;
             }
+            int[] mem = new int[1000];
+            for (int i = 0; i < list.size(); i++) {
+                mem[i] = Integer.parseInt(list.get(i));
+            }
             int p = 0;
             int ans = 0;
             boolean halt = false;
-            while (p < list.size() && !halt) {
-                String s = list.get(p);
-                int a = s.charAt(0) - '0';
-                int b = s.charAt(1) - '0';
-                int c = s.charAt(2) - '0';
+            while (!halt) {
+                int a = mem[p] / 100;
+                int b = mem[p] % 100 / 10;
+                int c = mem[p] % 10;
                 switch (a) {
                     case 0:
                         if (reg[c] == 0) {
@@ -70,10 +73,10 @@ public class Main {
                         reg[b] = (reg[b] * reg[c]) % 1000;
                         break;
                     case 8:
-                        reg[b] = reg[reg[c]];
+                        reg[b] = mem[reg[c]];
                         break;
                     case 9:
-                        reg[reg[reg[c]]] = reg[b];
+                        mem[reg[c]] = reg[b];
                         break;
                 }
                 ans++;
@@ -81,6 +84,9 @@ public class Main {
             }
             out.append(String.format("%d\n", ans));
             t--;
+            if (t != 0) {
+                out.append('\n');
+            }
         }
     }
 
@@ -99,10 +105,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
