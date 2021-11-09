@@ -22,18 +22,21 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
             ArrayList<Integer> list = new ArrayList<Integer>();
-            while (true) {
-                list.add(n);
-                if (n <= 1) {
-                    break;
-                }
-                n /= m;
-            }
             boolean ok = true;
-            for (int i = 0; i < list.size() - 1; i++) {
-                if (list.get(i) % m != 0) {
+            if (m == 0 || n % m != 0) {
+                ok = false;
+            } else {
+                double v = Math.log(n) / Math.log(m);
+                if (Math.abs(v - Math.round(v)) < 1e-10) {
+                    while (true) {
+                        list.add(n);
+                        if (n <= 1) {
+                            break;
+                        }
+                        n /= m;
+                    }
+                } else {
                     ok = false;
-                    break;
                 }
             }
             if (ok) {
