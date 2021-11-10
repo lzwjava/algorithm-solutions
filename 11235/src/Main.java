@@ -109,7 +109,6 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int w = 0;
         while (true) {
             StringTokenizer st = new StringTokenizer(in.readLine());
             n = Integer.parseInt(st.nextToken());
@@ -169,7 +168,6 @@ public class Main {
                 }
                 out.append(String.format("%d\n", ans));
                 q--;
-                w++;
             }
         }
 
