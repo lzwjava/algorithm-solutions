@@ -96,18 +96,20 @@ public class Main {
             return node.cnt;
         }
         assert (node.x <= x && node.y >= y);
-        int leftCnt = 0;
-        if (node.left != null && node.left.y >= x) {
-            leftCnt = find(node.left, x, node.left.y);
+        int mid = node.left.y;
+        if (y <= mid) {
+            return find(node.left, x, y);
+        } else if (x > mid) {
+            return find(node.right, x, y);
+        } else {
+            int leftCnt = find(node.left, x, node.left.y);
+            int rightCnt = find(node.right, node.right.x, y);
+            return Integer.max(leftCnt, rightCnt);
         }
-        int rightCnt = 0;
-        if (node.right != null && node.right.x <= y) {
-            rightCnt = find(node.right, node.right.x, y);
-        }
-        return Integer.max(leftCnt, rightCnt);
     }
 
     void solve() throws IOException {
+        int w = 0;
         while (true) {
             StringTokenizer st = new StringTokenizer(in.readLine());
             n = Integer.parseInt(st.nextToken());
@@ -155,7 +157,6 @@ public class Main {
                 } else {
                     int li = indexOfList(list, vi);
                     int lj = indexOfList(list, vj);
-//                    int ai = 0, aj = 0;
                     Elem ei = list.get(li);
                     Elem ej = list.get(lj);
                     int cnt1 = ei.j - i + 1;
@@ -167,12 +168,8 @@ public class Main {
                     }
                 }
                 out.append(String.format("%d\n", ans));
-//                out.append('\n');
-//                for (int u = ai; u <= aj; u++) {
-//                    out.append(String.format("%d ", nums[u]));
-//                }
-//                out.append('\n');
                 q--;
+                w++;
             }
         }
 
