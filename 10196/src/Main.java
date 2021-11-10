@@ -11,7 +11,25 @@ public class Main {
     }
 
     void solve() throws IOException {
-
+        int c = 1;
+        while (true) {
+            char[][] grid = new char[8][8];
+            boolean end = true;
+            for (int i = 0; i < 8; i++) {
+                String s = in.readLine();
+                for (int j = 0; j < 8; j++) {
+                    grid[i][j] = s.charAt(j);
+                    if (grid[i][j] != '.') {
+                        end = false;
+                    }
+                }
+            }
+            if (end) {
+                break;
+            }
+            
+            c++;
+        }
     }
 
     void close() throws IOException {
