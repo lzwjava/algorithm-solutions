@@ -11,7 +11,7 @@ public class Main {
     }
 
     void solve() throws IOException {
-        out.append(String.format("%s\n", "OBAIDA"));
+        out.append(String.format("%s\n", "KABIR"));
     }
 
     void close() throws IOException {
