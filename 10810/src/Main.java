@@ -10,6 +10,57 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
+    class Num implements Comparable<Num> {
+        int v;
+        int i;
+
+        Num(int v, int i) {
+            this.v = v;
+            this.i = i;
+        }
+
+        @Override
+        public int compareTo(Num o) {
+            return Integer.compare(v, o.v);
+        }
+    }
+
+    void mergeSort(int[] nums, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        int mid = (i + j) / 2;
+        mergeSort(nums, i, mid);
+        mergeSort(nums, mid + 1, j);
+        int len = j - i + 1;
+        int[] ms = new int[len];
+        int c = 0;
+        int p = i, q = mid + 1;
+        while (p <= mid && q <= j) {
+            if (nums[p] <= nums[q]) {
+                ms[c++] = nums[p++];
+            } else {
+                ms[c++] = nums[q++];
+                total += mid - p + 1;
+            }
+        }
+        if (p <= mid) {
+            while (p <= mid) {
+                ms[c++] = nums[p++];
+            }
+        }
+        if (q <= j) {
+            while (q <= j) {
+                ms[c++] = nums[q++];
+            }
+        }
+        for (int x = 0; x < len; x++) {
+            nums[x + i] = ms[x];
+        }
+    }
+
+    long total;
+
     void solve() throws IOException {
         while (true) {
             int n = Integer.parseInt(in.readLine());
@@ -20,19 +71,9 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 nums[i] = Integer.parseInt(in.readLine());
             }
-
-            int c = 0;
-            for (int i = 0; i < n - 1; i++) {
-                for (int j = i + 1; j < n; j++) {
-                    if (nums[i] > nums[j]) {
-                        int t = nums[i];
-                        nums[i] = nums[j];
-                        nums[j] = t;
-                        c++;
-                    }
-                }
-            }
-            out.append(String.format("%d\n", c));
+            total = 0;
+            mergeSort(nums, 0, n - 1);
+            out.append(String.format("%d\n", total));
         }
     }
 
