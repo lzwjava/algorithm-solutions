@@ -17,7 +17,11 @@ public class Main {
     }
 
     String getKey(ArrayList<Integer>[] list) {
-        ArrayList<Integer>[] clist = list.clone();
+        ArrayList<Integer>[] clist = new ArrayList[list.length];
+        for (int i = 0; i < list.length; i++) {
+            clist[i] = new ArrayList<>();
+            clist[i].addAll(list[i]);
+        }
         Arrays.sort(clist, new Comparator<ArrayList<Integer>>() {
             @Override
             public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
@@ -48,14 +52,8 @@ public class Main {
     void permutation(ArrayList<Integer>[] list, Set<String> vis, int n, int x) {
         for (int i = 0; i < n; i++) {
             int size = list[i].size();
-            if (x == 2) {
-                System.out.println();
-            }
             if (size == 0 || (size > 0 && isSquare(list[i].get(size - 1) + x))) {
                 list[i].add(x);
-                if (x == 2) {
-                    System.out.println();
-                }
                 String key = getKey(list);
                 if (!vis.contains(key)) {
                     if (x > max) {
