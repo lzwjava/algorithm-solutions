@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -20,29 +21,19 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 nums[i] = Integer.parseInt(in.readLine());
             }
-            int[] sums = new int[n];
-            int s = 0;
+            int max = 0;
+            ArrayList<Integer> indices = new ArrayList<Integer>();
             for (int i = 0; i < n; i++) {
-                s += nums[i];
-                sums[i] = s;
-            }
-            int max = 0, maxi = 0, maxj = 0;
-            for (int i = 0; i < n; i++) {
-                for (int j = i; j < n; j++) {
-                    int t = i == 0 ? 0 : sums[i - 1];
-                    int sum = sums[j] - t;
-                    if (sum > max || (sum == max && j - i + 1 < maxj - maxi + 1)) {
-                        max = sum;
-                        maxi = i;
-                        maxj = j;
-                    }
+                if (nums[i] > 0) {
+                    max += nums[i];
+                    indices.add(i);
                 }
             }
-            for (int i = maxi; i <= maxj; i++) {
-                if (i != maxi) {
+            for (int i = 0; i < indices.size(); i++) {
+                if (i != 0) {
                     out.append(" ");
                 }
-                out.append(String.valueOf(nums[i]));
+                out.append(String.valueOf(nums[indices.get(i)]));
             }
             out.append('\n');
         }
@@ -64,9 +55,9 @@ public class Main {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+//            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+//            System.setOut(outStream);
         }
 
         Main main = new Main();
