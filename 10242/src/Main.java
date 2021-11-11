@@ -11,7 +11,67 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
+    String readLine() throws IOException {
+        while (true) {
+            String line = in.readLine();
+            if (line == null) {
+                return null;
+            }
+            line = line.trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
+        }
+    }
+
     void solve() throws IOException {
+        while (true) {
+            String s = readLine();
+            if (s == null) {
+                break;
+            }
+            StringTokenizer st = new StringTokenizer(s);
+            double x1, y1, x2, y2, x3, y3, x4, y4;
+            x1 = Double.parseDouble(st.nextToken());
+            y1 = Double.parseDouble(st.nextToken());
+            x2 = Double.parseDouble(st.nextToken());
+            y2 = Double.parseDouble(st.nextToken());
+            x3 = Double.parseDouble(st.nextToken());
+            y3 = Double.parseDouble(st.nextToken());
+            x4 = Double.parseDouble(st.nextToken());
+            y4 = Double.parseDouble(st.nextToken());
+            int p = 0;
+            while (true) {
+                if (Double.compare(x2, x3) == 0 && Double.compare(y2, y3) == 0) {
+                    break;
+                }
+                double t;
+                if (p % 2 == 0) {
+                    t = x1;
+                    x1 = x2;
+                    x2 = t;
+
+                    t = y1;
+                    y1 = y2;
+                    y2 = t;
+                } else if (p % 2 == 1) {
+                    t = x3;
+                    x3 = x4;
+                    x4 = t;
+
+                    t = y3;
+                    y3 = y4;
+                    y4 = t;
+                }
+                p++;
+            }
+            double x = x4 - (x2 - x1);
+            double y = y4 - (y2 - y1);
+            out.append(String.format("%.3f %.3f\n", x, y));
+        }
+    }
+
+    void solve1() throws IOException {
         while (true) {
             String s = in.readLine();
             if (s == null) {
