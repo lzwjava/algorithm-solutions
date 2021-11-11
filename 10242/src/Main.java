@@ -58,7 +58,7 @@ public class Main {
             } else if (Double.compare(x1, x2) != 0 && Double.compare(x3, x4) == 0) {
                 // x = x1
                 double x = x1;
-                double ub = y1 - k2 * x1;
+                double ub = y4 - k1 * x4;
                 double y = k1 * x + ub;
                 out.append(String.format("%.3f %.3f\n", x, y));
             }
