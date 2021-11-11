@@ -27,6 +27,31 @@ public class Main {
             y3 = Double.parseDouble(st.nextToken());
             x4 = Double.parseDouble(st.nextToken());
             y4 = Double.parseDouble(st.nextToken());
+            int p = 0;
+            while (true) {
+                if (Double.compare(x2, x3) == 0 && Double.compare(y2, y3) == 0) {
+                    break;
+                }
+                double t;
+                if (p % 2 == 0) {
+                    t = x1;
+                    x1 = x2;
+                    x2 = t;
+
+                    t = y1;
+                    y1 = y2;
+                    y2 = t;
+                } else if (p % 2 == 1) {
+                    t = x3;
+                    x3 = x4;
+                    x4 = t;
+
+                    t = y3;
+                    y3 = y4;
+                    y4 = t;
+                }
+                p++;
+            }
             double k1 = 0, b1 = 0, k2 = 0, b2 = 0;
             if (Double.compare(x1, x2) != 0) {
                 k1 = (y2 - y1) / (x2 - x1);
@@ -81,9 +106,9 @@ public class Main {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
