@@ -50,6 +50,9 @@ public class Main {
     }
 
     void permutation(ArrayList<Integer>[] list, Set<String> vis, int n, int x) {
+        if (end) {
+            return;
+        }
         for (int i = 0; i < n; i++) {
             int size = list[i].size();
             if (size == 0 || (size > 0 && isSquare(list[i].get(size - 1) + x))) {
@@ -58,6 +61,9 @@ public class Main {
                 if (!vis.contains(key)) {
                     if (x > max) {
                         max = x;
+                    } else {
+                        end = true;
+                        return;
                     }
                     vis.add(key);
                     permutation(list, vis, n, x + 1);
@@ -68,21 +74,34 @@ public class Main {
     }
 
     int max;
+    boolean end;
+
+    int cal(int n) {
+        ArrayList<Integer>[] list = new ArrayList[n];
+        for (int i = 0; i < n; i++) {
+            list[i] = new ArrayList<>();
+        }
+        Set<String> vis = new HashSet<>();
+        max = 0;
+        end = false;
+        permutation(list, vis, n, 1);
+        return max;
+    }
 
     void solve() throws IOException {
+        int[] table = new int[]{0, 1, 3, 7, 11, 17, 23, 31, 39, 49, 59, 71, 83, 97, 111, 127, 143, 161, 179, 199, 219, 241, 263, 287, 311, 337,
+            363, 391, 419, 449, 479, 511, 543, 577, 611, 647, 683, 721, 759, 799, 839, 881, 923, 967, 1011, 1057, 1103, 1151, 1199, 1249, 1299};
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             int n = Integer.parseInt(in.readLine());
-            ArrayList<Integer>[] list = new ArrayList[n];
-            for (int i = 0; i < n; i++) {
-                list[i] = new ArrayList<>();
-            }
-            Set<String> vis = new HashSet<>();
-            max = 0;
-            permutation(list, vis, n, 1);
-            out.append(String.format("%d\n", max));
+//            int ans = cal(n);
+            int ans = table[n];
+            out.append(String.format("%d\n", ans));
             t--;
         }
+//        for (int i = 1; i <= 50; i++) {
+//            out.append(String.format("%d,", cal(i)));
+//        }
     }
 
     void close() throws IOException {
