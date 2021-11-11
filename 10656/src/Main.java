@@ -29,6 +29,9 @@ public class Main {
                     indices.add(i);
                 }
             }
+            if (indices.size() == 0) {
+                indices.add(0);
+            }
             for (int i = 0; i < indices.size(); i++) {
                 if (i != 0) {
                     out.append(" ");
@@ -55,9 +58,9 @@ public class Main {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-//            outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-//            System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
