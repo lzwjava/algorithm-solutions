@@ -30,12 +30,22 @@ public class Main {
             for (int i1 = 0; i1 < m; i1++) {
                 for (int i2 = i1; i2 < m; i2++) {
                     for (int j1 = 0; j1 < n; j1++) {
+                        boolean q = true;
+                        for (int x = i1; x <= i2; x++) {
+                            if (grid[x][j1] == 1) {
+                                q = false;
+                                break;
+                            }
+                        }
+                        if (!q) {
+                            continue;
+                        }
+                        boolean ok = true;
                         for (int j2 = j1; j2 < n; j2++) {
                             int t = (i2 - i1 + 1) * (j2 - j1 + 1);
                             if (t < area) {
                                 continue;
                             }
-                            boolean ok = true;
                             for (int x = i1; x <= i2; x++) {
                                 for (int y = j1; y <= j2 && ok; y++) {
                                     if (grid[x][y] == 1) {
@@ -48,6 +58,8 @@ public class Main {
                                 if (t > area) {
                                     area = t;
                                 }
+                            } else {
+                                break;
                             }
                         }
                     }
