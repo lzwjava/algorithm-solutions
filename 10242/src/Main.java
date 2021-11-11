@@ -24,7 +24,7 @@ public class Main {
         }
     }
 
-    void solve() throws IOException {
+    void solve1() throws IOException {
         while (true) {
             String s = readLine();
             if (s == null) {
@@ -71,9 +71,9 @@ public class Main {
         }
     }
 
-    void solve1() throws IOException {
+    void solve() throws IOException {
         while (true) {
-            String s = in.readLine();
+            String s = readLine();
             if (s == null) {
                 break;
             }
