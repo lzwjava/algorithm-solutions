@@ -67,7 +67,7 @@ public class Main {
             boolean consistent = true;
             ch = new int[maxn][10];
             val = new int[maxn];
-            cnt = 0;
+            cnt = 1;
             for (int i = 0; i < n; i++) {
                 insert(vs[i]);
             }
@@ -104,9 +104,9 @@ public class Main {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
