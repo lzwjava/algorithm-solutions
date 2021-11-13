@@ -13,19 +13,20 @@ public class Main {
     }
 
     class Point implements Comparable<Point> {
-        int x, y;
+        double x, y;
 
-        Point(int x, int y) {
+        Point(double x, double y) {
             this.x = x;
             this.y = y;
         }
 
         @Override
         public int compareTo(Point o) {
-            if (x != o.x) {
-                return Integer.compare(x, o.x);
+            int v = Double.compare(x, o.x);
+            if (v != 0) {
+                return v;
             } else {
-                return Integer.compare(y, o.y);
+                return Double.compare(y, o.y);
             }
         }
     }
@@ -35,19 +36,21 @@ public class Main {
     }
 
     double cal(Point[] points, int i, int j) {
-        if (j - i == 1) {
+        if (j - i == 0) {
+            return Integer.MAX_VALUE;
+        } else if (j - i == 1) {
             return dist(points[i], points[j]);
         } else if (j - i == 2) {
-            double max = 0;
+            double min = Integer.MAX_VALUE;
             for (int u = i; u < j; u++) {
                 for (int v = u + 1; v <= j; v++) {
                     double d = dist(points[u], points[v]);
-                    if (max < d) {
-                        max = d;
+                    if (min > d) {
+                        min = d;
                     }
                 }
             }
-            return max;
+            return min;
         } else {
             // >= 4
             int mid = (i + j) / 2;
@@ -84,8 +87,8 @@ public class Main {
             Point[] points = new Point[n];
             for (int i = 0; i < n; i++) {
                 StringTokenizer st = new StringTokenizer(in.readLine());
-                int x = Integer.parseInt(st.nextToken());
-                int y = Integer.parseInt(st.nextToken());
+                double x = Double.parseDouble(st.nextToken());
+                double y = Double.parseDouble(st.nextToken());
                 points[i] = new Point(x, y);
             }
             Arrays.sort(points);
@@ -113,10 +116,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
