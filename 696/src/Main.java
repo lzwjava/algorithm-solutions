@@ -33,26 +33,7 @@ public class Main {
             if (m == 0 && n == 0) {
                 break;
             }
-            int ans;
-            if (m == 1 || n == 1) {
-                ans = m * n;
-            } else if (m * n < 6) {
-                ans = m * n;
-            } else if (m * n == 6) {
-                ans = 4;
-            } else if (m == 2 || n == 2) {
-                ans = m * n / 2;
-                if (m % 2 == 0 && n % 2 == 0) {
-                    ans += 2;
-                }
-            } else {
-                ans = m / 2 * n;
-                if (m % 2 == 1) {
-                    ans += (n + 1) / 2;
-                }
-            }
-//            ans = (int) ((m + 1) / 2) * (int) ((n + 1) / 2);
-//            ans = ((m + 1) / 2) * ((n + 1) / 2) * 2;
+            int ans = f(m, n);
             out.append(String.format("%d knights may be placed on a %d row %d column board.\n", ans, m, n));
         }
     }
