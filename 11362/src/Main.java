@@ -5,9 +5,55 @@ public class Main {
     BufferedReader in;
     PrintWriter out;
 
+    static int maxn = 100005;
+
+    int[][] ch;
+    int cnt;
+    int[] val;
+
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
+    }
+
+    void insert(String str) {
+        int u = 0;
+        for (int i = 0; i < str.length(); i++) {
+            int k = str.charAt(i) - '0';
+            if (ch[u][k] == 0) {
+                ch[u][k] = cnt;
+                cnt++;
+            }
+            u = ch[u][k];
+        }
+        val[u]++;
+    }
+
+    boolean check(String str) {
+        int u = 0;
+        for (int i = 0; i < str.length(); i++) {
+            int k = str.charAt(i) - '0';
+            if (val[u] > 0) {
+                return false;
+            }
+            u = ch[u][k];
+        }
+        if (val[u] > 1) {
+            return false;
+        }
+        return true;
+    }
+
+    int query(String str) {
+        int u = 0;
+        for (int i = 0; i < str.length(); i++) {
+            int k = str.charAt(i) - '0';
+            if (ch[u][k] == 0) {
+                return -1;
+            }
+            u = ch[u][k];
+        }
+        return val[u];
     }
 
     void solve() throws IOException {
@@ -19,19 +65,19 @@ public class Main {
                 vs[i] = in.readLine();
             }
             boolean consistent = true;
+            ch = new int[maxn][10];
+            val = new int[maxn];
+            cnt = 0;
             for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (i != j) {
-                        int idx = vs[i].indexOf(vs[j]);
-                        if (idx >= 0) {
-                            consistent = false;
-                            break;
-                        }
-                    }
-                }
-                if (!consistent) {
+                insert(vs[i]);
+            }
+            for (int i = 0; i < n; i++) {
+                boolean check = check(vs[i]);
+                if (!check) {
+                    consistent = false;
                     break;
                 }
+                insert(vs[i]);
             }
             if (consistent) {
                 out.append("YES\n");
