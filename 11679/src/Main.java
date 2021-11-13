@@ -30,9 +30,9 @@ public class Main {
             if (b == 0 && n == 0) {
                 break;
             }
-            int[] bs = new int[3];
+            int[] bs = new int[b];
             st = new StringTokenizer(in.readLine());
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < b; i++) {
                 bs[i] = Integer.parseInt(st.nextToken());
             }
             Pair[] pairs = new Pair[n];
@@ -50,7 +50,7 @@ public class Main {
                 bs[p.c] += p.v;
             }
             boolean ok = true;
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < b; i++) {
                 if (bs[i] < 0) {
                     ok = false;
                     break;
@@ -79,10 +79,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
