@@ -14,20 +14,6 @@ public class Main {
 
     ArrayList<Integer> list;
 
-    // ends with cur
-    int dp(int cur) {
-        int max = 1;
-        for (int i = 0; i < cur; i++) {
-            if (list.get(i) < list.get(cur)) {
-                int v = dp(i) + 1;
-                if (v > max) {
-                    max = v;
-                }
-            }
-        }
-        return max;
-    }
-
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         in.readLine();
