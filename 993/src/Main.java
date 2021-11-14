@@ -12,12 +12,11 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    int[] primes = new int[]{2, 3, 5, 7};
-
     boolean possible(int x) {
         if (x == 0 || x == 1) {
             return true;
         }
+        int[] primes = new int[]{2, 3, 5, 7};
         for (int i = 0; i < primes.length; i++) {
             int pi = primes[i];
             if (x % pi == 0) {
@@ -33,7 +32,6 @@ public class Main {
         int t = Integer.parseInt(in.readLine().trim());
         while (t > 0) {
             int n = Integer.parseInt(in.readLine().trim());
-            boolean found = false;
             if (!possible(n)) {
                 out.append("-1\n");
             } else {
