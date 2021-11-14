@@ -29,7 +29,7 @@ public class Main {
                     v = 1;
                 }
                 if (x >= v) {
-                    s.add(dp(x - v));
+                    s = s.add(dp(x - v));
                 }
             }
             ans = s;
@@ -42,9 +42,18 @@ public class Main {
 
     void solve() throws IOException {
         map = new BigInteger[maxn + 1];
-        for (n = 0; n <= 1000; n++) {
+//        for (n = 0; n <= 1000; n++) {
+//            BigInteger ans = dp(n);
+//            out.append(String.format("%s,", ans.toString()));
+//        }
+        while (true) {
+            String s = in.readLine();
+            if (s == null) {
+                break;
+            }
+            int n = Integer.parseInt(s);
             BigInteger ans = dp(n);
-            out.append(String.format("%s,", ans.toString()));
+            out.append(String.format("%s\n", ans.toString()));
         }
     }
 
