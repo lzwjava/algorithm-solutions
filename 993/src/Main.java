@@ -29,32 +29,6 @@ public class Main {
         return x == 1;
     }
 
-    int[] counts(int x) {
-        int[] counts = new int[4];
-        for (int i = 0; i < primes.length; i++) {
-            int pi = primes[i];
-            if (x % pi == 0) {
-                while (x % pi == 0) {
-                    x /= pi;
-                    counts[i]++;
-                }
-            }
-        }
-        return counts;
-    }
-
-    int cal(int x) {
-        if (x == 0) {
-            return 0;
-        }
-        int s = 1;
-        while (x != 0) {
-            s *= (x % 10);
-            x /= 10;
-        }
-        return s;
-    }
-
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine().trim());
         while (t > 0) {
@@ -66,7 +40,6 @@ public class Main {
                 if (n < 2) {
                     out.append(String.format("%d\n", n));
                 } else {
-//                int[] counts = counts(n);
                     ArrayList<Integer> nums = new ArrayList<Integer>();
                     for (int i = 9; i >= 2; i--) {
                         if (n % i == 0) {
