@@ -50,7 +50,12 @@ public class Main {
             if (line == null) {
                 break;
             }
-            String ans = convert(line);
+            String ans;
+            if (line.equals("0")) {
+                ans = " 0";
+            } else {
+                ans = convert(line);
+            }
             out.append(String.format("%4d.%s\n", caseNum, ans));
             caseNum++;
         }
