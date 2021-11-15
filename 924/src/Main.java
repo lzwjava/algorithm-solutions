@@ -20,6 +20,8 @@ public class Main {
         list = new ArrayList[e];
         for (int i = 0; i < e; i++) {
             list[i] = new ArrayList<Integer>();
+        }
+        for (int i = 0; i < e; i++) {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             for (int j = 0; j < n; j++) {
@@ -45,10 +47,13 @@ public class Main {
                 }
             }
             Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-            int maxCount = 0;
-            int distOfMaxCount = 0;
+            int maxCount = -1;
+            int distOfMaxCount = Integer.MAX_VALUE;
             int total = 0;
             for (int i = 0; i < e; i++) {
+                if (i == s) {
+                    continue;
+                }
                 int d = dists[i];
                 if (d != -1) {
                     total++;
@@ -58,13 +63,13 @@ public class Main {
                     }
                     count++;
                     map.put(d, count);
-                    if (count > maxCount) {
+                    if (count > maxCount || (count == maxCount && d < distOfMaxCount)) {
                         maxCount = count;
                         distOfMaxCount = d;
                     }
                 }
             }
-            if (total == 1) {
+            if (total == 0) {
                 out.append(String.format("%d\n", 0));
             } else {
                 out.append(String.format("%d %d\n", maxCount, distOfMaxCount));
@@ -88,10 +93,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("2.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
