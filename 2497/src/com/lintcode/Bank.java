@@ -1,19 +1,30 @@
 package com.lintcode;
 
+import java.util.concurrent.Semaphore;
+
 public class Bank {
     private int account;
-    // write your code
+    private final Object lock;
 
     public Bank(int account) {
         this.account = account;
+        lock = new Object();
     }
 
     public void saveMoney(int amount) throws Exception {
-        this.account = Main.saveOperation(account, amount);
+        synchronized (lock){
+            this.account = Main.saveOperation(account, amount);
+            lock.notifyAll();
+        }
     }
 
     public void withdrawMoney(int amount) throws Exception {
-        this.account = Main.withdrawOperation(account, amount);
+        synchronized (lock){
+            while (amount > this.account){
+                lock.wait();
+            }
+            this.account = Main.withdrawOperation(account, amount);
+        }
     }
 
     public int checkAccount(){
