@@ -1,8 +1,5 @@
 package com.lintcode;
 
-import com.lintcode.QuickSort;
-import com.lintcode.Solution;
-
 import java.io.FileReader;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;

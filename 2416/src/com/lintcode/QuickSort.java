@@ -1,7 +1,5 @@
 package com.lintcode;
 
-import java.util.Arrays;
-
 public class QuickSort {
     public static boolean hasBeenCalledInSubThread = false;
 
