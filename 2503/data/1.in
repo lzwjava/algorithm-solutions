@@ -1,0 +1,6 @@
+ThreadSafeCounter()
+decr()
+incr()
+decr()
+incr()
+incr()
