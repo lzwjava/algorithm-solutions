@@ -3,23 +3,47 @@ package com.lintcode;
 import java.util.*;
 
 public class BoundedBlockingStack {
-    // Construct method: Set the length of the stack
+    private Stack<Integer> stack;
+    private int capacity;
+    private Object lock;
+
     public BoundedBlockingStack(int capacity) {
-
+        stack = new Stack<>();
+        this.capacity = capacity;
+        lock = new Object();
     }
 
-    // Add data in relative columns
     public void push(int element) {
-
+        synchronized (lock) {
+            try {
+                while (stack.size() >= capacity) {
+                    lock.wait();
+                }
+                stack.add(element);
+                lock.notifyAll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    // Get the data in the stack head
     public int pop() {
-        return 0;
+        synchronized (lock) {
+            try {
+                while (stack.size() == 0) {
+                    lock.wait();
+                }
+                int v = stack.pop();
+                lock.notifyAll();
+                return v;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
     }
 
-    // Get the size of the stack
     public int size() {
-        return 0;
+        return stack.size();
     }
 }
