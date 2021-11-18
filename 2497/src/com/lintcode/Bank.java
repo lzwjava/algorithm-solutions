@@ -6,21 +6,18 @@ public class Bank {
 
     public Bank(int account) {
         this.account = account;
-        // write your code
-
     }
 
     public void saveMoney(int amount) throws Exception {
-        // write your code
+        this.account = Main.saveOperation(account, amount);
     }
 
     public void withdrawMoney(int amount) throws Exception {
-        // write your code
-
+        this.account = Main.withdrawOperation(account, amount);
     }
 
     public int checkAccount(){
-        // write your code
-
+        return account;
     }
+
 }
