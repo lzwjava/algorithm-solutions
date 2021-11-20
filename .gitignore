@@ -10,3 +10,6 @@ data
 out
 2.in
 .vscode
+*.spj
+*.stderr
+*.stdout

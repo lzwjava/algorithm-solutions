@@ -1,0 +1,6 @@
+ThreadSafeArrayList()
+append(1)
+append(2)
+append(3)
+get(1)
+get(0)
