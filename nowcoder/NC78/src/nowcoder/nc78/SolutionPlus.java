@@ -1,3 +1,5 @@
+package nowcoder.nc78;
+
 public class SolutionPlus {
 
     public ListNode ReverseList(ListNode head) {

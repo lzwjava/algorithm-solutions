@@ -1,3 +1,7 @@
+package nowcoder;
+
+import nowcoder.nc78.Test;
+
 import java.io.*;
 
 public class Main {
@@ -11,13 +15,7 @@ public class Main {
     }
 
     void solve() throws IOException {
-        ListNode n1 = new ListNode(1);
-        ListNode n2 = new ListNode(2);
-        ListNode n3 = new ListNode(3);
-        n1.next = n2;
-        n2.next = n3;
-        ListNode listNode = new Solution().ReverseList(n1);
-        System.out.println(listNode);
+        Test.main();
     }
 
     void close() throws IOException {

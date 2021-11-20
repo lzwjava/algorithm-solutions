@@ -1,3 +1,5 @@
+package nowcoder.nc78;
+
 public class ListNode {
     int val;
     ListNode next = null;

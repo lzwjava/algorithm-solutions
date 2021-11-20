@@ -1,3 +1,5 @@
+package nowcoder.nc78;
+
 public class Solution {
 
     public ListNode ReverseList(ListNode head) {
@@ -15,5 +17,5 @@ public class Solution {
         }
         return n1;
     }
-    
+
 }
