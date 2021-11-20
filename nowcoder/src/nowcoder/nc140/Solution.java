@@ -1,9 +1,12 @@
 package nowcoder.nc140;
 
-public class Solution {
-    
-    public int[] MySort(int[] arr) {
-        return new int[]{};
-    }
+import java.util.Arrays;
 
+public class Solution {
+
+    public int[] MySort(int[] arr) {
+        Arrays.sort(arr);
+        return arr;
+    }
+    
 }
