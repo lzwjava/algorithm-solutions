@@ -1,8 +1,0 @@
-ThreadSafeLinkedList()
-append_right(1)
-append_right(5)
-append_left(5)
-append_right(1)
-append_right(3)
-append_right(2)
-append_left(4)
