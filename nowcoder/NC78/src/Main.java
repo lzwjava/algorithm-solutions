@@ -16,7 +16,7 @@ public class Main {
         ListNode n3 = new ListNode(3);
         n1.next = n2;
         n2.next = n3;
-        ListNode listNode = new Solution().ReverseList(null);
+        ListNode listNode = new Solution().ReverseList(n1);
         System.out.println(listNode);
     }
 

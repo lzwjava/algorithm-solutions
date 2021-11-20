@@ -4,17 +4,16 @@ public class Solution {
         if (head == null) {
             return null;
         }
-        if (head.next == null) {
-            return new ListNode(head.val);
-        } else {
-            ListNode node = ReverseList(head.next);
-            ListNode tail = node;
-            while (tail.next != null) {
-                tail = tail.next;
-            }
-            tail.next = new ListNode(head.val);
-            return node;
-        }
-    }
+        ListNode it = head;
+        ListNode n1 = new ListNode(head.val);
+        while (it.next != null) {
+            ListNode next = new ListNode(it.next.val);
+            next.next = n1;
+            n1 = next;
 
+            it = it.next;
+        }
+        return n1;
+    }
+    
 }
