@@ -1,13 +1,12 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main {
+public class MainPlus {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    MainPlus() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
@@ -23,11 +22,36 @@ public class Main {
 
         @Override
         public int compareTo(Soldier o) {
-            // do this, then o
-            int u = Integer.max(b + j, b + o.b + o.j);
-            // do o, then this
-            int v = Integer.max(o.b + o.j, o.b + b + j);
-            return Integer.compare(u, v);
+            return Integer.compare(o.b + o.j, b + j);
+        }
+    }
+
+    int min;
+
+    void permutation(int[] nums, boolean[] vis, int cur, int n) {
+        if (cur == n) {
+            int max = 0;
+            int p = 0;
+            for (int i = 0; i < n; i++) {
+                Soldier s = soldiers[nums[i]];
+                int a = p + s.b + s.j;
+                if (a > max) {
+                    max = a;
+                }
+                p += s.b;
+            }
+            if (max < min) {
+                min = max;
+            }
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                nums[cur] = i;
+                vis[i] = true;
+                permutation(nums, vis, cur + 1, n);
+                vis[i] = false;
+            }
         }
     }
 
@@ -48,18 +72,11 @@ public class Main {
                 int j = Integer.parseInt(st.nextToken());
                 soldiers[i] = new Soldier(b, j);
             }
-            Arrays.sort(soldiers);
-            int max = 0;
-            int p = 0;
-            for (int i = 0; i < n; i++) {
-                Soldier s = soldiers[i];
-                int a = p + s.b + s.j;
-                if (a > max) {
-                    max = a;
-                }
-                p += s.b;
-            }
-            out.append(String.format("Case %d: %d\n", caseNum, max));
+            boolean[] vis = new boolean[n];
+            int[] nums = new int[n];
+            min = Integer.MAX_VALUE;
+            permutation(nums, vis, 0, n);
+            out.append(String.format("Case %d: %d\n", caseNum, min));
             caseNum++;
         }
     }
@@ -85,7 +102,7 @@ public class Main {
             // System.setOut(outStream);
         }
 
-        Main main = new Main();
+        MainPlus main = new MainPlus();
         main.solve();
         main.close();
 
