@@ -1,16 +1,15 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
 
     BufferedReader in;
     PrintWriter out;
-    ArrayList<Integer> list;
+    boolean[] primes;
 
     void calPrimes() {
-        int maxn = 46340;
-        boolean[] primes = new boolean[maxn];
+        int maxn = 1000001;
+        primes = new boolean[maxn];
         Arrays.fill(primes, true);
         primes[0] = primes[1] = false;
         for (int i = 4; i < maxn; i += 2) {
@@ -24,28 +23,6 @@ public class Main {
                 }
             }
         }
-        list = new ArrayList<>();
-        for (int i = 0; i < maxn; i++) {
-            if (primes[i]) {
-                list.add(i);
-            }
-        }
-    }
-
-    boolean isPrime(int x) {
-        if (x <= 1) {
-            return false;
-        }
-        int sx = (int) Math.sqrt(x);
-        for (Integer p : list) {
-            if (p > sx) {
-                break;
-            }
-            if (x % p == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     Main() {
@@ -63,7 +40,7 @@ public class Main {
             boolean found = false;
             for (int i = 2; i <= n / 2; i++) {
                 int j = n - i;
-                if (isPrime(i) && isPrime(j)) {
+                if (primes[i] && primes[j]) {
                     found = true;
                     out.append(String.format("%d:\n", n));
                     out.append(String.format("%d+%d\n", i, j));
@@ -71,6 +48,7 @@ public class Main {
                 }
             }
             if (!found) {
+                out.append(String.format("%d:\n", n));
                 out.append(String.format("NO WAY!\n"));
             }
         }
@@ -91,7 +69,7 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
+            inStream = new FileInputStream("2.in");
             // outStream = new PrintStream("1.out");
             System.setIn(inStream);
             // System.setOut(outStream);
