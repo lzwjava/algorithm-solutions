@@ -37,6 +37,10 @@ public class Main {
                 for (int j = i; j < n; j++) {
                     for (int u = 0; u < m; u++) {
                         for (int v = u; v < m; v++) {
+                            int area = (j - i + 1) * (v - u + 1);
+                            if (area < ans) {
+                                continue;
+                            }
                             boolean ok = true;
                             for (int p = i; p <= j; p++) {
                                 for (int q = u; q <= v; q++) {
@@ -50,7 +54,6 @@ public class Main {
                                 }
                             }
                             if (ok) {
-                                int area = (j - i + 1) * (v - u + 1);
                                 if (area > ans) {
                                     ans = area;
                                 }
