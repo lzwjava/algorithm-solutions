@@ -11,6 +11,14 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
+    boolean moreOrEq(double a, double b) {
+        return Double.compare(a, b) >= 0;
+    }
+
+    boolean lessOrEq(double a, double b) {
+        return Double.compare(a, b) <= 0;
+    }
+
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         while (n > 0) {
@@ -51,37 +59,53 @@ public class Main {
             boolean intersect = false;
 
             if (Double.compare(x1, x2) != 0) {
-                double k = (y1 - y2) / (x1 - x2);
-                double b = y1 - k * x1;
-
-                double y = xleft * k + b;
-                if (y >= ybottom && y <= ytop) {
+                if (moreOrEq(x1, xleft) && lessOrEq(x1, xright) && moreOrEq(y1, ybottom) && lessOrEq(y1, ytop)) {
                     intersect = true;
                 }
-
                 if (!intersect) {
-                    y = xright * k + b;
-                    if (y >= ybottom && y <= ytop) {
+                    if (moreOrEq(x2, xleft) && lessOrEq(x2, xright) && moreOrEq(y2, ybottom) && lessOrEq(y2, ytop)) {
                         intersect = true;
                     }
                 }
-
                 if (!intersect) {
-                    double x = (ytop - b) / k;
-                    if (x >= xleft && x <= xright) {
+                    double k = (y1 - y2) / (x1 - x2);
+                    double b = y1 - k * x1;
+
+                    double y = xleft * k + b;
+                    if (moreOrEq(y, ybottom) && lessOrEq(y, ytop) && lessOrEq(y, y1) && moreOrEq(y, y2)) {
                         intersect = true;
                     }
-                }
 
-                if (!intersect) {
-                    double x = (ybottom - b) / k;
-                    if (x >= xleft && x <= xright) {
-                        intersect = true;
+                    if (!intersect) {
+                        y = xright * k + b;
+                        if (moreOrEq(y, ybottom) && lessOrEq(y, ytop) && lessOrEq(y, y1) && moreOrEq(y, y2)) {
+                            intersect = true;
+                        }
+                    }
+
+                    double xmin = Math.min(x1, x2);
+                    double xmax = Math.max(x1, x2);
+
+                    if (!intersect) {
+                        double x = (ytop - b) / k;
+                        if (moreOrEq(x, xleft) && lessOrEq(x, xright) &&
+                            moreOrEq(x, xmin) && lessOrEq(x, xmax)) {
+                            intersect = true;
+                        }
+                    }
+
+                    if (!intersect) {
+                        double x = (ybottom - b) / k;
+                        if (moreOrEq(x, xleft) && lessOrEq(x, xright) && moreOrEq(x, xmin) && lessOrEq(x, xmax)) {
+                            intersect = true;
+                        }
                     }
                 }
             } else {
-                if (x1 >= xleft && x1 <= xright) {
-                    if (y1 >= ytop && y2 <= ytop || y1 >= ybottom && y2 <= ybottom || y1 <= ytop && y2 >= ybottom) {
+                if (moreOrEq(x1, xleft) && lessOrEq(x1, xright)) {
+                    if (moreOrEq(y1, ytop) && lessOrEq(y2, ytop) ||
+                        moreOrEq(y1, ybottom) && lessOrEq(y2, ybottom) ||
+                        lessOrEq(y1, ytop) && moreOrEq(y2, ybottom)) {
                         intersect = true;
                     }
                 }
