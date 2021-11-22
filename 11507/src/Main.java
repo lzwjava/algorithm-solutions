@@ -11,7 +11,13 @@ public class Main {
     }
 
     void solve() throws IOException {
-
+        while (true) {
+            int len = Integer.parseInt(in.readLine());
+            if (len == 0) {
+                break;
+            }
+            
+        }
     }
 
     void close() throws IOException {
