@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -11,6 +12,15 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
+    void reverse(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n / 2; ++i) {
+            int t = nums[i];
+            nums[i] = nums[n - i - 1];
+            nums[n - i - 1] = t;
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -20,7 +30,17 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 nums[i] = Integer.parseInt(st.nextToken());
             }
-            
+            Arrays.sort(nums);
+            reverse(nums);
+
+            int p = 2;
+            int sum = 0;
+            while (p < n) {
+                sum += nums[p];
+                p += 3;
+            }
+            out.append(String.format("%d\n", sum));
+            t--;
         }
     }
 
