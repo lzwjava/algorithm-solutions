@@ -20,10 +20,10 @@ public class Main {
             int c = Integer.parseInt(st.nextToken());
             int x = 0, y = 0, z = 0;
             boolean found = false;
-            for (x = -100; x <= 100; x++) {
-                for (y = -100; y <= 100; y++) {
+            for (x = -100; x < 100; x++) {
+                for (y = x + 1; y <= 100; y++) {
                     z = a - x - y;
-                    if (x * y * z == b && x * x + y * y + z * z == c) {
+                    if (z != x && z != y && x * y * z == b && x * x + y * y + z * z == c) {
                         found = true;
                         break;
                     }
@@ -56,10 +56,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
