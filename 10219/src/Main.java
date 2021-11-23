@@ -12,15 +12,7 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    int maxn = 1000;
-    BigInteger[] map = new BigInteger[maxn];
-
     void solve() throws IOException {
-        BigInteger v = BigInteger.ONE;
-        for (int i = 1; i < maxn; i++) {
-            v = v.multiply(BigInteger.valueOf(i));
-            map[i] = v;
-        }
         while (true) {
             String line = in.readLine();
             if (line == null) {
