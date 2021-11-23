@@ -37,7 +37,6 @@ public class Main {
             out.append(String.format("%02d:%02d\n", rh, rm));
             t--;
         }
-
     }
 
     void close() throws IOException {
