@@ -1,5 +1,4 @@
 import java.io.*;
-import java.math.BigInteger;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -21,45 +20,16 @@ public class Main {
             StringTokenizer st = new StringTokenizer(line);
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
-            int a = 1, b = 1, c = 1;
-            BigInteger ans = BigInteger.ONE;
-            while (true) {
-                boolean ok = false;
-                if (a <= n) {
-                    ans = ans.multiply(BigInteger.valueOf(a));
-                    a++;
-                    ok = true;
-                }
-                if (b <= k) {
-                    while (true) {
-                        BigInteger bn = BigInteger.valueOf(b);
-                        if (ans.mod(bn).intValue() == 0) {
-                            ans = ans.divide(bn);
-                            b++;
-                            ok = true;
-                        } else {
-                            break;
-                        }
-                    }
-                }
-                if (c <= n - k) {
-                    while (true) {
-                        BigInteger cn = BigInteger.valueOf(b);
-                        if (ans.mod(cn).intValue() == 0) {
-                            ans = ans.divide(cn);
-                            c++;
-                            ok = true;
-                        } else {
-                            break;
-                        }
-                    }
-                }
-                if (!ok) {
-                    break;
-                }
+            double logSum = 0;
+            for (int i = n - k + 1; i <= n; i++) {
+                logSum += Math.log10(i);
             }
-            String str = String.format("%d", ans);
-            out.append(String.format("%s\n", str.length()));
+
+            for (int i = 1; i <= k; i++) {
+                logSum -= Math.log10(i);
+            }
+
+            out.append(String.format("%d\n", (int) logSum + 1));
         }
     }
 
