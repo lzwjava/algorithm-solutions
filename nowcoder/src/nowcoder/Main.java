@@ -1,6 +1,6 @@
 package nowcoder;
 
-import nowcoder.nc93.Test;
+import nowcoder.nc45.Test;
 
 import java.io.IOException;
 
