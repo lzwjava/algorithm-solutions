@@ -41,7 +41,7 @@ public class Main {
     void permutation(int[] nums, boolean[] vis, int cur, int m, int n, double dist) {
         total++;
         if (total > maxTotal) {
-            return;
+//            return;
         }
         if (dist > minDist) {
             return;
