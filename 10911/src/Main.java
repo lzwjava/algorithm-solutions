@@ -35,14 +35,8 @@ public class Main {
     }
 
     double minDist;
-    int total;
-    int maxTotal = 100000000;
 
     void permutation(int[] nums, boolean[] vis, int cur, int m, int n, double dist) {
-        total++;
-        if (total > maxTotal) {
-//            return;
-        }
         if (dist > minDist) {
             return;
         }
@@ -104,7 +98,6 @@ public class Main {
             }
 
             minDist = Integer.MAX_VALUE;
-            total = 0;
             int[] nums = new int[m];
             boolean[] vis = new boolean[m];
             permutation(nums, vis, 0, m, n, 0);
