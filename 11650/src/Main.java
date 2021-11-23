@@ -17,18 +17,22 @@ public class Main {
             String[] splits = line.split(":");
             int h = Integer.parseInt(splits[0]);
             int m = Integer.parseInt(splits[1]);
-//            int mm = h * 60 + m;
-//            int rmm;
-            if (h == 12) {
-                h = 0;
-            } else if (h == 11) {
-                h = -1;
-            }
-            int rh = 11 - h;
-            int rm = 60 - m;
-            if (rm == 60) {
-                rh = (rh + 1) % 12;
-                rm = 0;
+            int rh, rm;
+            if (h == 12 && m == 0) {
+                rh = h;
+                rm = m;
+            } else {
+                if (h == 12) {
+                    h = 0;
+                } else if (h == 11) {
+                    h = -1;
+                }
+                rh = 11 - h;
+                rm = 60 - m;
+                if (rm == 60) {
+                    rh = (rh + 1) % 12;
+                    rm = 0;
+                }
             }
             out.append(String.format("%02d:%02d\n", rh, rm));
             t--;
