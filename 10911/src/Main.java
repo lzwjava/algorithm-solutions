@@ -24,26 +24,11 @@ public class Main {
         }
     }
 
-    double calDist(int[] nums, int n) {
-        int group = n / 2;
-        double s = 0;
-        for (int i = 0; i < group; i++) {
-            int u = nums[i * 2];
-            int v = nums[i * 2 + 1];
-            s += points[u].dist(points[v]);
-        }
-        return s;
-    }
-
     double minDist;
 
-    void permutation(int[] nums, boolean[] vis, int cur, int n) {
-        double dist = 0;
-        if (cur % 2 == 0) {
-            dist = calDist(nums, cur);
-            if (dist > minDist) {
-                return;
-            }
+    void permutation(int[] nums, boolean[] vis, int cur, int m, int n, double dist) {
+        if (dist > minDist) {
+            return;
         }
         if (cur == n) {
             if (dist < minDist) {
@@ -51,17 +36,19 @@ public class Main {
             }
             return;
         }
-        int si;
-        if (cur > 0 && cur % 2 == 1) {
-            si = nums[cur - 1] + 1;
-        } else {
-            si = 0;
-        }
-        for (int i = si; i < n; i++) {
+        for (int i = 0; i < m; i++) {
             if (!vis[i]) {
                 vis[i] = true;
-                nums[cur] = i;
-                permutation(nums, vis, cur + 1, n);
+                for (int j = i + 1; j < m; j++) {
+                    if (!vis[j]) {
+                        vis[j] = true;
+                        nums[cur] = i;
+                        nums[cur + 1] = j;
+                        double d = points[i].dist(points[j]);
+                        permutation(nums, vis, cur + 1, m, n, dist + d);
+                        vis[j] = false;
+                    }
+                }
                 vis[i] = false;
             }
         }
@@ -88,7 +75,7 @@ public class Main {
             int m = n * 2;
             int[] nums = new int[m];
             boolean[] vis = new boolean[m];
-            permutation(nums, vis, 0, m);
+            permutation(nums, vis, 0, m, n, 0);
             out.append(String.format("Case %d: %.2f\n", caseNum, minDist));
             caseNum++;
         }
