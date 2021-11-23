@@ -18,18 +18,27 @@ public class Main {
                 break;
             }
             StringTokenizer st = new StringTokenizer(line);
-            int n = Integer.parseInt(st.nextToken());
-            int k = Integer.parseInt(st.nextToken());
+            long n = Integer.parseInt(st.nextToken());
+            long k = Integer.parseInt(st.nextToken());
             double logSum = 0;
-            for (int i = n - k + 1; i <= n; i++) {
-                logSum += Math.log10(i);
-            }
+//            for (long i = n - k + 1; i <= n; i++) {
+//                logSum += Math.log10(i);
+//            }
+//
+//            for (long i = 1; i <= k; i++) {
+//                logSum -= Math.log10(i);
+//            }
 
-            for (int i = 1; i <= k; i++) {
-                logSum -= Math.log10(i);
+            if (k > n - k) {
+                for (long i = k + 1; i <= n; i++) {
+                    logSum += Math.log10(i) - Math.log10(n - i + 1);
+                }
+            } else {
+                for (long i = n - k + 1; i <= n; i++) {
+                    logSum += Math.log10(i) - Math.log10(n - i + 1);
+                }
             }
-
-            out.append(String.format("%d\n", (int) logSum + 1));
+            out.append(String.format("%d\n", (long) logSum + 1));
         }
     }
 
@@ -48,10 +57,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
