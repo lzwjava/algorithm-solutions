@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
 
@@ -12,21 +11,27 @@ public class Main {
     }
 
     void solve() throws IOException {
+        int maxn = 500001;
+        int[] map = new int[maxn];
+        int p = 4;
+        map[0] = 0;
+        map[1] = 1;
+        map[2] = 2;
+        map[3] = 2;
+        for (int i = 4; i < maxn; i++) {
+            int v = map[i - 1] + 2;
+            if (map[i - 1] == p) {
+                v = 2;
+                p *= 2;
+            }
+            map[i] = v;
+        }
         while (true) {
             int n = Integer.parseInt(in.readLine());
             if (n == 0) {
                 break;
             }
-            ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(n);
-            for (int i = 1; i <= n; i++) {
-                queue.add(i);
-            }
-            while (queue.size() != 1) {
-                queue.poll();
-                Integer i = queue.poll();
-                queue.add(i);
-            }
-            out.append(String.format("%d\n", queue.poll()));
+            out.append(String.format("%d\n", map[n]));
         }
     }
 
@@ -45,10 +50,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
