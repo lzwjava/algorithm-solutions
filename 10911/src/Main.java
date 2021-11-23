@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -11,7 +12,7 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    class Point {
+    class Point implements Comparable<Point> {
         int x, y;
 
         Point(int x, int y) {
@@ -22,11 +23,26 @@ public class Main {
         double dist(Point b) {
             return Math.hypot(x - b.x, y - b.y);
         }
+
+        double distToZero() {
+            return Math.hypot(x, y);
+        }
+
+        @Override
+        public int compareTo(Point o) {
+            return Double.compare(distToZero(), o.distToZero());
+        }
     }
 
     double minDist;
+    int total;
+    int maxTotal = 100000000;
 
     void permutation(int[] nums, boolean[] vis, int cur, int m, int n, double dist) {
+        total++;
+        if (total > maxTotal) {
+            return;
+        }
         if (dist > minDist) {
             return;
         }
@@ -36,15 +52,21 @@ public class Main {
             }
             return;
         }
-        for (int i = 0; i < m; i++) {
+        int si;
+        if (cur == 0) {
+            si = 0;
+        } else {
+            si = nums[2 * (cur - 1)];
+        }
+        for (int i = si; i < m; i++) {
             if (!vis[i]) {
                 vis[i] = true;
                 for (int j = i + 1; j < m; j++) {
                     if (!vis[j]) {
                         vis[j] = true;
-                        nums[cur] = i;
-                        nums[cur + 1] = j;
-                        double d = points[i].dist(points[j]);
+                        nums[2 * cur] = i;
+                        nums[2 * cur + 1] = j;
+                        double d = map[i][j];
                         permutation(nums, vis, cur + 1, m, n, dist + d);
                         vis[j] = false;
                     }
@@ -55,6 +77,7 @@ public class Main {
     }
 
     Point[] points;
+    double[][] map;
 
     void solve() throws IOException {
         int caseNum = 1;
@@ -63,16 +86,25 @@ public class Main {
             if (n == 0) {
                 break;
             }
-            points = new Point[n * 2];
-            for (int i = 0; i < n * 2; i++) {
+            int m = n * 2;
+            points = new Point[m];
+            for (int i = 0; i < m; i++) {
                 StringTokenizer st = new StringTokenizer(in.readLine());
                 st.nextToken();
                 int x = Integer.parseInt(st.nextToken());
                 int y = Integer.parseInt(st.nextToken());
                 points[i] = new Point(x, y);
             }
+            Arrays.sort(points);
+            map = new double[m][m];
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < m; j++) {
+                    map[i][j] = points[i].dist(points[j]);
+                }
+            }
+
             minDist = Integer.MAX_VALUE;
-            int m = n * 2;
+            total = 0;
             int[] nums = new int[m];
             boolean[] vis = new boolean[m];
             permutation(nums, vis, 0, m, n, 0);
@@ -96,10 +128,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
