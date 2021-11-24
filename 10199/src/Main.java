@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -82,6 +83,7 @@ public class Main {
                 vis[i] = false;
             }
 
+            Collections.sort(ansList);
             if (caseNum != 1) {
                 out.append('\n');
             }
@@ -117,10 +119,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
