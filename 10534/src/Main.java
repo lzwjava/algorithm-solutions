@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -16,87 +17,23 @@ public class Main {
     int[] nums;
     int max;
 
-    void permutation(int cur, ArrayList<Integer> parts) {
-        if (cur == n) {
-            if (validFinally(parts)) {
-                int pn = parts.size();
-                if (pn > max) {
-                    max = pn;
-                }
+    void calLIS(int[] nums, int[] lis) {
+        int n = nums.length;
+        int[] top = new int[n];
+        int piles = 0;
+        for (int i = 0; i < n; i++) {
+            int poker = nums[i];
+
+            int left = Arrays.binarySearch(top, 0, piles, poker);
+            if (left < 0) {
+                left = -(left + 1);
             }
-            return;
-        }
-        parts.add(nums[cur]);
-        if (valid(cur, parts)) {
-            permutation(cur + 1, parts);
-        }
-        parts.remove((Integer) nums[cur]);
-
-        permutation(cur + 1, parts);
-    }
-
-    boolean validFinally(ArrayList<Integer> parts) {
-        int pn = parts.size();
-        if (pn % 2 == 0) {
-            return false;
-        }
-        int sn = (pn - 1) / 2;
-        for (int i = 0; i < sn; i++) {
-            if (Integer.compare(parts.get(i), parts.get(i + 1)) >= 0) {
-                return false;
+            if (left == piles) {
+                piles++;
             }
+            top[left] = poker;
+            lis[i] = left + 1;
         }
-        for (int i = sn; i < pn - 1; i++) {
-            if (Integer.compare(parts.get(i), parts.get(i + 1)) <= 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    boolean valid(int cur, ArrayList<Integer> parts) {
-        int pn = parts.size();
-        int[] comps = new int[pn - 1];
-        for (int i = 0; i < pn - 1; i++) {
-            comps[i] = Integer.compare(parts.get(i), parts.get(i + 1));
-        }
-        int i;
-        for (i = 0; i < pn - 1; i++) {
-            if (comps[i] >= 0) {
-                break;
-            }
-        }
-
-        int mid = i;
-
-        boolean ok = true;
-        for (; i < pn - 1; i++) {
-            if (comps[i] <= 0) {
-                ok = false;
-                break;
-            }
-        }
-        if (!ok) {
-            return false;
-        }
-
-        // i: pn -1
-
-        int sn = mid;
-        int rn = i - mid;
-
-        if (rn > sn) {
-            return false;
-        }
-
-        if (rn < sn) {
-            int rest = sn - rn;
-            int restElements = n - (cur + 1);
-            if (restElements < rest) {
-                return false;
-            }
-        }
-        return true;
     }
 
     void solve() throws IOException {
@@ -112,8 +49,10 @@ public class Main {
                 nums[i] = Integer.parseInt(st.nextToken());
             }
             ArrayList<Integer> parts = new ArrayList<>();
+
+
             max = 0;
-            permutation(0, parts);
+
             out.append(String.format("%d\n", max));
         }
     }
@@ -133,7 +72,7 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("2.in");
+            inStream = new FileInputStream("3.in");
             // outStream = new PrintStream("1.out");
             System.setIn(inStream);
             // System.setOut(outStream);
