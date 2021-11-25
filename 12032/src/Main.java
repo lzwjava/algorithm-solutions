@@ -13,14 +13,34 @@ public class Main {
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
+        for (int u = 0; u < t; u++) {
             int n = Integer.parseInt(in.readLine());
             int[] nums = new int[n];
-            StringTokenizer st = new StringTokenizer(in.readLine())
+            StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
                 nums[i] = Integer.parseInt(st.nextToken());
             }
-            t--;
+            for (int v = 1; ; v++) {
+                int p = 0;
+                int k = v;
+                boolean ok = true;
+                for (int i = 0; i < n; i++) {
+                    int d = nums[i] - p;
+                    if (d < k) {
+                        // remains
+                    } else if (d == k) {
+                        k--;
+                    } else {
+                        ok = false;
+                        break;
+                    }
+                    p = nums[i];
+                }
+                if (ok) {
+                    out.append(String.format("Case %d: %d\n", u + 1, v));
+                    break;
+                }
+            }
         }
     }
 
