@@ -1,21 +1,20 @@
-import java.io.*;
-import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
 
-    BufferedReader in;
     PrintWriter out;
 
     Main() {
-        in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
     int n;
     int[] nums;
-    int max;
 
     void calLIS(int[] nums, int[] lis) {
         int n = nums.length;
@@ -36,31 +35,44 @@ public class Main {
         }
     }
 
+    void reverse(int[] as) {
+        int an = as.length;
+        for (int i = 0; i < an / 2; i++) {
+            int t = as[i];
+            as[i] = as[an - 1 - i];
+            as[an - 1 - i] = t;
+        }
+    }
+
     void solve() throws IOException {
+        Scanner sc = new Scanner(System.in);
         while (true) {
-            String line = in.readLine();
-            if (line == null) {
+            if (!sc.hasNextInt()) {
                 break;
             }
-            n = Integer.parseInt(line);
+            n = sc.nextInt();
             nums = new int[n];
-            StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
-                nums[i] = Integer.parseInt(st.nextToken());
+                nums[i] = sc.nextInt();
             }
-            ArrayList<Integer> parts = new ArrayList<>();
+            int[] lis = new int[n];
+            calLIS(nums, lis);
+            reverse(nums);
+            int[] lds = new int[n];
+            calLIS(nums, lds);
+            reverse(lds);
+            reverse(nums);
 
-
-            max = 0;
-
-            out.append(String.format("%d\n", max));
+            int ans = 0;
+            for (int i = 0; i < n; i++) {
+                int v = 2 * Integer.min(lis[i] - 1, lds[i] - 1) + 1;
+                ans = Integer.max(ans, v);
+            }
+            out.append(String.format("%d\n", ans));
         }
     }
 
     void close() throws IOException {
-        if (in != null) {
-            in.close();
-        }
         if (out != null) {
             out.flush();
             out.close();
@@ -72,10 +84,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("3.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("1.in");
+//            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+//            System.setOut(outStream);
         }
 
         Main main = new Main();
