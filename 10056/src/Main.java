@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -11,7 +12,29 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        int s = Integer.parseInt(in.readLine());
+        while (s > 0) {
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            int n = Integer.parseInt(st.nextToken());
+            double p = Double.parseDouble(st.nextToken());
+            int I = Integer.parseInt(st.nextToken());
+
+            double ans = 0;
+            for (int i = 1; ; i++) {
+                if (i % n == I % n) {
+                    double np = Math.pow(1 - p, i - 1);
+                    double fp = np * p;
+                    if (fp < 1e-6) {
+                        break;
+                    }
+                    ans += fp;
+                }
+            }
+
+            out.append(String.format("%.4f\n", ans));
+
+            s--;
+        }
     }
 
     void close() throws IOException {
