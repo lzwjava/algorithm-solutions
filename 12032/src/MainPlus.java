@@ -1,12 +1,12 @@
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main {
+public class MainPlus {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    MainPlus() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
@@ -20,22 +20,27 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 nums[i] = Integer.parseInt(st.nextToken());
             }
-            int ans = 0;
-            for (int i = n - 1; i >= 0; i--) {
-                int v;
-                if (i == 0) {
-                    v = 0;
-                } else {
-                    v = nums[i - 1];
+            for (int v = 1; ; v++) {
+                int p = 0;
+                int k = v;
+                boolean ok = true;
+                for (int i = 0; i < n; i++) {
+                    int d = nums[i] - p;
+                    if (d < k) {
+                        // remains
+                    } else if (d == k) {
+                        k--;
+                    } else {
+                        ok = false;
+                        break;
+                    }
+                    p = nums[i];
                 }
-                int d = nums[i] - v;
-                if (d > ans) {
-                    ans = d;
-                } else if (d == ans) {
-                    ans = d + 1;
+                if (ok) {
+                    out.append(String.format("Case %d: %d\n", u + 1, v));
+                    break;
                 }
             }
-            out.append(String.format("Case %d: %d\n", u + 1, ans));
         }
     }
 
@@ -60,7 +65,7 @@ public class Main {
             System.setOut(outStream);
         }
 
-        Main main = new Main();
+        MainPlus main = new MainPlus();
         main.solve();
         main.close();
 
