@@ -12,32 +12,18 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int[] fact = new int[13];
-        fact[0] = 1;
-        for (int i = 1; i < 13; i++) {
-            fact[i] = fact[i - 1] * i;
-        }
-
         while (true) {
-            String s = in.readLine();
-            if (s == null) {
+            int n = Integer.parseInt(in.readLine());
+            if (n == 0) {
                 break;
             }
-            StringTokenizer st = new StringTokenizer(s);
-            int n = Integer.parseInt(st.nextToken());
+            StringTokenizer st = new StringTokenizer(in.readLine());
             int k = Integer.parseInt(st.nextToken());
-
-            int[] ns = new int[n];
-            st = new StringTokenizer(in.readLine());
-            for (int i = 0; i < n; i++) {
-                ns[i] = Integer.parseInt(st.nextToken());
+            int[] nums = new int[k];
+            for (int i = 0; i < k; i++) {
+                nums[i] = Integer.parseInt(st.nextToken());
             }
-
-            int product = 1;
-            for (int i = 0; i < n; i++) {
-                product *= fact[ns[i]];
-            }
-            out.append(String.format("%d\n", fact[n] / product));
+            
         }
     }
 
