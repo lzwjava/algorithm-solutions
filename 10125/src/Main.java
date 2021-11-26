@@ -28,8 +28,14 @@ public class Main {
             Arrays.sort(ns);
             boolean found = false;
             for (int d = n - 1; d >= 0; d--) {
-                for (int c = 0; c <= d - 1; c++) {
-                    for (int b = c + 1; b <= d - 1; b++) {
+                for (int c = 0; c < n; c++) {
+                    if (c == d) {
+                        continue;
+                    }
+                    for (int b = 0; b < n; b++) {
+                        if (b == c || b == d) {
+                            continue;
+                        }
                         int a = ns[d] - ns[c] - ns[b];
                         if (a != ns[d] && a != ns[c] && a != ns[b] && Arrays.binarySearch(ns, a) >= 0) {
                             out.append(String.format("%d\n", ns[d]));
