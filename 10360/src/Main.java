@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -15,6 +16,16 @@ public class Main {
     }
 
     void solve() throws IOException {
+        int t = readInt();
+        while (t > 0) {
+            int d = readInt();
+            int n = readInt();
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            int i = Integer.parseInt(st.nextToken());
+            t--;
+        }
     }
 
     void close() throws IOException {
