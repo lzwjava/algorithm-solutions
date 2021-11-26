@@ -55,7 +55,7 @@ public class Main {
                 if (i % 2 == 0) {
                     s = "front";
                 } else {
-                    s = "back";
+                    s = "back ";
                 }
                 int sheet = i / 2 + 1;
                 if (nums[i][0] != 0 || nums[i][1] != 0) {
@@ -81,10 +81,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
