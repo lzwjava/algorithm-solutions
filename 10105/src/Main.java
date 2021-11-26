@@ -27,14 +27,14 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
 
-            int[] ns = new int[n];
+            int[] ns = new int[k];
             st = new StringTokenizer(in.readLine());
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < k; i++) {
                 ns[i] = Integer.parseInt(st.nextToken());
             }
 
             int product = 1;
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < k; i++) {
                 product *= fact[ns[i]];
             }
             out.append(String.format("%d\n", fact[n] / product));
@@ -56,10 +56,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
