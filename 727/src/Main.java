@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class Main {
 
@@ -16,90 +16,29 @@ public class Main {
         return Integer.parseInt(in.readLine());
     }
 
-    enum NodeType {
-        Operator,
-        Value
+    boolean isOperator(char ch) {
+        return "+-*/".indexOf(ch) >= 0;
     }
 
-    class Node {
-        NodeType type;
-        String operator;
-        int v;
-
-        Node(String operator) {
-            this.type = NodeType.Operator;
-            this.operator = operator;
+    int precedence(char ch) {
+        if (ch == '(' || ch == ')') {
+            return 0;
+        } else if (ch == '+' || ch == '-') {
+            return 1;
+        } else if (ch == '*' || ch == '/') {
+            return 2;
         }
-
-        Node(int v) {
-            this.type = NodeType.Value;
-            this.v = v;
-        }
-
-        Node left;
-        Node right;
+        return -1;
     }
 
-    boolean isOperator(String token) {
-        String operators = "+-*/";
-        return operators.contains(token);
-    }
-
-    boolean isHighOperator(String token) {
-        String operators = "*/";
-        return operators.contains(token);
-    }
-
-    boolean isLowOperator(String token) {
-        String operators = "+-";
-        return operators.contains(token);
-    }
-
-    Node buildTree(List<String> tokens) {
-        if (tokens.size() == 1) {
-            int v = Integer.parseInt(tokens.get(0));
-            return new Node(v);
-        }
-        int len = tokens.size();
-        if (tokens.get(0).equals("(") && tokens.get(len - 1).equals(")")) {
-            return buildTree(tokens.subList(1, len - 1));
-        }
-        int depth = 0;
-        int mid = -1;
-        for (int i = 0; i < tokens.size(); i++) {
-            String token = tokens.get(i);
-            if (token.equals("(")) {
-                depth++;
-            } else if (token.equals(")")) {
-                depth--;
-            } else if (isOperator(token) && depth == 0) {
-                if (mid == -1) {
-                    mid = i;
-                } else {
-                    String operator = tokens.get(mid);
-                    if (isLowOperator(operator) && isHighOperator(token)) {
-                        mid = i;
-                    }
-                }
-            }
-        }
-        assert (mid != -1);
-        List<String> leftList = tokens.subList(0, mid);
-        List<String> rightList = tokens.subList(mid + 1, len);
-
-        Node node = new Node(tokens.get(mid));
-        node.left = buildTree(leftList);
-        node.right = buildTree(rightList);
-        return node;
-    }
-
-    void print(Node node, StringBuilder sb) {
-        if (node.left != null && node.right != null) {
-            print(node.left, sb);
-            print(node.right, sb);
-            sb.append(node.operator);
+    void pushOp(Stack<Character> op, StringBuilder postfix, char ch) {
+        if (op.isEmpty() || precedence(op.peek()) < precedence(ch)) {
+            op.push(ch);
         } else {
-            sb.append(String.valueOf(node.v));
+            while (!op.isEmpty() && precedence(op.peek()) >= precedence(ch)) {
+                postfix.append(op.pop());
+            }
+            op.push(ch);
         }
     }
 
@@ -115,11 +54,31 @@ public class Main {
                 }
                 list.add(s);
             }
-            Node node = buildTree(list);
-            StringBuilder sb = new StringBuilder();
-            print(node, sb);
-            out.append(String.format("%s\n", sb.toString()));
+            StringBuilder postfix = new StringBuilder();
+            Stack<Character> op = new Stack<Character>();
+            for (String token : list) {
+                char ch = token.charAt(0);
+                if (ch == '(') {
+                    op.push('(');
+                } else if (ch == ')') {
+                    while (op.peek() != '(') {
+                        postfix.append(op.pop());
+                    }
+                    op.pop();
+                } else if (Character.isDigit(ch)) {
+                    postfix.append(ch);
+                } else if (isOperator(ch)) {
+                    pushOp(op, postfix, ch);
+                }
+            }
+            while (!op.isEmpty()) {
+                postfix.append(op.pop());
+            }
+            out.append(String.format("%s\n", postfix.toString()));
             t--;
+            if (t != 0) {
+                out.append('\n');
+            }
         }
     }
 
@@ -138,10 +97,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
