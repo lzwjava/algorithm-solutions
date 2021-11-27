@@ -1,5 +1,6 @@
 import java.io.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -103,26 +104,24 @@ public class Main {
             parent = new int[n];
             rank = new int[n];
             for (int i = 0; i < n; i++) {
-                rank[i] = i;
+                parent[i] = i;
             }
             for (Pair pair : pairs) {
                 union(pair.a, pair.b);
             }
-            int nn = n * (1 + n) / 2;
-            Edge[] edges = new Edge[nn];
-            int p = 0;
+            ArrayList<Edge> edges = new ArrayList<Edge>();
             for (int i = 0; i < n; i++) {
                 for (int j = i + 1; j < n; j++) {
                     Point pi = points[i];
                     Point pj = points[j];
                     double d = Math.hypot(pi.x - pj.x, pi.y - pj.y);
-                    edges[p++] = new Edge(i, j, d);
+                    edges.add(new Edge(i, j, d));
                 }
             }
-            Arrays.sort(edges);
+            Collections.sort(edges);
 
             double ans = 0;
-            for (int u = 0; u < nn; u++) {
+            for (int u = 0; u < edges.size(); u++) {
                 boolean ok = true;
                 int f0 = find(0);
                 for (int i = 1; i < n; i++) {
@@ -135,7 +134,7 @@ public class Main {
                 if (ok) {
                     break;
                 }
-                Edge edge = edges[u];
+                Edge edge = edges.get(u);
                 int fa = find(edge.a);
                 int fb = find(edge.b);
                 if (fa != fb) {
