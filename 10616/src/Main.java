@@ -102,7 +102,7 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
+            inStream = new FileInputStream("2.in");
             // outStream = new PrintStream("1.out");
             System.setIn(inStream);
             // System.setOut(outStream);
