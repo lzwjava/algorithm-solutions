@@ -1,20 +1,19 @@
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
 
-    BufferedReader in;
+    Scanner in;
     PrintWriter out;
 
     Main() {
-        in = new BufferedReader(new InputStreamReader(System.in));
+        in = new Scanner(System.in);
         out = new PrintWriter(System.out);
-    }
-
-    int readInt() throws IOException {
-        return Integer.parseInt(in.readLine());
     }
 
     class Point {
@@ -81,24 +80,21 @@ public class Main {
 
     void solve() throws IOException {
         while (true) {
-            String s = in.readLine();
-            if (s == null) {
+            if (!in.hasNextInt()) {
                 break;
             }
-            int n = Integer.parseInt(s);
+            int n = in.nextInt();
             Point[] points = new Point[n];
             for (int i = 0; i < n; i++) {
-                StringTokenizer st = new StringTokenizer(in.readLine());
-                int x = Integer.parseInt(st.nextToken());
-                int y = Integer.parseInt(st.nextToken());
+                int x = in.nextInt();
+                int y = in.nextInt();
                 points[i] = new Point(x, y);
             }
-            int m = readInt();
+            int m = in.nextInt();
             Pair[] pairs = new Pair[m];
             for (int i = 0; i < m; i++) {
-                StringTokenizer st = new StringTokenizer(in.readLine());
-                int a = Integer.parseInt(st.nextToken()) - 1;
-                int b = Integer.parseInt(st.nextToken()) - 1;
+                int a = in.nextInt() - 1;
+                int b = in.nextInt() - 1;
                 pairs[i] = new Pair(a, b);
             }
             parent = new int[n];
@@ -162,9 +158,9 @@ public class Main {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
