@@ -2,18 +2,61 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main {
+public class MainPlus {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    MainPlus() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
     int readInt() throws IOException {
         return Integer.parseInt(in.readLine());
+    }
+
+    int total;
+
+    void permutation(int[] nums, int[] ts, int cur, int m, int d) {
+        if (cur == m) {
+            int s = 0;
+            for (int i = 0; i < m; i++) {
+                s += ts[i];
+            }
+            if (s % d == 0) {
+                total++;
+            }
+            return;
+        }
+        int st;
+        if (cur == 0) {
+            st = nums[0];
+        } else {
+            st = ts[cur - 1];
+        }
+        int nn = nums.length;
+        for (int i = 0; i < nn; i++) {
+            if (nums[i] >= st) {
+                int c1 = 0;
+                int v = nums[i];
+                for (int j = 0; j < nn; j++) {
+                    if (nums[j] == v) {
+                        c1++;
+                    }
+                }
+                int c2 = 0;
+                for (int j = 0; j < cur; j++) {
+                    if (ts[j] == v) {
+                        c2++;
+                    }
+                }
+                if (c2 < c1) {
+                    ts[cur] = v;
+                    permutation(nums, ts, cur + 1, m, d);
+                }
+            }
+        }
     }
 
     void solve() throws IOException {
@@ -39,7 +82,10 @@ public class Main {
                 for (int j = 0; j < n; j++) {
                     ns[j] = nums[j] % d;
                 }
-                
+                total = 0;
+                int[] ts = new int[m];
+                permutation(ns, ts, 0, m, d);
+                out.append(String.format("QUERY %d: %d\n", i + 1, total));
             }
             caseNum++;
         }
@@ -66,7 +112,7 @@ public class Main {
             // System.setOut(outStream);
         }
 
-        Main main = new Main();
+        MainPlus main = new MainPlus();
         main.solve();
         main.close();
 
