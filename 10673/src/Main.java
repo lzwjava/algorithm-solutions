@@ -21,6 +21,15 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int x = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
+            int ceil = (int) Math.ceil(x * 1.0 / k);
+            int floor = (int) Math.floor(x * 1.0 / k);
+            for (int p = 0; p <= 10000000; p++) {
+                if ((x - p * floor) % ceil == 0) {
+                    int q = (x - p * floor) / ceil;
+                    out.append(String.format("%d %d\n", p, q));
+                    break;
+                }
+            }
             t--;
         }
     }
