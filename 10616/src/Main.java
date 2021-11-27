@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -29,17 +28,36 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 nums[i] = readInt();
             }
-            Arrays.sort(nums);
             out.append(String.format("SET %d:\n", caseNum));
             for (int i = 0; i < q; i++) {
                 st = new StringTokenizer(in.readLine());
                 int d = Integer.parseInt(st.nextToken());
                 int m = Integer.parseInt(st.nextToken());
                 int[] ns = new int[n];
+                int sum = 0;
                 for (int j = 0; j < n; j++) {
-                    ns[j] = nums[j] % d;
+                    ns[j] = (nums[j] % d + d) % d;
+                    sum += ns[j];
                 }
-                
+
+                int[][] dp = new int[m + 1][sum + 1];
+                dp[0][0] = 1;
+                for (int p = 0; p < n; p++) {
+                    for (int j = m - 1; j >= 0; j--) {
+                        for (int k = 0; k <= sum; k++) {
+                            int v = k + ns[p];
+                            if (v <= sum) {
+                                dp[j + 1][v] += dp[j][k];
+                            }
+                        }
+                    }
+                }
+
+                int ans = 0;
+                for (int j = 0; j <= sum; j += d) {
+                    ans += dp[m][j];
+                }
+                out.append(String.format("QUERY %d: %d\n", i + 1, ans));
             }
             caseNum++;
         }
@@ -60,7 +78,7 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("2.in");
+            inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");
             System.setIn(inStream);
             // System.setOut(outStream);
