@@ -33,32 +33,29 @@ public class Main {
 
     int sticker = 0;
 
-    void dfs(int sx, int sy, char d, char[] op, int cur) {
-        if (cur == op.length) {
-            return;
-        }
-        if (op[cur] == 'D') {
-            char nd = turnRight(d);
-            dfs(sx, sy, nd, op, cur + 1);
-        } else if (op[cur] == 'E') {
-            char nd = turnLeft(d);
-            dfs(sx, sy, nd, op, cur + 1);
-        } else if (op[cur] == 'F') {
-            int i = dir.indexOf(d);
-            int nx = sx + dx[i];
-            int ny = sy + dy[i];
-            if (nx >= 0 && nx < n && ny >= 0 && ny < m) {
-                char g = grid[nx][ny];
-                if (g == '*' || g == '.') {
-                    if (g == '*') {
-                        sticker++;
+    void dfs(int sx, int sy, char d, char[] op) {
+        for (int i = 0; i < op.length; i++) {
+            char ch = op[i];
+            if (ch == 'D') {
+                char nd = turnRight(d);
+                d = nd;
+            } else if (ch == 'E') {
+                d = turnLeft(d);
+            } else if (ch == 'F') {
+                int j = dir.indexOf(d);
+                int nx = sx + dx[j];
+                int ny = sy + dy[j];
+                if (nx >= 0 && nx < n && ny >= 0 && ny < m) {
+                    char g = grid[nx][ny];
+                    if (g == '*' || g == '.') {
+                        if (g == '*') {
+                            sticker++;
+                            grid[nx][ny] = '.';
+                        }
+                        sx = nx;
+                        sy = ny;
                     }
-                    dfs(nx, ny, d, op, cur + 1);
-                } else {
-                    dfs(sx, sy, d, op, cur + 1);
                 }
-            } else {
-                dfs(sx, sy, d, op, cur + 1);
             }
         }
     }
@@ -90,13 +87,14 @@ public class Main {
                     }
                 }
             }
+            grid[sx][sy] = '.';
             String ins = in.readLine();
             char[] op = new char[s];
             for (int i = 0; i < s; i++) {
                 op[i] = ins.charAt(i);
             }
             sticker = 0;
-            dfs(sx, sy, d, op, 0);
+            dfs(sx, sy, d, op);
             out.append(String.format("%d\n", sticker));
         }
     }
@@ -116,10 +114,10 @@ public class Main {
         PrintStream outStream = null;
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
+            inStream = new FileInputStream("2.in");
+            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-            // System.setOut(outStream);
+            System.setOut(outStream);
         }
 
         Main main = new Main();
