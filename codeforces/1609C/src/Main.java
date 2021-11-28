@@ -56,7 +56,6 @@ public class Main {
     }
 
     void solve() throws IOException {
-        long begin = System.currentTimeMillis();
         calPrimes();
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -74,9 +73,6 @@ public class Main {
             }
             int cnt = 0;
             for (int i = 1; i <= n; i++) {
-                if (System.currentTimeMillis() - begin > 1500) {
-                    break;
-                }
                 if (ns[i - 1] > 1 && !pm[i - 1]) {
                     continue;
                 }
