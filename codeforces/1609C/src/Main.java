@@ -77,7 +77,8 @@ public class Main {
                 if (ns[i - 1] > 1 && !pm[i - 1]) {
                     continue;
                 }
-                for (int k = 1; k <= n; k++) {
+                int maxk = (n - i) / e;
+                for (int k = 1; k <= maxk; k++) {
                     int v = i + e * k;
                     if (v <= n) {
                         if (ns[v - 1] > 1 && !pm[v - 1]) {
