@@ -1,28 +1,26 @@
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class Main {
+public class MainPlus {
 
-    Scanner in;
+    BufferedReader in;
     PrintWriter out;
 
-    Main() {
-        in = new Scanner(System.in);
+    MainPlus() {
+        in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
     void solve() throws IOException {
-        int t = in.nextInt();
+        int t = Integer.parseInt(in.readLine().trim());
         while (t > 0) {
-            int n = in.nextInt();
+            int n = Integer.parseInt(in.readLine().trim());
+            StringTokenizer st = new StringTokenizer(in.readLine());
             ArrayList<Long> ns = new ArrayList<Long>();
             for (int i = 0; i < n; i++) {
-                long v = in.nextInt();
+                long v = Long.parseLong(st.nextToken());
                 ns.add(v);
             }
             Collections.sort(ns);
@@ -105,7 +103,7 @@ public class Main {
             // System.setOut(outStream);
         }
 
-        Main main = new Main();
+        MainPlus main = new MainPlus();
         main.solve();
         main.close();
 
