@@ -15,9 +15,51 @@ public class Main {
         return Integer.parseInt(in.readLine());
     }
 
-    void dfs(int sx, int sy, int d, char[] op, int cur) {
+    String dir = "NLSO";
+    int[] dx = new int[]{-1, 0, 1, 0};
+    int[] dy = new int[]{0, 1, 0, -1};
+
+    char turnRight(char d) {
+        int i = dir.indexOf(d);
+        int len = dir.length();
+        return dir.charAt((i + 1) % len);
+    }
+
+    char turnLeft(char d) {
+        int i = dir.indexOf(d);
+        int len = dir.length();
+        return dir.charAt((i - 1 + len) % len);
+    }
+
+    int sticker = 0;
+
+    void dfs(int sx, int sy, char d, char[] op, int cur) {
         if (cur == op.length) {
             return;
+        }
+        if (op[cur] == 'D') {
+            char nd = turnRight(d);
+            dfs(sx, sy, nd, op, cur + 1);
+        } else if (op[cur] == 'E') {
+            char nd = turnLeft(d);
+            dfs(sx, sy, nd, op, cur + 1);
+        } else if (op[cur] == 'F') {
+            int i = dir.indexOf(d);
+            int nx = sx + dx[i];
+            int ny = sy + dy[i];
+            if (nx >= 0 && nx < n && ny >= 0 && ny < m) {
+                char g = grid[nx][ny];
+                if (g == '*' || g == '.') {
+                    if (g == '*') {
+                        sticker++;
+                    }
+                    dfs(nx, ny, d, op, cur + 1);
+                } else {
+                    dfs(sx, sy, d, op, cur + 1);
+                }
+            } else {
+                dfs(sx, sy, d, op, cur + 1);
+            }
         }
     }
 
@@ -34,10 +76,18 @@ public class Main {
                 break;
             }
             grid = new char[n][m];
+            int sx = 0, sy = 0;
+            char d = ' ';
             for (int i = 0; i < n; i++) {
                 String line = in.readLine();
                 for (int j = 0; j < m; j++) {
-                    grid[i][j] = line.charAt(j);
+                    char c = line.charAt(j);
+                    grid[i][j] = c;
+                    if (dir.indexOf(c) >= 0) {
+                        sx = i;
+                        sy = j;
+                        d = c;
+                    }
                 }
             }
             String ins = in.readLine();
@@ -45,6 +95,9 @@ public class Main {
             for (int i = 0; i < s; i++) {
                 op[i] = ins.charAt(i);
             }
+            sticker = 0;
+            dfs(sx, sy, d, op, 0);
+            out.append(String.format("%d\n", sticker));
         }
     }
 
