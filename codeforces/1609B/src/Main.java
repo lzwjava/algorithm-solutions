@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -17,17 +18,39 @@ public class Main {
         int q = Integer.parseInt(st.nextToken());
         String s = in.readLine();
         char[] chs = s.toCharArray();
+        boolean[] abcs = new boolean[n];
+        int cnt = 0;
+        for (int j = 0; j <= n - 3; j++) {
+            String sub = s.substring(j, j + 3);
+            if (sub.equals("abc")) {
+                abcs[j] = true;
+                cnt++;
+            }
+        }
         for (int i = 0; i < q; i++) {
             st = new StringTokenizer(in.readLine());
             int index = Integer.parseInt(st.nextToken());
             char ch = st.nextToken().charAt(0);
-            chs[index - 1] = ch;
-            String ns = new String(chs);
-            int cnt = 0;
-            for (int j = 0; j <= n - 3; j++) {
-                String sub = ns.substring(j, j + 3);
-                if (sub.equals("abc")) {
-                    cnt++;
+            if (chs[index - 1] != ch) {
+                int start = index - 1;
+                start -= 2;
+                if (start <= 0) {
+                    start = 0;
+                }
+                int end = index - 1;
+                chs[index - 1] = ch;
+                for (int j = start; j <= end; j++) {
+                    char[] nchs = Arrays.copyOfRange(chs, j, j + 3);
+                    String ns = new String(nchs);
+                    boolean nv = ns.equals("abc");
+                    if (nv != abcs[j]) {
+                        if (abcs[j]) {
+                            cnt--;
+                        } else {
+                            cnt++;
+                        }
+                        abcs[j] = nv;
+                    }
                 }
             }
             out.append(String.format("%d\n", cnt));
