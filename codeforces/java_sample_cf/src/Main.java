@@ -10,10 +10,6 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    int readInt() throws IOException {
-        return Integer.parseInt(in.readLine());
-    }
-
     void solve() throws IOException {
     }
 
