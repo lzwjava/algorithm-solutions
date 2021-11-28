@@ -21,7 +21,7 @@ public class Main {
                 break;
             }
             int n = Integer.parseInt(s);
-            if (n % 2 == 0) {
+            if (n >= 4 && n % 2 == 0) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
