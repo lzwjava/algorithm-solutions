@@ -24,10 +24,10 @@ public class Main {
                 ns.add(v);
             }
             Collections.sort(ns);
-            int max = -1000;
+            long max = Long.MIN_VALUE;
             int cnt = 0;
             while (true) {
-                int sum = 0;
+                long sum = 0;
                 for (int k = 0; k < ns.size(); k++) {
                     sum += ns.get(k);
                 }
@@ -35,11 +35,10 @@ public class Main {
                     max = sum;
                 } else {
                     cnt++;
-                    if (cnt > 100) {
+                    if (cnt > 1000) {
                         break;
                     }
                 }
-
                 int len = ns.size();
                 int even = 0;
                 int eveni = -1;
