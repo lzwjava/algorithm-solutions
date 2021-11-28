@@ -1,30 +1,32 @@
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class MainPlus {
 
-    BufferedReader in;
+    Scanner in;
     PrintWriter out;
 
     MainPlus() {
-        in = new BufferedReader(new InputStreamReader(System.in));
+        in = new Scanner(System.in);
         out = new PrintWriter(System.out);
     }
 
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine().trim());
+        int t = in.nextInt();
         while (t > 0) {
-            int n = Integer.parseInt(in.readLine().trim());
-            StringTokenizer st = new StringTokenizer(in.readLine());
+            int n = in.nextInt();
             ArrayList<Long> ns = new ArrayList<Long>();
             for (int i = 0; i < n; i++) {
-                long v = Long.parseLong(st.nextToken());
+                long v = in.nextInt();
                 ns.add(v);
             }
             Collections.sort(ns);
-            long max = Long.MIN_VALUE;
+            long max = 0;
             int cnt = 0;
             while (true) {
                 long sum = 0;
@@ -35,11 +37,14 @@ public class MainPlus {
                     max = sum;
                 } else {
                     cnt++;
-                    if (cnt > 10) {
+                    if (cnt > 100) {
                         break;
                     }
                 }
                 int len = ns.size();
+                if (len == 1) {
+                    break;
+                }
                 int even = 0;
                 int eveni = -1;
                 for (int i = 0; i < len; i++) {
@@ -64,7 +69,7 @@ public class MainPlus {
                         break;
                     }
                 }
-                if (i == -1 || j == -1) {
+                if (i < 0 || i >= len || j < 0 || j >= len) {
                     break;
                 }
                 long vi = ns.get(i);

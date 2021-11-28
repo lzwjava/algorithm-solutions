@@ -2,8 +2,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -20,69 +19,27 @@ public class Main {
         int t = in.nextInt();
         while (t > 0) {
             int n = in.nextInt();
-            ArrayList<Long> ns = new ArrayList<Long>();
+            long[] ns = new long[n];
             for (int i = 0; i < n; i++) {
                 long v = in.nextInt();
-                ns.add(v);
+                ns[i] = v;
             }
-            Collections.sort(ns);
-            long max = 0;
-            int cnt = 0;
-            while (true) {
-                long sum = 0;
-                for (int k = 0; k < ns.size(); k++) {
-                    sum += ns.get(k);
+            int k = 0;
+            for (int i = 0; i < n; i++) {
+                while (ns[i] % 2 == 0) {
+                    ns[i] /= 2;
+                    k++;
                 }
-                if (sum > max) {
-                    max = sum;
-                } else {
-                    cnt++;
-                    if (cnt > 100) {
-                        break;
-                    }
-                }
-                int len = ns.size();
-                if (len == 1) {
-                    break;
-                }
-                int even = 0;
-                int eveni = -1;
-                for (int i = 0; i < len; i++) {
-                    if (ns.get(i) % 2 == 0) {
-                        even++;
-                        eveni = i;
-                    }
-                }
-                int i = -1;
-                if (even == 1) {
-                    i = eveni;
-                } else {
-                    for (i = 0; i < len; i++) {
-                        if (ns.get(i) % 2 == 0) {
-                            break;
-                        }
-                    }
-                }
-                int j = -1;
-                for (j = len - 1; j >= 0; j--) {
-                    if (j != i) {
-                        break;
-                    }
-                }
-                if (i < 0 || i >= len || j < 0 || j >= len) {
-                    break;
-                }
-                long vi = ns.get(i);
-                long vj = ns.get(j);
-                long ai = vi / 2;
-                long aj = vj * 2;
-                ns.remove(vi);
-                ns.remove(vj);
-                ns.add(ai);
-                ns.add(aj);
-                Collections.sort(ns);
             }
-            out.append(String.format("%d\n", max));
+            Arrays.sort(ns);
+            for (int i = 0; i < k; i++) {
+                ns[n - 1] *= 2;
+            }
+            long ans = 0;
+            for (int i = 0; i < n; i++) {
+                ans += ns[i];
+            }
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
