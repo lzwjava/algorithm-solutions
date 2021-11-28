@@ -7,10 +7,7 @@ public class Main {
         int a = in.nextInt();
         int b = in.nextInt();
         int y = 0;
-        while (true) {
-            if (a > b) {
-                break;
-            }
+        while (a <= b) {
             a *= 3;
             b *= 2;
             y++;
