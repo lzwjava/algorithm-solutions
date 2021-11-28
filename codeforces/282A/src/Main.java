@@ -11,7 +11,18 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        int n = Integer.parseInt(in.readLine());
+        int v = 0;
+        while (n > 0) {
+            String s = in.readLine();
+            if (s.contains("++")) {
+                v++;
+            } else if (s.contains("--")) {
+                v--;
+            }
+            n--;
+        }
+        out.append(String.format("%d\n", v));
     }
 
     void close() throws IOException {
