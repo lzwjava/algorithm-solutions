@@ -68,19 +68,39 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 ns[i] = Integer.parseInt(st.nextToken());
             }
+            boolean[] pm = new boolean[n];
+            for (int i = 0; i < n; i++) {
+                pm[i] = isPrime(ns[i]);
+            }
             int cnt = 0;
             for (int i = 1; i <= n; i++) {
+                if (ns[i - 1] > 1 && !pm[i - 1]) {
+                    continue;
+                }
                 for (int k = 1; k <= n; k++) {
                     int v = i + e * k;
                     if (v <= n) {
-                        int p = 1;
+                        if (ns[v - 1] > 1 && !pm[v - 1]) {
+                            continue;
+                        }
+                        boolean ok = true;
+                        int pn = 0;
                         for (int j = i; j <= v; j += e) {
-                            p *= ns[j - 1];
-                            if (p > 1 && !isPrime(p)) {
+                            if (ns[j - 1] == 1) {
+                                continue;
+                            }
+                            if (pm[j - 1]) {
+                                pn++;
+                                if (pn > 1) {
+                                    ok = false;
+                                    break;
+                                }
+                            } else {
+                                ok = false;
                                 break;
                             }
                         }
-                        if (isPrime(p)) {
+                        if (ok && pn == 1) {
                             cnt++;
                         }
                     }
