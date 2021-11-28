@@ -35,7 +35,7 @@ public class Main {
                     max = sum;
                 } else {
                     cnt++;
-                    if (cnt > 10000) {
+                    if (cnt > 100) {
                         break;
                     }
                 }
@@ -53,8 +53,8 @@ public class Main {
                 if (even == 1) {
                     i = eveni;
                 } else {
-                    for (i = len - 1; i >= 0; i--) {
-                        if (ns.get(i) % 2 == 0 && i != len - 1) {
+                    for (i = 0; i < len; i++) {
+                        if (ns.get(i) % 2 == 0) {
                             break;
                         }
                     }
@@ -72,8 +72,8 @@ public class Main {
                 long vj = ns.get(j);
                 long ai = vi / 2;
                 long aj = vj * 2;
-                ns.remove((Long) vi);
-                ns.remove((Long) vj);
+                ns.remove(vi);
+                ns.remove(vj);
                 ns.add(ai);
                 ns.add(aj);
                 Collections.sort(ns);
