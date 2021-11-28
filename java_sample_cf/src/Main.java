@@ -15,18 +15,6 @@ public class Main {
     }
 
     void solve() throws IOException {
-        while (true) {
-            String s = in.readLine();
-            if (s == null) {
-                break;
-            }
-            int n = Integer.parseInt(s);
-            if (n % 2 == 0) {
-                out.append("YES\n");
-            } else {
-                out.append("NO\n");
-            }
-        }
     }
 
     void close() throws IOException {
