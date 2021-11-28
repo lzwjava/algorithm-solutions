@@ -14,7 +14,28 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        String s = in.readLine();
+        int n = s.length();
+        boolean dangerous = false;
+        for (int i = 0; i <= n - 7; i++) {
+            boolean continuous = true;
+            char c = s.charAt(i);
+            for (int j = i + 1; j < i + 7; j++) {
+                if (s.charAt(j) != c) {
+                    continuous = false;
+                    break;
+                }
+            }
+            if (continuous) {
+                dangerous = true;
+                break;
+            }
+        }
+        if (dangerous) {
+            out.append("YES\n");
+        } else {
+            out.append("NO\n");
+        }
     }
 
     void close() throws IOException {
