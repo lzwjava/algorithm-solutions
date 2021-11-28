@@ -8,7 +8,8 @@ data
 *.iml
 .idea
 out
-2.in
+!1.in
+*.in
 .vscode
 *.spj
 *.stderr

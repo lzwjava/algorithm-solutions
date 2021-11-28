@@ -26,7 +26,7 @@ public class Main {
                 ns.add(v);
             }
             Collections.sort(ns);
-            long max = Long.MIN_VALUE;
+            long max = 0;
             int cnt = 0;
             while (true) {
                 long sum = 0;
@@ -37,11 +37,14 @@ public class Main {
                     max = sum;
                 } else {
                     cnt++;
-                    if (cnt > 10) {
+                    if (cnt > 100) {
                         break;
                     }
                 }
                 int len = ns.size();
+                if (len == 1) {
+                    break;
+                }
                 int even = 0;
                 int eveni = -1;
                 for (int i = 0; i < len; i++) {
@@ -66,7 +69,7 @@ public class Main {
                         break;
                     }
                 }
-                if (i == -1 || j == -1) {
+                if (i < 0 || i >= len || j < 0 || j >= len) {
                     break;
                 }
                 long vi = ns.get(i);
