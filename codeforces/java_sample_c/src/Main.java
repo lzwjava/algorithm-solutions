@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -9,7 +8,7 @@ public class Main {
     PrintWriter out;
 
     Main() {
-        in = new InputStreamReader(System.in));
+        in = new Scanner(System.in);
         out = new PrintWriter(System.out);
     }
 
