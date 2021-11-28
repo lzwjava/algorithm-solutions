@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -12,13 +11,12 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    void solve() throws IOException {
+    void solve() {
         int a = in.nextInt();
         int b = in.nextInt();
-        
     }
 
-    void close() throws IOException {
+    void close() {
         if (in != null) {
             in.close();
         }
@@ -28,7 +26,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Main main = new Main();
         main.solve();
         main.close();
