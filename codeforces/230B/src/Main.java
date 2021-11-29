@@ -22,22 +22,6 @@ public class Main {
         return true;
     }
 
-    boolean tprime(long x) {
-        int sx = (int) Math.sqrt(x);
-        for (int p : list) {
-            if (p > sx) {
-                break;
-            }
-            if (x % p == 0) {
-                while (x % p == 0) {
-                    x /= p;
-                }
-                return x == 1;
-            }
-        }
-        return false;
-    }
-
     void calPrimes() {
         int maxn = 1000001;
         boolean[] primes = new boolean[maxn];
