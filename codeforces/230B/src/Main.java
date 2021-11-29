@@ -64,6 +64,7 @@ public class Main {
 
 
     void solve() {
+        calPrimes();
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         long[] xs = new long[n];
