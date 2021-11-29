@@ -69,7 +69,7 @@ public class Main {
         int n = in.nextInt();
         long[] xs = new long[n];
         for (int i = 0; i < n; i++) {
-            xs[i] = in.nextInt();
+            xs[i] = in.nextLong();
         }
         for (int i = 0; i < n; i++) {
             int sx = (int) Math.sqrt(xs[i]);
