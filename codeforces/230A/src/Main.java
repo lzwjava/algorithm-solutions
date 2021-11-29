@@ -31,7 +31,7 @@ public class Main {
         boolean ok = true;
         for (int i = 0; i < n; i++) {
             Dragon d = dragons[i];
-            if (s >= d.x) {
+            if (s > d.x) {
                 s += d.y;
             } else {
                 ok = false;
