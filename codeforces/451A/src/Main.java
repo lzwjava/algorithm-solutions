@@ -16,9 +16,9 @@ public class Main {
             malvikaWin = false;
         } else {
             malvikaWin = true;
-            int s = n + m;
-            while (s >= 2) {
-                s -= 2;
+            int s = n;
+            while (s >= 1) {
+                s -= 1;
                 malvikaWin = !malvikaWin;
             }
         }
