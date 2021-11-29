@@ -8,7 +8,6 @@ public class Main {
         a = in.nextInt();
         b = in.nextInt();
         c = in.nextInt();
-        
     }
 
     public static void main(String[] args) {
