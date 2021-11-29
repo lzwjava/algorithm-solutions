@@ -11,7 +11,7 @@ public class Main {
         int d = in.nextInt();
         boolean[] vis = new boolean[d + 1];
         for (int i = 0; i < 4; i++) {
-            for (int j = 1; j <= d; j += ns[i]) {
+            for (int j = ns[i]; j <= d; j += ns[i]) {
                 vis[j] = true;
             }
         }
