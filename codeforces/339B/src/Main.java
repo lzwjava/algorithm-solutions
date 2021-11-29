@@ -16,9 +16,15 @@ public class Main {
             if (as[i] == p) {
                 // do
             } else {
-                while (as[i] != p) {
-                    p = p % n + 1;
-                    cnt++;
+                if (as[i] > p) {
+                    int d = as[i] - p;
+                    cnt += d;
+                    p = as[i];
+                } else {
+                    //as[i] < p
+                    int d = n - p + as[i];
+                    cnt += d;
+                    p = as[i];
                 }
             }
         }
