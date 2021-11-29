@@ -1,4 +1,6 @@
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
 
@@ -6,16 +8,21 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         int p = in.nextInt();
-        int[] ps = new int[n];
+        Set<Integer> set = new HashSet<>();
         for (int i = 0; i < p; i++) {
-            ps[i] = in.nextInt();
+            int v = in.nextInt();
+            set.add(v);
         }
         int q = in.nextInt();
-        int[] qs = new int[q];
         for (int i = 0; i < q; i++) {
-            qs[i] = in.nextInt();
+            int v = in.nextInt();
+            set.add(v);
         }
-        
+        if (set.size() == n) {
+            System.out.println("I become the guy.");
+        } else {
+            System.out.println("Oh, my keyboard!");
+        }
     }
 
     public static void main(String[] args) {
