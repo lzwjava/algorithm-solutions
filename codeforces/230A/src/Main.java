@@ -14,6 +14,7 @@ public class Main {
                 s -= x;
                 s += y;
             } else {
+                ok = false;
                 break;
             }
         }
