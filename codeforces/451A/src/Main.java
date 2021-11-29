@@ -6,22 +6,23 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         int m = in.nextInt();
-        boolean win = true;
+        boolean malvikaWin;
         if (n > m) {
             int t = n;
             n = m;
             m = t;
         }
         if (n == 1) {
-            win = false;
+            malvikaWin = false;
         } else {
+            malvikaWin = true;
             int s = n + m;
             while (s >= 2) {
                 s -= 2;
-                win = !win;
+                malvikaWin = !malvikaWin;
             }
         }
-        if (win) {
+        if (malvikaWin) {
             System.out.println("Malvika");
         } else {
             System.out.println("Akshat");
