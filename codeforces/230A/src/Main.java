@@ -11,7 +11,6 @@ public class Main {
             int x = in.nextInt();
             int y = in.nextInt();
             if (s >= x) {
-                s -= x;
                 s += y;
             } else {
                 ok = false;
