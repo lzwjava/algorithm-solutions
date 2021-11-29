@@ -6,11 +6,20 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         int m = in.nextInt();
-        int s = n + m;
         boolean win = true;
-        while (s >= 2) {
-            s -= 2;
-            win = !win;
+        if (n > m) {
+            int t = n;
+            n = m;
+            m = t;
+        }
+        if (n == 1) {
+            win = false;
+        } else {
+            int s = n + m;
+            while (s >= 2) {
+                s -= 2;
+                win = !win;
+            }
         }
         if (win) {
             System.out.println("Malvika");
