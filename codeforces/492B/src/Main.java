@@ -11,8 +11,6 @@ public class Main {
             as.add(in.nextInt());
         }
         Set<Integer> set = new HashSet<>();
-        set.add(l);
-        set.add(0);
         set.addAll(as);
 
         ArrayList<Integer> list = new ArrayList<>(set);
@@ -23,6 +21,13 @@ public class Main {
             if (d > max) {
                 max = d;
             }
+        }
+        if (list.get(0) != 0) {
+            max = Double.max(max, list.get(0));
+        }
+        int last = list.get(list.size() - 1);
+        if (last != l) {
+            max = Double.max(max, l - last);
         }
         System.out.println(max);
     }
