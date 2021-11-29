@@ -72,8 +72,8 @@ public class Main {
             xs[i] = in.nextInt();
         }
         for (int i = 0; i < n; i++) {
-            boolean ok = tprime(xs[i]);
-            if (ok) {
+            int sx = (int) Math.sqrt(xs[i]);
+            if ((long) sx * sx == xs[i] && isPrime(sx)) {
                 System.out.println("YES");
             } else {
                 System.out.println("NO");
