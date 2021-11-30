@@ -19,7 +19,7 @@ public class Main {
                 b[i] = in.nextInt();
                 mb = Integer.min(mb, b[i]);
             }
-            int c = 0;
+            long c = 0;
             for (int i = 0; i < n; i++) {
                 a[i] -= ma;
                 b[i] -= mb;
