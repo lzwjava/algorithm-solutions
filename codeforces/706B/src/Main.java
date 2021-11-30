@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -18,18 +20,28 @@ public class Main {
         }
         Arrays.sort(x);
         int q = Integer.parseInt(in.readLine());
+        Map<Integer, Integer> map = new HashMap<>();
         while (q > 0) {
             int m = Integer.parseInt(in.readLine());
-            int i = Arrays.binarySearch(x, m);
+            if (m > x[n - 1]) {
+                m = x[n - 1];
+            }
             int ans;
-            if (i >= 0) {
-                while (i + 1 < n && x[i + 1] == x[i]) {
-                    i++;
-                }
-                ans = i + 1;
+            Integer c = map.get(m);
+            if (c != null) {
+                ans = c;
             } else {
-                i = -(i + 1);
-                ans = i;
+                int i = Arrays.binarySearch(x, m);
+                if (i >= 0) {
+                    while (i + 1 < n && x[i + 1] == x[i]) {
+                        i++;
+                    }
+                    ans = i + 1;
+                } else {
+                    i = -(i + 1);
+                    ans = i;
+                }
+                map.put(m, ans);
             }
             out.append(String.format("%d\n", ans));
             q--;
