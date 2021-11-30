@@ -14,7 +14,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int m = in.nextInt();
         int s = in.nextInt();
-        if (s == 0 || s > m * 9) {
+        if ((s == 0 && m != 1) || s > m * 9) {
             System.out.println(String.format("%d %d", -1, -1));
         } else {
             int[] a = new int[m];
