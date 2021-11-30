@@ -7,7 +7,6 @@ public class Main {
         int t = in.nextInt();
         while (t > 0) {
             int n = in.nextInt();
-//            int[] as = new int[n];
             int cnt = 0;
             for (int i = 0; i < n; i++) {
                 int v = in.nextInt() % 2;
@@ -15,8 +14,11 @@ public class Main {
                     cnt++;
                 }
             }
-            
-            System.out.println();
+            if (cnt % 2 == 1) {
+                System.out.println(-1);
+            } else {
+                System.out.println(cnt / 2);
+            }
             t--;
         }
     }
