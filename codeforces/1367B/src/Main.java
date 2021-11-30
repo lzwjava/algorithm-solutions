@@ -7,17 +7,21 @@ public class Main {
         int t = in.nextInt();
         while (t > 0) {
             int n = in.nextInt();
-            int cnt = 0;
+            int c1 = 0, c2 = 0;
             for (int i = 0; i < n; i++) {
                 int v = in.nextInt() % 2;
                 if (v != i % 2) {
-                    cnt++;
+                    if (i % 2 == 0) {
+                        c1++;
+                    } else {
+                        c2++;
+                    }
                 }
             }
-            if (cnt % 2 == 1) {
+            if (c1 != c2) {
                 System.out.println(-1);
             } else {
-                System.out.println(cnt / 2);
+                System.out.println(c1);
             }
             t--;
         }
