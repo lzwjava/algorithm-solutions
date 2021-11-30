@@ -7,10 +7,15 @@ public class Main {
         int t = in.nextInt();
         while (t > 0) {
             int n = in.nextInt();
-            int[] as = new int[n];
+//            int[] as = new int[n];
+            int cnt = 0;
             for (int i = 0; i < n; i++) {
-                as[i] = in.nextInt() % 2;
+                int v = in.nextInt() % 2;
+                if (v != i % 2) {
+                    cnt++;
+                }
             }
+            
             System.out.println();
             t--;
         }
