@@ -13,14 +13,10 @@ public class Main {
             // b/m >=a
             ans = n * a;
         } else {
-            if (n < m) {
-                ans = n * a;
-            } else {
-                int d = n / m;
-                int v1 = b * d + (n % m) * a;
-                int v2 = (int) Math.ceil(n * 1.0 / m) * b;
-                ans = Integer.min(v1, v2);
-            }
+            int d = n / m;
+            int v1 = b * d + (n % m) * a;
+            int v2 = (int) Math.ceil(n * 1.0 / m) * b;
+            ans = Integer.min(v1, v2);
         }
         System.out.println(ans);
     }
