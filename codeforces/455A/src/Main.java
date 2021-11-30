@@ -2,6 +2,8 @@ import java.util.*;
 
 public class Main {
 
+    Map<Integer, Integer> map = new HashMap<>();
+
     class Item implements Comparable<Item> {
         int v;
         int c;
@@ -11,13 +13,21 @@ public class Main {
             this.c = c;
         }
 
+        int points() {
+            Integer c1 = map.get(v - 1);
+            if (c1 == null) {
+                c1 = 0;
+            }
+            Integer c2 = map.get(v + 1);
+            if (c2 == null) {
+                c2 = 0;
+            }
+            return v * c - (v - 1) * c1 - (v + 1) * c2;
+        }
+
         @Override
         public int compareTo(Item o) {
-            if (c != o.c) {
-                return Integer.compare(o.c, c);
-            } else {
-                return Integer.compare(o.v, v);
-            }
+            return Integer.compare(o.points(), points());
         }
 
         @Override
@@ -41,7 +51,6 @@ public class Main {
         for (int i = 0; i < n; i++) {
             as[i] = in.nextInt();
         }
-        Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
             Integer c = map.get(as[i]);
             if (c == null) {
