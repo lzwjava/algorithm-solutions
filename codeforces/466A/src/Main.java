@@ -17,7 +17,9 @@ public class Main {
                 ans = n * a;
             } else {
                 int d = n / m;
-                ans = b * d + (n % m) * a;
+                int v1 = b * d + (n % m) * a;
+                int v2 = (int) Math.ceil(n * 1.0 / m) * b;
+                ans = Integer.min(v1, v2);
             }
         }
         System.out.println(ans);
