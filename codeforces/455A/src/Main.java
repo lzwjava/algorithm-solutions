@@ -56,7 +56,15 @@ public class Main {
             list.add(new Item(key, c));
         }
         Collections.sort(list);
-
+        int pts = 0;
+        while (list.size() != 0) {
+            Item item = list.get(0);
+            pts += item.v * item.c;
+            list.remove(item);
+            list.remove(new Item(item.v + 1, 0));
+            list.remove(new Item(item.v - 1, 0));
+        }
+        System.out.println(pts);
     }
 
     public static void main(String[] args) {
