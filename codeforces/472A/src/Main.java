@@ -13,7 +13,8 @@ public class Main {
         for (int i = 4; i < maxn; i += 2) {
             isPrime[i] = false;
         }
-        for (int i = 3; i < maxn; i += 2) {
+        int si = (int) Math.sqrt(maxn);
+        for (int i = 3; i <= si; i += 2) {
             if (isPrime[i]) {
                 for (int j = i * i; j < maxn; j += i) {
                     isPrime[j] = false;
