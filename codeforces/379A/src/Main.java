@@ -4,6 +4,9 @@ public class Main {
 
     void solve() {
         Scanner in = new Scanner(System.in);
+        int a = in.nextInt();
+        int b = in.nextInt();
+        
     }
 
     public static void main(String[] args) {
