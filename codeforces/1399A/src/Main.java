@@ -13,6 +13,18 @@ public class Main {
                 as[i] = in.nextInt();
             }
             Arrays.sort(as);
+            boolean ok = true;
+            for (int i = 0; i < n - 1; i++) {
+                if (as[i + 1] - as[i] > 1) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
+            }
             t--;
         }
     }
