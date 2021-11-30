@@ -1,9 +1,6 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
-public class Main {
+public class MainPlus {
 
     Map<Integer, Integer> map = new HashMap<>();
 
@@ -50,27 +47,37 @@ public class Main {
     void solve() {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        int maxn = 100005;
-        int[] cnt = new int[maxn];
+        int[] as = new int[n];
         for (int i = 0; i < n; i++) {
-            int v = in.nextInt();
-            cnt[v]++;
+            as[i] = in.nextInt();
         }
-        int[] f = new int[maxn];
-        for (int i = 1; i < maxn; i++) {
-            f[i] = i * cnt[i];
-            if (i - 2 >= 0) {
-                f[i] += f[i - 2];
+        for (int i = 0; i < n; i++) {
+            Integer c = map.get(as[i]);
+            if (c == null) {
+                c = 0;
             }
-            if (f[i] < f[i - 1]) {
-                f[i] = f[i - 1];
-            }
+            c++;
+            map.put(as[i], c);
         }
-        System.out.println(f[maxn - 1]);
+        ArrayList<Item> list = new ArrayList<>();
+        for (Integer key : map.keySet()) {
+            Integer c = map.get(key);
+            list.add(new Item(key, c));
+        }
+        Collections.sort(list);
+        int pts = 0;
+        while (list.size() != 0) {
+            Item item = list.get(0);
+            pts += item.v * item.c;
+            list.remove(item);
+            list.remove(new Item(item.v + 1, 0));
+            list.remove(new Item(item.v - 1, 0));
+        }
+        System.out.println(pts);
     }
 
     public static void main(String[] args) {
-        new Main().solve();
+        new MainPlus().solve();
     }
 
 }
