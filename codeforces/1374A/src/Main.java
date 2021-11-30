@@ -9,6 +9,12 @@ public class Main {
             int x = in.nextInt();
             int y = in.nextInt();
             int n = in.nextInt();
+            int d = (int) Math.floor(n * 1.0 / x);
+            int ans = x * d + y;
+            if (ans > n) {
+                ans -= x;
+            }
+            System.out.println(ans);
             t--;
         }
     }
