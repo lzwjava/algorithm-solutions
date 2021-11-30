@@ -56,9 +56,9 @@ public class Main {
             int v = in.nextInt();
             cnt[v]++;
         }
-        int[] f = new int[maxn];
+        long[] f = new long[maxn];
         for (int i = 1; i < maxn; i++) {
-            f[i] = i * cnt[i];
+            f[i] = (long) i * cnt[i];
             if (i - 2 >= 0) {
                 f[i] += f[i - 2];
             }
