@@ -9,8 +9,9 @@ public class Main {
             int n = in.nextInt();
             int[] as = new int[n];
             for (int i = 0; i < n; i++) {
-                as[i] = in.nextInt();
+                as[i] = in.nextInt() % 2;
             }
+            System.out.println();
             t--;
         }
     }
