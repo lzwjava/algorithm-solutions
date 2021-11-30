@@ -10,7 +10,9 @@ public class Main {
             int b = in.nextInt();
             int d = Math.abs(a - b);
             int c = 0;
-            if (d > 10) {
+            if (d == 0) {
+                c = 0;
+            } else if (d > 10) {
                 c += (int) Math.ceil(d * 1.0 / 10);
             } else {
                 c = 1;
