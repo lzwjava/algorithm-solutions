@@ -6,6 +6,12 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int t = in.nextInt();
         while (t > 0) {
+            int n = in.nextInt();
+            int[] s = new int[n];
+            for (int i = 0; i < n; i++) {
+                s[i] = in.nextInt();
+            }
+            
             t--;
         }
     }
