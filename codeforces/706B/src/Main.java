@@ -17,6 +17,9 @@ public class Main {
             int i = Arrays.binarySearch(x, m);
             int ans;
             if (i >= 0) {
+                while (i + 1 < n && x[i + 1] == x[i]) {
+                    i++;
+                }
                 ans = i + 1;
             } else {
                 i = -(i + 1);
