@@ -4,6 +4,8 @@ public class Main {
 
     void solve() {
         Scanner in = new Scanner(System.in);
+        int x = in.nextInt();
+        
     }
 
     public static void main(String[] args) {
