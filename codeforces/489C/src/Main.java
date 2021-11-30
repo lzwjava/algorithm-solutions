@@ -14,10 +14,8 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int m = in.nextInt();
         int s = in.nextInt();
-        int m1, m2;
         if (s == 0 || s > m * 9) {
-            m1 = -1;
-            m2 = -1;
+            System.out.println(String.format("%d %d", -1, -1));
         } else {
             int[] a = new int[m];
             int p = s;
