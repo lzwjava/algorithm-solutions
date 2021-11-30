@@ -8,6 +8,7 @@ public class Main {
         while (t > 0) {
             int a = in.nextInt();
             int b = in.nextInt();
+            
             t--;
         }
     }
