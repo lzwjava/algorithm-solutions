@@ -16,7 +16,7 @@ public class Main {
                     c2++;
                 }
             }
-            boolean ok = true;
+            boolean ok;
             if (c2 % 2 == 0) {
                 ok = c1 % 2 == 0;
             } else {
