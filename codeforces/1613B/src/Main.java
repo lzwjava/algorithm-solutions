@@ -15,7 +15,7 @@ public class Main {
             int p = n / 2;
             Arrays.sort(a);
             int c = 0;
-            for (int i = 0; i < n; i++) {
+            for (int i = n - 1; i >= 0; i--) {
                 for (int j = 0; j < n; j++) {
                     if (i != j) {
                         int m = a[i] % a[j];
