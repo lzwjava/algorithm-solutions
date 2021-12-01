@@ -7,10 +7,10 @@ public class Main {
         int t = in.nextInt();
         while (t > 0) {
             int a = in.nextInt();
-            if (a < 60) {
-                System.out.println("NO");
-            } else {
+            if (360 % (180 - a) == 0) {
                 System.out.println("YES");
+            } else {
+                System.out.println("NO");
             }
             t--;
         }
