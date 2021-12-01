@@ -7,6 +7,12 @@ public class Main {
         int t = in.nextInt();
         while (t > 0) {
             int a = in.nextInt();
+            int d = 180 - a;
+            if (d > 120) {
+                System.out.println("NO");
+            } else {
+                System.out.println("YES");
+            }
             t--;
         }
     }
