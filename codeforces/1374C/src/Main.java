@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
 
@@ -8,6 +9,21 @@ public class Main {
         while (t > 0) {
             int n = in.nextInt();
             String s = in.next();
+            Stack<Character> stack = new Stack<>();
+            for (char c : s.toCharArray()) {
+                if (c == '(') {
+                    stack.add(c);
+                } else {
+                    // )
+                    char peek = stack.peek();
+                    if (peek == '(') {
+                        stack.pop();
+                    } else {
+                        stack.add(c);
+                    }
+                }
+            }
+            System.out.println(stack.size() / 2);
             t--;
         }
     }
