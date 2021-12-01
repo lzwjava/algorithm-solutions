@@ -7,6 +7,8 @@ public class Main {
         int t = in.nextInt();
         while (t > 0) {
             int n = in.nextInt();
+            int ans = (int) Math.ceil(n * 1.0 / 2);
+            System.out.println(ans);
             t--;
         }
     }
