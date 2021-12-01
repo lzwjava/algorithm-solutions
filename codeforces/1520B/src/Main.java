@@ -13,19 +13,21 @@ public class Main {
             int len = s.length();
             int a = (len - 1) * 9;
 
-            List<Integer> list = new ArrayList<>();
-            for (int i = 1; i <= 9; i++) {
-                StringBuilder sb = new StringBuilder();
-                for (int j = 0; j < len; j++) {
-                    sb.append(String.valueOf(i));
+            if (n < 1000000000) {
+                List<Integer> list = new ArrayList<>();
+                for (int i = 1; i <= 9; i++) {
+                    StringBuilder sb = new StringBuilder();
+                    for (int j = 0; j < len; j++) {
+                        sb.append(String.valueOf(i));
+                    }
+                    list.add(Integer.parseInt(sb.toString()));
                 }
-                list.add(Integer.parseInt(sb.toString()));
-            }
-            for (int x : list) {
-                if (n >= x) {
-                    a++;
-                } else {
-                    break;
+                for (int x : list) {
+                    if (n >= x) {
+                        a++;
+                    } else {
+                        break;
+                    }
                 }
             }
             System.out.println(a);
