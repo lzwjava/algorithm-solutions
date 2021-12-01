@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -22,16 +21,17 @@ public class Main {
                 q[a[i]] = true;
             }
             int p = n / 2;
-            Arrays.sort(a);
             int c = 0;
-            for (int i = n - 1; i >= 0; i--) {
-                for (int j = 0; j < i; j++) {
-                    int m = a[i] % a[j];
-                    if (!q[m]) {
-                        out.append(String.format("%d %d\n", a[i], a[j]));
-                        c++;
-                        if (c == p) {
-                            break;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (i != j) {
+                        int m = a[i] % a[j];
+                        if (!q[m]) {
+                            out.append(String.format("%d %d\n", a[i], a[j]));
+                            c++;
+                            if (c == p) {
+                                break;
+                            }
                         }
                     }
                 }
