@@ -11,7 +11,7 @@ public class Main {
             String s = in.next();
             Stack<Character> stack = new Stack<>();
             for (char c : s.toCharArray()) {
-                if (c == '(') {
+                if (c == '(' || stack.size() == 0) {
                     stack.add(c);
                 } else {
                     // )
