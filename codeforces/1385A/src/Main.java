@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -6,9 +7,30 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int t = in.nextInt();
         while (t > 0) {
-            int x = in.nextInt();
-            int y = in.nextInt();
-            int z = in.nextInt();
+            int[] p = new int[3];
+            p[0] = in.nextInt();
+            p[1] = in.nextInt();
+            p[2] = in.nextInt();
+            Arrays.sort(p);
+            int a = 0, b = 0, c = 0;
+            boolean ok = true;
+            if (p[0] == p[1]) {
+                c = p[0];
+                b = p[2];
+                a = b;
+            } else if (p[1] == p[2]) {
+                c = p[2];
+                b = p[0];
+                a = b;
+            } else {
+                ok = false;
+            }
+            if (ok) {
+                System.out.println("YES");
+                System.out.println(String.format("%d %d %d", a, b, c));
+            } else {
+                System.out.println("NO");
+            }
             t--;
         }
     }
