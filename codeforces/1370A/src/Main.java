@@ -2,13 +2,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    int gcd(int a, int b) {
-        if (b == 0) {
-            return a;
-        }
-        return gcd(b, a % b);
-    }
-
     void solve() {
         Scanner in = new Scanner(System.in);
         int t = in.nextInt();
