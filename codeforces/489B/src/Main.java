@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +15,25 @@ public class Main {
         for (int i = 0; i < m; i++) {
             b[i] = in.nextInt();
         }
+        Arrays.sort(a);
+        Arrays.sort(b);
+
+        int i = 0, j = 0;
+        int cnt = 0;
+        while (i < n && j < m) {
+            if (Math.abs(a[i] - b[j]) <= 1) {
+                cnt++;
+                i++;
+                j++;
+            } else {
+                if (a[i] < b[j]) {
+                    i++;
+                } else {
+                    j++;
+                }
+            }
+        }
+        System.out.println(cnt);
     }
 
     public static void main(String[] args) {
