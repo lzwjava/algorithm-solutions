@@ -24,14 +24,15 @@ public class Main {
             int c = 0;
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (i != j) {
-                        int m = a[i] % a[j];
-                        if (!q[m]) {
-                            out.append(String.format("%d %d\n", a[i], a[j]));
-                            c++;
-                            if (c == p) {
-                                break;
-                            }
+                    if (a[i] < a[j] || i == j) {
+                        continue;
+                    }
+                    int m = a[i] % a[j];
+                    if (!q[m]) {
+                        out.append(String.format("%d %d\n", a[i], a[j]));
+                        c++;
+                        if (c == p) {
+                            break;
                         }
                     }
                 }
