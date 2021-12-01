@@ -35,6 +35,9 @@ public class Main {
                         }
                     }
                 }
+                if (c == p) {
+                    break;
+                }
             }
             t--;
         }
