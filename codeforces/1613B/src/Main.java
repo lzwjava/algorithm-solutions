@@ -23,21 +23,17 @@ public class Main {
             int p = n / 2;
             int c = 0;
             for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (a[i] < a[j] || i == j) {
-                        continue;
-                    }
-                    int m = a[i] % a[j];
+                for (int j = i + 1; j < n; j++) {
+                    int min = Integer.min(a[i], a[j]);
+                    int max = Integer.max(a[i], a[j]);
+                    int m = max % min;
                     if (!q[m]) {
-                        out.append(String.format("%d %d\n", a[i], a[j]));
+                        out.append(String.format("%d %d\n", max, min));
                         c++;
                         if (c == p) {
                             break;
                         }
                     }
-                }
-                if (c == p) {
-                    break;
                 }
             }
             t--;
