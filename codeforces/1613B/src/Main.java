@@ -15,23 +15,23 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] a = new int[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
+            int maxn = 1000001;
+            boolean[] q = new boolean[maxn];
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
+                q[a[i]] = true;
             }
             int p = n / 2;
             Arrays.sort(a);
             int c = 0;
             for (int i = n - 1; i >= 0; i--) {
-                for (int j = 0; j < n; j++) {
-                    if (i != j) {
-                        int m = a[i] % a[j];
-                        int index = Arrays.binarySearch(a, m);
-                        if (index < 0) {
-                            out.append(String.format("%d %d\n", a[i], a[j]));
-                            c++;
-                            if (c == p) {
-                                break;
-                            }
+                for (int j = 0; j < i; j++) {
+                    int m = a[i] % a[j];
+                    if (!q[m]) {
+                        out.append(String.format("%d %d\n", a[i], a[j]));
+                        c++;
+                        if (c == p) {
+                            break;
                         }
                     }
                 }
