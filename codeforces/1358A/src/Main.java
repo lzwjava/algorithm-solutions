@@ -8,6 +8,14 @@ public class Main {
         while (t > 0) {
             int n = in.nextInt();
             int m = in.nextInt();
+            int a = n * m;
+            int ans;
+            if (a % 2 == 0) {
+                ans = a / 2;
+            } else {
+                ans = (a - 1) / 2 + 1;
+            }
+            System.out.println(ans);
             t--;
         }
     }
