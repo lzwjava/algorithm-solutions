@@ -4,6 +4,10 @@ public class Main {
 
     void solve() {
         Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while (t > 0) {
+            t--;
+        }
     }
 
     public static void main(String[] args) {
