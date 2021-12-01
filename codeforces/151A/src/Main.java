@@ -13,7 +13,12 @@ public class Main {
         p = in.nextInt();
         nl = in.nextInt();
         np = in.nextInt();
-        
+        int t1 = k * l / nl;
+        int t2 = c * d;
+        int t3 = p / np;
+        int min = Integer.min(t1, t2);
+        min = Integer.min(min, t3);
+        System.out.println(min / n);
     }
 
     public static void main(String[] args) {
