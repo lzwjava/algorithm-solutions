@@ -3,6 +3,7 @@
 #include<string>
 #include<cassert>
 #include<vector>
+#include<set>
 
 using namespace std;
 
@@ -17,12 +18,11 @@ int main() {
         int n;
         cin >> n;
         vector<int> a(n);
-        int maxn = 1000001;
-        vector<int> q(maxn);
+        set<int> s;
         for (int i = 0; i < n; i++)
         {
             cin >> a[i];
-            q[a[i]] = 1;
+            s.insert(a[i]);
         }
         int p = n / 2;
         int c = 0;
@@ -32,7 +32,7 @@ int main() {
                 int m1 = min(a[i], a[j]);
                 int m2 = max(a[i], a[j]);
                 int m = m2 % m1;
-                if (q[m] == 0){
+                if (s.count(m)==0){
                     cout << m2 << ' ' << m1 << '\n';
                     c++;
                     if (c==p){
@@ -44,7 +44,6 @@ int main() {
                 break;
             }
         }
-        cout << t << '\n';
         t--;
     }
     return 0;

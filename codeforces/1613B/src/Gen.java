@@ -19,7 +19,7 @@ public class Gen {
                 if (j != 0) {
                     System.out.print(' ');
                 }
-                System.out.print(random.nextInt(1000000) + 1);
+                System.out.print(random.nextInt(10000) + 1);
             }
             System.out.println();
         }
