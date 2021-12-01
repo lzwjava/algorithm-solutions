@@ -8,6 +8,15 @@ public class Main {
         while (t > 0) {
             int n = in.nextInt();
             int m = in.nextInt();
+            int p;
+            if (n > 2) {
+                p = m * 2;
+            } else if (n == 2) {
+                p = m;
+            } else {
+                p = 0;
+            }
+            System.out.println(p);
             t--;
         }
     }
