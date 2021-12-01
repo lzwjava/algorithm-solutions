@@ -7,6 +7,10 @@ public class Main {
         int t = in.nextInt();
         while (t > 0) {
             int x = in.nextInt();
+            int d = x % 10;
+            int a = String.format("%d", x).length();
+            int ans = (d - 1) * 10 + a * (a + 1) / 2;
+            System.out.println(ans);
             t--;
         }
     }
