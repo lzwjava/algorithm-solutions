@@ -10,6 +10,13 @@ public class Main {
             int b = in.nextInt();
             int c = in.nextInt();
             int n = in.nextInt();
+            int s = a + b + c + n;
+            int d = s / 3;
+            if (s % 3 == 0 && d >= a && d >= b && d >= c) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
+            }
             t--;
         }
     }
