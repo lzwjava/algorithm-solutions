@@ -17,10 +17,15 @@ public class Main {
             int p1 = in.nextInt();
             int x2 = in.nextInt();
             int p2 = in.nextInt();
-            int mp = Integer.min(p1, p2);
-            BigInteger a = bi(x1, p1 - mp);
-            BigInteger b = bi(x2, p2 - mp);
-            int c = a.compareTo(b);
+            int c;
+            if (Math.abs(p1 - p2) >= 12) {
+                c = Integer.compare(p1, p2);
+            } else {
+                int mp = Integer.min(p1, p2);
+                BigInteger a = bi(x1, p1 - mp);
+                BigInteger b = bi(x2, p2 - mp);
+                c = a.compareTo(b);
+            }
             if (c > 0) {
                 System.out.println(">");
             } else if (c == 0) {
