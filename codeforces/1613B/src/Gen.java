@@ -9,11 +9,11 @@ public class Gen {
         PrintStream outStream = new PrintStream("2.in");
         System.setOut(outStream);
         PrintWriter out = new PrintWriter(System.out);
-        int t = 1;
+        int t = 10000;
         System.out.println(t);
         Random random = new Random();
         for (int i = 0; i < t; i++) {
-            int n = 200000;
+            int n = 20;
             System.out.println(n);
             for (int j = 0; j < n; j++) {
                 if (j != 0) {
