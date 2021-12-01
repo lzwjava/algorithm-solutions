@@ -11,6 +11,15 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = in.nextInt();
             }
+            int i;
+            for (i = 0; i < n; i++) {
+                int j = (i - 1 + n) % n;
+                int k = (i + 1 + n) % n;
+                if (a[i] != a[j] && a[i] != a[k]) {
+                    break;
+                }
+            }
+            System.out.println(i + 1);
             t--;
         }
     }
