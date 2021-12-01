@@ -4,14 +4,14 @@ public class Main {
 
     int dp(int w, int h) {
         if (w % 2 == 1 && h % 2 == 1) {
-            return 0;
+            return 1;
         }
         int v = 0;
         if (w % 2 == 0) {
-            v = Integer.max(v, dp(w / 2, h));
+            v = Integer.max(v, dp(w / 2, h) * 2);
         }
         if (h % 2 == 0) {
-            v = Integer.max(v, dp(w, h / 2));
+            v = Integer.max(v, dp(w, h / 2) * 2);
         }
         return v;
     }
