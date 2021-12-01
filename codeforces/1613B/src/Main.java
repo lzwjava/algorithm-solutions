@@ -42,6 +42,7 @@ public class Main {
             }
             t--;
         }
+        in.close();
         out.flush();
         out.close();
     }
