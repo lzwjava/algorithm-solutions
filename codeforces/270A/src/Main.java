@@ -8,7 +8,7 @@ public class Main {
         while (t > 0) {
             int a = in.nextInt();
             int d = 180 - a;
-            if (d > 120) {
+            if (d > 120 || d <= 1) {
                 System.out.println("NO");
             } else {
                 System.out.println("YES");
