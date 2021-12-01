@@ -3,7 +3,24 @@ import java.util.Scanner;
 public class Main {
 
     int dp(int a, int b) {
-        
+        if (a == b) {
+            return 0;
+        }
+        if (a < b) {
+            int d = b - a;
+            if (d % 2 == 1) {
+                return 1;
+            } else {
+                return 2;
+            }
+        } else {
+            int d = a - b;
+            if (d % 2 == 0) {
+                return 1;
+            } else {
+                return 2;
+            }
+        }
     }
 
     void solve() {
