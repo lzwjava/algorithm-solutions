@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 #ifndef ONLINE_JUDGE
-    freopen("1.in", "r", stdin);
+    freopen("2.in", "r", stdin);
 #endif
     int t;
     cin>>t;
@@ -44,6 +44,7 @@ int main() {
                 break;
             }
         }
+        cout << t << '\n';
         t--;
     }
     return 0;
