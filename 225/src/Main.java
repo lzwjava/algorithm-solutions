@@ -41,7 +41,6 @@ public class Main {
     int base = 250;
     boolean[][] vis;
     Point zeroPoint = new Point(0, 0);
-    int cnt;
     List<String> ways = new ArrayList<>();
 
     ArrayList<Point> points(Point st, int d, int len) {
@@ -126,7 +125,7 @@ public class Main {
             }
 
             int pn = points.size();
-            
+
             if (ok) {
                 path.add(nd);
                 visPoints(points);
@@ -134,7 +133,6 @@ public class Main {
                 if (len == longest) {
                     if (last.equals(zeroPoint)) {
                         addToList(path);
-                        cnt++;
                     }
                 } else {
                     dfs(last, nd, len + 1, path);
@@ -143,16 +141,6 @@ public class Main {
                 path.remove(path.size() - 1);
             }
         }
-    }
-
-    boolean isBlocked(Point a) {
-        for (int i = 0; i < blockedPoints.length; i++) {
-            Point b = blockedPoints[i];
-            if (b.equals(a)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     List<Point> allVisPoints() {
@@ -215,20 +203,22 @@ public class Main {
                 blockedPoints[i] = new Point(x, y);
             }
             vis = new boolean[maxn][maxn];
-            cnt = 0;
             ways = new ArrayList<>();
-            setBlocked();
-            ArrayList<Integer> path = new ArrayList<>();
-            for (int d = 0; d < 2; d++) {
-                visPoint(zeroPoint);
-                dfs(zeroPoint, d, 1, path);
-                removeVis(zeroPoint);
+            if (longest == 7 || longest == 8 || longest == 15 || longest == 16) {
+                setBlocked();
+                ArrayList<Integer> path = new ArrayList<>();
+                for (int d = 0; d < 2; d++) {
+                    visPoint(zeroPoint);
+                    dfs(zeroPoint, d, 1, path);
+                    removeVis(zeroPoint);
+                }
+                Collections.sort(ways);
+                for (String w : ways) {
+                    out.append(w).append('\n');
+                }
             }
-            Collections.sort(ways);
-            for (String w : ways) {
-                out.append(w).append('\n');
-            }
-            out.append(String.format("Found %d golygon(s).\n\n", cnt));
+
+            out.append(String.format("Found %d golygon(s).\n\n", ways.size()));
             t--;
         }
     }
