@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -202,9 +203,9 @@ public class Main {
                 int y = in.nextInt();
                 blockedPoints[i] = new Point(x, y);
             }
-            vis = new boolean[maxn][maxn];
-            ways = new ArrayList<>();
             if (longest == 7 || longest == 8 || longest == 15 || longest == 16) {
+                vis = new boolean[maxn][maxn];
+                ways = new ArrayList<>();
                 setBlocked();
                 ArrayList<Integer> path = new ArrayList<>();
                 for (int d = 0; d < 2; d++) {
@@ -217,7 +218,6 @@ public class Main {
                     out.append(w).append('\n');
                 }
             }
-
             out.append(String.format("Found %d golygon(s).\n\n", ways.size()));
             t--;
         }
@@ -228,7 +228,8 @@ public class Main {
         out.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+//        System.setOut(new PrintStream(new FileOutputStream("1.out")));
         Main main = new Main();
         main.solve();
         main.close();

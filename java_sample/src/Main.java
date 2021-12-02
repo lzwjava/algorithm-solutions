@@ -24,6 +24,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+//        System.setOut(new PrintStream(new FileOutputStream("1.out")));
         Main m = new Main();
         m.solve();
         m.close();
