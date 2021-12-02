@@ -1,6 +1,13 @@
+import java.io.PrintWriter;
 import java.util.*;
 
 public class Main {
+
+    PrintWriter out;
+
+    Main() {
+        out = new PrintWriter(System.out);
+    }
 
     class Point {
         int x, y;
@@ -163,15 +170,22 @@ public class Main {
             }
             Collections.sort(ways);
             for (String w : ways) {
-                System.out.println(w);
+                out.append(w).append('\n');
             }
-            System.out.println(String.format("Found %d golygon(s).\n", cnt));
+            out.append(String.format("Found %d golygon(s).\n\n", cnt));
             t--;
         }
     }
 
+    void close() {
+        out.flush();
+        out.close();
+    }
+
     public static void main(String[] args) {
-        new Main().solve();
+        Main main = new Main();
+        main.solve();
+        main.close();
     }
 
 }
