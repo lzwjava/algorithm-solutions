@@ -1,11 +1,14 @@
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class Main {
+public class MainPlus {
 
     PrintWriter out;
+    Scanner in;
 
-    Main() {
+    MainPlus() {
+        in = new Scanner(System.in);
         out = new PrintWriter(System.out);
     }
 
@@ -90,11 +93,21 @@ public class Main {
         }
         for (int x = 0; x < xl; x++) {
             for (int y = 0; y < yl; y++) {
-                System.out.print(grid[x][y]);
+                out.append(grid[x][y]);
             }
-            System.out.println();
+            out.append('\n');
         }
-        System.out.println();
+        out.append('\n');
+    }
+
+    boolean isBlocked(Point a) {
+        for (int i = 0; i < blockedPoints.length; i++) {
+            Point b = blockedPoints[i];
+            if (b.equals(a)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     void dfs(Point st, int d, int len, ArrayList<Integer> path) {
@@ -104,19 +117,26 @@ public class Main {
             }
             int nd = (d + k + 4) % 4;
 
-            ArrayList<Point> points = points(st, nd, len);
-            int pn = points.size();
             boolean ok = true;
-            for (int i = 0; i < pn; i++) {
-                Point p = points.get(i);
-                if (i == pn - 1 && p.equals(zeroPoint) && len == longest) {
-                    continue;
+
+            ArrayList<Point> points = new ArrayList<>();
+            for (int i = 1; i <= len; i++) {
+                int px = st.x + dx[d] * i;
+                int py = st.y + dy[d] * i;
+                Point p = new Point(px, py);
+                if (i == len && p.equals(zeroPoint) && len == longest) {
+                    //
+                } else {
+                    if (isVis(p) || isBlocked(p)) {
+                        ok = false;
+                        break;
+                    }
                 }
-                if (isVis(p) || isBlocked(p)) {
-                    ok = false;
-                    break;
-                }
+                points.add(p);
             }
+
+            int pn = points.size();
+
             if (ok) {
                 path.add(nd);
                 visPoints(points);
@@ -132,16 +152,6 @@ public class Main {
                 path.remove(path.size() - 1);
             }
         }
-    }
-
-    boolean isBlocked(Point a) {
-        for (int i = 0; i < blockedPoints.length; i++) {
-            Point b = blockedPoints[i];
-            if (b.equals(a)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     List<Point> allVisPoints() {
@@ -186,8 +196,13 @@ public class Main {
     int blocked;
     Point[] blockedPoints;
 
+    void setBlocked() {
+        for (Point p : blockedPoints) {
+            visPoint(p);
+        }
+    }
+
     void solve() {
-        Scanner in = new Scanner(System.in);
         int t = in.nextInt();
         while (t > 0) {
             longest = in.nextInt();
@@ -201,6 +216,7 @@ public class Main {
             if (longest == 7 || longest == 8 || longest == 15 || longest == 16) {
                 vis = new boolean[maxn][maxn];
                 ways = new ArrayList<>();
+//                setBlocked();
                 ArrayList<Integer> path = new ArrayList<>();
                 for (int d = 0; d < 2; d++) {
                     visPoint(zeroPoint);
@@ -222,8 +238,9 @@ public class Main {
         out.close();
     }
 
-    public static void main(String[] args) {
-        Main main = new Main();
+    public static void main(String[] args) throws FileNotFoundException {
+//        System.setOut(new PrintStream(new FileOutputStream("1.out")));
+        MainPlus main = new MainPlus();
         main.solve();
         main.close();
     }
