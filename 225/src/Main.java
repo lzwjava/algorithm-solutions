@@ -133,16 +133,6 @@ public class Main {
         }
     }
 
-    boolean isBlocked(Point a) {
-        for (int i = 0; i < blockedPoints.length; i++) {
-            Point b = blockedPoints[i];
-            if (b.equals(a)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     List<Point> allVisPoints() {
         List<Point> points = new ArrayList<>();
         for (int x = 0; x < maxn; x++) {
@@ -181,6 +171,14 @@ public class Main {
         return vis[a.x + base][a.y + base];
     }
 
+    void block(Point a) {
+        bk[a.x + base][a.y + base] = true;
+    }
+
+    boolean isBlocked(Point a) {
+        return bk[a.x + base][a.y + base];
+    }
+
     int longest;
     int blocked;
     Point[] blockedPoints;
@@ -198,8 +196,12 @@ public class Main {
                 blockedPoints[i] = new Point(x, y);
             }
             vis = new boolean[maxn][maxn];
+            bk = new boolean[maxn][maxn];
             ways = new HashSet<>();
             ArrayList<Integer> path = new ArrayList<>();
+            for (Point p : blockedPoints) {
+                block(p);
+            }
             if (longest == 7 || longest == 8 || longest == 15 || longest == 16) {
                 for (int d = 0; d < 2; d++) {
                     visPoint(zeroPoint);
