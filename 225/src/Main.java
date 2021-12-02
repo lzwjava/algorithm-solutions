@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -39,7 +42,7 @@ public class Main {
     int base = 250;
     boolean[][] vis;
     Point zeroPoint = new Point(0, 0);
-    List<String> ways = new ArrayList<>();
+    Set<String> ways;
 
     ArrayList<Point> points(Point st, int d, int len) {
         ArrayList<Point> list = new ArrayList<>();
@@ -112,7 +115,7 @@ public class Main {
                 if (i == pn - 1 && p.equals(zeroPoint) && len == longest) {
                     continue;
                 }
-                if (isVis(p) || isBlocked(p)) {
+                if (isBlocked(p)) {
                     ok = false;
                     break;
                 }
@@ -206,7 +209,7 @@ public class Main {
                 blockedPoints[i] = new Point(x, y);
             }
             vis = new boolean[maxn][maxn];
-            ways = new ArrayList<>();
+            ways = new HashSet<>();
             ArrayList<Integer> path = new ArrayList<>();
             if (longest == 7 || longest == 8 || longest == 15 || longest == 16) {
                 for (int d = 0; d < 2; d++) {
@@ -214,8 +217,10 @@ public class Main {
                     dfs(zeroPoint, d, 1, path);
                     removeVis(zeroPoint);
                 }
-                Collections.sort(ways);
-                for (String w : ways) {
+                ArrayList<String> list = new ArrayList<>();
+                list.addAll(ways);
+                Collections.sort(list);
+                for (String w : list) {
                     out.append(w).append('\n');
                 }
             }
@@ -229,7 +234,8 @@ public class Main {
         out.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        System.setOut(new PrintStream(new FileOutputStream("1.out")));
         Main main = new Main();
         main.solve();
         main.close();
