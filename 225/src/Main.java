@@ -118,10 +118,11 @@ public class Main {
             }
             vis = new HashSet<>();
             cnt = 0;
-            vis.add(zeroPoint);
             ArrayList<Integer> path = new ArrayList<>();
-            for (int d = 0; d < 4; d++) {
+            for (int d = 0; d < 2; d++) {
+                vis.add(zeroPoint);
                 dfs(zeroPoint, d, 1, path);
+                vis.remove(zeroPoint);
             }
             System.out.println(String.format("Found %d golygon(s).", cnt));
             t--;
