@@ -1,6 +1,4 @@
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -107,14 +105,11 @@ public class Main {
             }
             int nd = (d + k + 4) % 4;
 
-            ArrayList<Point> points = points(st, nd, len);
-            int pn = points.size();
             boolean ok = true;
-            for (int i = 0; i < pn; i++) {
-                Point p = points.get(i);
-                if (i == pn - 1 && p.equals(zeroPoint) && len == longest) {
-                    continue;
-                }
+            for (int i = 1; i <= len; i++) {
+                int px = st.x + dx[nd] * i;
+                int py = st.y + dy[nd] * i;
+                Point p = new Point(px, py);
                 if (isBlocked(p)) {
                     ok = false;
                     break;
@@ -122,23 +117,27 @@ public class Main {
             }
             if (ok) {
                 path.add(nd);
-                visPoints(points);
-                Point last = points.get(pn - 1);
+                int lx = st.x + dx[nd] * len;
+                int ly = st.x + dx[nd] * len;
+                Point last = new Point(lx, ly);
                 if (len == longest) {
                     if (last.equals(zeroPoint)) {
                         addToList(path);
                     }
                 } else {
-                    int rest = 0;
-                    for (int i = len + 1; i <= longest; i++) {
-                        rest += i;
-                    }
-                    int q = Math.abs(last.x) + Math.abs(last.y);
-                    if (q <= rest) {
-                        dfs(last, nd, len + 1, path);
+                    if (!isVis(last)) {
+                        visPoint(last);
+                        int rest = 0;
+                        for (int i = len + 1; i <= longest; i++) {
+                            rest += i;
+                        }
+                        int q = Math.abs(last.x) + Math.abs(last.y);
+                        if (q <= rest) {
+                            dfs(last, nd, len + 1, path);
+                        }
+                        removeVis(last);
                     }
                 }
-                removeVisPoints(points);
                 path.remove(path.size() - 1);
             }
         }
@@ -235,7 +234,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        System.setOut(new PrintStream(new FileOutputStream("1.out")));
+//        System.setOut(new PrintStream(new FileOutputStream("1.out")));
         Main main = new Main();
         main.solve();
         main.close();
