@@ -96,31 +96,35 @@ public class Main {
 
             ArrayList<Point> points = points(st, nd, len);
             int pn = points.size();
-            Point last = points.get(pn - 1);
-            if (last.equals(zeroPoint) && len == longest) {
+            boolean ok = true;
+            for (int i = 0; i < pn; i++) {
+                Point p = points.get(i);
+                if (i == pn - 1 && p.equals(zeroPoint) && len == longest) {
+                    continue;
+                }
+                if (vis.contains(p) || isBlocked(p)) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
                 path.add(nd);
                 vis.addAll(points);
-                print(path);
-                printPoints();
-                cnt++;
+                Point last = points.get(pn - 1);
+                if (len == longest) {
+                    if (last.equals(zeroPoint)) {
+                        print(path);
+                        printPoints();
+                        cnt++;
+                    } else {
+                        continue;
+                    }
+
+                } else {
+                    dfs(last, nd, len + 1, path);
+                }
                 vis.removeAll(points);
                 path.remove(path.size() - 1);
-            } else if (len < longest) {
-                boolean ok = true;
-                for (int i = 0; i < pn; i++) {
-                    Point p = points.get(i);
-                    if (vis.contains(p) || isBlocked(p)) {
-                        ok = false;
-                        break;
-                    }
-                }
-                if (ok) {
-                    path.add(nd);
-                    vis.addAll(points);
-                    dfs(last, nd, len + 1, path);
-                    vis.removeAll(points);
-                    path.remove(path.size() - 1);
-                }
             }
         }
     }
