@@ -114,12 +114,9 @@ public class Main {
                 if (len == longest) {
                     if (last.equals(zeroPoint)) {
                         print(path);
-                        printPoints();
+//                        printPoints();
                         cnt++;
-                    } else {
-                        continue;
                     }
-
                 } else {
                     dfs(last, nd, len + 1, path);
                 }
