@@ -54,7 +54,7 @@ public class Main {
         }
         ways.add(sb.toString());
     }
-    
+
     void dfs(Point st, int d, int len, ArrayList<Integer> path) {
         for (int k = -1; k <= 1; k++) {
             if (k == 0) {
@@ -84,10 +84,9 @@ public class Main {
                 } else {
                     if (!isVis(last)) {
                         visPoint(last);
-                        int rest = 0;
-                        for (int i = len + 1; i <= longest; i++) {
-                            rest += i;
-                        }
+                        int size = longest - (len + 1) + 1;
+                        int rest = (len + 1 + longest) * size / 2;
+                        
                         int q = Math.abs(last.x) + Math.abs(last.y);
                         if (q <= rest) {
                             dfs(last, nd, len + 1, path);
