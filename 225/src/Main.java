@@ -100,6 +100,16 @@ public class Main {
         out.append('\n');
     }
 
+    boolean isBlocked(Point a) {
+        for (int i = 0; i < blockedPoints.length; i++) {
+            Point b = blockedPoints[i];
+            if (b.equals(a)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void dfs(Point st, int d, int len, ArrayList<Integer> path) {
         for (int k = -1; k <= 1; k++) {
             if (k == 0) {
@@ -117,7 +127,7 @@ public class Main {
                 if (i == len && p.equals(zeroPoint) && len == longest) {
                     //
                 } else {
-                    if (isVis(p)) {
+                    if (isVis(p) || isBlocked(p)) {
                         ok = false;
                         break;
                     }
@@ -206,7 +216,7 @@ public class Main {
             if (longest == 7 || longest == 8 || longest == 15 || longest == 16) {
                 vis = new boolean[maxn][maxn];
                 ways = new ArrayList<>();
-                setBlocked();
+//                setBlocked();
                 ArrayList<Integer> path = new ArrayList<>();
                 for (int d = 0; d < 2; d++) {
                     visPoint(zeroPoint);
