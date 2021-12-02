@@ -55,6 +55,38 @@ public class Main {
         System.out.println(sb.toString());
     }
 
+    void printPoints() {
+        int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+        for (Point p : vis) {
+            x1 = Integer.min(x1, p.x);
+            y1 = Integer.max(y1, p.y);
+            x2 = Integer.max(x2, p.x);
+            y2 = Integer.min(y2, p.y);
+        }
+        int xl = x2 - x1 + 3;
+        int yl = y1 - y2 + 3;
+        char[][] grid = new char[xl][yl];
+        for (int x = 0; x < xl; x++) {
+            Arrays.fill(grid[x], '.');
+        }
+        for (Point p : vis) {
+            int dx = y1 - p.y;
+            int dy = p.x - x1;
+            if (p.x == 0 && p.y == 0) {
+                grid[dx][dy] = '0';
+            } else {
+                grid[dx][dy] = 'x';
+            }
+        }
+        for (int x = 0; x < xl; x++) {
+            for (int y = 0; y < yl; y++) {
+                System.out.print(grid[x][y]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     void dfs(Point st, int d, int len, ArrayList<Integer> path) {
         for (int k = -1; k <= 1; k++) {
             if (k == 0) {
@@ -67,8 +99,11 @@ public class Main {
             Point last = points.get(pn - 1);
             if (last.equals(zeroPoint) && len == longest) {
                 path.add(nd);
+                vis.addAll(points);
                 print(path);
+                printPoints();
                 cnt++;
+                vis.removeAll(points);
                 path.remove(path.size() - 1);
             } else if (len < longest) {
                 boolean ok = true;
