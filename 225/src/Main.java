@@ -126,7 +126,14 @@ public class Main {
                         addToList(path);
                     }
                 } else {
-                    dfs(last, nd, len + 1, path);
+                    int rest = 0;
+                    for (int i = len + 1; i <= longest; i++) {
+                        rest += i;
+                    }
+                    int q = Math.abs(last.x) + Math.abs(last.y);
+                    if (q <= rest) {
+                        dfs(last, nd, len + 1, path);
+                    }
                 }
                 removeVisPoints(points);
                 path.remove(path.size() - 1);
@@ -198,10 +205,10 @@ public class Main {
                 int y = in.nextInt();
                 blockedPoints[i] = new Point(x, y);
             }
+            vis = new boolean[maxn][maxn];
+            ways = new ArrayList<>();
+            ArrayList<Integer> path = new ArrayList<>();
             if (longest == 7 || longest == 8 || longest == 15 || longest == 16) {
-                vis = new boolean[maxn][maxn];
-                ways = new ArrayList<>();
-                ArrayList<Integer> path = new ArrayList<>();
                 for (int d = 0; d < 2; d++) {
                     visPoint(zeroPoint);
                     dfs(zeroPoint, d, 1, path);
