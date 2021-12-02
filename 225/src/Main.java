@@ -1,11 +1,14 @@
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
 public class Main {
 
     PrintWriter out;
+    Scanner in;
 
     Main() {
+        in = new Scanner(System.in);
         out = new PrintWriter(System.out);
     }
 
@@ -188,8 +191,7 @@ public class Main {
     int blocked;
     Point[] blockedPoints;
 
-    void solve() {
-        Scanner in = new Scanner(System.in);
+    void solve() throws IOException {
         int t = in.nextInt();
         while (t > 0) {
             longest = in.nextInt();
@@ -223,7 +225,7 @@ public class Main {
         out.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Main main = new Main();
         main.solve();
         main.close();
