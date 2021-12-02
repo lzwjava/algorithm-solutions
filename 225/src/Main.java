@@ -39,19 +39,9 @@ public class Main {
     int maxn = 500;
     int base = 250;
     boolean[][] vis;
+    boolean[][] bk;
     Point zeroPoint = new Point(0, 0);
     Set<String> ways;
-
-    ArrayList<Point> points(Point st, int d, int len) {
-        ArrayList<Point> list = new ArrayList<>();
-        for (int i = 1; i <= len; i++) {
-            int px = st.x + dx[d] * i;
-            int py = st.y + dy[d] * i;
-            Point p = new Point(px, py);
-            list.add(p);
-        }
-        return list;
-    }
 
     char dirToChar(int d) {
         return "nesw".charAt(d);
