@@ -91,11 +91,11 @@ public class Main {
         }
         for (int x = 0; x < xl; x++) {
             for (int y = 0; y < yl; y++) {
-                System.out.print(grid[x][y]);
+                out.append(grid[x][y]);
             }
-            System.out.println();
+            out.append('\n');
         }
-        System.out.println();
+        out.append('\n');
     }
 
     void dfs(Point st, int d, int len, ArrayList<Integer> path) {
