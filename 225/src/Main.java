@@ -118,7 +118,7 @@ public class Main {
             if (ok) {
                 path.add(nd);
                 int lx = st.x + dx[nd] * len;
-                int ly = st.x + dx[nd] * len;
+                int ly = st.y + dy[nd] * len;
                 Point last = new Point(lx, ly);
                 if (len == longest) {
                     if (last.equals(zeroPoint)) {
