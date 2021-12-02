@@ -15,10 +15,12 @@ public class Main {
         while (true) {
             if (n - p[i] >= 0) {
                 n -= p[i];
+                i++;
             } else {
                 break;
             }
         }
+        System.out.println(i);
     }
 
     public static void main(String[] args) {
