@@ -31,6 +31,7 @@ public class Main {
     Set<Point> vis;
     Point zeroPoint = new Point(0, 0);
     int cnt;
+    List<String> ways = new ArrayList<>();
 
     ArrayList<Point> points(Point st, int d, int len) {
         ArrayList<Point> list = new ArrayList<>();
@@ -47,12 +48,12 @@ public class Main {
         return "nesw".charAt(d);
     }
 
-    void print(ArrayList<Integer> path) {
+    void addToList(ArrayList<Integer> path) {
         StringBuilder sb = new StringBuilder();
         for (int d : path) {
             sb.append(dirToChar(d));
         }
-        System.out.println(sb.toString());
+        ways.add(sb.toString());
     }
 
     void printPoints() {
@@ -113,7 +114,7 @@ public class Main {
                 Point last = points.get(pn - 1);
                 if (len == longest) {
                     if (last.equals(zeroPoint)) {
-                        print(path);
+                        addToList(path);
                         cnt++;
                     }
                 } else {
@@ -153,11 +154,16 @@ public class Main {
             }
             vis = new HashSet<>();
             cnt = 0;
+            ways = new ArrayList<>();
             ArrayList<Integer> path = new ArrayList<>();
             for (int d = 0; d < 2; d++) {
                 vis.add(zeroPoint);
                 dfs(zeroPoint, d, 1, path);
                 vis.remove(zeroPoint);
+            }
+            Collections.sort(ways);
+            for (String w : ways) {
+                System.out.println(w);
             }
             System.out.println(String.format("Found %d golygon(s).\n", cnt));
             t--;
