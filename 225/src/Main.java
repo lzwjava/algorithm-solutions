@@ -107,19 +107,26 @@ public class Main {
             }
             int nd = (d + k + 4) % 4;
 
-            ArrayList<Point> points = points(st, nd, len);
-            int pn = points.size();
             boolean ok = true;
-            for (int i = 0; i < pn; i++) {
-                Point p = points.get(i);
-                if (i == pn - 1 && p.equals(zeroPoint) && len == longest) {
-                    continue;
+
+            ArrayList<Point> points = new ArrayList<>();
+            for (int i = 1; i <= len; i++) {
+                int px = st.x + dx[d] * i;
+                int py = st.y + dy[d] * i;
+                Point p = new Point(px, py);
+                if (i == len && p.equals(zeroPoint) && len == longest) {
+                    //
+                } else {
+                    if (isVis(p)) {
+                        ok = false;
+                        break;
+                    }
                 }
-                if (isVis(p)) {
-                    ok = false;
-                    break;
-                }
+                points.add(p);
             }
+
+            int pn = points.size();
+            
             if (ok) {
                 path.add(nd);
                 visPoints(points);
