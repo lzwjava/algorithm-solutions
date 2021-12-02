@@ -114,7 +114,6 @@ public class Main {
                 if (len == longest) {
                     if (last.equals(zeroPoint)) {
                         print(path);
-//                        printPoints();
                         cnt++;
                     }
                 } else {
