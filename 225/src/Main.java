@@ -54,7 +54,7 @@ public class Main {
         }
         System.out.println(sb.toString());
     }
-
+    
     void dfs(Point st, int d, int len, ArrayList<Integer> path) {
         for (int k = -1; k <= 1; k++) {
             if (k == 0) {
