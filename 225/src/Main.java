@@ -159,7 +159,7 @@ public class Main {
                 dfs(zeroPoint, d, 1, path);
                 vis.remove(zeroPoint);
             }
-            System.out.println(String.format("Found %d golygon(s).", cnt));
+            System.out.println(String.format("Found %d golygon(s).\n", cnt));
             t--;
         }
     }
