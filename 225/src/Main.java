@@ -54,40 +54,7 @@ public class Main {
         }
         ways.add(sb.toString());
     }
-
-    void printPoints() {
-        List<Point> points = allVisPoints();
-        int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
-        for (Point p : points) {
-            x1 = Integer.min(x1, p.x);
-            y1 = Integer.max(y1, p.y);
-            x2 = Integer.max(x2, p.x);
-            y2 = Integer.min(y2, p.y);
-        }
-        int xl = x2 - x1 + 3;
-        int yl = y1 - y2 + 3;
-        char[][] grid = new char[xl][yl];
-        for (int x = 0; x < xl; x++) {
-            Arrays.fill(grid[x], '.');
-        }
-        for (Point p : points) {
-            int dx = y1 - p.y;
-            int dy = p.x - x1;
-            if (p.x == 0 && p.y == 0) {
-                grid[dx][dy] = '0';
-            } else {
-                grid[dx][dy] = 'x';
-            }
-        }
-        for (int x = 0; x < xl; x++) {
-            for (int y = 0; y < yl; y++) {
-                System.out.print(grid[x][y]);
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
+    
     void dfs(Point st, int d, int len, ArrayList<Integer> path) {
         for (int k = -1; k <= 1; k++) {
             if (k == 0) {
