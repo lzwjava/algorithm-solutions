@@ -35,7 +35,9 @@ public class Main {
     int[] dx = new int[]{0, 1, 0, -1};
     int[] dy = new int[]{1, 0, -1, 0};
 
-    Set<Point> vis;
+    int maxn = 500;
+    int base = 250;
+    boolean[][] vis;
     Point zeroPoint = new Point(0, 0);
     int cnt;
     List<String> ways = new ArrayList<>();
@@ -64,8 +66,9 @@ public class Main {
     }
 
     void printPoints() {
+        List<Point> points = allVisPoints();
         int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
-        for (Point p : vis) {
+        for (Point p : points) {
             x1 = Integer.min(x1, p.x);
             y1 = Integer.max(y1, p.y);
             x2 = Integer.max(x2, p.x);
@@ -77,7 +80,7 @@ public class Main {
         for (int x = 0; x < xl; x++) {
             Arrays.fill(grid[x], '.');
         }
-        for (Point p : vis) {
+        for (Point p : points) {
             int dx = y1 - p.y;
             int dy = p.x - x1;
             if (p.x == 0 && p.y == 0) {
@@ -110,14 +113,14 @@ public class Main {
                 if (i == pn - 1 && p.equals(zeroPoint) && len == longest) {
                     continue;
                 }
-                if (vis.contains(p) || isBlocked(p)) {
+                if (isVis(p) || isBlocked(p)) {
                     ok = false;
                     break;
                 }
             }
             if (ok) {
                 path.add(nd);
-                vis.addAll(points);
+                visPoints(points);
                 Point last = points.get(pn - 1);
                 if (len == longest) {
                     if (last.equals(zeroPoint)) {
@@ -127,7 +130,7 @@ public class Main {
                 } else {
                     dfs(last, nd, len + 1, path);
                 }
-                vis.removeAll(points);
+                removeVisPoints(points);
                 path.remove(path.size() - 1);
             }
         }
@@ -141,6 +144,44 @@ public class Main {
             }
         }
         return false;
+    }
+
+    List<Point> allVisPoints() {
+        List<Point> points = new ArrayList<>();
+        for (int x = 0; x < maxn; x++) {
+            for (int y = 0; y < maxn; y++) {
+                if (vis[x][y]) {
+                    int ox = x - base;
+                    int oy = y - base;
+                    points.add(new Point(ox, oy));
+                }
+            }
+        }
+        return points;
+    }
+
+    void visPoints(ArrayList<Point> ps) {
+        for (Point a : ps) {
+            visPoint(a);
+        }
+    }
+
+    void removeVisPoints(ArrayList<Point> ps) {
+        for (Point a : ps) {
+            removeVis(a);
+        }
+    }
+
+    void visPoint(Point a) {
+        vis[a.x + base][a.y + base] = true;
+    }
+
+    void removeVis(Point a) {
+        vis[a.x + base][a.y + base] = false;
+    }
+
+    boolean isVis(Point a) {
+        return vis[a.x + base][a.y + base];
     }
 
     int longest;
@@ -159,14 +200,14 @@ public class Main {
                 int y = in.nextInt();
                 blockedPoints[i] = new Point(x, y);
             }
-            vis = new HashSet<>();
+            vis = new boolean[maxn][maxn];
             cnt = 0;
             ways = new ArrayList<>();
             ArrayList<Integer> path = new ArrayList<>();
             for (int d = 0; d < 2; d++) {
-                vis.add(zeroPoint);
+                visPoint(zeroPoint);
                 dfs(zeroPoint, d, 1, path);
-                vis.remove(zeroPoint);
+                removeVis(zeroPoint);
             }
             Collections.sort(ways);
             for (String w : ways) {
