@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -9,20 +9,101 @@ public class Main {
             this.x = x;
             this.y = y;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Point point = (Point) o;
+            return x == point.x && y == point.y;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
     }
+
+    // {n,s,e,w}
+    int[] dx = new int[]{0, 0, 1, -1};
+    int[] dy = new int[]{1, -1, 0, 0};
+
+    Set<Point> vis;
+    Point zeroPoint = new Point(0, 0);
+    int cnt;
+
+    ArrayList<Point> points(Point st, int d, int len) {
+        ArrayList<Point> list = new ArrayList<>();
+        for (int i = 1; i <= len; i++) {
+            int px = st.x + dx[d] * i;
+            int py = st.y + dy[d] * i;
+            Point p = new Point(px, py);
+            list.add(p);
+        }
+        return list;
+    }
+
+    void dfs(Point st, int len, ArrayList<Integer> path) {
+        for (int d = 0; d < dx.length; d++) {
+            ArrayList<Point> points = points(st, d, len);
+            int pn = points.size();
+            Point last = points.get(pn - 1);
+            if (last.equals(zeroPoint) && len == longest) {
+                path.add(d);
+                System.out.println("found");
+                cnt++;
+                path.remove(path.size() - 1);
+            } else if (len < longest) {
+                boolean ok = true;
+                for (int i = 0; i < pn; i++) {
+                    Point p = points.get(i);
+                    if (vis.contains(p) || isBlocked(p)) {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    path.add(d);
+                    vis.addAll(points);
+                    dfs(last, len + 1, path);
+                    vis.removeAll(points);
+                    path.remove(path.size() - 1);
+                }
+            }
+        }
+    }
+
+    boolean isBlocked(Point a) {
+        for (int i = 0; i < blockedPoints.length; i++) {
+            Point b = blockedPoints[i];
+            if (b.equals(a)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    int longest;
+    int blocked;
+    Point[] blockedPoints;
 
     void solve() {
         Scanner in = new Scanner(System.in);
         int t = in.nextInt();
         while (t > 0) {
-            int longest = in.nextInt();
-            int blocked = in.nextInt();
-            Point[] points = new Point[blocked];
+            longest = in.nextInt();
+            blocked = in.nextInt();
+            blockedPoints = new Point[blocked];
             for (int i = 0; i < blocked; i++) {
                 int x = in.nextInt();
                 int y = in.nextInt();
-                points[i] = new Point(x, y);
+                blockedPoints[i] = new Point(x, y);
             }
+            vis = new HashSet<>();
+            cnt = 0;
+            vis.add(zeroPoint);
+            dfs(zeroPoint, 1);
+            System.out.println(String.format("Found %d golygon(s).", cnt));
             t--;
         }
     }
