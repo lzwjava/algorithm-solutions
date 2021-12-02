@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -116,7 +115,7 @@ public class Main {
                 if (i == pn - 1 && p.equals(zeroPoint) && len == longest) {
                     continue;
                 }
-                if (isVis(p) || isBlocked(p)) {
+                if (isVis(p)) {
                     ok = false;
                     break;
                 }
@@ -191,7 +190,13 @@ public class Main {
     int blocked;
     Point[] blockedPoints;
 
-    void solve() throws IOException {
+    void setBlocked() {
+        for (Point p : blockedPoints) {
+            visPoint(p);
+        }
+    }
+
+    void solve() {
         int t = in.nextInt();
         while (t > 0) {
             longest = in.nextInt();
@@ -205,6 +210,7 @@ public class Main {
             vis = new boolean[maxn][maxn];
             cnt = 0;
             ways = new ArrayList<>();
+            setBlocked();
             ArrayList<Integer> path = new ArrayList<>();
             for (int d = 0; d < 2; d++) {
                 visPoint(zeroPoint);
@@ -225,7 +231,7 @@ public class Main {
         out.close();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Main main = new Main();
         main.solve();
         main.close();
