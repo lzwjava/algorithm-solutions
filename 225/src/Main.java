@@ -24,9 +24,9 @@ public class Main {
         }
     }
 
-    // {n,s,e,w}
-    int[] dx = new int[]{0, 0, 1, -1};
-    int[] dy = new int[]{1, -1, 0, 0};
+    // {n,e,s, w}
+    int[] dx = new int[]{0, 1, 0, -1};
+    int[] dy = new int[]{1, 0, -1, 0};
 
     Set<Point> vis;
     Point zeroPoint = new Point(0, 0);
@@ -43,14 +43,31 @@ public class Main {
         return list;
     }
 
-    void dfs(Point st, int len, ArrayList<Integer> path) {
-        for (int d = 0; d < dx.length; d++) {
-            ArrayList<Point> points = points(st, d, len);
+    char dirToChar(int d) {
+        return "nesw".charAt(d);
+    }
+
+    void print(ArrayList<Integer> path) {
+        StringBuilder sb = new StringBuilder();
+        for (int d : path) {
+            sb.append(dirToChar(d));
+        }
+        System.out.println(sb.toString());
+    }
+
+    void dfs(Point st, int d, int len, ArrayList<Integer> path) {
+        for (int k = -1; k <= 1; k++) {
+            if (k == 0) {
+                continue;
+            }
+            int nd = (d + k + 4) % 4;
+
+            ArrayList<Point> points = points(st, nd, len);
             int pn = points.size();
             Point last = points.get(pn - 1);
             if (last.equals(zeroPoint) && len == longest) {
-                path.add(d);
-                System.out.println("found");
+                path.add(nd);
+                print(path);
                 cnt++;
                 path.remove(path.size() - 1);
             } else if (len < longest) {
@@ -63,9 +80,9 @@ public class Main {
                     }
                 }
                 if (ok) {
-                    path.add(d);
+                    path.add(nd);
                     vis.addAll(points);
-                    dfs(last, len + 1, path);
+                    dfs(last, nd, len + 1, path);
                     vis.removeAll(points);
                     path.remove(path.size() - 1);
                 }
@@ -102,7 +119,10 @@ public class Main {
             vis = new HashSet<>();
             cnt = 0;
             vis.add(zeroPoint);
-            dfs(zeroPoint, 1);
+            ArrayList<Integer> path = new ArrayList<>();
+            for (int d = 0; d < 4; d++) {
+                dfs(zeroPoint, d, 1, path);
+            }
             System.out.println(String.format("Found %d golygon(s).", cnt));
             t--;
         }
