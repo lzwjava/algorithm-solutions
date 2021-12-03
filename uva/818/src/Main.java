@@ -145,7 +145,7 @@ public class Main {
                     }
                 }
                 if (single) {
-                    int link = group - 1;
+                    int link = group / 2;
                     int ans;
                     if (cnt >= link) {
                         ans = cnt;
