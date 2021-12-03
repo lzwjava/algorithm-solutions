@@ -4,12 +4,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class Main {
+public class MainPlus {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    MainPlus() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
@@ -171,7 +171,7 @@ public class Main {
             }
             m = list.size();
             min = Integer.MAX_VALUE;
-            for (int i = 0; i < 1 << n; i++) {
+            for (int i = 0; i < 1 << m; i++) {
                 boolean[] cut = new boolean[m];
                 int cnt = 0;
                 if (i != 0) {
@@ -201,7 +201,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main m = new Main();
+        MainPlus m = new MainPlus();
         m.solve();
         m.close();
     }
