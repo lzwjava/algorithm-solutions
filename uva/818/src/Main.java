@@ -172,16 +172,19 @@ public class Main {
             m = list.size();
             min = Integer.MAX_VALUE;
             for (int i = 0; i < 1 << m; i++) {
-                String binary = Integer.toBinaryString(i);
                 boolean[] cut = new boolean[m];
-                int bn = binary.length();
                 int cnt = 0;
-                for (int j = 0; j < bn; j++) {
-                    int digit = binary.charAt(bn - 1 - j) - '0';
-                    boolean c = digit == 1;
-                    cut[m - 1 - j] = c;
-                    if (c) {
-                        cnt++;
+                if (i != 0) {
+                    String binary = Integer.toBinaryString(i);
+                    int bn = binary.length();
+
+                    for (int j = 0; j < bn; j++) {
+                        int digit = binary.charAt(bn - 1 - j) - '0';
+                        boolean c = digit == 1;
+                        cut[m - 1 - j] = c;
+                        if (c) {
+                            cnt++;
+                        }
                     }
                 }
                 judge(cut, cnt);
