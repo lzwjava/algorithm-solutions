@@ -69,100 +69,87 @@ public class Main {
         map.put(a, count);
     }
 
-    void dfs(boolean[] cut, int cur, int cnt) {
-        if (cnt > min) {
-            return;
+    void judge(boolean[] cut, int cnt) {
+        parent = new int[n + 1];
+        rank = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i;
         }
-        if (cur == m) {
-//            if (cut[2]) {
-//                System.out.println();
-//            }
-            parent = new int[n + 1];
-            rank = new int[n + 1];
+        boolean cyclic = false;
+
+        List<Pair> pairs = new ArrayList<>();
+
+        for (int i = 0; i < m; i++) {
+            if (!cut[i]) {
+                Pair p = list.get(i);
+                pairs.add(p);
+            }
+        }
+        for (Pair p : pairs) {
+            int fa = find(p.a);
+            int fb = find(p.b);
+            if (fa == fb) {
+                cyclic = true;
+                break;
+            } else {
+                union(p.a, p.b);
+            }
+        }
+        if (!cyclic) {
+            Set<Integer> set = new HashSet<>();
             for (int i = 1; i <= n; i++) {
-                parent[i] = i;
+                int fi = find(i);
+                set.add(fi);
             }
-            boolean cyclic = false;
-
-            List<Pair> pairs = new ArrayList<>();
-
-            for (int i = 0; i < m; i++) {
-                if (!cut[i]) {
-                    Pair p = list.get(i);
-                    pairs.add(p);
-                }
-            }
-            for (Pair p : pairs) {
-                int fa = find(p.a);
-                int fb = find(p.b);
-                if (fa == fb) {
-                    cyclic = true;
-                    break;
-                } else {
-                    union(p.a, p.b);
-                }
-            }
-            if (!cyclic) {
-                Set<Integer> set = new HashSet<>();
-                for (int i = 1; i <= n; i++) {
-                    int fi = find(i);
-                    set.add(fi);
-                }
-                int group = set.size();
-                boolean single = true;
-                for (int g : set) {
-                    List<Pair> groupPairs = new ArrayList<>();
-                    for (Pair p : pairs) {
-                        int ga = find(p.a);
-                        if (ga == g) {
-                            groupPairs.add(p);
-                        }
-                    }
-                    if (groupPairs.size() == 0) {
-                        continue;
-                    }
-                    Map<Integer, Integer> map = new HashMap<>();
-                    int gn = groupPairs.size();
-                    for (int i = 0; i < gn; i++) {
-                        Pair p = groupPairs.get(i);
-                        count(map, p.a);
-                        count(map, p.b);
-                    }
-                    int c1 = 0, c2 = 0, c3 = 0;
-                    for (int key : map.keySet()) {
-                        int c = map.get(key);
-                        if (c == 1) {
-                            c1++;
-                        } else if (c == 2) {
-                            c2++;
-                        } else {
-                            c3++;
-                        }
-                    }
-                    if (c3 > 0 || c1 != 2) {
-                        single = false;
-                        break;
+            int group = set.size();
+            boolean single = true;
+            for (int g : set) {
+                List<Pair> groupPairs = new ArrayList<>();
+                for (Pair p : pairs) {
+                    int ga = find(p.a);
+                    if (ga == g) {
+                        groupPairs.add(p);
                     }
                 }
-                if (single) {
-                    int link = group / 2;
-                    int ans;
-                    if (cnt >= link) {
-                        ans = cnt;
+                if (groupPairs.size() == 0) {
+                    continue;
+                }
+                Map<Integer, Integer> map = new HashMap<>();
+                int gn = groupPairs.size();
+                for (int i = 0; i < gn; i++) {
+                    Pair p = groupPairs.get(i);
+                    count(map, p.a);
+                    count(map, p.b);
+                }
+                int c1 = 0, c2 = 0, c3 = 0;
+                for (int key : map.keySet()) {
+                    int c = map.get(key);
+                    if (c == 1) {
+                        c1++;
+                    } else if (c == 2) {
+                        c2++;
                     } else {
-                        ans = cnt + link - cnt;
-                    }
-                    if (ans < min) {
-                        min = ans;
+                        c3++;
                     }
                 }
+                if (c3 > 0 || c1 != 2) {
+                    single = false;
+                    break;
+                }
             }
-            return;
+            if (single) {
+                int link = group / 2;
+                int ans;
+                if (cnt >= link) {
+                    ans = cnt;
+                } else {
+                    ans = cnt + link - cnt;
+                }
+                if (ans < min) {
+                    min = ans;
+                }
+            }
         }
-        cut[cur] = false;
-        dfs(cut, cur + 1, cnt);
-        cut[cur] = true;
-        dfs(cut, cur + 1, cnt + 1);
     }
 
     void solve() throws IOException {
@@ -184,8 +171,21 @@ public class Main {
             }
             m = list.size();
             min = Integer.MAX_VALUE;
-            boolean[] cut = new boolean[m];
-            dfs(cut, 0, 0);
+            for (int i = 0; i < 1 << m; i++) {
+                String binary = Integer.toBinaryString(i);
+                boolean[] cut = new boolean[m];
+                int bn = binary.length();
+                int cnt = 0;
+                for (int j = 0; j < bn; j++) {
+                    int digit = binary.charAt(bn - 1 - j) - '0';
+                    boolean c = digit == 1;
+                    cut[m - 1 - j] = c;
+                    if (c) {
+                        cnt++;
+                    }
+                }
+                judge(cut, cnt);
+            }
             out.append(String.format("Set %d: Minimum links to open is %d\n", caseNum, min));
             caseNum++;
         }
