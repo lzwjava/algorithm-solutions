@@ -14,7 +14,7 @@ public class Main {
     }
 
     void solve() {
-
+        
     }
 
     void close() throws IOException {
