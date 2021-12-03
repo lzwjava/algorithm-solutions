@@ -99,20 +99,6 @@ public class Main {
         }
     }
 
-    List<Point> allVisPoints() {
-        List<Point> points = new ArrayList<>();
-        for (int x = 0; x < maxn; x++) {
-            for (int y = 0; y < maxn; y++) {
-                if (vis[x][y]) {
-                    int ox = x - base;
-                    int oy = y - base;
-                    points.add(new Point(ox, oy));
-                }
-            }
-        }
-        return points;
-    }
-
     void visPoint(Point a) {
         vis[a.x + base][a.y + base] = true;
     }
