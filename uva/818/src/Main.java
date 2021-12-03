@@ -54,11 +54,13 @@ public class Main {
                 continue;
             }
             if (!vis[i]) {
-                if (dfs(i, -1, open)) {
+                if (dfs(vis, i, -1, open)) {
                     return false;
                 }
+                comp++;
             }
         }
+        return op >= comp - 1;
     }
 
     void solve() throws IOException {
