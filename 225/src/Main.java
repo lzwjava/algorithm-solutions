@@ -86,7 +86,7 @@ public class Main {
                         visPoint(last);
                         int size = longest - (len + 1) + 1;
                         int rest = (len + 1 + longest) * size / 2;
-                        
+
                         int q = Math.abs(last.x) + Math.abs(last.y);
                         if (q <= rest) {
                             dfs(last, nd, len + 1, path);
@@ -111,18 +111,6 @@ public class Main {
             }
         }
         return points;
-    }
-
-    void visPoints(ArrayList<Point> ps) {
-        for (Point a : ps) {
-            visPoint(a);
-        }
-    }
-
-    void removeVisPoints(ArrayList<Point> ps) {
-        for (Point a : ps) {
-            removeVis(a);
-        }
     }
 
     void visPoint(Point a) {
