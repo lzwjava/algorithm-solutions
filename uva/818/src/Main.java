@@ -15,13 +15,50 @@ public class Main {
     }
 
     int n;
-    int min;
     int maxn = 16;
-    int[][] g;
+    boolean[][] g;
     int[] gmask;
 
-    void judge(int open) {
-        
+    boolean dfs(boolean[] vis, int u, int p, int open) {
+        vis[u] = true;
+        for (int i = 0; i < n; i++) {
+            if (((open >> i) & 1) == 1) {
+                continue;
+            }
+            if (!g[u][i] || i == p) {
+                continue;
+            }
+            if (vis[i] || dfs(vis, i, u, open)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean judge(int open) {
+        for (int i = 0; i < n; i++) {
+            if (((open >> i) & 1) == 1) {
+                continue;
+            }
+            int t = gmask[i] ^ (gmask[i] & open);
+            int degree = Integer.bitCount(t);
+            if (degree > 2) {
+                return false;
+            }
+        }
+        int op = Integer.bitCount(open);
+        int comp = 0;
+        boolean[] vis = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (((open >> i) & 1) == 1) {
+                continue;
+            }
+            if (!vis[i]) {
+                if (dfs(i, -1, open)) {
+                    return false;
+                }
+            }
+        }
     }
 
     void solve() throws IOException {
@@ -32,7 +69,7 @@ public class Main {
             if (n == 0) {
                 break;
             }
-            g = new int[maxn][maxn];
+            g = new boolean[maxn][maxn];
             gmask = new int[maxn];
             while (st.hasMoreTokens()) {
                 int a = Integer.parseInt(st.nextToken());
@@ -42,11 +79,11 @@ public class Main {
                 }
                 a--;
                 b--;
-                g[a][b] = g[b][a] = 1;
+                g[a][b] = g[b][a] = true;
                 gmask[a] |= 1 << b;
                 gmask[b] |= 1 << a;
             }
-            min = Integer.MAX_VALUE;
+            int min = Integer.MAX_VALUE;
             for (int i = 0; i < 1 << n; i++) {
                 int op = Integer.bitCount(i);
                 if (op >= min) {
