@@ -32,6 +32,14 @@ public class Main {
                 break;
             }
             ArrayList<Pair> list = new ArrayList<>();
+            while (st.hasMoreTokens()) {
+                int a = Integer.parseInt(st.nextToken());
+                int b = Integer.parseInt(st.nextToken());
+                if (a == -1 && b == -1) {
+                    break;
+                }
+                list.add(new Pair(a, b));
+            }
         }
     }
 
