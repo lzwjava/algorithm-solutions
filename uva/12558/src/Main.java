@@ -59,9 +59,12 @@ public class Main {
             }
             return;
         }
-        for (int i = start; i < 20000; i++) {
+        for (int i = start; ; i++) {
             if (forbid(i)) {
                 continue;
+            }
+            if (ans != null && i > ans.get(ans.size() - 1)) {
+                break;
             }
             double nsum = sum + 1.0 / i;
             if (nsum < target || equal(nsum, target)) {
