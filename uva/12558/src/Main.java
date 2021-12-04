@@ -23,7 +23,12 @@ public class Main {
 
     void dfs(List<Integer> dms, int start, double sum) {
         if (ans != null) {
-            if (dms.size() > ans.size()) {
+            if (better(ans, dms)) {
+                return;
+            }
+            int rest = ans.size() - dms.size();
+            double max = sum + rest * 1.0 / start;
+            if (Double.compare(max, target) < 0) {
                 return;
             }
         }
@@ -84,6 +89,7 @@ public class Main {
             }
             target = a * 1.0 / b;
             List<Integer> dms = new ArrayList<>();
+            ans = null;
             dfs(dms, 2, 0);
             out.append(String.format("Case %d: ", u + 1));
             out.append(String.format("%d/%d=", a, b));
@@ -93,6 +99,7 @@ public class Main {
                 }
                 out.append(String.format("%d/%d", 1, ans.get(i)));
             }
+            out.append('\n');
         }
     }
 
