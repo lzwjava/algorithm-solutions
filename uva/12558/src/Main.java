@@ -29,6 +29,19 @@ public class Main {
         return Math.abs(Math.round(a) - a) < 1e-6;
     }
 
+    boolean judge(List<Integer> dms) {
+        long all = b;
+        for (int x : dms) {
+            all *= x;
+        }
+        long left = all / b * a;
+        long right = 0;
+        for (int x : dms) {
+            right += all / x;
+        }
+        return left == right;
+    }
+
     void dfs(List<Integer> dms, int start, int cur, int len, double sum) {
         if (cur == len - 1) {
             double fn = 1.0 / (target - sum);
@@ -36,15 +49,17 @@ public class Main {
                 int ifn = (int) Math.round(fn);
                 if (ifn > dms.get(dms.size() - 1)) {
                     dms.add(ifn);
-                    if (ans == null || better(dms, ans)) {
-                        ans = new ArrayList<>(dms);
+                    if (judge(dms)) {
+                        if (ans == null || better(dms, ans)) {
+                            ans = new ArrayList<>(dms);
+                        }
                     }
                     dms.remove(dms.size() - 1);
                 }
             }
             return;
         }
-        for (int i = start; i < 12000; i++) {
+        for (int i = start; i < 20000; i++) {
             if (forbid(i)) {
                 continue;
             }
