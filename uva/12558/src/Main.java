@@ -22,7 +22,7 @@ public class Main {
     List<Integer> ans;
 
     boolean equal(double a, double b) {
-        return Math.abs(a - b) < 1e-8;
+        return Math.abs(a - b) < 1e-15;
     }
 
     void dfs(List<Integer> dms, int start, int cur, int len, double sum) {
