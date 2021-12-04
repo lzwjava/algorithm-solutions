@@ -22,7 +22,7 @@ public class Main {
     List<Integer> ans;
 
     boolean equal(double a, double b) {
-        return Math.abs(a - b) < 1e-10;
+        return Math.abs(a - b) < 1e-6;
     }
 
     boolean isInt(double a) {
@@ -47,7 +47,7 @@ public class Main {
             double fn = 1.0 / (target - sum);
             if (isInt(fn)) {
                 int ifn = (int) Math.round(fn);
-                if (ifn > dms.get(dms.size() - 1)) {
+                if (ifn > dms.get(dms.size() - 1) && !forbid(ifn)) {
                     dms.add(ifn);
                     if (judge(dms)) {
                         if (ans == null || better(dms, ans)) {
@@ -65,8 +65,10 @@ public class Main {
             }
             double nsum = sum + 1.0 / i;
             if (nsum < target || equal(nsum, target)) {
-                int rest = len - (cur + 1);
-                double max = nsum + rest * 1.0 / i;
+                double max = nsum;
+                for (int j = cur + 1; j < len; j++) {
+                    max += 1.0 / (i + j - cur);
+                }
                 if (max > target || equal(max, target)) {
                     dms.add(i);
                     dfs(dms, i + 1, cur + 1, len, nsum);
