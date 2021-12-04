@@ -25,11 +25,21 @@ public class Main {
         return Math.abs(a - b) < 1e-15;
     }
 
+    boolean isInt(double a) {
+        return Math.abs(Math.round(a) - a) < 1e-10;
+    }
+
     void dfs(List<Integer> dms, int start, int cur, int len, double sum) {
-        if (cur == len) {
-            if (equal(sum, target)) {
-                if (ans == null || better(dms, ans)) {
-                    ans = new ArrayList<>(dms);
+        if (cur == len - 1) {
+            double fn = 1.0 / (target - sum);
+            if (isInt(fn)) {
+                int ifn = (int) Math.round(fn);
+                if (ifn > dms.get(dms.size() - 1)) {
+                    dms.add(ifn);
+                    if (ans == null || better(dms, ans)) {
+                        ans = new ArrayList<>(dms);
+                    }
+                    dms.remove(dms.size() - 1);
                 }
             }
             return;
