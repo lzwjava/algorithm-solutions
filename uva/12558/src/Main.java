@@ -63,16 +63,16 @@ public class Main {
             if (forbid(i)) {
                 continue;
             }
-            if (ans != null && i > ans.get(ans.size() - 1)) {
+            if (ans != null && i >= ans.get(ans.size() - 1)) {
                 break;
             }
             double nsum = sum + 1.0 / i;
-            if (nsum < target || equal(nsum, target)) {
+            if (nsum < target) {
                 double max = nsum;
                 for (int j = cur + 1; j < len; j++) {
                     max += 1.0 / (i + j - cur);
                 }
-                if (max > target || equal(max, target)) {
+                if (max > target) {
                     dms.add(i);
                     dfs(dms, i + 1, cur + 1, len, nsum);
                     dms.remove(dms.size() - 1);
