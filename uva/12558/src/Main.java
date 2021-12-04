@@ -26,10 +26,13 @@ public class Main {
     }
 
     boolean isInt(double a) {
-        return Math.abs(Math.round(a) - a) < 1e-10;
+        return Math.abs(Math.round(a) - a) < 1e-8;
     }
 
     void dfs(List<Integer> dms, int start, int cur, int len, double sum) {
+//        if (b == 233 && len == 3 && cur == 2 && dms.get(0) == 7 && dms.get(1) == 14) {
+//            System.out.println();
+//        }
         if (cur == len - 1) {
             double fn = 1.0 / (target - sum);
             if (isInt(fn)) {
@@ -44,20 +47,22 @@ public class Main {
             }
             return;
         }
-        for (int i = start; i < 2000; i++) {
+        for (int i = start; i < 12000; i++) {
             if (forbid(i)) {
                 continue;
             }
-            dms.add(i);
             double nsum = sum + 1.0 / i;
             if (nsum < target || equal(nsum, target)) {
                 int rest = len - (cur + 1);
                 double max = nsum + rest * 1.0 / i;
                 if (max > target || equal(max, target)) {
+                    dms.add(i);
                     dfs(dms, i + 1, cur + 1, len, nsum);
+                    dms.remove(dms.size() - 1);
+                } else {
+                    break;
                 }
             }
-            dms.remove(dms.size() - 1);
         }
     }
 
