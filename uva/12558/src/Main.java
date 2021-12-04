@@ -22,17 +22,14 @@ public class Main {
     List<Integer> ans;
 
     boolean equal(double a, double b) {
-        return Math.abs(a - b) < 1e-15;
+        return Math.abs(a - b) < 1e-10;
     }
 
     boolean isInt(double a) {
-        return Math.abs(Math.round(a) - a) < 1e-8;
+        return Math.abs(Math.round(a) - a) < 1e-6;
     }
 
     void dfs(List<Integer> dms, int start, int cur, int len, double sum) {
-//        if (b == 233 && len == 3 && cur == 2 && dms.get(0) == 7 && dms.get(1) == 14) {
-//            System.out.println();
-//        }
         if (cur == len - 1) {
             double fn = 1.0 / (target - sum);
             if (isInt(fn)) {
