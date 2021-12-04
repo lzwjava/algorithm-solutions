@@ -21,31 +21,31 @@ public class Main {
     double target;
     List<Integer> ans;
 
-    void dfs(List<Integer> dms, int start, double sum) {
-        if (ans != null) {
-            if (better(ans, dms)) {
-                return;
-            }
-            int rest = ans.size() - dms.size();
-            double max = sum + rest * 1.0 / start;
-            if (Double.compare(max, target) < 0) {
-                return;
-            }
-        }
-        if (Double.compare(sum, target) == 0) {
-            if (ans == null || better(dms, ans)) {
-                ans = new ArrayList<>(dms);
+    boolean equal(double a, double b) {
+        return Math.abs(a - b) < 1e-8;
+    }
+
+    void dfs(List<Integer> dms, int start, int cur, int len, double sum) {
+        if (cur == len) {
+            if (equal(sum, target)) {
+                if (ans == null || better(dms, ans)) {
+                    ans = new ArrayList<>(dms);
+                }
             }
             return;
         }
-        for (int i = start; i < 1000; i++) {
+        for (int i = start; i < 2000; i++) {
             if (forbid(i)) {
                 continue;
             }
             dms.add(i);
             double nsum = sum + 1.0 / i;
-            if (Double.compare(nsum, target) <= 0) {
-                dfs(dms, i + 1, nsum);
+            if (nsum < target || equal(nsum, target)) {
+                int rest = len - (cur + 1);
+                double max = nsum + rest * 1.0 / i;
+                if (max > target || equal(max, target)) {
+                    dfs(dms, i + 1, cur + 1, len, nsum);
+                }
             }
             dms.remove(dms.size() - 1);
         }
@@ -88,9 +88,14 @@ public class Main {
                 ks[i] = Integer.parseInt(st.nextToken());
             }
             target = a * 1.0 / b;
-            List<Integer> dms = new ArrayList<>();
             ans = null;
-            dfs(dms, 2, 0);
+            for (int len = 2; ; len++) {
+                List<Integer> dms = new ArrayList<>();
+                dfs(dms, 2, 0, len, 0);
+                if (ans != null) {
+                    break;
+                }
+            }
             out.append(String.format("Case %d: ", u + 1));
             out.append(String.format("%d/%d=", a, b));
             for (int i = 0; i < ans.size(); i++) {
