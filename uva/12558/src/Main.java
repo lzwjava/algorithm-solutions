@@ -27,19 +27,19 @@ public class Main {
                 return;
             }
         }
-        if (Math.abs(target - sum) < 1e-8) {
+        if (Double.compare(sum, target) == 0) {
             if (ans == null || better(dms, ans)) {
-                ans = dms;
+                ans = new ArrayList<>(dms);
             }
             return;
         }
-        for (int i = start; i < 10000; i++) {
+        for (int i = start; i < 1000; i++) {
             if (forbid(i)) {
                 continue;
             }
             dms.add(i);
             double nsum = sum + 1.0 / i;
-            if (nsum < target) {
+            if (Double.compare(nsum, target) <= 0) {
                 dfs(dms, i + 1, nsum);
             }
             dms.remove(dms.size() - 1);
