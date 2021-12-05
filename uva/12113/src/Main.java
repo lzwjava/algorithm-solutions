@@ -38,27 +38,6 @@ public class Main {
         }
     }
 
-    boolean equal(char[][] g1, char[][] g2) {
-        for (int i = 0; i < g1.length; i++) {
-            for (int j = 0; j < g1[0].length; j++) {
-                if (g1[i][j] != g2[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    void print(char[][] g) {
-        for (int x = 0; x < g.length; x++) {
-            for (int y = 0; y < g[0].length; y++) {
-                out.append(g[x][y]);
-            }
-            out.append('\n');
-        }
-        out.append('\n');
-    }
-
     void permutation(int[] nums, boolean[] vis, int cur, int n) {
         if (cur == n) {
             char[][] g = new char[5][9];
