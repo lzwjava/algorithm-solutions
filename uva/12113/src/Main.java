@@ -22,11 +22,29 @@ public class Main {
             {'|', ' ', ' ', ' ', '|'},
             {'|', '_', ' ', '_', '|'}
         };
-        int x = (v / 3) * 2;
-        int y = v % 3;
+        int ox = v / 3;
+        int oy = (v % 3) * 2;
+        for (int x = 0; x < gt.length; x++) {
+            for (int y = 0; y < gt[0].length; y++) {
+                int nx = ox + x;
+                int ny = oy + y;
+                g[nx][ny] = gt[x][y];
+            }
+        }
     }
 
-    void permutation(int[] nums, boolean[] vis, int cur, int n) {
+    boolean equal(char[][] g1, char[][] g2) {
+        for (int i = 0; i < g1.length; i++) {
+            for (int j = 0; j < g1[0].length; j++) {
+                if (g1[i][j] != g2[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    boolean permutation(int[] nums, boolean[] vis, int cur, int n) {
         if (cur == n) {
             char[][] g = new char[5][9];
             for (int i = 0; i < 5; i++) {
@@ -35,17 +53,25 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 draw(g, nums[i]);
             }
-            return;
+            if (equal(grid, g)) {
+                return true;
+            }
+            return false;
         }
         for (int i = 0; i < 9; i++) {
             if (!vis[i]) {
                 nums[cur] = i;
-                permutation(nums, vis, cur + 1, n);
+                boolean found = permutation(nums, vis, cur + 1, n);
+                if (found) {
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     void solve() throws IOException {
+        int caseNum = 1;
         while (true) {
             String line = in.readLine();
             if (line.charAt(0) == '0') {
@@ -62,9 +88,23 @@ public class Main {
                     line = in.readLine();
                 }
             } while (i < 5);
+            boolean ok = false;
             for (int p = 1; p <= 6; p++) {
-
+                int[] nums = new int[9];
+                boolean[] vis = new boolean[9];
+                boolean found = permutation(nums, vis, 0, p);
+                if (found) {
+                    ok = true;
+                    break;
+                }
             }
+            out.append(String.format("Case %d: ", caseNum));
+            if (ok) {
+                out.append("Yes\n");
+            } else {
+                out.append("No\n");
+            }
+            caseNum++;
         }
     }
 
