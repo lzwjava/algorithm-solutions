@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -13,8 +16,174 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    void solve() {
-        
+    int cnt;
+
+    boolean judge(List<Integer> template, List<Integer> nums, int[] lens) {
+        cnt = 0;
+        judge(template, nums, lens, 0, template.size());
+        return cnt == 1;
+    }
+
+    int genNum(List<Integer> list) {
+        StringBuilder sb = new StringBuilder();
+        for (int x : list) {
+            sb.append(x);
+        }
+        String s = sb.toString();
+        int v = Integer.parseInt(s);
+        String vs = String.format("%d", v);
+        if (vs.length() != s.length()) {
+            return -1;
+        } else {
+            return v;
+        }
+    }
+
+    void judge(List<Integer> template, List<Integer> nums, int[] lens, int cur, int n) {
+        if (cnt > 1) {
+            return;
+        }
+        if (cur == n) {
+            int[] as = new int[3];
+            int p = 0;
+            for (int i = 0; i < 3; i++) {
+                int len = lens[i];
+                List<Integer> subList = nums.subList(p, p + len);
+                int v = genNum(subList);
+                if (v == -1) {
+                    return;
+                }
+                as[i] = v;
+                p += len;
+            }
+            if (as[0] * as[1] == as[2]) {
+                cnt++;
+            }
+            return;
+        }
+        int v = template.get(cur);
+        List<Integer> ps = new ArrayList<>();
+        if (v == -1) {
+            for (int i = 0; i <= 9; i++) {
+                ps.add(i);
+            }
+        } else {
+            ps.add(v);
+        }
+        for (int x : ps) {
+            nums.add(x);
+            judge(template, nums, lens, cur + 1, n);
+            nums.remove(nums.size() - 1);
+        }
+    }
+
+    boolean permutation(List<Integer> template, List<Integer> changed, int[] lens, int[] pos, int cur, int n) {
+        if (cur == n) {
+            List<Integer> nums = new ArrayList<>();
+            boolean ok = judge(changed, nums, lens);
+            if (ok) {
+                return true;
+            }
+            return false;
+        }
+        int st;
+        if (cur == 0) {
+            st = 0;
+        } else {
+            st = pos[cur - 1] + 1;
+        }
+        for (int i = st; i < template.size(); i++) {
+            for (int j = -1; j <= 9; j++) {
+                if (template.get(i) == j) {
+                    continue;
+                }
+                pos[cur] = i;
+                changed.set(i, j);
+                boolean ok = permutation(template, changed, lens, pos, cur + 1, n);
+                if (ok) {
+                    return true;
+                }
+                changed.set(i, template.get(i));
+            }
+        }
+        return false;
+    }
+
+    void solve() throws IOException {
+        int caseNum = 1;
+        while (true) {
+            String s = in.readLine();
+            StringTokenizer st = new StringTokenizer(s);
+            String token = st.nextToken();
+            if (token.equals("0")) {
+                break;
+            }
+            List<String> strs = new ArrayList<>();
+            strs.add(token);
+            for (int i = 0; i < 2; i++) {
+                strs.add(st.nextToken());
+            }
+            List<Integer> list = new ArrayList<>();
+            int[] lens = new int[3];
+            for (int i = 0; i < strs.size(); i++) {
+                String str = strs.get(i);
+                lens[i] = str.length();
+                for (int j = 0; j < str.length(); j++) {
+                    char ch = str.charAt(j);
+                    int v;
+                    if (ch == '*') {
+                        v = -1;
+                    } else {
+                        v = ch - '0';
+                    }
+                    list.add(v);
+                }
+            }
+            int total = 0;
+            for (int i = 0; i < 3; i++) {
+                total += lens[i];
+            }
+            for (int i = 0; i <= total; i++) {
+                List<Integer> changed = new ArrayList<>(list);
+                int[] pos = new int[i];
+                boolean ok = permutation(list, changed, lens, pos, 0, i);
+                if (ok) {
+                    String gen = genStr(changed, lens);
+                    out.append(String.format("Case %d: %s\n", caseNum, gen));
+                    break;
+                }
+            }
+            caseNum++;
+        }
+    }
+
+    String genStr(List<Integer> changed, int[] lens) {
+        StringBuilder sb = new StringBuilder();
+        int p = 0;
+        for (int i = 0; i < lens.length; i++) {
+            if (i != 0) {
+                sb.append(' ');
+            }
+            List<Integer> subList = changed.subList(p, p + lens[i]);
+            String part = genPartStr(subList);
+            sb.append(part);
+            p += lens[i];
+        }
+        return sb.toString();
+    }
+
+    String genPartStr(List<Integer> subList) {
+        StringBuilder sb = new StringBuilder();
+        for (int x : subList) {
+            char c;
+            if (x == -1) {
+                c = '*';
+            } else {
+                c = (char) ('0' + x);
+            }
+            sb.append(c);
+        }
+        return sb.toString();
     }
 
     void close() throws IOException {
