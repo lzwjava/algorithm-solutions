@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
 
@@ -14,8 +16,7 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    char[][][] grids;
-    int cnt;
+    Set<String> set;
 
     void draw(char[][] g, int v) {
         char[][] gt = new char[][]{
@@ -67,7 +68,8 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 draw(g, nums[i]);
             }
-            addToAns(g);
+            String str = gridToStr(g);
+            set.add(str);
             return;
         }
         for (int i = 0; i < 9; i++) {
@@ -78,23 +80,16 @@ public class Main {
         }
     }
 
-    void addToAns(char[][] g) {
-        grids[cnt++] = g;
-    }
-
-    boolean find(char[][] g) {
-        for (int i = 0; i < cnt; i++) {
-            if (equal(grids[i], g)) {
-                return true;
-            }
+    String gridToStr(char[][] grid) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < grid.length; i++) {
+            sb.append(new String(grid[i]));
         }
-        return false;
+        return sb.toString();
     }
 
     void solve() throws IOException {
-        int maxn = 597875;
-        grids = new char[maxn][5][9];
-        cnt = 0;
+        set = new HashSet<>();
         for (int p = 1; p <= 6; p++) {
             int[] nums = new int[p];
             boolean[] vis = new boolean[9];
@@ -118,7 +113,8 @@ public class Main {
                     line = in.readLine();
                 }
             } while (i < 5);
-            boolean ok = find(grid);
+            String s = gridToStr(grid);
+            boolean ok = set.contains(s);
             out.append(String.format("Case %d: ", caseNum));
             if (ok) {
                 out.append("Yes\n");
