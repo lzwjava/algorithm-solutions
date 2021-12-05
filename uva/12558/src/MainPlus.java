@@ -6,19 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Main {
+public class MainPlus {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    MainPlus() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
-    int k;
+    int a, b, k;
     int[] ks;
-    List<Long> ans;
+    double target;
+    List<Integer> ans;
+
+    boolean isInt(double a) {
+        return Math.abs(Math.round(a) - a) < 1e-6;
+    }
 
     long gcd(long a, long b) {
         if (b == 0) {
@@ -28,17 +33,37 @@ public class Main {
         }
     }
 
-    void dfs(List<Long> dms, int start, int cur, int len, long a, long b) {
+    long lcm(long a, long b) {
+        return a / gcd(a, b) * b;
+    }
+
+    boolean judge(List<Integer> dms) {
+        long all = b;
+        for (int x : dms) {
+            all = lcm(all, x);
+        }
+        long left = all / b * a;
+        long right = 0;
+        for (int x : dms) {
+            right += all / x;
+        }
+        return left == right;
+    }
+
+    void dfs(List<Integer> dms, int start, int cur, int len, double sum) {
         if (cur == len - 1) {
-            if (b % a != 0) {
-                return;
-            }
-            if (b > dms.get(dms.size() - 1) && !forbid(b)) {
-                dms.add(b);
-                if (ans == null || better(dms, ans)) {
-                    ans = new ArrayList<>(dms);
+            double fn = 1.0 / (target - sum);
+            if (isInt(fn)) {
+                int ifn = (int) Math.round(fn);
+                if (ifn > dms.get(dms.size() - 1) && !forbid(ifn)) {
+                    dms.add(ifn);
+                    if (judge(dms)) {
+                        if (ans == null || better(dms, ans)) {
+                            ans = new ArrayList<>(dms);
+                        }
+                    }
+                    dms.remove(dms.size() - 1);
                 }
-                dms.remove(dms.size() - 1);
             }
             return;
         }
@@ -46,32 +71,34 @@ public class Main {
             if (forbid(i)) {
                 continue;
             }
-            // a/b - n /i <=0
-            // a/b <= n/i
-            // a*i <= n*b
-            if (a * i > (len - cur) * b) {
+            if (ans != null && i >= ans.get(ans.size() - 1)) {
                 break;
             }
-            // a/b - 1/i = a2/ b2
-            long b2 = b * i;
-            long a2 = a * i - b;
-            if (a2 > 0) {
-                long g = gcd(a2, b2);
-                dms.add((long) i);
-                dfs(dms, i + 1, cur + 1, len, a2 / g, b2 / g);
-                dms.remove(dms.size() - 1);
+            double nsum = sum + 1.0 / i;
+            if (nsum < target) {
+                double max = nsum;
+                for (int j = cur + 1; j < len; j++) {
+                    max += 1.0 / (i + j - cur);
+                }
+                if (max > target) {
+                    dms.add(i);
+                    dfs(dms, i + 1, cur + 1, len, nsum);
+                    dms.remove(dms.size() - 1);
+                } else {
+                    break;
+                }
             }
         }
     }
 
-    boolean better(List<Long> dms, List<Long> ans) {
+    boolean better(List<Integer> dms, List<Integer> ans) {
         if (dms.size() != ans.size()) {
             return dms.size() < ans.size();
         } else {
             int size = dms.size();
             for (int i = size - 1; i >= 0; i--) {
-                long a = dms.get(i);
-                long b = ans.get(i);
+                int a = dms.get(i);
+                int b = ans.get(i);
                 if (a != b) {
                     return a < b;
                 }
@@ -80,7 +107,7 @@ public class Main {
         return false;
     }
 
-    boolean forbid(long x) {
+    boolean forbid(int x) {
         for (int i = 0; i < k; i++) {
             if (ks[i] == x) {
                 return true;
@@ -93,17 +120,18 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         for (int u = 0; u < t; u++) {
             StringTokenizer st = new StringTokenizer(in.readLine());
-            long a = Integer.parseInt(st.nextToken());
-            long b = Integer.parseInt(st.nextToken());
+            a = Integer.parseInt(st.nextToken());
+            b = Integer.parseInt(st.nextToken());
             k = Integer.parseInt(st.nextToken());
             ks = new int[k];
             for (int i = 0; i < k; i++) {
                 ks[i] = Integer.parseInt(st.nextToken());
             }
+            target = a * 1.0 / b;
             ans = null;
             for (int len = 2; ; len++) {
-                List<Long> dms = new ArrayList<>();
-                dfs(dms, 2, 0, len, a, b);
+                List<Integer> dms = new ArrayList<>();
+                dfs(dms, 2, 0, len, 0);
                 if (ans != null) {
                     break;
                 }
@@ -127,7 +155,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main m = new Main();
+        MainPlus m = new MainPlus();
         m.solve();
         m.close();
     }
