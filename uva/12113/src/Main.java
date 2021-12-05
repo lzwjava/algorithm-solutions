@@ -26,6 +26,9 @@ public class Main {
         int oy = (v % 3) * 2;
         for (int x = 0; x < gt.length; x++) {
             for (int y = 0; y < gt[0].length; y++) {
+                if (x == 0 && (y == 0 || y == 4)) {
+                    continue;
+                }
                 int nx = ox + x;
                 int ny = oy + y;
                 g[nx][ny] = gt[x][y];
@@ -42,6 +45,16 @@ public class Main {
             }
         }
         return true;
+    }
+
+    void print(char[][] g) {
+        for (int x = 0; x < g.length; x++) {
+            for (int y = 0; y < g[0].length; y++) {
+                out.append(g[x][y]);
+            }
+            out.append('\n');
+        }
+        out.append('\n');
     }
 
     boolean permutation(int[] nums, boolean[] vis, int cur, int n) {
@@ -90,7 +103,7 @@ public class Main {
             } while (i < 5);
             boolean ok = false;
             for (int p = 1; p <= 6; p++) {
-                int[] nums = new int[9];
+                int[] nums = new int[p];
                 boolean[] vis = new boolean[9];
                 boolean found = permutation(nums, vis, 0, p);
                 if (found) {
