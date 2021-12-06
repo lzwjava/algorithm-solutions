@@ -68,63 +68,38 @@ public class Main {
         }
     }
 
-    class State {
-        Cube[][] cubes;
-        int x, y;
-        int dist;
-
-        State(Cube[][] cubes, int x, int y) {
-            this.cubes = cubes;
-            this.x = x;
-            this.y = y;
-            this.dist = 0;
-        }
-
-        char[][] tops() {
-            char[][] ts = new char[3][3];
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    Cube c = cubes[i][j];
-                    char top;
-                    if (c != null) {
-                        top = c.top;
-                    } else {
-                        top = 'E';
-                    }
-                    ts[i][j] = top;
+    char[][] tops(Cube[][] cubes) {
+        char[][] ts = new char[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                Cube c = cubes[i][j];
+                char top;
+                if (c != null) {
+                    top = c.top;
+                } else {
+                    top = 'E';
                 }
+                ts[i][j] = top;
             }
-            return ts;
         }
+        return ts;
+    }
 
-        @Override
-        protected State clone() {
-            Cube[][] ncubes = new Cube[3][3];
-            for (int i = 0; i < 3; i++) {
-                ncubes[i] = Arrays.copyOf(cubes[i], 3);
-            }
-            State ns = new State(ncubes, x, y);
-            ns.dist = dist;
-            return ns;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    String s;
-                    Cube c = cubes[i][j];
-                    if (c == null) {
-                        s = "EE";
-                    } else {
-                        s = c.toString();
-                    }
-                    sb.append(String.format("%s,", s));
+    String toString(Cube[][] cubes) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                String s;
+                Cube c = cubes[i][j];
+                if (c == null) {
+                    s = "EE";
+                } else {
+                    s = c.toString();
                 }
+                sb.append(String.format("%s,", s));
             }
-            return sb.toString();
         }
+        return sb.toString();
     }
 
     // top, bottom, left, right
@@ -135,8 +110,8 @@ public class Main {
     char[][] grid;
     int ans;
 
-    int differ(State s) {
-        char[][] tops = s.tops();
+    int differ(Cube[][] cubes) {
+        char[][] tops = tops(cubes);
         int cnt = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -148,34 +123,35 @@ public class Main {
         return cnt;
     }
 
-    void dfs(State s) {
-        int differ = differ(s);
-        if (differ == 0) {
-            if (s.dist < ans) {
-                ans = s.dist;
+    void dfs(Cube[][] cubes, int dist, int x, int y, int px, int py) {
+        int diff = differ(cubes);
+        if (diff == 0) {
+            if (dist < ans) {
+                ans = dist;
             }
             return;
         }
-        if (s.dist + differ > ans) {
-            return;
-        }
-        if (s.dist >= 30) {
+        if (dist + diff - 1 > ans) {
             return;
         }
         for (int d = 0; d < dx.length; d++) {
-            int nx = s.x + dx[d];
-            int ny = s.y + dy[d];
-            if (nx < 0 || nx >= 3 || ny < 0 || ny >= 3) {
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+            if (nx < 0 || nx >= 3 || ny < 0 || ny >= 3 || (nx == px && ny == py)) {
                 continue;
             }
             Dir dir = Dir.values()[d];
-            State ns = changeState(s, dir, nx, ny, s.x, s.y);
-            ns.dist = s.dist + 1;
-            String nsStr = ns.toString();
-            if (!set.contains(nsStr)) {
-                set.add(nsStr);
-                dfs(ns);
-            }
+            Cube ocube = cubes[nx][ny];
+            Cube ncube = changeCube(cubes, dir, nx, ny);
+            cubes[nx][ny] = null;
+            cubes[x][y] = ncube;
+//            String nsStr = toString(cubes);
+            dfs(cubes, dist + 1, nx, ny, x, y);
+//            if (!set.contains(nsStr)) {
+//                set.add(nsStr);
+//            }
+            cubes[nx][ny] = ocube;
+            cubes[x][y] = null;
         }
     }
 
@@ -210,11 +186,10 @@ public class Main {
                 }
             }
             set = new HashSet<>();
-            State init = new State(cubes, x, y);
-            set.add(init.toString());
-            ans = Integer.MAX_VALUE;
-            dfs(init);
-            if (ans == Integer.MAX_VALUE) {
+            set.add(toString(cubes));
+            ans = 31;
+            dfs(cubes, 0, x, y, -1, -1);
+            if (ans == 31) {
                 out.append("-1\n");
             } else {
                 out.append(String.format("%d\n", ans));
@@ -222,33 +197,18 @@ public class Main {
         }
     }
 
-    void print(State s) {
-        char[][] tops = s.tops();
-        for (int i = 0; i < tops.length; i++) {
-            String str = new String(tops[i]);
-            out.append(String.format("%s\n", str));
-        }
-        out.append('\n');
-        out.flush();
-    }
-
-    State changeState(State s, Dir d, int nx, int ny, int x, int y) {
-        State ns = s.clone();
+    Cube changeCube(Cube[][] cubes, Dir d, int nx, int ny) {
         Cube c;
         if (d == Dir.LEFT) {
-            c = ns.cubes[nx][ny].turn(Dir.RIGHT);
+            c = cubes[nx][ny].turn(Dir.RIGHT);
         } else if (d == Dir.RIGHT) {
-            c = ns.cubes[nx][ny].turn(Dir.LEFT);
+            c = cubes[nx][ny].turn(Dir.LEFT);
         } else if (d == Dir.TOP) {
-            c = ns.cubes[nx][ny].turn(Dir.BOTTOM);
+            c = cubes[nx][ny].turn(Dir.BOTTOM);
         } else {
-            c = ns.cubes[nx][ny].turn(Dir.TOP);
+            c = cubes[nx][ny].turn(Dir.TOP);
         }
-        ns.x = nx;
-        ns.y = ny;
-        ns.cubes[x][y] = c;
-        ns.cubes[nx][ny] = null;
-        return ns;
+        return c;
     }
 
     void close() throws IOException {
