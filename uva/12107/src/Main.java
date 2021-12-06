@@ -90,16 +90,18 @@ public class Main {
         return false;
     }
 
-    void permutation(List<Integer> template, List<Integer> changed, int[] lens, int[] pos, int cur, int n) {
+    boolean permutation(List<Integer> template, List<Integer> changed, List<Integer> orders,
+                        int[] lens, int[] pos, int cur, int n) {
         if (cur == n) {
             List<Integer> nums = new ArrayList<>();
             boolean ok = judge(changed, nums, lens);
             if (ok) {
-                if (ans == null || better(changed, ans)) {
+                if (ans == null) {
                     ans = changed;
+                    return true;
                 }
             }
-            return;
+            return false;
         }
         int st;
         if (cur == 0) {
@@ -107,17 +109,39 @@ public class Main {
         } else {
             st = pos[cur - 1] + 1;
         }
-        for (int i = st; i < template.size(); i++) {
+        for (int i = st; i < orders.size(); i++) {
+            int o = orders.get(i);
             for (int j = -1; j <= 9; j++) {
-                if (template.get(i) == j) {
+                if (template.get(o) == j) {
                     continue;
                 }
                 pos[cur] = i;
-                changed.set(i, j);
-                permutation(template, changed, lens, pos, cur + 1, n);
-                changed.set(i, template.get(i));
+                changed.set(o, j);
+                boolean ok = permutation(template, changed, orders, lens, pos, cur + 1, n);
+                if (ok) {
+                    return true;
+                }
+                changed.set(o, template.get(o));
             }
         }
+        return false;
+    }
+
+    List<Integer> getPermutationOrder(List<Integer> list) {
+        List<Integer> orders = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            int x = list.get(i);
+            if (x != -1) {
+                orders.add(i);
+            }
+        }
+        for (int i = list.size() - 1; i >= 0; i--) {
+            int x = list.get(i);
+            if (x == -1) {
+                orders.add(i);
+            }
+        }
+        return orders;
     }
 
     void solve() throws IOException {
@@ -155,11 +179,12 @@ public class Main {
                 total += lens[i];
             }
             ans = null;
+            List<Integer> orders = getPermutationOrder(list);
             for (int i = 0; i <= total; i++) {
                 List<Integer> changed = new ArrayList<>(list);
                 int[] pos = new int[i];
-                permutation(list, changed, lens, pos, 0, i);
-                if (ans != null) {
+                boolean ok = permutation(list, changed, orders, lens, pos, 0, i);
+                if (ok) {
                     String gen = genStr(ans, lens);
                     out.append(String.format("Case %d: %s\n", caseNum, gen));
                     break;
