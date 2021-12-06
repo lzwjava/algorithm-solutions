@@ -19,9 +19,14 @@ public class Main {
     int cnt;
     List<Integer> ans;
 
-    boolean judge(List<Integer> template, List<Integer> nums, int[] lens) {
+    boolean judge(List<Integer> template, int[] lens) {
         cnt = 0;
-        judge(template, nums, lens, 0, template.size());
+        int twoLen = 0;
+        for (int i = 0; i < 2; i++) {
+            twoLen += lens[i];
+        }
+        List<Integer> nums = new ArrayList<>();
+        judge(template, nums, lens, 0, twoLen);
         return cnt == 1;
     }
 
@@ -47,7 +52,7 @@ public class Main {
         if (cur == n) {
             int[] as = new int[3];
             int p = 0;
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 2; i++) {
                 int len = lens[i];
                 List<Integer> subList = nums.subList(p, p + len);
                 int v = genNum(subList);
@@ -57,7 +62,9 @@ public class Main {
                 as[i] = v;
                 p += len;
             }
-            if (as[0] * as[1] == as[2]) {
+            List<Integer> lastList = template.subList(p, template.size());
+            as[2] = as[0] * as[1];
+            if (match(lastList, as[2])) {
                 cnt++;
             }
             return;
@@ -78,11 +85,26 @@ public class Main {
         }
     }
 
+    boolean match(List<Integer> lastList, int a) {
+        String s = String.format("%d", a);
+        if (s.length() != lastList.size()) {
+            return false;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            int digit = ch - '0';
+            int lastDigit = lastList.get(i);
+            if (lastDigit != -1 && lastDigit != digit) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     boolean permutation(List<Integer> template, List<Integer> changed, List<Integer> orders,
                         int[] lens, int[] pos, int cur, int n) {
         if (cur == n) {
-            List<Integer> nums = new ArrayList<>();
-            boolean ok = judge(changed, nums, lens);
+            boolean ok = judge(changed, lens);
             if (ok) {
                 if (ans == null) {
                     ans = changed;
@@ -131,7 +153,7 @@ public class Main {
         }
         return false;
     }
-    
+
     List<Integer> getPermutationOrder(List<Integer> list) {
         List<Integer> orders = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
