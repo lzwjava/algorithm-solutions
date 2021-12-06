@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -22,28 +21,24 @@ public class Main {
         RIGHT
     }
 
-    class Cube {
-        char top;
-        char front;
+    // BWRE
+    // 1230
 
-        Cube(char top, char front) {
+    class Cube {
+        int top;
+        int front;
+
+        Cube(int top, int front) {
             this.top = top;
             this.front = front;
         }
 
-        char left() {
-            String s = "BWR";
-            char[] chs = new char[]{top, front};
-            for (char c : s.toCharArray()) {
-                if (!Arrays.asList(chs).contains(c)) {
-                    return c;
-                }
-            }
-            return ' ';
+        int left() {
+            return 6 - top - front;
         }
 
         Cube turn(Dir d) {
-            char ntop, nfront;
+            int ntop, nfront;
             if (d == Dir.RIGHT) {
                 ntop = left();
                 nfront = front;
@@ -59,32 +54,34 @@ public class Main {
             }
             return new Cube(ntop, nfront);
         }
-
-        @Override
-        public String toString() {
-            return String.format("%c%c", top, front);
-        }
     }
 
     // top, bottom, left, right
     int[] dx = new int[]{-1, 1, 0, 0};
     int[] dy = new int[]{0, 0, -1, 1};
 
-    char[][] grid;
+    int[][] grid;
     int ans;
+
+    int cubeInt(char c) {
+        if (c == 'B') {
+            return 1;
+        } else if (c == 'W') {
+            return 2;
+        } else if (c == 'R') {
+            return 3;
+        } else if (c == 'E') {
+            return 0;
+        }
+        return -1;
+    }
 
     int differ(Cube[][] cubes) {
         int cnt = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Cube c = cubes[i][j];
-                char top;
-                if (c != null) {
-                    top = c.top;
-                } else {
-                    top = 'E';
-                }
-                if (top != grid[i][j]) {
+                if (c.top != grid[i][j]) {
                     cnt++;
                 }
             }
@@ -112,11 +109,11 @@ public class Main {
             Dir dir = Dir.values()[d];
             Cube ocube = cubes[nx][ny];
             Cube ncube = changeCube(cubes, dir, nx, ny);
-            cubes[nx][ny] = null;
+            cubes[nx][ny] = new Cube(0, 0);
             cubes[x][y] = ncube;
             dfs(cubes, dist + 1, nx, ny, x, y);
             cubes[nx][ny] = ocube;
-            cubes[x][y] = null;
+            cubes[x][y] = new Cube(0, 0);
         }
     }
 
@@ -133,19 +130,20 @@ public class Main {
             int t = x;
             x = y;
             y = t;
-            grid = new char[3][3];
+            grid = new int[3][3];
             for (int i = 0; i < 3; i++) {
                 st = new StringTokenizer(in.readLine());
                 for (int j = 0; j < 3; j++) {
-                    grid[i][j] = st.nextToken().charAt(0);
+                    char c = st.nextToken().charAt(0);
+                    grid[i][j] = cubeInt(c);
                 }
             }
             Cube[][] cubes = new Cube[3][3];
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    Cube c = new Cube('W', 'R');
+                    Cube c = new Cube(2, 3);
                     if (i == x && j == y) {
-                        c = null;
+                        c = new Cube(0, 0);
                     }
                     cubes[i][j] = c;
                 }
