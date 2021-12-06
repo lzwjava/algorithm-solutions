@@ -32,18 +32,11 @@ public class Main {
     }
 
     int genNum(List<Integer> list) {
-        StringBuilder sb = new StringBuilder();
-        for (int x : list) {
-            sb.append(x);
+        int p = 0;
+        for (int i = 0; i < list.size(); i++) {
+            p = p * 10 + list.get(i);
         }
-        String s = sb.toString();
-        int v = Integer.parseInt(s);
-        String vs = String.format("%d", v);
-        if (vs.length() != s.length()) {
-            return -1;
-        } else {
-            return v;
-        }
+        return p;
     }
 
     void judge(List<Integer> template, List<Integer> nums, int[] lens, int cur, int n) {
@@ -57,9 +50,6 @@ public class Main {
                 int len = lens[i];
                 List<Integer> subList = nums.subList(p, p + len);
                 int v = genNum(subList);
-                if (v == -1) {
-                    return;
-                }
                 as[i] = v;
                 p += len;
             }
@@ -152,23 +142,6 @@ public class Main {
             p += lens[i];
         }
         return false;
-    }
-
-    List<Integer> getPermutationOrder(List<Integer> list) {
-        List<Integer> orders = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            int x = list.get(i);
-            if (x != -1) {
-                orders.add(i);
-            }
-        }
-        for (int i = list.size() - 1; i >= 0; i--) {
-            int x = list.get(i);
-            if (x == -1) {
-                orders.add(i);
-            }
-        }
-        return orders;
     }
 
     void solve() throws IOException {
