@@ -78,18 +78,6 @@ public class Main {
         }
     }
 
-    boolean better(List<Integer> changed, List<Integer> ans) {
-        int m = changed.size();
-        for (int i = 0; i < m; i++) {
-            int ci = changed.get(i);
-            int ai = ans.get(i);
-            if (ci != ai) {
-                return Integer.compare(ci, ai) < 0;
-            }
-        }
-        return false;
-    }
-
     boolean permutation(List<Integer> template, List<Integer> changed, List<Integer> orders,
                         int[] lens, int[] pos, int cur, int n) {
         if (cur == n) {
@@ -115,6 +103,9 @@ public class Main {
                 if (template.get(o) == j) {
                     continue;
                 }
+                if (leadingZero(o, j, lens)) {
+                    continue;
+                }
                 pos[cur] = i;
                 changed.set(o, j);
                 boolean ok = permutation(template, changed, orders, lens, pos, cur + 1, n);
@@ -127,6 +118,20 @@ public class Main {
         return false;
     }
 
+    boolean leadingZero(int pos, int value, int[] lens) {
+        if (value != 0) {
+            return false;
+        }
+        int p = 0;
+        for (int i = 0; i < lens.length; i++) {
+            if (pos == p) {
+                return true;
+            }
+            p += lens[i];
+        }
+        return false;
+    }
+    
     List<Integer> getPermutationOrder(List<Integer> list) {
         List<Integer> orders = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
