@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class MainMinus {
@@ -30,9 +31,20 @@ public class MainMinus {
             this.front = front;
         }
 
-        char left() {
+        char left1() {
             int v = 'B' + 'W' + 'R';
             return (char) (v - top - front);
+        }
+
+        char left() {
+            String s = "BWR";
+            Character[] chs = new Character[]{top, front};
+            for (char c : s.toCharArray()) {
+                if (!Arrays.asList(chs).contains(c)) {
+                    return c;
+                }
+            }
+            return ' ';
         }
 
         Cube turn(Dir d) {
