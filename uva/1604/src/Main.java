@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -68,8 +66,15 @@ public class Main {
         }
     }
 
-    char[][] tops(Cube[][] cubes) {
-        char[][] ts = new char[3][3];
+    // top, bottom, left, right
+    int[] dx = new int[]{-1, 1, 0, 0};
+    int[] dy = new int[]{0, 0, -1, 1};
+
+    char[][] grid;
+    int ans;
+
+    int differ(Cube[][] cubes) {
+        int cnt = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Cube c = cubes[i][j];
@@ -79,43 +84,7 @@ public class Main {
                 } else {
                     top = 'E';
                 }
-                ts[i][j] = top;
-            }
-        }
-        return ts;
-    }
-
-    String toString(Cube[][] cubes) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                String s;
-                Cube c = cubes[i][j];
-                if (c == null) {
-                    s = "EE";
-                } else {
-                    s = c.toString();
-                }
-                sb.append(String.format("%s,", s));
-            }
-        }
-        return sb.toString();
-    }
-
-    // top, bottom, left, right
-    int[] dx = new int[]{-1, 1, 0, 0};
-    int[] dy = new int[]{0, 0, -1, 1};
-
-    Set<String> set;
-    char[][] grid;
-    int ans;
-
-    int differ(Cube[][] cubes) {
-        char[][] tops = tops(cubes);
-        int cnt = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (tops[i][j] != grid[i][j]) {
+                if (top != grid[i][j]) {
                     cnt++;
                 }
             }
@@ -131,7 +100,7 @@ public class Main {
             }
             return;
         }
-        if (dist + diff - 1 > ans) {
+        if (dist + diff > ans) {
             return;
         }
         for (int d = 0; d < dx.length; d++) {
@@ -145,11 +114,7 @@ public class Main {
             Cube ncube = changeCube(cubes, dir, nx, ny);
             cubes[nx][ny] = null;
             cubes[x][y] = ncube;
-//            String nsStr = toString(cubes);
             dfs(cubes, dist + 1, nx, ny, x, y);
-//            if (!set.contains(nsStr)) {
-//                set.add(nsStr);
-//            }
             cubes[nx][ny] = ocube;
             cubes[x][y] = null;
         }
@@ -185,8 +150,6 @@ public class Main {
                     cubes[i][j] = c;
                 }
             }
-            set = new HashSet<>();
-            set.add(toString(cubes));
             ans = 31;
             dfs(cubes, 0, x, y, -1, -1);
             if (ans == 31) {
