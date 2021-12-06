@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -17,29 +18,29 @@ public class Main {
     }
 
     int cnt;
-    List<Integer> ans;
+    int[] ans;
     int maxd;
 
-    boolean judge(List<Integer> template, int[] lens) {
+    boolean judge(int[] template, int[] lens) {
         cnt = 0;
         int twoLen = 0;
         for (int i = 0; i < 2; i++) {
             twoLen += lens[i];
         }
-        List<Integer> nums = new ArrayList<>();
+        int[] nums = new int[template.length];
         judge(template, nums, lens, 0, twoLen);
         return cnt == 1;
     }
 
-    int genNum(List<Integer> list) {
+    int genNum(int[] list) {
         int p = 0;
-        for (int i = 0; i < list.size(); i++) {
-            p = p * 10 + list.get(i);
+        for (int i = 0; i < list.length; i++) {
+            p = p * 10 + list[i];
         }
         return p;
     }
 
-    void judge(List<Integer> template, List<Integer> nums, int[] lens, int cur, int n) {
+    void judge(int[] template, int[] nums, int[] lens, int cur, int n) {
         if (cnt > 1) {
             return;
         }
@@ -48,19 +49,19 @@ public class Main {
             int p = 0;
             for (int i = 0; i < 2; i++) {
                 int len = lens[i];
-                List<Integer> subList = nums.subList(p, p + len);
+                int[] subList = Arrays.copyOfRange(nums, p, p + len);
                 int v = genNum(subList);
                 as[i] = v;
                 p += len;
             }
-            List<Integer> lastList = template.subList(p, template.size());
+            int[] lastList = Arrays.copyOfRange(template, p, template.length);
             as[2] = as[0] * as[1];
             if (match(lastList, as[2])) {
                 cnt++;
             }
             return;
         }
-        int v = template.get(cur);
+        int v = template[cur];
         List<Integer> ps = new ArrayList<>();
         if (v == -1) {
             for (int i = 0; i <= 9; i++) {
@@ -73,21 +74,21 @@ public class Main {
             if (leadingZero(cur, x, lens)) {
                 continue;
             }
-            nums.add(x);
+            nums[cur] = x;
             judge(template, nums, lens, cur + 1, n);
-            nums.remove(nums.size() - 1);
+            nums[cur] = template[cur];
         }
     }
 
-    boolean match(List<Integer> lastList, int a) {
+    boolean match(int[] lastList, int a) {
         String s = String.format("%d", a);
-        if (s.length() != lastList.size()) {
+        if (s.length() != lastList.length) {
             return false;
         }
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             int digit = ch - '0';
-            int lastDigit = lastList.get(i);
+            int lastDigit = lastList[i];
             if (lastDigit != -1 && lastDigit != digit) {
                 return false;
             }
@@ -95,7 +96,7 @@ public class Main {
         return true;
     }
 
-    boolean permutation(List<Integer> template, List<Integer> changed, int[] lens, int d, int cur, int n) {
+    boolean permutation(int[] template, int[] changed, int[] lens, int d, int cur, int n) {
         if (d >= maxd) {
             boolean ok = judge(changed, lens);
             if (ok) {
@@ -113,18 +114,18 @@ public class Main {
             if (leadingZero(cur, i, lens)) {
                 continue;
             }
-            if (template.get(cur) == i) {
+            if (template[cur] == i) {
                 boolean ok = permutation(template, changed, lens, d, cur + 1, n);
                 if (ok) {
                     return true;
                 }
             } else {
-                changed.set(cur, i);
+                changed[cur] = i;
                 boolean ok = permutation(template, changed, lens, d + 1, cur + 1, n);
                 if (ok) {
                     return true;
                 }
-                changed.set(cur, template.get(cur));
+                changed[cur] = template[cur];
             }
         }
         return false;
@@ -158,8 +159,13 @@ public class Main {
             for (int i = 0; i < 2; i++) {
                 strs.add(st.nextToken());
             }
-            List<Integer> list = new ArrayList<>();
+            int m = 0;
+            for (int i = 0; i < 3; i++) {
+                m += strs.get(i).length();
+            }
+            int[] list = new int[m];
             int[] lens = new int[3];
+            int p = 0;
             for (int i = 0; i < strs.size(); i++) {
                 String str = strs.get(i);
                 lens[i] = str.length();
@@ -171,7 +177,7 @@ public class Main {
                     } else {
                         v = ch - '0';
                     }
-                    list.add(v);
+                    list[p++] = v;
                 }
             }
             int total = 0;
@@ -181,8 +187,8 @@ public class Main {
             ans = null;
             for (int i = 0; i <= total; i++) {
                 maxd = i;
-                List<Integer> changed = new ArrayList<>(list);
-                boolean ok = permutation(list, changed, lens, 0, 0, list.size());
+                int[] changed = list.clone();
+                boolean ok = permutation(list, changed, lens, 0, 0, list.length);
                 if (ok) {
                     String gen = genStr(ans, lens);
                     out.append(String.format("Case %d: %s\n", caseNum, gen));
@@ -193,14 +199,14 @@ public class Main {
         }
     }
 
-    String genStr(List<Integer> changed, int[] lens) {
+    String genStr(int[] changed, int[] lens) {
         StringBuilder sb = new StringBuilder();
         int p = 0;
         for (int i = 0; i < lens.length; i++) {
             if (i != 0) {
                 sb.append(' ');
             }
-            List<Integer> subList = changed.subList(p, p + lens[i]);
+            int[] subList = Arrays.copyOfRange(changed, p, p + lens[i]);
             String part = genPartStr(subList);
             sb.append(part);
             p += lens[i];
@@ -208,7 +214,7 @@ public class Main {
         return sb.toString();
     }
 
-    String genPartStr(List<Integer> subList) {
+    String genPartStr(int[] subList) {
         StringBuilder sb = new StringBuilder();
         for (int x : subList) {
             char c;
