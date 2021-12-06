@@ -2,17 +2,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 
-public class Main {
+public class MainPlus {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    MainPlus() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
@@ -131,54 +129,6 @@ public class Main {
     int[] dx = new int[]{-1, 1, 0, 0};
     int[] dy = new int[]{0, 0, -1, 1};
 
-    Set<String> set;
-    char[][] grid;
-    int ans;
-
-    int differ(State s) {
-        char[][] tops = s.tops();
-        int cnt = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (tops[i][j] != grid[i][j]) {
-                    cnt++;
-                }
-            }
-        }
-        return cnt;
-    }
-
-    void dfs(State s) {
-        int differ = differ(s);
-        if (differ == 0) {
-            if (s.dist < ans) {
-                ans = s.dist;
-            }
-            return;
-        }
-        if (s.dist + differ > ans) {
-            return;
-        }
-        if (s.dist >= 30) {
-            return;
-        }
-        for (int d = 0; d < dx.length; d++) {
-            int nx = s.x + dx[d];
-            int ny = s.y + dy[d];
-            if (nx < 0 || nx >= 3 || ny < 0 || ny >= 3) {
-                continue;
-            }
-            Dir dir = Dir.values()[d];
-            State ns = changeState(s, dir, nx, ny, s.x, s.y);
-            ns.dist = s.dist + 1;
-            String nsStr = ns.toString();
-            if (!set.contains(nsStr)) {
-                set.add(nsStr);
-                dfs(ns);
-            }
-        }
-    }
-
     void solve() throws IOException {
         while (true) {
             StringTokenizer st = new StringTokenizer(in.readLine());
@@ -192,7 +142,7 @@ public class Main {
             int t = x;
             x = y;
             y = t;
-            grid = new char[3][3];
+            char[][] grid = new char[3][3];
             for (int i = 0; i < 3; i++) {
                 st = new StringTokenizer(in.readLine());
                 for (int j = 0; j < 3; j++) {
@@ -209,15 +159,45 @@ public class Main {
                     cubes[i][j] = c;
                 }
             }
-            set = new HashSet<>();
             State init = new State(cubes, x, y);
+            Queue<State> queue = new ArrayBlockingQueue<>(1000000);
+            Set<String> set = new HashSet<>();
+            queue.add(init);
             set.add(init.toString());
-            ans = Integer.MAX_VALUE;
-            dfs(init);
-            if (ans == Integer.MAX_VALUE) {
+            boolean found = false;
+            while (!queue.isEmpty()) {
+                State s = queue.poll();
+                if (s.dist >= 30) {
+                    break;
+                }
+                for (int d = 0; d < dx.length; d++) {
+                    int nx = s.x + dx[d];
+                    int ny = s.y + dy[d];
+                    if (nx < 0 || nx >= 3 || ny < 0 || ny >= 3) {
+                        continue;
+                    }
+                    Dir dir = Dir.values()[d];
+                    State ns = changeState(s, dir, nx, ny, s.x, s.y);
+                    ns.dist = s.dist + 1;
+                    char[][] tops = ns.tops();
+                    if (Arrays.deepEquals(tops, grid)) {
+                        out.append(String.format("%d\n", ns.dist));
+                        out.flush();
+                        found = true;
+                        break;
+                    }
+                    String nsStr = ns.toString();
+                    if (!set.contains(nsStr)) {
+                        set.add(nsStr);
+                        queue.add(ns);
+                    }
+                }
+                if (found) {
+                    break;
+                }
+            }
+            if (!found) {
                 out.append("-1\n");
-            } else {
-                out.append(String.format("%d\n", ans));
             }
         }
     }
@@ -258,7 +238,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main m = new Main();
+        MainPlus m = new MainPlus();
         m.solve();
         m.close();
     }
