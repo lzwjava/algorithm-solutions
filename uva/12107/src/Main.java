@@ -27,8 +27,18 @@ public class Main {
         for (int i = 0; i < 2; i++) {
             twoLen += lens[i];
         }
+        int[] orders = new int[twoLen];
+        int p = 0;
+        orders[p++] = lens[0] - 1;
+        orders[p++] = lens[0] + lens[1] - 1;
+        for (int i = 0; i < lens[0] - 1; i++) {
+            orders[p++] = i;
+        }
+        for (int i = 0; i < lens[1] - 1; i++) {
+            orders[p++] = lens[0] + i;
+        }
         int[] nums = new int[template.length];
-        judge(template, nums, lens, 0, twoLen);
+        judge(template, nums, lens, orders, 0, twoLen);
         return cnt == 1;
     }
 
@@ -40,9 +50,21 @@ public class Main {
         return p;
     }
 
-    void judge(int[] template, int[] nums, int[] lens, int cur, int n) {
+    void judge(int[] template, int[] nums, int[] lens, int[] orders, int cur, int n) {
         if (cnt > 1) {
             return;
+        }
+        if (cur == 2) {
+            int x = 1;
+            for (int i = 0; i < cur; i++) {
+                int pos = orders[i];
+                x *= nums[pos];
+            }
+            int digit = x % 10;
+            int tdigit = template[template.length - 1];
+            if (tdigit != -1 && digit != tdigit) {
+                return;
+            }
         }
         if (cur == n) {
             int[] as = new int[3];
@@ -61,7 +83,8 @@ public class Main {
             }
             return;
         }
-        int v = template[cur];
+        int pos = orders[cur];
+        int v = template[pos];
         List<Integer> ps = new ArrayList<>();
         if (v == -1) {
             for (int i = 0; i <= 9; i++) {
@@ -71,12 +94,12 @@ public class Main {
             ps.add(v);
         }
         for (int x : ps) {
-            if (leadingZero(cur, x, lens)) {
+            if (leadingZero(pos, x, lens)) {
                 continue;
             }
-            nums[cur] = x;
-            judge(template, nums, lens, cur + 1, n);
-            nums[cur] = template[cur];
+            nums[pos] = x;
+            judge(template, nums, lens, orders, cur + 1, n);
+            nums[pos] = template[pos];
         }
     }
 
@@ -214,9 +237,9 @@ public class Main {
         return sb.toString();
     }
 
-    String genPartStr(int[] subList) {
+    String genPartStr(int[] sub) {
         StringBuilder sb = new StringBuilder();
-        for (int x : subList) {
+        for (int x : sub) {
             char c;
             if (x == -1) {
                 c = '*';
