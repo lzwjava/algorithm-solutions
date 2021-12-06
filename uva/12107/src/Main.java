@@ -17,6 +17,7 @@ public class Main {
     }
 
     int cnt;
+    List<Integer> ans;
 
     boolean judge(List<Integer> template, List<Integer> nums, int[] lens) {
         cnt = 0;
@@ -77,14 +78,28 @@ public class Main {
         }
     }
 
-    boolean permutation(List<Integer> template, List<Integer> changed, int[] lens, int[] pos, int cur, int n) {
+    boolean better(List<Integer> changed, List<Integer> ans) {
+        int m = changed.size();
+        for (int i = 0; i < m; i++) {
+            int ci = changed.get(i);
+            int ai = ans.get(i);
+            if (ci != ai) {
+                return Integer.compare(ci, ai) < 0;
+            }
+        }
+        return false;
+    }
+
+    void permutation(List<Integer> template, List<Integer> changed, int[] lens, int[] pos, int cur, int n) {
         if (cur == n) {
             List<Integer> nums = new ArrayList<>();
             boolean ok = judge(changed, nums, lens);
             if (ok) {
-                return true;
+                if (ans == null || better(changed, ans)) {
+                    ans = changed;
+                }
             }
-            return false;
+            return;
         }
         int st;
         if (cur == 0) {
@@ -99,14 +114,10 @@ public class Main {
                 }
                 pos[cur] = i;
                 changed.set(i, j);
-                boolean ok = permutation(template, changed, lens, pos, cur + 1, n);
-                if (ok) {
-                    return true;
-                }
+                permutation(template, changed, lens, pos, cur + 1, n);
                 changed.set(i, template.get(i));
             }
         }
-        return false;
     }
 
     void solve() throws IOException {
@@ -143,12 +154,13 @@ public class Main {
             for (int i = 0; i < 3; i++) {
                 total += lens[i];
             }
+            ans = null;
             for (int i = 0; i <= total; i++) {
                 List<Integer> changed = new ArrayList<>(list);
                 int[] pos = new int[i];
-                boolean ok = permutation(list, changed, lens, pos, 0, i);
-                if (ok) {
-                    String gen = genStr(changed, lens);
+                permutation(list, changed, lens, pos, 0, i);
+                if (ans != null) {
+                    String gen = genStr(ans, lens);
                     out.append(String.format("Case %d: %s\n", caseNum, gen));
                     break;
                 }
