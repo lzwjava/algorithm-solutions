@@ -18,6 +18,7 @@ public class Main {
 
     int cnt;
     List<Integer> ans;
+    int maxd;
 
     boolean judge(List<Integer> template, int[] lens) {
         cnt = 0;
@@ -101,9 +102,8 @@ public class Main {
         return true;
     }
 
-    boolean permutation(List<Integer> template, List<Integer> changed, List<Integer> orders,
-                        int[] lens, int[] pos, int cur, int n) {
-        if (cur == n) {
+    boolean permutation(List<Integer> template, List<Integer> changed, int[] lens, int d, int cur, int n) {
+        if (d >= maxd) {
             boolean ok = judge(changed, lens);
             if (ok) {
                 if (ans == null) {
@@ -113,28 +113,22 @@ public class Main {
             }
             return false;
         }
-        int st;
-        if (cur == 0) {
-            st = 0;
-        } else {
-            st = pos[cur - 1] + 1;
+        if (cur == n) {
+            return false;
         }
-        for (int i = st; i < orders.size(); i++) {
-            int o = orders.get(i);
-            for (int j = -1; j <= 9; j++) {
-                if (template.get(o) == j) {
-                    continue;
-                }
-                if (leadingZero(o, j, lens)) {
-                    continue;
-                }
-                pos[cur] = i;
-                changed.set(o, j);
-                boolean ok = permutation(template, changed, orders, lens, pos, cur + 1, n);
+        for (int i = -1; i <= 9; i++) {
+            if (template.get(cur) == i) {
+                boolean ok = permutation(template, changed, lens, d, cur + 1, n);
                 if (ok) {
                     return true;
                 }
-                changed.set(o, template.get(o));
+            } else {
+                changed.set(cur, i);
+                boolean ok = permutation(template, changed, lens, d + 1, cur + 1, n);
+                if (ok) {
+                    return true;
+                }
+                changed.set(cur, template.get(cur));
             }
         }
         return false;
@@ -206,11 +200,10 @@ public class Main {
                 total += lens[i];
             }
             ans = null;
-            List<Integer> orders = getPermutationOrder(list);
             for (int i = 0; i <= total; i++) {
+                maxd = i;
                 List<Integer> changed = new ArrayList<>(list);
-                int[] pos = new int[i];
-                boolean ok = permutation(list, changed, orders, lens, pos, 0, i);
+                boolean ok = permutation(list, changed, lens, 0, 0, list.size());
                 if (ok) {
                     String gen = genStr(ans, lens);
                     out.append(String.format("Case %d: %s\n", caseNum, gen));
