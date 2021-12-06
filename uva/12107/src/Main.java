@@ -80,6 +80,9 @@ public class Main {
             ps.add(v);
         }
         for (int x : ps) {
+            if (leadingZero(cur, x, lens)) {
+                continue;
+            }
             nums.add(x);
             judge(template, nums, lens, cur + 1, n);
             nums.remove(nums.size() - 1);
@@ -117,6 +120,9 @@ public class Main {
             return false;
         }
         for (int i = -1; i <= 9; i++) {
+            if (leadingZero(cur, i, lens)) {
+                continue;
+            }
             if (template.get(cur) == i) {
                 boolean ok = permutation(template, changed, lens, d, cur + 1, n);
                 if (ok) {
