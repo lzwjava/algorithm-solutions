@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -22,7 +20,7 @@ public class Main {
     int[] os;
     boolean[][] grid;
     int ans;
-    List<Move> ansMoves;
+    int fs, fp;
     boolean[][] vis;
 
     class Move {
@@ -38,13 +36,11 @@ public class Main {
         int s;
         int p;
         int dist;
-        List<Move> moves;
 
-        State(int s, int p, int dist, List<Move> moves) {
+        State(int s, int p, int dist) {
             this.s = s;
             this.p = p;
             this.dist = dist;
-            this.moves = moves;
         }
     }
 
@@ -58,6 +54,8 @@ public class Main {
         }
     }
 
+    Parent[][] parents;
+
     void bfs() {
         Queue<State> queue = new ArrayBlockingQueue<>(10000);
         int p = 0;
@@ -65,13 +63,13 @@ public class Main {
             p |= (1 << os[i]);
         }
         p |= (1 << s);
-        queue.add(new State(s, p, 0, new ArrayList<>()));
+        queue.add(new State(s, p, 0));
         ans = -1;
-        ansMoves = new ArrayList<>();
         vis = new boolean[n][1 << (n + 1)];
         vis[s][p] = true;
-        Parent[][] parents = new Parent[n][1 << (n + 1)];
+        parents = new Parent[n][1 << (n + 1)];
         parents[s][p] = null;
+        fs = fp = -1;
         while (!queue.isEmpty()) {
             State state = queue.poll();
             for (int i = 0; i < n; i++) {
@@ -86,14 +84,13 @@ public class Main {
                             if (!vis[ns][np]) {
                                 vis[ns][np] = true;
                                 parents[ns][np] = new Parent(state.s, state.p);
-                                List<Move> nmoves = new ArrayList<>(state.moves);
-                                nmoves.add(new Move(i, j));
                                 if (ns == t) {
                                     ans = state.dist + 1;
-                                    ansMoves = new ArrayList<>(nmoves);
+                                    fs = ns;
+                                    fp = np;
                                     break;
                                 }
-                                queue.add(new State(ns, np, state.dist + 1, nmoves));
+                                queue.add(new State(ns, np, state.dist + 1));
                             }
                         }
                     }
@@ -130,11 +127,33 @@ public class Main {
             }
             bfs();
             out.append(String.format("Case %d: %d\n", p + 1, ans));
-            for (Move m : ansMoves) {
-                out.append(String.format("%d %d\n", m.a + 1, m.b + 1));
+            if (ans != -1) {
+                print(fs, fp);
             }
             out.append('\n');
         }
+    }
+
+    void print(int s, int p) {
+        Parent parent = parents[s][p];
+        if (parents[parent.s][parent.p] != null) {
+            print(parent.s, parent.p);
+        }
+        int fromp = parent.p;
+        int top = p;
+        int a, b;
+        a = fromp ^ (fromp & top);
+        b = top ^ (fromp & top);
+        int u = 0, k = 0;
+        for (int i = 0; i < n; i++) {
+            if (((1 << i) & a) > 0) {
+                u = i;
+            }
+            if (((1 << i) & b) > 0) {
+                k = i;
+            }
+        }
+        out.append(String.format("%d %d\n", u + 1, k + 1));
     }
 
     void close() throws IOException {
