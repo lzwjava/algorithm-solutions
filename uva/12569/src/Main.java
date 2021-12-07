@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
 
@@ -17,55 +18,91 @@ public class Main {
     int n, m, s, t;
     int[] os;
     boolean[][] grid;
-    Random random;
-    Set<Integer> set;
     int ans;
+    List<Move> ansMoves;
+    Set<Integer> set;
+    boolean[][] vis;
 
-    void dfs(int[] st, int cur, int dist) {
-        if (st[t] == 1) {
-            if (dist < ans) {
-                ans = dist;
-            }
-            return;
+    class Move {
+        int a, b;
+
+        Move(int a, int b) {
+            this.a = a;
+            this.b = b;
         }
-        List<Integer> nodes = new ArrayList<>();
-        int i = 0;
-        boolean[] vis = new boolean[n];
-        int cnt = 0;
-        while (cnt < n) {
-            do {
-                i = random.nextInt(n);
-                if (st[i] != 0 && !vis[i]) {
-                    break;
-                }
-            } while (true);
-            cnt++;
-            vis[i] = true;
-            nodes = new ArrayList<>();
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] && st[j] == 0) {
-                    swap(st, i, j);
-                    int key = key(st);
-                    if (!set.contains(key)) {
-                        nodes.add(j);
+    }
+
+    class State {
+        int[] st;
+        int dist;
+        List<Move> moves;
+
+        State(int[] st, int dist, List<Move> moves) {
+            this.st = st;
+            this.dist = dist;
+            this.moves = moves;
+        }
+    }
+
+    void bfs(int[] st) {
+        Queue<State> queue = new ArrayBlockingQueue<>(5000);
+        set = new HashSet<>();
+        queue.add(new State(st, 0, new ArrayList<>()));
+        set.add(key(st));
+        ans = -1;
+        ansMoves = new ArrayList<>();
+        vis = new boolean[16][1 << 15];
+        while (!queue.isEmpty()) {
+            State state = queue.poll();
+            for (int i = 0; i < n; i++) {
+                if (state.st[i] != 0) {
+                    for (int j = 0; j < n; j++) {
+                        if (grid[i][j] && state.st[j] == 0) {
+                            int[] nst = state.st.clone();
+                            swap(nst, i, j);
+                            int robotPos = robotPos(nst);
+                            int obstacle = obstacle(nst);
+                            if (!set.contains(key)) {
+                                set.add(key);
+                                List<Move> nmoves = new ArrayList<>(state.moves);
+                                nmoves.add(new Move(i, j));
+                                if (nst[t] == 1) {
+                                    ans = state.dist + 1;
+                                    ansMoves = new ArrayList<>(nmoves);
+                                    break;
+                                }
+                                queue.add(new State(nst, state.dist + 1, nmoves));
+                            }
+                        }
                     }
-                    swap(st, i, j);
+                    if (ans != -1) {
+                        break;
+                    }
                 }
             }
-            if (nodes.size() != 0) {
+            if (ans != -1) {
                 break;
             }
         }
-        if (cnt == n && nodes.size() == 0) {
-            return;
+    }
+
+    int obstacle(int[] nst) {
+        int v = 0;
+        for (int i = 0; i < nst.length; i++) {
+            if (nst[i] == 2) {
+                v += 1 << i;
+            }
         }
-        int k = random.nextInt(nodes.size());
-        int j = nodes.get(k);
-        swap(st, i, j);
-        int key = key(st);
-        set.add(key);
-        dfs(st, cur + 1, dist + 1);
-        swap(st, i, j);
+        return v;
+    }
+
+    int robotPos(int[] nst) {
+        for (int i = 0; i < nst.length; i++) {
+            if (nst[i] == 1) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     int key(int[] a) {
@@ -89,7 +126,7 @@ public class Main {
             os = new int[m];
             st = new StringTokenizer(in.readLine());
             for (int i = 0; i < m; i++) {
-                os[i] = Integer.parseInt(st.nextToken());
+                os[i] = Integer.parseInt(st.nextToken()) - 1;
             }
             grid = new boolean[n][n];
             for (int i = 0; i < n - 1; i++) {
@@ -104,11 +141,12 @@ public class Main {
             for (int i = 0; i < m; i++) {
                 state[os[i]] = 2;
             }
-            random = new Random();
-            set = new HashSet<>();
-            ans = Integer.MAX_VALUE;
-            dfs(state, 0, 0);
+            bfs(state);
             out.append(String.format("Case %d: %d\n", p + 1, ans));
+            for (Move m : ansMoves) {
+                out.append(String.format("%d %d\n", m.a + 1, m.b + 1));
+            }
+            out.append('\n');
         }
     }
 
