@@ -13,8 +13,18 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    void solve() {
-        
+    void solve() throws IOException {
+        while (true) {
+            String s = in.readLine();
+            if (s == null) {
+                break;
+            }
+            int n = Integer.parseInt(s);
+            String[] strs = new String[n];
+            for (int i = 0; i < n; i++) {
+                strs[i] = in.readLine();
+            }
+        }
     }
 
     void close() throws IOException {
