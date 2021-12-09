@@ -4,39 +4,53 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Main {
+public class MainPlus {
 
     BufferedReader in;
     PrintWriter out;
 
-    Main() {
+    MainPlus() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
     int[] p;
     int m, k;
+    int min;
+    int[] minSeps;
+    int[] sums;
 
-    boolean separate(int x, int[] seps) {
-        int s = 0;
-        int q = k;
-        for (int i = m - 1; i >= 0; i--) {
-            if (p[i] > x) {
-                return false;
-            }
-            if (s + p[i] <= x && i >= q - 1) {
-                s += p[i];
-            } else {
-                q--;
-                s = p[i];
-                if (q <= 0) {
-                    break;
-                }
-                seps[q - 1] = i;
-            }
+    void permutation(int[] seps, int cur, int sum) {
+        if (sum > min) {
+            return;
         }
-        q--;
-        return q >= 0;
+        if (cur == k - 1) {
+            sum = Integer.max(sum, sum(seps[cur - 1] + 1, m - 1));
+            if (sum < min) {
+                min = sum;
+                minSeps = seps.clone();
+            }
+            return;
+        }
+        int st;
+        if (cur == 0) {
+            st = 0;
+        } else {
+            st = seps[cur - 1] + 1;
+        }
+        for (int i = st; i < m; i++) {
+            seps[cur] = i;
+            int nsum = Integer.max(sum(st, i), sum);
+            permutation(seps, cur + 1, nsum);
+        }
+    }
+
+    int sum(int from, int to) {
+        if (from == 0) {
+            return sums[to];
+        } else {
+            return sums[to] - sums[from - 1];
+        }
     }
 
     void solve() throws IOException {
@@ -47,24 +61,16 @@ public class Main {
             k = Integer.parseInt(st.nextToken());
             p = new int[m];
             st = new StringTokenizer(in.readLine());
+            sums = new int[m];
             int sum = 0;
             for (int i = 0; i < m; i++) {
                 p[i] = Integer.parseInt(st.nextToken());
                 sum += p[i];
+                sums[i] = sum;
             }
-            int left = 0, right = sum;
-            while (left != right) {
-                int mid = (left + right) / 2;
-                int[] seps = new int[k - 1];
-                boolean ok = separate(mid, seps);
-                if (ok) {
-                    right = mid;
-                } else {
-                    left = mid + 1;
-                }
-            }
-            int[] seps = new int[k - 1];
-            separate(left, seps);
+            min = Integer.MAX_VALUE;
+            int[] seps = new int[k];
+            permutation(seps, 0, 0);
             int v = 0;
             for (int i = 0; i < m; i++) {
                 if (i != 0) {
@@ -72,7 +78,7 @@ public class Main {
                 }
                 out.append(String.format("%d", p[i]));
 
-                if (v < k - 1 && i == seps[v]) {
+                if (v < k && i == minSeps[v]) {
                     out.append(" /");
                     v++;
                 }
@@ -89,7 +95,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main m = new Main();
+        MainPlus m = new MainPlus();
         m.solve();
         m.close();
     }
