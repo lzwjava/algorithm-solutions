@@ -18,17 +18,14 @@ public class Main {
     int m, k;
     int min;
     int[] minSeps;
+    int[] sums;
 
     void permutation(int[] seps, int cur, int sum) {
         if (sum > min) {
             return;
         }
         if (cur == k - 1) {
-            int s = 0;
-            for (int j = seps[cur - 1] + 1; j < m; j++) {
-                s += p[j];
-            }
-            sum = Integer.max(sum, s);
+            sum = Integer.max(sum, sum(seps[cur - 1] + 1, m - 1));
             if (sum < min) {
                 min = sum;
                 minSeps = seps.clone();
@@ -43,12 +40,16 @@ public class Main {
         }
         for (int i = st; i < m; i++) {
             seps[cur] = i;
-            int s = 0;
-            for (int j = st; j <= i; j++) {
-                s += p[j];
-            }
-            int nsum = Integer.max(s, sum);
+            int nsum = Integer.max(sum(st, i), sum);
             permutation(seps, cur + 1, nsum);
+        }
+    }
+
+    int sum(int from, int to) {
+        if (from == 0) {
+            return sums[to];
+        } else {
+            return sums[to] - sums[from - 1];
         }
     }
 
@@ -60,8 +61,12 @@ public class Main {
             k = Integer.parseInt(st.nextToken());
             p = new int[m];
             st = new StringTokenizer(in.readLine());
+            sums = new int[m];
+            int sum = 0;
             for (int i = 0; i < m; i++) {
                 p[i] = Integer.parseInt(st.nextToken());
+                sum += p[i];
+                sums[i] = sum;
             }
             min = Integer.MAX_VALUE;
             int[] seps = new int[k];
