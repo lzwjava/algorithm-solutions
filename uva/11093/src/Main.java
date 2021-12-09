@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -15,8 +16,8 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
+        int tt = Integer.parseInt(in.readLine());
+        for (int t = 0; t < tt; t++) {
             int n = Integer.parseInt(in.readLine());
             int[] a = new int[2 * n];
             int k = 0;
@@ -27,7 +28,31 @@ public class Main {
                     k++;
                 }
             }
-            t--;
+            int[] ps = Arrays.copyOfRange(a, 0, n);
+            int[] qs = Arrays.copyOfRange(a, n, 2 * n);
+            out.append(String.format("Case %d: ", t + 1));
+            boolean ok = false;
+            for (int i = 0; i < n; i++) {
+                int s = 0;
+                int j;
+                for (j = 0; j < n; j++) {
+                    int u = (i + j) % n;
+                    s += ps[u];
+                    if (s - qs[u] >= 0) {
+                        s -= qs[u];
+                    } else {
+                        break;
+                    }
+                }
+                if (j == n) {
+                    ok = true;
+                    out.append(String.format("Possible from station %d\n", i + 1));
+                    break;
+                }
+            }
+            if (!ok) {
+                out.append("Not possible\n");
+            }
         }
     }
 
