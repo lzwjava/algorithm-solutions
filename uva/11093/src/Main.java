@@ -30,24 +30,32 @@ public class Main {
             }
             int[] ps = Arrays.copyOfRange(a, 0, n);
             int[] qs = Arrays.copyOfRange(a, n, 2 * n);
+            int sum = 0;
+            for (int i = 0; i < n; i++) {
+                ps[i] -= qs[i];
+                sum += ps[i];
+            }
+
             out.append(String.format("Case %d: ", t + 1));
             boolean ok = false;
-            for (int i = 0; i < n; i++) {
-                int s = 0;
-                int j;
-                for (j = 0; j < n; j++) {
-                    int u = (i + j) % n;
-                    s += ps[u];
-                    if (s - qs[u] >= 0) {
-                        s -= qs[u];
-                    } else {
-                        break;
+            if (sum >= 0) {
+                for (int i = 0; i < n; i++) {
+                    int s = 0;
+                    int j;
+                    for (j = 0; j < n; j++) {
+                        int u = (i + j) % n;
+                        s += ps[u];
+                        if (s < 0) {
+                            break;
+                        }
                     }
-                }
-                if (j == n) {
-                    ok = true;
-                    out.append(String.format("Possible from station %d\n", i + 1));
-                    break;
+                    if (j == n) {
+                        ok = true;
+                        out.append(String.format("Possible from station %d\n", i + 1));
+                        break;
+                    } else {
+                        i += j;
+                    }
                 }
             }
             if (!ok) {
