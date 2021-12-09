@@ -87,17 +87,58 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 strs[i] = in.readLine();
             }
+            int totalLen = 0;
             for (int i = 0; i < n; i++) {
                 if (i > 0) {
                     addCharacter('$', false);
+                    totalLen++;
                 }
                 String str = strs[i];
                 for (int j = 0; j < str.length(); j++) {
                     addCharacter(str.charAt(j), i == n - 1 && j == str.length() - 1);
+                    totalLen++;
                 }
             }
-            out.append('\n');
-//            out.append(String.format("%d\n", sum.intValue()));
+            int[] topo = new int[MAXN];
+            int[] topocnt = new int[MAXN];
+
+            for (int i = 0; i <= totalLen; i++) {
+                topocnt[i] = 0;
+            }
+            for (int i = 0; i < sz; i++) {
+                topocnt[len[i]]++;
+            }
+            for (int i = 1; i <= totalLen; i++) {
+                topocnt[i] += topocnt[i - 1];
+            }
+            for (int i = 0; i < sz; i++) {
+                topo[--topocnt[len[i]]] = i;
+            }
+
+            int ans = 0;
+            int[] cnt = new int[sz];
+            int[] sum = new int[sz];
+            for (int i = 0; i < sz; i++) {
+                cnt[i] = sum[i] = 0;
+            }
+            cnt[0] = 1;
+            int mod = 2012;
+            for (int i = 0; i < sz; i++) {
+                int fa = topo[i];
+                for (int j = 0; j < 10; j++) {
+                    if (i == 0 && j == 0) {
+                        continue;
+                    }
+                    char c = (char) (j + '0');
+                    if (to.get(fa).get(c) != null) {
+                        int son = link[to.get(fa).get(c)];
+                        cnt[son] = (cnt[son] + cnt[fa]) % mod;
+                        sum[son] = (sum[son] + sum[fa] * 10 + cnt[fa] * j) % mod;
+                    }
+                }
+                ans = (ans + sum[fa]) % mod;
+            }
+            out.append(String.format("%d\n", ans));
         }
     }
 
