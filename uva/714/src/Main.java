@@ -20,7 +20,11 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int m = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
-            
+            int[] p = new int[m];
+            st = new StringTokenizer(in.readLine());
+            for (int i = 0; i < m; i++) {
+                p[i] = Integer.parseInt(st.nextToken());
+            }
             t--;
         }
     }

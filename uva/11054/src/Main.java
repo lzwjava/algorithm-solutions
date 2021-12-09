@@ -41,6 +41,9 @@ public class Main {
                             a[j] -= min;
                         }
                         ans += (long) (i - j) * min;
+                        if (a[i] == 0) {
+                            break;
+                        }
                     }
                 }
             }
