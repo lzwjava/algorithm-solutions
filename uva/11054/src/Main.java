@@ -25,27 +25,11 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            long s = a[0];
             long ans = 0;
             for (int i = 1; i < n; i++) {
-                if (a[i] == 0) {
-                    continue;
-                }
-                for (int j = 0; j < i; j++) {
-                    if (a[i] * a[j] < 0) {
-                        int min = Math.min(Math.abs(a[i]), Math.abs(a[j]));
-                        if (a[i] > 0) {
-                            a[i] -= min;
-                            a[j] += min;
-                        } else {
-                            a[i] += min;
-                            a[j] -= min;
-                        }
-                        ans += (long) (i - j) * min;
-                        if (a[i] == 0) {
-                            break;
-                        }
-                    }
-                }
+                ans += Math.abs(s);
+                s += a[i];
             }
             out.append(String.format("%d\n", ans));
         }
