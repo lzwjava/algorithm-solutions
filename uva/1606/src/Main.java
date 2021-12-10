@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -14,68 +15,91 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    class Particle {
+    class Particle implements Comparable<Particle> {
         int x, y, r;
+        double rad;
+
+        Particle() {
+        }
 
         Particle(int x, int y, int r) {
             this.x = x;
             this.y = y;
             this.r = r;
         }
+
+        @Override
+        public int compareTo(Particle o) {
+            return Double.compare(rad, o.rad);
+        }
+    }
+
+    boolean left(Particle a, Particle b) {
+        return a.x * b.y - a.y * b.x >= 0;
+    }
+
+    Particle[] op;
+    int n;
+
+    int cal() {
+        if (n <= 2) {
+            return 2;
+        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            Particle[] p = new Particle[n - 1];
+            int k = 0;
+            Particle pi = op[i];
+            for (int j = 0; j < n; j++) {
+                if (i != j) {
+                    Particle pj = op[j];
+                    Particle pk = p[k] = new Particle();
+                    pk.x = pj.x - pi.x;
+                    pk.y = pj.y - pi.y;
+                    if (pj.r == 1) {
+                        pk.x = -pk.x;
+                        pk.y = -pk.y;
+                    }
+                    pk.rad = Math.atan2(pk.y, pk.x);
+                    k++;
+                }
+            }
+            Arrays.sort(p);
+
+            int l = 0, r = 0, cnt = 2;
+            while (l < k) {
+                if (r == l) {
+                    r = (r + 1) % k;
+                    cnt++;
+                }
+                while (r != l && left(p[l], p[r])) {
+                    r = (r + 1) % k;
+                    cnt++;
+                }
+                cnt--;
+                l++;
+                ans = Integer.max(ans, cnt);
+            }
+        }
+        return ans;
     }
 
     void solve() throws IOException {
         while (true) {
-            int n = Integer.parseInt(in.readLine());
+            n = Integer.parseInt(in.readLine());
             if (n == 0) {
                 break;
             }
-            Particle[] ps = new Particle[n];
+            op = new Particle[n];
             for (int i = 0; i < n; i++) {
                 StringTokenizer st = new StringTokenizer(in.readLine());
                 int x = Integer.parseInt(st.nextToken());
                 int y = Integer.parseInt(st.nextToken());
                 int r = Integer.parseInt(st.nextToken());
-                ps[i] = new Particle(x, y, r);
+                op[i] = new Particle(x, y, r);
             }
-
-            int max = 0;
-            for (int i = 0; i < n; i++) {
-                for (int j = i + 1; j < n; j++) {
-                    Particle pi = ps[i];
-                    Particle pj = ps[j];
-                    double k = (pi.y - pj.y) * 1.0 / (pi.x - pj.x);
-                    double b = pi.y - pi.x * k;
-
-                    int[][] rs = new int[2][3];
-
-                    for (int u = 0; u < n; u++) {
-                        Particle pu = ps[u];
-                        double y1 = k * pu.x + b;
-                        if (Math.abs(y1 - pu.y) < 1e-8) {
-                            rs[pu.r][0]++;
-                        } else if (pu.y < y1) {
-                            rs[pu.r][1]++;
-                        } else {
-                            rs[pu.r][2]++;
-                        }
-                    }
-
-                    int white = 0, black = 0;
-                    white = rs[0][1] + rs[0][0];
-                    black = rs[1][2] + rs[1][0];
-
-                    int total = white + black;
-                    white = rs[0][2] + rs[0][0];
-                    black = rs[1][1] + rs[1][0];
-
-                    total = Integer.max(total, white + black);
-                    if (total > max) {
-                        max = total;
-                    }
-                }
-            }
-            out.append(String.format("%d\n", max));
+            int ans = cal();
+            out.append(String.format("%d\n", ans));
         }
     }
 
