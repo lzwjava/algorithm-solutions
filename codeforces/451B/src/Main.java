@@ -55,24 +55,39 @@ public class Main {
             decr++;
         }
         if (decr <= 1) {
-            out.append("yes\n");
             int start = -1, end = -1;
-            for (int j = 0; j < list.size(); j++) {
-                int i = list.get(j);
-                if (Integer.compare(a[i], a[i + 1]) == 1) {
-                    start = i;
-                    if (j + 1 < list.size()) {
-                        end = list.get(j + 1);
+            boolean ok = true;
+            if (decr == 0) {
+                start = end = 0;
+            } else {
+                if (a[0] > a[1]) {
+                    start = 0;
+                    if (list.size() > 0) {
+                        end = list.get(0);
+                        if (end + 1 < n && a[start] > a[end + 1]) {
+                            ok = false;
+                        }
+                    } else {
+                        end = n - 1;
+                    }
+                } else {
+                    start = list.get(0);
+                    if (list.size() >= 2) {
+                        end = list.get(1);
+                        if (end + 1 < n && a[start] > a[end + 1]) {
+                            ok = false;
+                        }
                     } else {
                         end = n - 1;
                     }
                 }
             }
-            if (start == -1) {
-                start = 0;
-                end = n - 1;
+            if (ok) {
+                out.append("yes\n");
+                out.append(String.format("%d %d\n", start + 1, end + 1));
+            } else {
+                out.append("no\n");
             }
-            out.append(String.format("%d %d\n", start + 1, end + 1));
         } else {
             out.append("no\n");
         }
