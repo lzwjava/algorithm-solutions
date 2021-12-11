@@ -23,22 +23,28 @@ public class Main {
     int n;
     List<Integer> a;
     int max;
-    int total;
 
-    void cal(int st, int cur, int s) {
-        if (total > 10) {
+    void cal(int cur, int s, int m) {
+        if (m + s / a.get(cur) < max) {
             return;
         }
-        if (s == 0) {
-            total++;
-            if (cur > max) {
-                max = cur;
+        if (cur == a.size() - 1) {
+            if (s % a.get(cur) != 0) {
+                return;
+            }
+            int v = s / a.get(cur);
+            if (m + v > max) {
+                max = m + v;
             }
             return;
         }
-        for (int i = st; i < a.size(); i++) {
-            if (s >= a.get(i)) {
-                cal(i, cur + 1, s - a.get(i));
+
+        int k = s / a.get(cur);
+
+        for (int i = k; i >= 0; i--) {
+            if (s >= a.get(cur) * i) {
+                int ns = s - a.get(cur) * i;
+                cal(cur + 1, ns, m + i);
             }
         }
     }
@@ -54,8 +60,7 @@ public class Main {
         a = new ArrayList<>(set);
         Collections.sort(a);
         max = -1;
-        total = 0;
-        cal(0, 0, n);
+        cal(0, n, 0);
         out.append(String.format("%d\n", max));
     }
 
