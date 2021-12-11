@@ -51,7 +51,7 @@ public class Main {
         }
         if (last == -1) {
             incr++;
-        } else {
+        } else if (last == 1) {
             decr++;
         }
         if (decr <= 1) {
@@ -64,21 +64,21 @@ public class Main {
                     start = 0;
                     if (list.size() > 0) {
                         end = list.get(0);
-                        if (end + 1 < n && a[start] > a[end + 1]) {
-                            ok = false;
-                        }
                     } else {
                         end = n - 1;
+                    }
+                    if ((end + 1 < n && a[start] > a[end + 1]) || (start - 1 >= 0 && a[start - 1] > a[end])) {
+                        ok = false;
                     }
                 } else {
                     start = list.get(0);
                     if (list.size() >= 2) {
                         end = list.get(1);
-                        if (end + 1 < n && a[start] > a[end + 1]) {
-                            ok = false;
-                        }
                     } else {
                         end = n - 1;
+                    }
+                    if ((end + 1 < n && a[start] > a[end + 1]) || (start - 1 >= 0 && a[start - 1] > a[end])) {
+                        ok = false;
                     }
                 }
             }
