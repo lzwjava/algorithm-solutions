@@ -32,7 +32,7 @@ public class Main {
             if (mmd) {
                 return false;
             } else {
-                return true;
+                return dp(!mmd, 0);
             }
         }
         if (mmd) {
@@ -69,7 +69,19 @@ public class Main {
 
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
-        boolean ok = dp(true, n);
+//        boolean ok = dp(true, n);
+        boolean ok;
+        if (n == 1) {
+            ok = false;
+        } else if (n == 2) {
+            ok = true;
+        } else {
+            if (n % 2 == 0) {
+                ok = true;
+            } else {
+                ok = false;
+            }
+        }
         if (ok) {
             out.append("Mahmoud\n");
         } else {
