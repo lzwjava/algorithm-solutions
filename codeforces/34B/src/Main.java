@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -24,11 +27,25 @@ public class Main {
         StringTokenizer st = new StringTokenizer(in.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        int[] a = new int[n];
         st = new StringTokenizer(in.readLine());
+        List<Integer> list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            a[i] = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            if (v < 0) {
+                list.add(v);
+            }
         }
+        Collections.sort(list);
+        int p = list.size() - 1;
+        int s = 0;
+        for (int i = 0; i < m; i++) {
+            if (p == -1) {
+                break;
+            }
+            s += list.get(p);
+            p--;
+        }
+        out.append(String.format("%d\n", -s));
     }
 
     public static void main(String[] args) throws IOException {
