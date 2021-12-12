@@ -22,10 +22,19 @@ public class Main {
 
     void solve() throws IOException {
         String a = in.readLine();
-        String[] fs = new String[5];
         StringTokenizer st = new StringTokenizer(in.readLine());
+        boolean ok = false;
         for (int i = 0; i < 5; i++) {
-            fs[i] = st.nextToken();
+            String f = st.nextToken();
+            if (f.charAt(0) == a.charAt(0) || f.charAt(1) == a.charAt(1)) {
+                ok = true;
+                break;
+            }
+        }
+        if (ok) {
+            out.append("YES\n");
+        } else {
+            out.append("NO\n");
         }
     }
 
