@@ -23,6 +23,7 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             int x = Integer.parseInt(in.readLine());
+            out.append(String.format("%d %d\n", 1, x - 1));
             t--;
         }
     }
