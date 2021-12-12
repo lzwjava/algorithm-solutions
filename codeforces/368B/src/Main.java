@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -29,8 +31,15 @@ public class Main {
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(st.nextToken());
         }
+        int[] ds = new int[n];
+        Set<Integer> set = new HashSet<>();
+        for (int i = n - 1; i >= 0; i--) {
+            set.add(a[i]);
+            ds[i] = set.size();
+        }
         while (m > 0) {
             int l = Integer.parseInt(in.readLine());
+            out.append(String.format("%d\n", ds[l - 1]));
             m--;
         }
     }
