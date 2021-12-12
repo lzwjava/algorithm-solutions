@@ -36,14 +36,14 @@ public class Main {
             }
         }
         Collections.sort(list);
-        int p = list.size() - 1;
+        int p = 0;
         int s = 0;
         for (int i = 0; i < m; i++) {
-            if (p == -1) {
+            if (p == list.size()) {
                 break;
             }
             s += list.get(p);
-            p--;
+            p++;
         }
         out.append(String.format("%d\n", -s));
     }
