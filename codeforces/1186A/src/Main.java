@@ -20,6 +20,7 @@ public class Main {
     }
 
     void solve() throws IOException {
+        
     }
 
     public static void main(String[] args) throws IOException {
