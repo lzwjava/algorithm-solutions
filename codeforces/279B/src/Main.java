@@ -26,21 +26,12 @@ public class Main {
         int t = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(in.readLine());
         int[] a = new int[n];
+        int[] sums = new int[n];
+        int sum = 0;
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(st.nextToken());
-        }
-        int sum = 0;
-        boolean found = false;
-        for (int i = n - 1; i >= 0; i--) {
             sum += a[i];
-            if (sum > t) {
-                found = true;
-                out.append(String.format("%d\n", n - i - 1));
-                break;
-            }
-        }
-        if (!found) {
-            out.append(String.format("%d\n", n));
+            sums[i] = sum;
         }
     }
 
