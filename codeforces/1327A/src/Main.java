@@ -26,6 +26,12 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
+            int sn = (int) Math.sqrt(n);
+            if (k > sn || (n % 2 != k % 2)) {
+                out.append("NO\n");
+            } else {
+                out.append("YES\n");
+            }
             t--;
         }
     }
