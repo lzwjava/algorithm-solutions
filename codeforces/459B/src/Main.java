@@ -48,9 +48,9 @@ public class Main {
             }
             v = (long) m1 * m2;
         } else {
-            v = (long) n * n / 4;
+            v = (long) n * (n - 1) / 2;
         }
-        out.append(String.format("%d %d\n", b[n - 1] - b[0], (long) v));
+        out.append(String.format("%d %d\n", b[n - 1] - b[0], v));
     }
 
     public static void main(String[] args) throws IOException {
