@@ -25,10 +25,18 @@ public class Main {
         while (t > 0) {
             int n = Integer.parseInt(in.readLine());
             int m = n * 2;
-            int[] a = new int[m];
             StringTokenizer st = new StringTokenizer(in.readLine());
+            int c = 0;
             for (int i = 0; i < m; i++) {
-                a[i] = Integer.parseInt(st.nextToken());
+                int v = Integer.parseInt(st.nextToken());
+                if (v % 2 == 1) {
+                    c++;
+                }
+            }
+            if (c == n) {
+                out.append("Yes\n");
+            } else {
+                out.append("No\n");
             }
             t--;
         }
