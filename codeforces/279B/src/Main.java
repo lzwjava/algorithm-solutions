@@ -26,12 +26,8 @@ public class Main {
         int t = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(in.readLine());
         int[] a = new int[n];
-        int[] sums = new int[n];
-        int sum = 0;
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(st.nextToken());
-            sum += a[i];
-            sums[i] = sum;
         }
         int max = 0;
         int p = -1, s = 0;
