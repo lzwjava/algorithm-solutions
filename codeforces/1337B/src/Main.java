@@ -35,7 +35,7 @@ public class Main {
                 x -= 10;
                 m--;
             }
-            if (x == 0) {
+            if (x <= 0) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
