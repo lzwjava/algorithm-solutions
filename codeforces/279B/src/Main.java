@@ -33,6 +33,29 @@ public class Main {
             sum += a[i];
             sums[i] = sum;
         }
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            int j = i;
+            if (a[j] > t) {
+                continue;
+            }
+            while (j + 1 < n && sum(sums, i, j + 1) <= t) {
+                j++;
+            }
+            int len = j - i + 1;
+            if (len > max) {
+                max = len;
+            }
+        }
+        out.append(String.format("%d\n", max));
+    }
+
+    int sum(int[] sums, int i, int j) {
+        if (i == 0) {
+            return sums[j];
+        } else {
+            return sums[j] - sums[i - 1];
+        }
     }
 
     public static void main(String[] args) throws IOException {
