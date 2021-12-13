@@ -29,11 +29,18 @@ public class Main {
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(st.nextToken());
         }
-        int[] sums = new int[n];
         int sum = 0;
+        boolean found = false;
         for (int i = n - 1; i >= 0; i--) {
             sum += a[i];
-            sums[i] = sum;
+            if (sum > t) {
+                found = true;
+                out.append(String.format("%d\n", n - i - 1));
+                break;
+            }
+        }
+        if (!found) {
+            out.append(String.format("%d\n", n));
         }
     }
 
