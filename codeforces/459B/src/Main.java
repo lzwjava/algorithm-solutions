@@ -29,22 +29,28 @@ public class Main {
             b[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(b);
-        int m1 = 0, m2 = 0;
-        for (int i = 0; i < n; i++) {
-            if (b[i] == b[0]) {
-                m1++;
-            } else {
-                break;
+        long v;
+        if (b[0] != b[n - 1]) {
+            int m1 = 0, m2 = 0;
+            for (int i = 0; i < n; i++) {
+                if (b[i] == b[0]) {
+                    m1++;
+                } else {
+                    break;
+                }
             }
-        }
-        for (int i = n - 1; i >= 0; i--) {
-            if (b[i] == b[n - 1]) {
-                m2++;
-            } else {
-                break;
+            for (int i = n - 1; i >= 0; i--) {
+                if (b[i] == b[n - 1]) {
+                    m2++;
+                } else {
+                    break;
+                }
             }
+            v = (long) m1 * m2;
+        } else {
+            v = (long) n * n / 4;
         }
-        out.append(String.format("%d %d\n", b[n - 1] - b[0], m1 * m2));
+        out.append(String.format("%d %d\n", b[n - 1] - b[0], (long) v));
     }
 
     public static void main(String[] args) throws IOException {
