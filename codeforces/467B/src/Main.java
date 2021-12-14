@@ -33,27 +33,7 @@ public class Main {
         int p = Integer.parseInt(in.readLine());
         int ans = 0;
         for (int i = 0; i < m; i++) {
-            int tp = p;
-            int xi = x[i];
-            int c = 0;
-            while (tp != 0 || xi != 0) {
-                if (tp != 0 && xi != 0) {
-                    if ((tp & 1) != (xi & 1)) {
-                        c++;
-                    }
-                    tp >>= 1;
-                    xi >>= 1;
-                } else {
-                    int d = tp != 0 ? tp : xi;
-                    while (d != 0) {
-                        if ((d & 1) != 0) {
-                            c++;
-                        }
-                        d >>= 1;
-                    }
-                    break;
-                }
-            }
+            int c = Integer.bitCount(x[i] ^ p);
             if (c <= k) {
                 ans++;
             }
