@@ -22,15 +22,15 @@ public class Main {
     void solve() throws IOException {
         String s = in.readLine();
         boolean ok = false;
-        int i1 = s.indexOf("AB");
-        int i2 = s.lastIndexOf("BA");
-        if (i1 >= 0 && i2 >= 0 && i1 + 1 != i2) {
-            ok = true;
+        if (s.contains("AB")) {
+            String r = s.replaceFirst("AB", "XX");
+            if (r.contains("BA")) {
+                ok = true;
+            }
         }
-        if (!ok) {
-            i1 = s.lastIndexOf("AB");
-            i2 = s.indexOf("BA");
-            if (i1 >= 0 && i2 >= 0 && i2 != i1 + 1) {
+        if (s.contains("BA")) {
+            String r = s.replaceFirst("BA", "XX");
+            if (r.contains("AB")) {
                 ok = true;
             }
         }
