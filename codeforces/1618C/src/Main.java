@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -109,30 +110,53 @@ public class Main {
         return 0;
     }
 
+    long solve1() {
+        long g1 = calGcd(false);
+        long g2 = calGcd(true);
+
+        long ans = 0;
+        if (g1 != g2) {
+            boolean ok1 = checkGcd(true, g1);
+            boolean ok2 = checkGcd(false, g2);
+            if (ok1 && ok2) {
+                ans = Long.max(g1, g2);
+            } else if (ok1) {
+                ans = g1;
+            } else if (ok2) {
+                ans = g2;
+            }
+        } else {
+            ans = 0;
+        }
+        return ans;
+    }
+
+    void test() {
+        Random random = new Random();
+
+        for (; ; ) {
+            n = random.nextInt(100) + 1;
+            a = new long[n];
+            for (int i = 0; i < n; i++) {
+                long v = random.nextInt(100) + 1;
+                a[i] = v;
+            }
+            assert (solve1() == solve2());
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             n = Integer.parseInt(in.readLine());
             a = new long[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
+            long max = 0;
             for (int i = 0; i < n; i++) {
                 a[i] = Long.parseLong(st.nextToken());
+                max = Long.max(max, a[i]);
             }
-
-            long g1 = calGcd(false);
-            long g2 = calGcd(true);
-
-            long ans = 0;
-            if (g1 != g2) {
-                if (g1 > g2 && checkGcd(true, g1)) {
-                    ans = g1;
-                } else if (g2 > g1 && checkGcd(false, g2)) {
-                    ans = g2;
-                }
-            } else {
-                ans = 0;
-            }
-            assert (ans == solve2());
+            long ans = solve1();
             out.append(String.format("%d\n", ans));
             t--;
         }
@@ -141,6 +165,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
     }
 
