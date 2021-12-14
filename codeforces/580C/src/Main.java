@@ -30,14 +30,20 @@ public class Main {
     void dfs(boolean[] vis, int x, int u) {
         vis[x] = true;
         if (u <= m) {
-            if (x != 0) {
+            if (x != 0 && adjNodes[x].size() == 1) {
                 total++;
             }
         }
         for (int i = 0; i < adjNodes[x].size(); i++) {
             int y = adjNodes[x].get(i);
             if (!vis[y]) {
-                dfs(vis, y, u + a[y]);
+                int nu;
+                if (a[y] == 1) {
+                    nu = u + a[y];
+                } else {
+                    nu = 0;
+                }
+                dfs(vis, y, nu);
             }
         }
     }
