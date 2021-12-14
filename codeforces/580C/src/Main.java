@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -20,6 +22,7 @@ public class Main {
         out.close();
     }
 
+
     void solve() throws IOException {
         StringTokenizer st = new StringTokenizer(in.readLine());
         int n = Integer.parseInt(st.nextToken());
@@ -28,6 +31,19 @@ public class Main {
         st = new StringTokenizer(in.readLine());
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(st.nextToken());
+        }
+
+        List<Integer>[] adjNodes = new List[n];
+        for (int i = 0; i < n; i++) {
+            adjNodes[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            st = new StringTokenizer(in.readLine());
+            int x = Integer.parseInt(st.nextToken()) - 1;
+            int y = Integer.parseInt(st.nextToken()) - 1;
+            adjNodes[x].add(y);
+            adjNodes[y].add(x);
         }
     }
 
