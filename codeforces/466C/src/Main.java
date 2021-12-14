@@ -48,14 +48,14 @@ public class Main {
             int c = 0;
             int[] rs = new int[n];
             for (int i = n - 1; i >= 0; i--) {
-                rs[i] = c;
                 if (sum(i, n - 1) == part) {
                     c++;
                 }
+                rs[i] = c;
             }
             for (int i = 1; i < n - 1; i++) {
                 if (ls[i]) {
-                    ans += rs[i];
+                    ans += rs[i + 1];
                 }
             }
         } else {
