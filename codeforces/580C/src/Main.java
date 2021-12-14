@@ -22,18 +22,37 @@ public class Main {
         out.close();
     }
 
+    int[] a;
+    int n, m;
+    List<Integer>[] adjNodes;
+    int total;
+
+    void dfs(boolean[] vis, int x, int u) {
+        vis[x] = true;
+        if (u <= m) {
+            if (x != 0) {
+                total++;
+            }
+        }
+        for (int i = 0; i < adjNodes[x].size(); i++) {
+            int y = adjNodes[x].get(i);
+            if (!vis[y]) {
+                dfs(vis, y, u + a[y]);
+            }
+        }
+    }
 
     void solve() throws IOException {
         StringTokenizer st = new StringTokenizer(in.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        int[] a = new int[n];
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        a = new int[n];
         st = new StringTokenizer(in.readLine());
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(st.nextToken());
         }
 
-        List<Integer>[] adjNodes = new List[n];
+        adjNodes = new List[n];
         for (int i = 0; i < n; i++) {
             adjNodes[i] = new ArrayList<>();
         }
@@ -45,6 +64,11 @@ public class Main {
             adjNodes[x].add(y);
             adjNodes[y].add(x);
         }
+
+        boolean[] vis = new boolean[n];
+        total = 0;
+        dfs(vis, 0, a[0]);
+        out.append(String.format("%d\n", total));
     }
 
     public static void main(String[] args) throws IOException {
