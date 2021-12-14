@@ -33,6 +33,8 @@ public class Main {
             if (x != 0 && adjNodes[x].size() == 1) {
                 total++;
             }
+        } else {
+            return;
         }
         for (int i = 0; i < adjNodes[x].size(); i++) {
             int y = adjNodes[x].get(i);
