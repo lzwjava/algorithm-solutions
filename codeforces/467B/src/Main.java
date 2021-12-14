@@ -31,23 +31,29 @@ public class Main {
             x[i] = Integer.parseInt(in.readLine());
         }
         int p = Integer.parseInt(in.readLine());
-        String pb = Integer.toBinaryString(p);
-        int plen = pb.length();
         int ans = 0;
         for (int i = 0; i < m; i++) {
-            String xb = Integer.toBinaryString(x[i]);
-            int xlen = xb.length();
-            int min = Integer.min(xlen, plen);
+            int tp = p;
+            int xi = x[i];
             int c = 0;
-            for (int j = 0; j < min; j++) {
-                int xj = xlen - 1 - j;
-                int pj = plen - 1 - j;
-                if (xb.charAt(xj) != pb.charAt(pj)) {
-                    c++;
+            while (tp != 0 || xi != 0) {
+                if (tp != 0 && xi != 0) {
+                    if ((tp & 1) != (xi & 1)) {
+                        c++;
+                    }
+                    tp >>= 1;
+                    xi >>= 1;
+                } else {
+                    int d = tp != 0 ? tp : xi;
+                    while (d != 0) {
+                        if ((d & 1) != 0) {
+                            c++;
+                        }
+                        d >>= 1;
+                    }
+                    break;
                 }
             }
-            int max = Integer.max(xlen, plen);
-            c += (max - min);
             if (c <= k) {
                 ans++;
             }
