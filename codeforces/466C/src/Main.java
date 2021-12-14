@@ -36,16 +36,26 @@ public class Main {
             sums[i] = s;
         }
 
-        int ans = 0;
+        long ans = 0;
         if (s % 3 == 0) {
             long part = s / 3;
-            for (int i = 1; i <= n - 2; i++) {
-                if (sum(0, i - 1) == part) {
-                    for (int j = i; j <= n - 2; j++) {
-                        if (sum(i, j) == part && sum(j + 1, n - 1) == part) {
-                            ans++;
-                        }
-                    }
+            boolean[] ls = new boolean[n];
+            for (int i = 0; i < n; i++) {
+                if (sum(0, i) == part) {
+                    ls[i] = true;
+                }
+            }
+            int c = 0;
+            int[] rs = new int[n];
+            for (int i = n - 1; i >= 0; i--) {
+                rs[i] = c;
+                if (sum(i, n - 1) == part) {
+                    c++;
+                }
+            }
+            for (int i = 1; i < n - 1; i++) {
+                if (ls[i]) {
+                    ans += rs[i];
                 }
             }
         } else {
