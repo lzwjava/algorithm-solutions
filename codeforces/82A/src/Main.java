@@ -20,6 +20,8 @@ public class Main {
     }
 
     void solve() throws IOException {
+        String[] names = new String[]{"Sheldon", "Leonard", "Penny", "Rajesh", "Howard"};
+        
     }
 
     public static void main(String[] args) throws IOException {
