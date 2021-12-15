@@ -41,13 +41,19 @@ public class Main {
             if (x == n) {
                 ok = c1 % 2 == 1;
             } else {
-                int d = 0;
-                if (c1 % 2 == 1) {
-                    d = c1;
+                int start;
+                if (x % 2 == 0) {
+                    start = Integer.min(x - 1, c1);
                 } else {
-                    d = c1 - 1;
+                    start = Integer.min(x, c1);
                 }
-                ok = d + c0 >= x;
+                ok = false;
+                for (int odd = start; odd >= 1; odd--) {
+                    if (odd % 2 == 1 && odd + c0 >= x) {
+                        ok = true;
+                        break;
+                    }
+                }
             }
             if (ok) {
                 out.append("Yes\n");
