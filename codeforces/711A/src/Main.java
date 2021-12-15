@@ -20,7 +20,29 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        int n = Integer.parseInt(in.readLine());
+        boolean ok = false;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            String s = in.readLine();
+            if (ok) {
+                sb.append(String.format("%s\n", s));
+            } else {
+                if (s.contains("OO")) {
+                    ok = true;
+                    s = s.replaceFirst("OO", "++");
+                    sb.append(String.format("%s\n", s));
+                } else {
+                    sb.append(String.format("%s\n", s));
+                }
+            }
+        }
+        if (ok) {
+            out.append("YES\n");
+            out.append(String.format("%s\n", sb));
+        } else {
+            out.append("NO\n");
+        }
     }
 
     public static void main(String[] args) throws IOException {
