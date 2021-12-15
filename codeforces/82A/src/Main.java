@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
 
@@ -20,15 +19,23 @@ public class Main {
         out.close();
     }
 
+    int cal(int x) {
+        return ((1 << x) - 1) * 5;
+    }
+
     void solve() throws IOException {
         String[] names = new String[]{"Sheldon", "Leonard", "Penny", "Rajesh", "Howard"};
         int n = Integer.parseInt(in.readLine());
-        ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(1000);
-        for (int i = 0; i < 5; i++) {
-            queue.add(i);
+        int x = (int) (Math.log(n * 1.0 / 5 + 1) / Math.log(2) - 1);
+        while (true) {
+            if (cal(x) < n && cal(x + 1) >= n) {
+                break;
+            }
+            x++;
         }
-        for (int i = 0; i < n; i++) {
-        }
+        int d = n - cal(x);
+        int a = (d - 1) / (1 << x);
+        out.append(String.format("%s\n", names[a]));
     }
 
     public static void main(String[] args) throws IOException {
