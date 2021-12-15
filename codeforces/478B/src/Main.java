@@ -36,7 +36,7 @@ public class Main {
             return m * pair(d);
         } else {
             int a = n % m;
-            return (m - 1) * pair(d) + pair(d + a);
+            return a * pair(d + 1) + (m - a) * pair(d);
         }
     }
 
