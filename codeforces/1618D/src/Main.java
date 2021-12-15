@@ -38,14 +38,9 @@ public class Main {
             Collections.sort(list);
             int s = 0;
             for (int i = 0; i < k; i++) {
-                int m = list.size();
-                int b = list.get(m - 1);
-                int a = list.get(m - 2);
-                s += Math.floor(a * 1.0 / b);
-                list.remove(m - 1);
-                list.remove(m - 2);
+                s += list.get(n - 1 - i - k) / list.get(n - 1 - i);
             }
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < n - 2 * k; i++) {
                 s += list.get(i);
             }
             out.append(String.format("%d\n", s));
