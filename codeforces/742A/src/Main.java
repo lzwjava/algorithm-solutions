@@ -22,7 +22,12 @@ public class Main {
     void solve() throws IOException {
         int[] nums = new int[]{8, 4, 2, 6};
         int n = Integer.parseInt(in.readLine());
-        int ans = nums[(n - 1) % 4];
+        int ans;
+        if (n == 0) {
+            ans = 1;
+        } else {
+            ans = nums[(n - 1) % 4];
+        }
         out.append(String.format("%d\n", ans));
     }
 
