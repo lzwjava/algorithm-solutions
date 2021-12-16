@@ -29,7 +29,6 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
-            
             t--;
         }
     }
