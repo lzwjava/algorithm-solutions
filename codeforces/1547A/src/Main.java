@@ -20,6 +20,10 @@ public class Main {
         out.close();
     }
 
+    boolean between(int x1, int x2, int x3) {
+        return (x1 < x2 && x2 < x3) || (x1 > x2 && x2 > x3);
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -33,7 +37,16 @@ public class Main {
             st = new StringTokenizer(in.readLine());
             int xf = Integer.parseInt(st.nextToken()) - 1;
             int yf = Integer.parseInt(st.nextToken()) - 1;
-            
+            int da = Math.abs(xa - xb);
+            int db = Math.abs(ya - yb);
+            int ans;
+            if ((between(xa, xf, xb) && (ya == yb && ya == yf)) ||
+                (between(ya, yf, yb) && (xa == xb && xa == xf))) {
+                ans = da + db + 2;
+            } else {
+                ans = da + db;
+            }
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
