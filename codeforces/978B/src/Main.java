@@ -20,7 +20,23 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        int n = Integer.parseInt(in.readLine());
+        String s = in.readLine();
+        int p = 0;
+        int c = 0;
+        s = s + ".";
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == 'x') {
+                p++;
+            } else {
+                if (p >= 3) {
+                    c += p - 2;
+                }
+                p = 0;
+            }
+        }
+        out.append(String.format("%d\n", c));
     }
 
     public static void main(String[] args) throws IOException {
