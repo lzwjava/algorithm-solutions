@@ -23,24 +23,19 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             int n = Integer.parseInt(in.readLine());
-            String s = Integer.toBinaryString(n);
-            int i;
-            for (i = 0; i < s.length(); i++) {
-                if (s.charAt(i) == '0') {
-                    break;
-                }
-            }
-            int ans;
-            if (i == s.length()) {
-                ans = 0;
+            int a = n >> 1;
+            int k;
+            if (a == 0) {
+                k = 0;
             } else {
+                String s = Integer.toBinaryString(a);
                 StringBuilder sb = new StringBuilder();
-                for (int j = i; j < s.length(); j++) {
+                for (int i = 0; i < s.length(); i++) {
                     sb.append("1");
                 }
-                ans = Integer.parseInt(sb.toString(), 2);
+                k = Integer.parseInt(sb.toString(), 2);
             }
-            out.append(String.format("%d\n", ans));
+            out.append(String.format("%d\n", k));
             t--;
         }
     }
