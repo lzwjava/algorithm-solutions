@@ -46,7 +46,7 @@ public class Main {
             boolean ok = true;
             for (char ch : map.keySet()) {
                 int cnt = map.get(ch);
-                if (cnt % 3 != 0) {
+                if (cnt % n != 0) {
                     ok = false;
                     break;
                 }
