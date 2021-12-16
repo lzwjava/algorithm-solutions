@@ -88,6 +88,10 @@ public class Main {
         }
     }
 
+    boolean distinct(int a, int b, int c) {
+        return a != b && a != c && b != c;
+    }
+
     void solve() throws IOException {
         calPrimes();
         int t = Integer.parseInt(in.readLine());
@@ -97,10 +101,10 @@ public class Main {
             fs.add(new Factor(1, 1));
             boolean found = false;
             for (Factor f : fs) {
-                for (int i = 0; i * f.p < n; i++) {
+                for (int i = 0; i * f.p + f.p < n; i++) {
                     int a = i * f.p;
                     int b = n - f.p - a;
-                    if (b >= 0 && gcd(a, b) == f.p) {
+                    if (b >= 0 && distinct(a, b, f.p) && gcd(a, b) == f.p) {
                         found = true;
                         out.append(String.format("%d %d %d\n", a, b, f.p));
                         break;
