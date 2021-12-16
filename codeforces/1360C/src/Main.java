@@ -32,24 +32,33 @@ public class Main {
             }
             Arrays.sort(a);
             boolean[] vis = new boolean[n];
+            int pair = 0;
             for (int i = 0; i < n - 1; i++) {
                 if (!vis[i]) {
-                    if (a[i] == a[i + 1] || a[i] + 1 == a[i + 1]) {
+                    if (a[i] + 1 == a[i + 1]) {
                         vis[i] = vis[i + 1] = true;
+                        pair++;
                     }
                 }
             }
             int c0 = 0, c1 = 0;
             for (int i = 0; i < n; i++) {
-                if (!vis[i]) {
-                    if (a[i] % 2 == 0) {
-                        c0++;
-                    } else {
-                        c1++;
-                    }
+                if (a[i] % 2 == 0) {
+                    c0++;
+                } else {
+                    c1++;
                 }
             }
-            if (c0 % 2 == 0 && c1 % 2 == 0) {
+            boolean ok = false;
+            for (int i = 0; i <= pair; i++) {
+                int nc0 = c0 - i;
+                int nc1 = c1 - i;
+                if (nc0 % 2 == 0 && nc1 % 2 == 0) {
+                    ok = true;
+                    break;
+                }
+            }
+            if (ok) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
