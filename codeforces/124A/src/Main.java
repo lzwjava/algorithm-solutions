@@ -25,7 +25,8 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int a = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
-        
+        int ans = Math.min(n - a, b + 1);
+        out.append(String.format("%d\n", ans));
     }
 
     public static void main(String[] args) throws IOException {
