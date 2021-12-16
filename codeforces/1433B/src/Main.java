@@ -29,6 +29,25 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            while (true) {
+                int s1 = -1, e1 = -1;
+                for (int i = 0; i < n; i++) {
+                    if (a[i] == 1) {
+                        if (s1 == -1 && e1 == -1) {
+                            s1 = i;
+                            e1 = i;
+                        } else {
+                            e1 = i;
+                        }
+                    } else {
+                        if (s1 == -1 && e1 == -1) {
+                            continue;
+                        } else {
+                            
+                        }
+                    }
+                }
+            }
             t--;
         }
     }
