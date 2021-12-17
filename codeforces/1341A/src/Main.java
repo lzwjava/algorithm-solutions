@@ -30,19 +30,21 @@ public class Main {
             b = Integer.parseInt(st.nextToken());
             c = Integer.parseInt(st.nextToken());
             d = Integer.parseInt(st.nextToken());
-            boolean ok = false;
-            for (int i = a - b; i <= a + b; i++) {
-                int p = i * n;
-                if (p >= c - d && p <= c + d) {
-                    out.append("Yes\n");
-                    ok = true;
-                    break;
-                }
+            int p1 = (a - b) * n;
+            int p2 = (a + b) * n;
+            int m1 = c - d;
+            int m2 = c + d;
+            boolean ok;
+            if ((m1 <= p2 && m2 >= p2) || (m1 <= p1 && m2 >= p1) || (m1 >= p1 && m2 <= p2) || (m1 <= p1 && m2 >= p2)) {
+                ok = true;
+            } else {
+                ok = false;
             }
-            if (!ok) {
+            if (ok) {
+                out.append("Yes\n");
+            } else {
                 out.append("No\n");
             }
-//            out.append(String.format("%d %d %d %d\n", a - b, a + b, c - d, c + d));
             t--;
         }
     }
