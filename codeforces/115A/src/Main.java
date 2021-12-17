@@ -19,7 +19,45 @@ public class Main {
         out.close();
     }
 
+    int[] rank;
+    int[] parent;
+
+    int find(int x) {
+        if (x == parent[x]) {
+            return x;
+        } else {
+            return find(parent[x]);
+        }
+    }
+
+    void union(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        if (px == py) {
+            return;
+        }
+        if (rank[px] < rank[py]) {
+            parent[px] = py;
+        } else {
+            parent[py] = px;
+            if (rank[px] == rank[py]) {
+                rank[px]++;
+            }
+        }
+    }
+
     void solve() throws IOException {
+        int n = Integer.parseInt(in.readLine());
+        int[] p = new int[n];
+        for (int i = 0; i < n; i++) {
+            p[i] = Integer.parseInt(in.readLine()) - 1;
+        }
+        rank = new int[n];
+        parent = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            rank[i] = i;
+        }
     }
 
     public static void main(String[] args) throws IOException {
