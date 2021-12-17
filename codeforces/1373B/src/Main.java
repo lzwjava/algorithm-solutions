@@ -23,6 +23,20 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             String s = in.readLine();
+            int c0 = 0, c1 = 0;
+            for (char c : s.toCharArray()) {
+                if (c == '0') {
+                    c0++;
+                } else {
+                    c1++;
+                }
+            }
+            int min = Math.min(c0, c1);
+            if (min % 2 == 1) {
+                out.append("DA\n");
+            } else {
+                out.append("NET\n");
+            }
             t--;
         }
     }
