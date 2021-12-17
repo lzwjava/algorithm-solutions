@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -19,45 +21,47 @@ public class Main {
         out.close();
     }
 
-    int[] rank;
-    int[] parent;
+    List<Integer>[] adjNodes;
+    int max = 0;
 
-    int find(int x) {
-        if (x == parent[x]) {
-            return x;
-        } else {
-            return find(parent[x]);
+    void dfs(int x, boolean[] vis, int dist) {
+        if (dist > max) {
+            max = dist;
         }
-    }
-
-    void union(int x, int y) {
-        int px = find(x);
-        int py = find(y);
-        if (px == py) {
-            return;
-        }
-        if (rank[px] < rank[py]) {
-            parent[px] = py;
-        } else {
-            parent[py] = px;
-            if (rank[px] == rank[py]) {
-                rank[px]++;
+        vis[x] = true;
+        for (int y : adjNodes[x]) {
+            if (!vis[y]) {
+                dfs(y, vis, dist + 1);
             }
         }
     }
 
+
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         int[] p = new int[n];
+        adjNodes = new ArrayList[n];
         for (int i = 0; i < n; i++) {
-            p[i] = Integer.parseInt(in.readLine()) - 1;
+            adjNodes[i] = new ArrayList<>();
         }
-        rank = new int[n];
-        parent = new int[n];
         for (int i = 0; i < n; i++) {
-            parent[i] = i;
-            rank[i] = i;
+            int v = Integer.parseInt(in.readLine());
+            if (v != -1) {
+                v--;
+            }
+            p[i] = v;
+            if (v != -1) {
+                adjNodes[v].add(i);
+            }
         }
+        max = 0;
+        boolean[] vis = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (p[i] == -1) {
+                dfs(i, vis, 0);
+            }
+        }
+        out.append(String.format("%d\n", max + 1));
     }
 
     public static void main(String[] args) throws IOException {
