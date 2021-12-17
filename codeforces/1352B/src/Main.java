@@ -26,13 +26,26 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
+            int[] a = new int[k];
             if (n % 2 == 1 && k % 2 == 0) {
                 out.append("NO\n");
             } else {
                 if (n % 2 == 0) {
+                    int f;
                     if (k % 2 == 0) {
-                        int floor = (int) Math.floor(n * 1.0 / k);
+                        f = (int) Math.floor(n * 1.0 / k);
+                    } else {
+                        f = (int) Math.floor(n * 1.0 / k);
+                        if (f % 2 != 0) {
+                            f--;
+                        }
                     }
+                    for (int i = 0; i < k - 1; i++) {
+                        a[i] = f;
+                    }
+                    a[k - 1] = n - (k - 1) * f;
+                } else {
+                    
                 }
             }
             t--;
