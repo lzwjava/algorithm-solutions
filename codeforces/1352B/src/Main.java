@@ -30,8 +30,8 @@ public class Main {
             if (n % 2 == 1 && k % 2 == 0) {
                 out.append("NO\n");
             } else {
+                int f;
                 if (n % 2 == 0) {
-                    int f;
                     if (k % 2 == 0) {
                         f = (int) Math.floor(n * 1.0 / k);
                     } else {
@@ -40,12 +40,28 @@ public class Main {
                             f--;
                         }
                     }
-                    for (int i = 0; i < k - 1; i++) {
-                        a[i] = f;
-                    }
-                    a[k - 1] = n - (k - 1) * f;
                 } else {
-                    
+                    // n%2=1, k%2=1
+                    f = (int) Math.floor(n * 1.0 / k);
+                    if (f % 2 == 0) {
+                        f--;
+                    }
+                }
+                for (int i = 0; i < k - 1; i++) {
+                    a[i] = f;
+                }
+                a[k - 1] = n - (k - 1) * f;
+                if (f == 0 || a[k - 1] == 0) {
+                    out.append("NO\n");
+                } else {
+                    out.append("YES\n");
+                    for (int i = 0; i < k; i++) {
+                        if (i != 0) {
+                            out.append(' ');
+                        }
+                        out.append(String.format("%d", a[i]));
+                    }
+                    out.append('\n');
                 }
             }
             t--;
