@@ -30,6 +30,19 @@ public class Main {
             b = Integer.parseInt(st.nextToken());
             c = Integer.parseInt(st.nextToken());
             d = Integer.parseInt(st.nextToken());
+            boolean ok = false;
+            for (int i = a - b; i <= a + b; i++) {
+                int p = i * n;
+                if (p >= c - d && p <= c + d) {
+                    out.append("Yes\n");
+                    ok = true;
+                    break;
+                }
+            }
+            if (!ok) {
+                out.append("No\n");
+            }
+//            out.append(String.format("%d %d %d %d\n", a - b, a + b, c - d, c + d));
             t--;
         }
     }
