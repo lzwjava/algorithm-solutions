@@ -23,6 +23,14 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             String s = in.readLine();
+            int n = s.length();
+            int ans;
+            if (n % 2 == 0) {
+                ans = n / 2;
+            } else {
+                ans = (n - 1) / 2;
+            }
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
