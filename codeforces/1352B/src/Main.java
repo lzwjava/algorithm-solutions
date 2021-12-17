@@ -26,6 +26,15 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
+            if (n % 2 == 1 && k % 2 == 0) {
+                out.append("NO\n");
+            } else {
+                if (n % 2 == 0) {
+                    if (k % 2 == 0) {
+                        int floor = (int) Math.floor(n * 1.0 / k);
+                    }
+                }
+            }
             t--;
         }
     }
