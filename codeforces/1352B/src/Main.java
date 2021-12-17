@@ -51,7 +51,7 @@ public class Main {
                     a[i] = f;
                 }
                 a[k - 1] = n - (k - 1) * f;
-                if (f == 0 || a[k - 1] == 0) {
+                if (f <= 0 || a[k - 1] <= 0) {
                     out.append("NO\n");
                 } else {
                     out.append("YES\n");
