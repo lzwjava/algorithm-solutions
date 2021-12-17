@@ -97,20 +97,12 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             int n = Integer.parseInt(in.readLine());
-            List<Factor> fs = calFactors(n);
-            fs.add(new Factor(1, 1));
-            boolean found = false;
-            for (Factor f : fs) {
-                for (int i = 0; i * f.p + f.p < n; i++) {
-                    int a = i * f.p;
-                    int b = n - f.p - a;
-                    if (b >= 0 && distinct(a, b, f.p) && gcd(a, b) == f.p) {
-                        found = true;
-                        out.append(String.format("%d %d %d\n", a, b, f.p));
-                        break;
-                    }
-                }
-                if (found) {
+            int p = 1;
+            for (int i = 0; i * p + p < n; i++) {
+                int a = i * p;
+                int b = n - p - a;
+                if (b >= 0 && distinct(a, b, p) && gcd(a, b) == p) {
+                    out.append(String.format("%d %d %d\n", a, b, p));
                     break;
                 }
             }
