@@ -44,19 +44,24 @@ public class Main {
                     char c = s.charAt(i);
                     if (c == 'E') {
                         a[i] = p;
-                        if (i + 1 < n) {
-                            a[i + 1] = p;
+                        int ti = (i + 1) % n;
+                        if (a[ti] == 0) {
+                            a[ti] = p;
                         }
                         int j = i;
-                        while (j + 1 < n && s.charAt(j + 1) == 'E' && !vis[j + 1]) {
-                            vis[j + 1] = true;
-                            a[j + 1] = p;
-                            if (j + 2 < n) {
-                                a[j + 2] = p;
+                        while (true) {
+                            int k = (j + 1) % n;
+                            if (s.charAt(k) == 'E' && !vis[k]) {
+                                vis[k] = true;
+                                a[k] = p;
+                                if (a[(k + 1) % n] == 0) {
+                                    a[(k + 1) % n] = p;
+                                }
+                                j = k;
+                            } else {
+                                break;
                             }
-                            j++;
                         }
-
                         j = i;
                         while (true) {
                             int k = (j - 1 + n) % n;
