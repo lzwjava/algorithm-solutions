@@ -23,16 +23,9 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             int p = Integer.parseInt(in.readLine());
-            boolean found = false;
-            for (int a = 2; a < p && !found; a++) {
-                for (int b = a + 1; b < p; b++) {
-                    if (p % a == p % b) {
-                        found = true;
-                        out.append(String.format("%d %d\n", a, b));
-                        break;
-                    }
-                }
-            }
+            int a = 2;
+            int b = p - 1;
+            out.append(String.format("%d %d\n", a, b));
             t--;
         }
     }
