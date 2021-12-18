@@ -20,6 +20,17 @@ public class Main {
     }
 
     void solve() throws IOException {
+        int n = Integer.parseInt(in.readLine());
+        String s = in.readLine();
+        int l = 0, r = 0;
+        for (char c : s.toCharArray()) {
+            if (c == 'L') {
+                l++;
+            } else if (c == 'R') {
+                r++;
+            }
+        }
+        out.append(String.format("%d\n", l + r + 1));
     }
 
     public static void main(String[] args) throws IOException {
