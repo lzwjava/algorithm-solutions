@@ -26,6 +26,18 @@ public class Main {
         int k3 = Integer.parseInt(st.nextToken());
         int k5 = Integer.parseInt(st.nextToken());
         int k6 = Integer.parseInt(st.nextToken());
+        int min = Integer.min(k2, k5);
+        min = Integer.min(min, k6);
+        int s = 0;
+        if (min > 0) {
+            k2 -= min;
+            k5 -= min;
+            k6 -= min;
+            s += min * 256;
+        }
+        int max = Integer.min(k2, k3);
+        s += max * 32;
+        out.append(String.format("%d\n", s));
     }
 
     public static void main(String[] args) throws IOException {
