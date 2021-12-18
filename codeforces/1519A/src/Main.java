@@ -27,6 +27,23 @@ public class Main {
             int r = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int d = Integer.parseInt(st.nextToken());
+            int m1 = Integer.min(r, b);
+            int m2 = Integer.max(r, b);
+            boolean ok;
+            if (m2 % m1 == 0) {
+                int a = m2 / m1;
+                int p = a - 1;
+                ok = p <= d;
+            } else {
+                int a = m2 / m1 + 1;
+                int p = a - 1;
+                ok = p <= d;
+            }
+            if (ok) {
+                out.append("YES\n");
+            } else {
+                out.append("NO\n");
+            }
             t--;
         }
     }
