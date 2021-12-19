@@ -25,6 +25,7 @@ public class Main {
         int a = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
         int n = Integer.parseInt(st.nextToken());
+        
     }
 
     public static void main(String[] args) throws IOException {
