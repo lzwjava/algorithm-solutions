@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
@@ -50,20 +51,21 @@ public class Main {
             }
             String ns = sb.toString();
             int m = bs.size();
-            long[] ps = new long[m];
-            long q = 1;
+            BigInteger[] ps = new BigInteger[m];
+            BigInteger q = BigInteger.ONE;
             for (int i = m - 1; i >= 0; i--) {
                 ps[i] = q;
-                q *= bs.get(i) + 1;
+                q = q.multiply(BigInteger.valueOf(bs.get(i) + 1));
             }
             int[] as = new int[m];
             x--;
             for (int i = 0; i < m; i++) {
-                if (x < ps[i]) {
+                BigInteger bx = BigInteger.valueOf(x);
+                if (bx.compareTo(ps[i]) < 0) {
                     continue;
                 }
-                as[i] = (int) (x / ps[i]);
-                x %= ps[i];
+                as[i] = (int) (x / ps[i].longValue());
+                x %= ps[i].longValue();
                 if (x == 0) {
                     break;
                 }
