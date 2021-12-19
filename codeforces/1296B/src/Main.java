@@ -23,6 +23,19 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             int s = Integer.parseInt(in.readLine());
+            int p = 0;
+            while (s != 0) {
+                if (s >= 10) {
+                    int spend = s / 10 * 10;
+                    p += spend;
+                    s -= spend;
+                    s += spend / 10;
+                } else {
+                    p += s;
+                    s -= s;
+                }
+            }
+            out.append(String.format("%d\n", p));
             t--;
         }
     }
