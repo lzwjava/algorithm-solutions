@@ -51,7 +51,13 @@ public class Main {
             m = Integer.parseInt(st.nextToken());
             k = Integer.parseInt(st.nextToken());
             found = -1;
-            dp(1, 1, k);
+            int cost = (n - 1) + n * (m - 1);
+            if (cost == k) {
+                found = 1;
+            } else {
+                found = 0;
+            }
+//            dp(1, 1, k);
             if (found == 1) {
                 out.append("YES\n");
             } else {
