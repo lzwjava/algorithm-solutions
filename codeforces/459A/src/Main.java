@@ -56,16 +56,8 @@ public class Main {
                 y4 = y1 + d;
             }
         } else {
-            if (x2 - x1 == y2 - y1) {
+            if (Math.abs(x1 - x2) == Math.abs(y1 - y2)) {
                 ok = true;
-                if (x1 > x2) {
-                    int t = x1;
-                    x1 = x2;
-                    x2 = t;
-                    t = y1;
-                    y1 = y2;
-                    y2 = t;
-                }
                 x3 = x1;
                 y3 = y2;
                 x4 = x2;
