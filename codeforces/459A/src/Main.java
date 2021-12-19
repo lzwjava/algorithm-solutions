@@ -26,7 +26,7 @@ public class Main {
         int y1 = Integer.parseInt(st.nextToken());
         int x2 = Integer.parseInt(st.nextToken());
         int y2 = Integer.parseInt(st.nextToken());
-        int x3, y3, x4, y4;
+        int x3 = 0, y3 = 0, x4 = 0, y4 = 0;
         boolean ok;
         if (x1 == x2 && y1 == y2) {
             ok = false;
@@ -50,9 +50,31 @@ public class Main {
                     x2 = t;
                 }
                 int d = x2 - x1;
-                
+                x3 = x1;
+                y3 = y1 + d;
+                x4 = x1 + d;
+                y4 = y1 + d;
             }
         } else {
+            if (x2 - x1 == y2 - y1) {
+                ok = true;
+                if (x1 > x2) {
+                    int t = x1;
+                    x1 = x2;
+                    x2 = 5;
+                    t = y1;
+                    y1 = y2;
+                    y2 = t;
+                }
+                
+            } else {
+                ok = false;
+            }
+        }
+        if (ok) {
+            out.append(String.format("%d %d %d %d\n", x3, y3, x4, y4));
+        } else {
+            out.append("-1\n");
         }
     }
 
