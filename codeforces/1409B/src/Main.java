@@ -20,6 +20,30 @@ public class Main {
         out.close();
     }
 
+    long cal1(int a, int b, int x, int y, int n) {
+        int m1 = Integer.min(n, b - y);
+        b -= m1;
+        n -= m1;
+        if (n > 0) {
+            int m2 = Integer.min(n, a - x);
+            a -= m2;
+            n -= m2;
+        }
+        return (long) a * b;
+    }
+
+    long cal2(int a, int b, int x, int y, int n) {
+        int m1 = Integer.min(n, a - x);
+        a -= m1;
+        n -= m1;
+        if (n > 0) {
+            int m2 = Integer.min(n, b - y);
+            b -= m2;
+            n -= m2;
+        }
+        return (long) a * b;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -29,7 +53,11 @@ public class Main {
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
-            
+
+            long s1 = cal1(a, b, x, y, n);
+            long s2 = cal2(a, b, x, y, n);
+            long s = Math.min(s1, s2);
+            out.append(String.format("%d\n", s));
             t--;
         }
     }
