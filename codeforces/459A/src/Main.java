@@ -61,12 +61,15 @@ public class Main {
                 if (x1 > x2) {
                     int t = x1;
                     x1 = x2;
-                    x2 = 5;
+                    x2 = t;
                     t = y1;
                     y1 = y2;
                     y2 = t;
                 }
-                
+                x3 = x1;
+                y3 = y2;
+                x4 = x2;
+                y4 = y1;
             } else {
                 ok = false;
             }
