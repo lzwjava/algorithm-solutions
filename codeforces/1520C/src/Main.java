@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.*;
 
 public class Main {
 
@@ -19,8 +20,8 @@ public class Main {
         out.close();
     }
 
-    int[] dx = {-1, 1, 0, 0};
-    int[] dy = {0, 0, -1, 1};
+    int[] dx = {-1, 0};
+    int[] dy = {0, -1};
 
     boolean adjacent(int a, int b) {
         return Math.abs(a - b) == 1;
@@ -33,7 +34,7 @@ public class Main {
         int i = p - 1;
         int x = i / n;
         int y = i % n;
-        for (int d = 0; d < 4; d++) {
+        for (int d = 0; d < dx.length; d++) {
             int nx = x + dx[d];
             int ny = y + dy[d];
             if (nx >= 0 && nx < n && ny >= 0 && ny < n) {
@@ -63,6 +64,8 @@ public class Main {
         }
     }
 
+    Random random;
+
     void permutation(int[] nums, boolean[] vis, int i, int m) {
         if (found) {
             return;
@@ -75,19 +78,28 @@ public class Main {
             found = true;
             return;
         }
+        List<Integer> list = new ArrayList<>();
         for (int j = 0; j < m; j++) {
             if (!vis[j]) {
-                vis[j] = true;
-                nums[i] = j;
-                permutation(nums, vis, i + 1, m);
-                vis[j] = false;
+                list.add(j);
             }
+        }
+        Set<Integer> used = new HashSet<>();
+        while (used.size() < list.size()) {
+            int idx = random.nextInt(list.size());
+            used.add(idx);
+            int j = list.get(idx);
+            vis[j] = true;
+            nums[i] = j;
+            permutation(nums, vis, i + 1, m);
+            vis[j] = false;
         }
     }
 
     int n;
 
     void solve() throws IOException {
+        random = new Random();
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             n = Integer.parseInt(in.readLine());
