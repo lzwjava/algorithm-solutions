@@ -20,6 +20,12 @@ public class Main {
     }
 
     void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            String ns = in.readLine();
+            out.append(String.format("%d\n", ns.length()));
+            t--;
+        }
     }
 
     public static void main(String[] args) throws IOException {
