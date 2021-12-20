@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -41,11 +42,19 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            map = new HashMap<>();
             for (int i = 0; i < n; i++) {
                 a[i] = a[i] - i;
                 count(a[i]);
             }
-            out.append(String.format("%d\n"));
+            long ans = 0;
+            for (int key : map.keySet()) {
+                int c = map.get(key);
+                if (c >= 2) {
+                    ans += (long) c * (c - 1) / 2;
+                }
+            }
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
