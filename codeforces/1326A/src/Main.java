@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.math.BigInteger;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 public class Main {
 
@@ -31,35 +28,19 @@ public class Main {
             if (n == 1) {
                 out.append("-1\n");
             } else {
-                String ans;
-                while (true) {
-                    Set<Integer> set = new HashSet<>();
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < n; i++) {
-                        int digit = random.nextInt(9) + 1;
-                        if (i == n - 1) {
-                            while (digit % 2 == 0) {
-                                digit = random.nextInt(8) + 2;
-                            }
-                        }
-                        sb.append(String.valueOf(digit));
-                        set.add(digit);
-                    }
-                    String s = sb.toString();
-                    BigInteger bi = new BigInteger(s);
-                    boolean ok = true;
-                    for (int x : set) {
-                        if (bi.mod(BigInteger.valueOf(x)).intValue() == 0) {
-                            ok = false;
-                            break;
-                        }
-                    }
-                    if (ok) {
-                        ans = s;
-                        break;
-                    }
+                StringBuilder sb = new StringBuilder();
+                int s = 3;
+                for (int i = 0; i < n - 2; i++) {
+                    sb.append(String.format("%d", 2));
+                    s += 2;
                 }
-                out.append(String.format("%s\n", ans));
+                if ((s + 2) % 3 == 0) {
+                    sb.append(String.format("3"));
+                } else {
+                    sb.append(String.format("2"));
+                }
+                sb.append("3");
+                out.append(String.format("%s\n", sb));
             }
             t--;
         }
