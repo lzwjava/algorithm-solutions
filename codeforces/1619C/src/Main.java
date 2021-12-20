@@ -49,6 +49,9 @@ public class Main {
         if (s.length() == 2 && s.charAt(0) == '0') {
             return false;
         }
+        if (s.length() == 0) {
+            return false;
+        }
         return true;
     }
 
@@ -66,60 +69,34 @@ public class Main {
         for (int i = 0; i < bs.length; i++) {
             sb.append(String.format("%d", bs[i]));
         }
-        return Long.parseLong(sb.toString());
+        return Long.parseLong(sb.reverse().toString());
     }
 
-    void permutation(int[] idx, int i, int n) {
+    void permutation(int[] idx, String[] ns, int[] bs, int i, int n) {
         if (found) {
             return;
         }
         if (i >= 1) {
-            int s1, e1;
-            if (i == 1) {
-                s1 = 0;
-                e1 = idx[i - 1];
-            } else {
-                s1 = idx[i - 2];
-                e1 = idx[i - 1];
-            }
-            String sub = ss.substring(s1, e1);
-            if (!isValid(sub)) {
+            if (!isValid(ns[i - 1])) {
                 return;
             }
         }
         if (i == n) {
             int m = n + 1;
-            String[] ns = new String[m];
-            for (int j = 0; j < m; j++) {
-                int start;
-                if (j == 0) {
-                    start = 0;
-                } else {
-                    start = idx[j - 1];
-                }
-                int end;
-                if (j == n) {
-                    end = sn;
-                } else {
-                    end = idx[j];
-                }
-                String sub = ss.substring(start, end);
-                if (!isValid(sub)) {
-                    return;
-                }
-                ns[j] = sub;
+            int start = 0;
+            int end;
+            if (i == 0) {
+                end = sn;
+            } else {
+                end = idx[i - 1];
             }
-            int[] bs = new int[m];
-            String tas = as;
-            while (tas.length() < m) {
-                tas = "0" + tas;
+            ns[i] = ss.substring(start, end);
+            if (!isValid(ns[i])) {
+                return;
             }
-            for (int j = 0; j < m; j++) {
-                int d = calDigit(ns[j], digitA(tas, j));
-                if (d == -1) {
-                    return;
-                }
-                bs[j] = d;
+            bs[i] = calDigit(ns[i], digitA(i));
+            if (bs[i] == -1) {
+                return;
             }
             long b = toInt(bs);
             if (cal(a, b) == s) {
@@ -130,18 +107,40 @@ public class Main {
         }
         int st;
         if (i == 0) {
-            st = 1;
+            st = sn - 1;
         } else {
-            st = idx[i - 1] + 1;
+            st = idx[i - 1] - 1;
         }
-        for (int j = st; j < sn; j++) {
+        for (int j = st; j >= 0; j--) {
             idx[i] = j;
-            permutation(idx, i + 1, n);
+            int s1, e1;
+            if (i == 0) {
+                s1 = j;
+                e1 = sn;
+            } else {
+                s1 = j;
+                e1 = idx[i - 1];
+            }
+            String sub = ss.substring(s1, e1);
+            if (!isValid(sub)) {
+                continue;
+            }
+            ns[i] = sub;
+            int d = calDigit(sub, digitA(i));
+            if (d == -1) {
+                continue;
+            }
+            bs[i] = d;
+            permutation(idx, ns, bs, i + 1, n);
         }
     }
 
-    int digitA(String tas, int j) {
-        return tas.charAt(j) - '0';
+    int digitA(int j) {
+        if (j < an) {
+            return as.charAt(an - 1 - j) - '0';
+        } else {
+            return 0;
+        }
     }
 
     long a, s, b;
@@ -157,9 +156,11 @@ public class Main {
         an = as.length();
         sn = ss.length();
         found = false;
-        for (int i = 0; i < sn; i++) {
+        for (int i = sn - 1; i >= 0; i--) {
             int[] idx = new int[i];
-            permutation(idx, 0, i);
+            int[] bs = new int[i + 1];
+            String[] ns = new String[i + 1];
+            permutation(idx, ns, bs, 0, i);
             if (found) {
                 break;
             }
@@ -173,9 +174,9 @@ public class Main {
 
     void test() {
         Random random = new Random();
-        for (int i = 1; i < 100; i++) {
-            long a = (long) (random.nextDouble() * 1e10);
-            long b = (long) (random.nextDouble() * 1e10);
+        for (int i = 1; i < 10000; i++) {
+            long a = (long) (random.nextDouble() * 1e8);
+            long b = (long) (random.nextDouble() * 1e8);
             long s = cal(a, b);
             if (s == -1) {
                 continue;
