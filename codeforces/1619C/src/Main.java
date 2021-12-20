@@ -82,7 +82,6 @@ public class Main {
             }
         }
         if (i == n) {
-            int m = n + 1;
             int start = 0;
             int end;
             if (i == 0) {
