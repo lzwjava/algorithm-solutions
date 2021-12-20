@@ -20,7 +20,16 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            int s = Integer.parseInt(in.readLine());
+            int p = (int) Math.sqrt(s);
+            while (p * p < s) {
+                p++;
+            }
+            out.append(String.format("%d\n", p));
+            t--;
+        }
     }
 
     public static void main(String[] args) throws IOException {
