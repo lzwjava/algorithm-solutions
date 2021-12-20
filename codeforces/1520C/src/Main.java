@@ -27,18 +27,20 @@ public class Main {
     }
 
     boolean check(int[] nums, int p) {
-        for (int i = 0; i < p; i++) {
-            int x = i / n;
-            int y = i % n;
-            for (int d = 0; d < 4; d++) {
-                int nx = x + dx[d];
-                int ny = y + dy[d];
-                if (nx >= 0 && nx < n && ny >= 0 && ny < n) {
-                    int ni = nx * n + ny;
-                    if (ni < p) {
-                        if (adjacent(nums[i], nums[ni])) {
-                            return false;
-                        }
+        if (p == 0) {
+            return true;
+        }
+        int i = p - 1;
+        int x = i / n;
+        int y = i % n;
+        for (int d = 0; d < 4; d++) {
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+            if (nx >= 0 && nx < n && ny >= 0 && ny < n) {
+                int ni = nx * n + ny;
+                if (ni < p) {
+                    if (adjacent(nums[i], nums[ni])) {
+                        return false;
                     }
                 }
             }
