@@ -26,6 +26,16 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
+            int ans;
+            if (n >= k) {
+                if (k % 2 == n % 2) {
+                    ans = 0;
+                } else {
+                    ans = 1;
+                }
+            } else {
+                
+            }
             t--;
         }
     }
