@@ -33,6 +33,7 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 for (int j = i + 1; j < n; j++) {
                     if (a[j] - a[i] == j - i) {
+                        out.append(String.format("%d %d\n", a[i], a[j]));
                         c++;
                     }
                 }
