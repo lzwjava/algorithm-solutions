@@ -35,7 +35,11 @@ public class Main {
             b /= 10;
         }
         String fs = sb.reverse().toString();
-        return Long.parseLong(fs);
+        try {
+            return Long.parseLong(fs);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     boolean isValid(String s) {
@@ -68,6 +72,20 @@ public class Main {
     void permutation(int[] idx, int i, int n) {
         if (found) {
             return;
+        }
+        if (i >= 1) {
+            int s1, e1;
+            if (i == 1) {
+                s1 = 0;
+                e1 = idx[i - 1];
+            } else {
+                s1 = idx[i - 2];
+                e1 = idx[i - 1];
+            }
+            String sub = ss.substring(s1, e1);
+            if (!isValid(sub)) {
+                return;
+            }
         }
         if (i == n) {
             int m = n + 1;
@@ -155,10 +173,13 @@ public class Main {
 
     void test() {
         Random random = new Random();
-        for (int i = 1; i < 10000; i++) {
-            long a = (long) (random.nextDouble() * 1e8);
-            long b = (long) (random.nextDouble() * 1e8);
+        for (int i = 1; i < 100; i++) {
+            long a = (long) (random.nextDouble() * 1e10);
+            long b = (long) (random.nextDouble() * 1e10);
             long s = cal(a, b);
+            if (s == -1) {
+                continue;
+            }
             long v = trySolve(a, s);
             // 36265413  5000011 311265424
             assert (v == b);
