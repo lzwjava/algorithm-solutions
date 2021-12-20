@@ -34,8 +34,9 @@ public class Main {
                     ans = 1;
                 }
             } else {
-                
+                ans = k - n;
             }
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
