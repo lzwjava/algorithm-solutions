@@ -139,7 +139,7 @@ public class Main {
         an = as.length();
         sn = ss.length();
         found = false;
-        for (int i = 1; i < sn; i++) {
+        for (int i = 0; i < sn; i++) {
             int[] idx = new int[i];
             permutation(idx, 0, i);
             if (found) {
@@ -156,8 +156,8 @@ public class Main {
     void test() {
         Random random = new Random();
         for (int i = 1; i < 10000; i++) {
-            long a = (long) (random.nextDouble() * 1e3);
-            long b = (long) (random.nextDouble() * 1e3);
+            long a = (long) (random.nextDouble() * 1e8);
+            long b = (long) (random.nextDouble() * 1e8);
             long s = cal(a, b);
             long v = trySolve(a, s);
             // 36265413  5000011 311265424
