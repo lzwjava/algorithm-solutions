@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -20,29 +21,15 @@ public class Main {
         out.close();
     }
 
-    int mergeCount(int[] a, int l, int r) {
-        if (l == r) {
-            return 0;
+    Map<Integer, Integer> map;
+
+    void count(int v) {
+        Integer c = map.get(v);
+        if (c == null) {
+            c = 0;
         }
-        if (l + 1 == r) {
-            if (a[r] - a[l] == r - l) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-        int mid = (l + r) / 2;
-        int c1 = mergeCount(a, l, mid);
-        int c2 = mergeCount(a, mid + 1, r);
-        int mc = 0;
-        for (int i = l; i <= mid; i++) {
-            for (int j = mid + 1; j <= r; j++) {
-                if (a[j] - a[i] == j - i) {
-                    mc++;
-                }
-            }
-        }
-        return c1 + c2 + mc;
+        c++;
+        map.put(v, c);
     }
 
     void solve() throws IOException {
@@ -54,8 +41,11 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
-            int ans = mergeCount(a, 0, n - 1);
-            out.append(String.format("%d\n", ans));
+            for (int i = 0; i < n; i++) {
+                a[i] = a[i] - i;
+                count(a[i]);
+            }
+            out.append(String.format("%d\n"));
             t--;
         }
     }
