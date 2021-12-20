@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.*;
 
 public class Main {
 
@@ -49,68 +48,59 @@ public class Main {
         return true;
     }
 
-    boolean found;
-
-    void print(int[] nums) {
+    void print(int[][] grid) {
         for (int u = 0; u < n; u++) {
             for (int v = 0; v < n; v++) {
                 if (v != 0) {
                     out.append(' ');
                 }
-                int x = u * n + v;
-                out.append(String.format("%d", nums[x] + 1));
+                out.append(String.format("%d", grid[u][v] + 1));
             }
             out.append('\n');
-        }
-    }
-
-    Random random;
-
-    void permutation(int[] nums, boolean[] vis, int i, int m) {
-        if (found) {
-            return;
-        }
-        if (!check(nums, i)) {
-            return;
-        }
-        if (i == m) {
-            print(nums);
-            found = true;
-            return;
-        }
-        List<Integer> list = new ArrayList<>();
-        for (int j = 0; j < m; j++) {
-            if (!vis[j]) {
-                list.add(j);
-            }
-        }
-        Set<Integer> used = new HashSet<>();
-        while (used.size() < list.size()) {
-            int idx = random.nextInt(list.size());
-            used.add(idx);
-            int j = list.get(idx);
-            vis[j] = true;
-            nums[i] = j;
-            permutation(nums, vis, i + 1, m);
-            vis[j] = false;
         }
     }
 
     int n;
 
     void solve() throws IOException {
-        random = new Random();
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             n = Integer.parseInt(in.readLine());
             int m = n * n;
-            int[] nums = new int[m];
-            boolean[] vis = new boolean[m];
-            found = false;
-            permutation(nums, vis, 0, m);
-            if (!found) {
+            if (n == 2) {
                 out.append("-1\n");
+                t--;
+                continue;
             }
+            int[][] grid = new int[n][n];
+            int p = 0;
+            for (int i = 0; i < n; i += 2) {
+                for (int j = 0; j < n; j++) {
+                    grid[i][j] = p;
+                    p += 2;
+                }
+            }
+            if (n % 2 == 0) {
+                p = m - 1;
+            } else {
+                p = m - 2;
+            }
+            boolean left = true;
+            for (int i = 1; i < n; i += 2) {
+                if (left) {
+                    for (int j = 0; j < n; j++) {
+                        grid[i][j] = p;
+                        p -= 2;
+                    }
+                } else {
+                    for (int j = n - 1; j >= 0; j--) {
+                        grid[i][j] = p;
+                        p -= 2;
+                    }
+                }
+                left = !left;
+            }
+            print(grid);
             t--;
         }
     }
