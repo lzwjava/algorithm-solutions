@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -91,8 +92,12 @@ public class Main {
                 ns[j] = sub;
             }
             int[] bs = new int[m];
+            String tas = as;
+            while (tas.length() < m) {
+                tas = "0" + tas;
+            }
             for (int j = 0; j < m; j++) {
-                int d = calDigit(ns[j], as.charAt(j) - '0');
+                int d = calDigit(ns[j], digitA(tas, j));
                 if (d == -1) {
                     return;
                 }
@@ -101,7 +106,7 @@ public class Main {
             long b = toInt(bs);
             if (cal(a, b) == s) {
                 found = true;
-                out.append(String.format("%d\n", b));
+                this.b = b;
             }
             return;
         }
@@ -117,35 +122,57 @@ public class Main {
         }
     }
 
-    long a, s;
+    int digitA(String tas, int j) {
+        return tas.charAt(j) - '0';
+    }
+
+    long a, s, b;
     String as, ss;
     int an, sn;
     boolean found;
 
+    long trySolve(long a, long s) {
+        this.a = a;
+        this.s = s;
+        as = String.format("%s", a);
+        ss = String.format("%s", s);
+        an = as.length();
+        sn = ss.length();
+        found = false;
+        for (int i = 1; i < sn; i++) {
+            int[] idx = new int[i];
+            permutation(idx, 0, i);
+            if (found) {
+                break;
+            }
+        }
+        if (!found) {
+            return -1;
+        } else {
+            return b;
+        }
+    }
+
+    void test() {
+        Random random = new Random();
+        for (int i = 1; i < 10000; i++) {
+            long a = (long) (random.nextDouble() * 1e3);
+            long b = (long) (random.nextDouble() * 1e3);
+            long s = cal(a, b);
+            long v = trySolve(a, s);
+            // 36265413  5000011 311265424
+            assert (v == b);
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
-
             StringTokenizer st = new StringTokenizer(in.readLine());
-            a = Long.parseLong(st.nextToken());
-            s = Long.parseLong(st.nextToken());
-            as = String.format("%s", a);
-            ss = String.format("%s", s);
-            an = as.length();
-            sn = ss.length();
-            int[] idx = new int[an];
-            found = false;
-            permutation(idx, 0, an - 1);
-            if (!found) {
-                out.append("-1\n");
-            }
-
-//            long fs = cal(a, left);
-//            if (fs == s) {
-//                out.append(String.format("%d\n", left));
-//            } else {
-//                out.append("-1\n");
-//            }
+            long a = Long.parseLong(st.nextToken());
+            long s = Long.parseLong(st.nextToken());
+            long ans = trySolve(a, s);
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
@@ -153,6 +180,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
     }
 
