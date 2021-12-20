@@ -64,43 +64,26 @@ public class Main {
         }
     }
 
-    long toInt(int[] bs) {
+    long toInt(int[] bs, int m) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < bs.length; i++) {
+        for (int i = 0; i < m; i++) {
             sb.append(String.format("%d", bs[i]));
         }
         return Long.parseLong(sb.reverse().toString());
     }
 
-    void permutation(int[] idx, String[] ns, int[] bs, int i, int n) {
+    void permutation(int[] idx, String[] ns, int[] bs, int i) {
         if (found) {
             return;
         }
-        if (i >= 1) {
-            if (!isValid(ns[i - 1])) {
-                return;
-            }
-        }
-        if (i == n) {
-            int start = 0;
-            int end;
-            if (i == 0) {
-                end = sn;
-            } else {
-                end = idx[i - 1];
-            }
-            ns[i] = ss.substring(start, end);
-            if (!isValid(ns[i])) {
-                return;
-            }
-            bs[i] = calDigit(ns[i], digitA(i));
-            if (bs[i] == -1) {
-                return;
-            }
-            long b = toInt(bs);
+        if (i >= 1 && idx[i - 1] == 0) {
+            long b = toInt(bs, i);
             if (cal(a, b) == s) {
                 found = true;
                 this.b = b;
+            } else {
+                found = true;
+                this.b = -1;
             }
             return;
         }
@@ -122,7 +105,7 @@ public class Main {
             }
             String sub = ss.substring(s1, e1);
             if (!isValid(sub)) {
-                continue;
+                break;
             }
             ns[i] = sub;
             int d = calDigit(sub, digitA(i));
@@ -130,7 +113,7 @@ public class Main {
                 continue;
             }
             bs[i] = d;
-            permutation(idx, ns, bs, i + 1, n);
+            permutation(idx, ns, bs, i + 1);
         }
     }
 
@@ -155,15 +138,12 @@ public class Main {
         an = as.length();
         sn = ss.length();
         found = false;
-        for (int i = sn - 1; i >= 0; i--) {
-            int[] idx = new int[i];
-            int[] bs = new int[i + 1];
-            String[] ns = new String[i + 1];
-            permutation(idx, ns, bs, 0, i);
-            if (found) {
-                break;
-            }
-        }
+        int m = sn;
+        int[] idx = new int[m];
+        int[] bs = new int[m];
+        String[] ns = new String[m];
+        permutation(idx, ns, bs, 0);
+
         if (!found) {
             return -1;
         } else {
@@ -174,14 +154,13 @@ public class Main {
     void test() {
         Random random = new Random();
         for (int i = 1; i < 10000; i++) {
-            long a = (long) (random.nextDouble() * 1e8);
-            long b = (long) (random.nextDouble() * 1e8);
+            long a = (long) (random.nextDouble() * 1e9);
+            long b = (long) (random.nextDouble() * 1e9);
             long s = cal(a, b);
             if (s == -1) {
                 continue;
             }
             long v = trySolve(a, s);
-            // 36265413  5000011 311265424
             assert (v == b);
         }
     }
