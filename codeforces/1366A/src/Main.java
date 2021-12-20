@@ -26,6 +26,11 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
+            int m = Integer.min(a, b);
+            int s = a + b;
+            int m1 = s / 3;
+            int m2 = Integer.min(m, m1);
+            out.append(String.format("%d\n", m2));
             t--;
         }
     }
