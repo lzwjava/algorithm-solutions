@@ -54,7 +54,7 @@ public class Main {
                 if (v != 0) {
                     out.append(' ');
                 }
-                out.append(String.format("%2d", grid[u][v] + 1));
+                out.append(String.format("%d", grid[u][v] + 1));
             }
             out.append('\n');
         }
@@ -73,6 +73,12 @@ public class Main {
                 continue;
             }
             int[][] grid = new int[n][n];
+            if (n == 1) {
+                grid[0][0] = 0;
+                print(grid);
+                t--;
+                continue;
+            }
             if (n % 2 == 0) {
                 int p = 0;
                 int q = 1;
@@ -95,26 +101,27 @@ public class Main {
                 }
             } else {
                 int p = 0;
-                int q = m - 2;
-                int part = m / 2 + 2;
+                int q = 1;
+                int part = m / 2 + 1;
                 for (int k = 0; k < part; k++) {
                     int i = (k / n) * 2;
                     int j = k % n;
-                    if (k == part - 1) {
-                        grid[i][j] = q;
-                        q -= 2;
-                    } else {
-                        grid[i][j] = p;
-                        p += 2;
-                    }
-
+                    grid[i][j] = p;
+                    p += 2;
                 }
-                part = n / 2;
+                int rp = n - part % n;
+                for (int k = 0; k < rp; k++) {
+                    int i = n - 1;
+                    int j = n - 1 - k;
+                    grid[i][j] = q;
+                    q += 2;
+                }
+                part = m / 2 - rp;
                 for (int k = 0; k < part; k++) {
-                    int i = (k / n) * 2 + 1;
+                    int i = n - 2 - (k / n) * 2;
                     int j = k % n;
                     grid[i][j] = q;
-                    q -= 2;
+                    q += 2;
                 }
             }
             print(grid);
