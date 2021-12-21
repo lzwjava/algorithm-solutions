@@ -29,12 +29,41 @@ public class Main {
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
             char[][] grid = new char[n][m];
+            int white = 0;
             for (int i = 0; i < n; i++) {
                 String s = in.readLine();
                 for (int j = 0; j < m; j++) {
-                    grid[i][j] = s.charAt(j);
+                    char c = s.charAt(j);
+                    grid[i][j] = c;
+                    if (c == '.') {
+                        white++;
+                    }
                 }
             }
+            int ans = 0;
+            if (2 * x <= y) {
+                ans = white * x;
+            } else {
+                int t2 = 0;
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < m - 1; j++) {
+                        if (grid[i][j] == '.' && grid[i][j + 1] == '.') {
+                            t2++;
+                            grid[i][j] = grid[i][j + 1] = 'x';
+                        }
+                    }
+                }
+                int t1 = 0;
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < m; j++) {
+                        if (grid[i][j] == '.') {
+                            t1++;
+                        }
+                    }
+                }
+                ans = x * t1 + y * t2;
+            }
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
