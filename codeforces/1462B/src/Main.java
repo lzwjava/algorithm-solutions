@@ -42,7 +42,7 @@ public class Main {
             if (sb.length() > 0) {
                 list.add(sb);
             }
-            boolean result = match(s, a, i + 1, p + 1, list, sb);
+            boolean result = match(s, a, i + 1, p + 1, list, "");
             if (sb.length() > 0) {
                 list.remove(list.size() - 1);
             }
