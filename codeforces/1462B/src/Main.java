@@ -21,6 +21,10 @@ public class Main {
         out.close();
     }
 
+    boolean match(String s, String a, int i, int p, List<String> list) {
+        
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
