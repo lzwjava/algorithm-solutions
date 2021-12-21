@@ -18,36 +18,7 @@ public class Main {
         out.flush();
         out.close();
     }
-
-    int[] dx = {-1, 0};
-    int[] dy = {0, -1};
-
-    boolean adjacent(int a, int b) {
-        return Math.abs(a - b) == 1;
-    }
-
-    boolean check(int[] nums, int p) {
-        if (p == 0) {
-            return true;
-        }
-        int i = p - 1;
-        int x = i / n;
-        int y = i % n;
-        for (int d = 0; d < dx.length; d++) {
-            int nx = x + dx[d];
-            int ny = y + dy[d];
-            if (nx >= 0 && nx < n && ny >= 0 && ny < n) {
-                int ni = nx * n + ny;
-                if (ni < p) {
-                    if (adjacent(nums[i], nums[ni])) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
+    
     void print(int[][] grid) {
         for (int u = 0; u < n; u++) {
             for (int v = 0; v < n; v++) {
