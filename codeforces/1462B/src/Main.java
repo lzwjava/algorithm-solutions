@@ -40,6 +40,9 @@ public class Main {
         if (p == a.length()) {
             return match(s, a, s.length(), p, list, s.substring(i) + sb);
         }
+        if (list.size() > 1) {
+            return false;
+        }
         char c = s.charAt(i);
         if (p < a.length() && c == a.charAt(p)) {
             if (sb.length() > 0) {
@@ -71,8 +74,21 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
             String a = "2020";
-            List<String> list = new ArrayList<>();
-            boolean ok = match(s, a, 0, 0, list, "");
+            int c0 = 0, c2 = 0;
+            for (char c : s.toCharArray()) {
+                if (c == '0') {
+                    c0++;
+                } else if (c == '2') {
+                    c2++;
+                }
+            }
+            boolean ok;
+            if (c0 < 2 || c2 < 2) {
+                ok = false;
+            } else {
+                List<String> list = new ArrayList<>();
+                ok = match(s, a, 0, 0, list, "");
+            }
             if (ok) {
                 out.append("YES\n");
             } else {
