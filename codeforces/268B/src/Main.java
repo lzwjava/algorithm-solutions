@@ -20,6 +20,13 @@ public class Main {
     }
 
     void solve() throws IOException {
+        int n = Integer.parseInt(in.readLine());
+        int s = 0;
+        for (int i = n - 1; i >= 1; i--) {
+            s += i * (n - i);
+        }
+        s += n;
+        out.append(String.format("%d\n", s));
     }
 
     public static void main(String[] args) throws IOException {
