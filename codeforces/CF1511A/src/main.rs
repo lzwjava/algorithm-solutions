@@ -8,10 +8,10 @@ fn solve(f: &mut dyn Read) {
     reader.read_line(&mut line).unwrap();
     let t: u32 = line.trim().parse().expect("");
 
-    for i in 0..t {
+    for _ in 0..t {
         let mut input = String::new();
         reader.read_line(&mut input).unwrap();
-        let n: u32 = input.trim().parse().expect("");
+        let _: u32 = input.trim().parse().expect("");
         input = String::new();
         reader.read_line(&mut input).unwrap();
         let rs: Vec<u32> = input
@@ -21,7 +21,7 @@ fn solve(f: &mut dyn Read) {
             .collect();
         let mut c: u32 = 0;
         for r in rs.iter() {
-            if (*r == 1 || *r == 3) {
+            if *r == 1 || *r == 3 {
                 c = c + 1;
             }
         }
