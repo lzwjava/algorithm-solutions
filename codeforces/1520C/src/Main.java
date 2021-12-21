@@ -95,23 +95,26 @@ public class Main {
                 }
             } else {
                 int p = 0;
-                int q = 1;
-                boolean left = true;
-                for (int i = 0; i < n; i++) {
-                    if (left) {
-                        for (int j = 0; j < n; j++) {
-                            grid[i][j] = p;
-                            p += 2;
-                        }
+                int q = m - 2;
+                int part = m / 2 + 2;
+                for (int k = 0; k < part; k++) {
+                    int i = (k / n) * 2;
+                    int j = k % n;
+                    if (k == part - 1) {
+                        grid[i][j] = q;
+                        q -= 2;
                     } else {
-                        int part = n / 2;
-                        for (int j = 0; j < n; j++) {
-                            int nj = (j + part) % n;
-                            grid[i][nj] = q;
-                            q += 2;
-                        }
+                        grid[i][j] = p;
+                        p += 2;
                     }
-                    left = !left;
+
+                }
+                part = n / 2;
+                for (int k = 0; k < part; k++) {
+                    int i = (k / n) * 2 + 1;
+                    int j = k % n;
+                    grid[i][j] = q;
+                    q -= 2;
                 }
             }
             print(grid);
