@@ -4,16 +4,8 @@ use std::io;
 use std::io::prelude::*;
 use std::io::BufReader;
 
-fn main() {
-    let mut reader;
-    let judge = env::var("ONLINE_JUDGE").is_err();
-    if judge {
-        let f = io::stdin();
-        reader = BufReader::new(f);
-    } else {
-        let f = File::open("1.in").unwrap();
-        reader = BufReader::new(f);
-    }
+fn solve(f: &mut dyn Read) {
+    let mut reader = BufReader::new(f);
     let mut line = String::new();
     reader.read_line(&mut line).unwrap();
     let t: u32 = line.trim().parse().expect("");
@@ -37,4 +29,12 @@ fn main() {
         }
         println!("{}", c);
     }
+}
+
+fn main() {
+    #[cfg(ONLINE_JUDGE)]
+    solve(&mut io::stdin());
+
+    #[cfg(not(ONLINE_JUDGE))]
+    solve(&mut File::open("1.in").unwrap());
 }
