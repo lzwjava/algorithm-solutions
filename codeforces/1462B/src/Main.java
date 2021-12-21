@@ -37,6 +37,9 @@ public class Main {
             }
             return result;
         }
+        if (p == a.length()) {
+            return match(s, a, s.length(), p, list, s.substring(i) + sb);
+        }
         char c = s.charAt(i);
         if (p < a.length() && c == a.charAt(p)) {
             if (sb.length() > 0) {
