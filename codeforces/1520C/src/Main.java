@@ -54,7 +54,7 @@ public class Main {
                 if (v != 0) {
                     out.append(' ');
                 }
-                out.append(String.format("%d", grid[u][v] + 1));
+                out.append(String.format("%2d", grid[u][v] + 1));
             }
             out.append('\n');
         }
@@ -73,32 +73,46 @@ public class Main {
                 continue;
             }
             int[][] grid = new int[n][n];
-            int p = 0;
-            for (int i = 0; i < n; i += 2) {
-                for (int j = 0; j < n; j++) {
-                    grid[i][j] = p;
-                    p += 2;
-                }
-            }
             if (n % 2 == 0) {
-                p = m - 1;
-            } else {
-                p = m - 2;
-            }
-            boolean left = true;
-            for (int i = 1; i < n; i += 2) {
-                if (left) {
-                    for (int j = 0; j < n; j++) {
-                        grid[i][j] = p;
-                        p -= 2;
+                int p = 0;
+                int q = 1;
+                boolean left = true;
+                for (int i = 0; i < n; i++) {
+                    if (left) {
+                        for (int j = 0; j < n; j++) {
+                            grid[i][j] = p;
+                            p += 2;
+                        }
+                    } else {
+                        int part = n / 2;
+                        for (int j = 0; j < n; j++) {
+                            int nj = (j + part) % n;
+                            grid[i][nj] = q;
+                            q += 2;
+                        }
                     }
-                } else {
-                    for (int j = n - 1; j >= 0; j--) {
-                        grid[i][j] = p;
-                        p -= 2;
-                    }
+                    left = !left;
                 }
-                left = !left;
+            } else {
+                int p = 0;
+                int q = 1;
+                boolean left = true;
+                for (int i = 0; i < n; i++) {
+                    if (left) {
+                        for (int j = 0; j < n; j++) {
+                            grid[i][j] = p;
+                            p += 2;
+                        }
+                    } else {
+                        int part = n / 2;
+                        for (int j = 0; j < n; j++) {
+                            int nj = (j + part) % n;
+                            grid[i][nj] = q;
+                            q += 2;
+                        }
+                    }
+                    left = !left;
+                }
             }
             print(grid);
             t--;
