@@ -17,7 +17,7 @@ fn main() -> std::io::Result<()> {
         let n: u32 = input.trim().parse().expect("");
         input = String::new();
         reader.read_line(&mut input)?;
-        let numbers: Vec<i32> = input
+        let rs: Vec<i32> = input
             .trim()
             .split(' ')
             .map(|s| s.parse().unwrap())
