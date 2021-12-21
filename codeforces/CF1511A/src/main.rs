@@ -17,12 +17,18 @@ fn main() -> std::io::Result<()> {
         let n: u32 = input.trim().parse().expect("");
         input = String::new();
         reader.read_line(&mut input)?;
-        let rs: Vec<i32> = input
+        let rs: Vec<u32> = input
             .trim()
             .split(' ')
             .map(|s| s.parse().unwrap())
             .collect();
-        println!("{}", n);
+        let mut c: u32 = 0;
+        for r in rs.iter() {
+            if (*r == 1 || *r == 3) {
+                c = c + 1;
+            }
+        }
+        println!("{}", c);
     }
     Ok(())
 }
