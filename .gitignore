@@ -12,3 +12,5 @@ out
 *.stderr
 *.stdout
 main
+target
+Cargo.lock
