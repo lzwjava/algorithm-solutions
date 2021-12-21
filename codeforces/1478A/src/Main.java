@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -29,6 +31,26 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            List<List<Integer>> groups = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                int gn = groups.size();
+                int j;
+                for (j = 0; j < gn; j++) {
+                    List<Integer> gj = groups.get(j);
+                    int last = gj.get(gj.size() - 1);
+                    if (last < a[i]) {
+                        break;
+                    }
+                }
+                if (j == gn) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(a[i]);
+                    groups.add(list);
+                } else {
+                    groups.get(j).add(a[i]);
+                }
+            }
+            out.append(String.format("%d\n", groups.size()));
             t--;
         }
     }
