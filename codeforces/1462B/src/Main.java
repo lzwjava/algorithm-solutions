@@ -27,7 +27,7 @@ public class Main {
                 list.add(sb);
             }
             boolean result;
-            if (p == s.length() && list.size() <= 1) {
+            if (p == a.length() && list.size() <= 1) {
                 result = true;
             } else {
                 result = false;
