@@ -21,8 +21,45 @@ public class Main {
         out.close();
     }
 
-    boolean match(String s, String a, int i, int p, List<String> list) {
-        
+    boolean match(String s, String a, int i, int p, List<String> list, String sb) {
+        if (i == s.length()) {
+            if (sb.length() > 0) {
+                list.add(sb);
+            }
+            boolean result;
+            if (p == s.length() && list.size() <= 1) {
+                result = true;
+            } else {
+                result = false;
+            }
+            if (sb.length() > 0) {
+                list.remove(list.size() - 1);
+            }
+            return result;
+        }
+        char c = s.charAt(i);
+        if (p < a.length() && c == a.charAt(p)) {
+            if (sb.length() > 0) {
+                list.add(sb);
+            }
+            boolean result = match(s, a, i + 1, p + 1, list, sb);
+            if (sb.length() > 0) {
+                list.remove(list.size() - 1);
+            }
+            if (result) {
+                return true;
+            }
+            result = match(s, a, i + 1, p, list, sb + c);
+            if (result) {
+                return true;
+            }
+        } else {
+            boolean result = match(s, a, i + 1, p, list, sb + c);
+            if (result) {
+                return true;
+            }
+        }
+        return false;
     }
 
     void solve() throws IOException {
@@ -31,38 +68,9 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
             String a = "2020";
-            int p = 0;
-            StringBuilder sb = new StringBuilder();
             List<String> list = new ArrayList<>();
-            boolean match = false;
-            for (int i = 0; i < s.length(); i++) {
-                char c = s.charAt(i);
-                if (p < a.length() && c == a.charAt(p)) {
-                    String ap = a.substring(p);
-                    String ss = s.substring(i + 1);
-                    if (ss.contains(ap) && !match) {
-                        sb.append(c);
-                        match = false;
-                    } else {
-                        p++;
-                        if (sb.length() > 0) {
-                            String s2 = sb.toString();
-                            list.add(s2);
-                            sb.setLength(0);
-                        }
-                        match = true;
-                    }
-                } else {
-                    match = false;
-                    sb.append(c);
-                }
-            }
-            if (sb.length() > 0) {
-                String s2 = sb.toString();
-                list.add(s2);
-                sb.setLength(0);
-            }
-            if (p == a.length() && list.size() <= 1) {
+            boolean ok = match(s, a, 0, 0, list, "");
+            if (ok) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
