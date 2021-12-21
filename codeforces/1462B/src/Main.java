@@ -30,13 +30,15 @@ public class Main {
             int p = 0;
             StringBuilder sb = new StringBuilder();
             List<String> list = new ArrayList<>();
+            boolean match = false;
             for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
                 if (p < a.length() && c == a.charAt(p)) {
                     String ap = a.substring(p);
                     String ss = s.substring(i + 1);
-                    if (ss.contains(ap)) {
+                    if (ss.contains(ap) && !match) {
                         sb.append(c);
+                        match = false;
                     } else {
                         p++;
                         if (sb.length() > 0) {
@@ -44,8 +46,10 @@ public class Main {
                             list.add(s2);
                             sb.setLength(0);
                         }
+                        match = true;
                     }
                 } else {
+                    match = false;
                     sb.append(c);
                 }
             }
