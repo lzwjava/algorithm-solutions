@@ -68,6 +68,19 @@ public class Main {
         return false;
     }
 
+    boolean check(String s, String a) {
+        int p = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == a.charAt(p)) {
+                p++;
+                if (p == a.length()) {
+                    break;
+                }
+            }
+        }
+        return p == a.length();
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -83,7 +96,7 @@ public class Main {
                 }
             }
             boolean ok;
-            if (c0 < 2 || c2 < 2) {
+            if (c0 < 2 || c2 < 2 || !check(s, a)) {
                 ok = false;
             } else {
                 List<String> list = new ArrayList<>();
