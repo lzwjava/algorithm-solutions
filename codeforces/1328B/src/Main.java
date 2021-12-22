@@ -20,18 +20,26 @@ public class Main {
         out.close();
     }
 
+    int cal(int p) {
+        if (p % 2 == 0) {
+            return p / 2 * (p - 1);
+        } else {
+            return (p - 1) / 2 * p;
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
-            int p = (int) Math.sqrt(2 * k);
-            while (k <= (p - 1) * p / 2) {
+            int p = (int) Math.sqrt((long) 2 * k) + 1;
+            while (k <= cal(p)) {
                 p--;
             }
             p++;
-            int s = (p - 1) * (p - 2) / 2;
+            int s = cal(p - 1);
             int a1 = n - p;
             int x = k - s;
             int a2 = p - 1 - x;
