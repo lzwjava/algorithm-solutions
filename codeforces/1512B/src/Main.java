@@ -24,7 +24,13 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
-            
+            char[][] grid = new char[n][n];
+            for (int i = 0; i < n; i++) {
+                String s = in.readLine();
+                for (int j = 0; j < n; j++) {
+                    grid[i][j] = s.charAt(j);
+                }
+            }
         }
     }
 
