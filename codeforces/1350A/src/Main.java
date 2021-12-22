@@ -20,6 +20,15 @@ public class Main {
         out.close();
     }
 
+    int f(int x) {
+        for (int y = 2; y <= x; y++) {
+            if (x % y == 0) {
+                return y;
+            }
+        }
+        return 0;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -27,6 +36,10 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
+            for (int i = 0; i < k; i++) {
+                n = f(n);
+            }
+            out.append(String.format("%d\n", n));
         }
     }
 
