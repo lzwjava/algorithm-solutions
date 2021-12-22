@@ -19,16 +19,32 @@ public class Main {
         out.close();
     }
 
+    class Point {
+        int i, j;
+
+        Point(int i, int j) {
+            this.i = i;
+            this.j = j;
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
             char[][] grid = new char[n][n];
+            Point[] ps = new Point[2];
+            int p = 0;
             for (int i = 0; i < n; i++) {
                 String s = in.readLine();
                 for (int j = 0; j < n; j++) {
-                    grid[i][j] = s.charAt(j);
+                    char c = s.charAt(j);
+                    grid[i][j] = c;
+                    if (c == '*') {
+                        ps[p] = new Point(i, j);
+                        p++;
+                    }
                 }
             }
         }
