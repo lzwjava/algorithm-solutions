@@ -20,7 +20,7 @@ public class Main {
         out.close();
     }
 
-    int maxn = 100000001;
+    int maxn = 1000001;
     boolean[] isPrime;
     List<Integer> list;
 
@@ -33,7 +33,7 @@ public class Main {
         for (int i = 4; i < maxn; i += 2) {
             isPrime[i] = false;
         }
-        int si = (int) Math.sqrt(maxn * 10);
+        int si = (int) Math.sqrt(1e9 + 1);
         for (int i = 3; i <= si; i += 2) {
             if (isPrime[i]) {
                 list.add(i);
@@ -54,7 +54,7 @@ public class Main {
     }
 
     int cal(int n, int k) {
-        if (k < 1000) {
+        if (k < 10000) {
             while (n % k != 0) {
                 k--;
             }
@@ -62,7 +62,6 @@ public class Main {
         }
         int on = n;
         List<Factor> fs = new ArrayList<>();
-        boolean found = false;
         for (int x : list) {
             if (x > (int) Math.sqrt(n)) {
                 break;
