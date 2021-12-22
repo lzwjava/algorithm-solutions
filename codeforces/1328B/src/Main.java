@@ -31,10 +31,9 @@ public class Main {
                 p--;
             }
             p++;
-            int q = p * (p - 1) / 2;
             int s = (p - 1) * (p - 2) / 2;
             int a1 = n - p;
-            int x = q - s;
+            int x = k - s;
             int a2 = p - 1 - x;
             int a3 = n - 2 - a1 - a2;
             StringBuilder sb = new StringBuilder();
