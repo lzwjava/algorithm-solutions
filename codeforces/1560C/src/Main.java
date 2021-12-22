@@ -24,6 +24,19 @@ public class Main {
         while (t > 0) {
             t--;
             int k = Integer.parseInt(in.readLine());
+            int sk = (int) Math.sqrt(k - 1);
+            sk++;
+            int p = (sk - 1);
+            int q = k - p * p;
+            int r, c;
+            if (q <= sk) {
+                r = q;
+                c = sk;
+            } else {
+                r = sk;
+                c = sk - (q - sk);
+            }
+            out.append(String.format("%d %d\n", r, c));
         }
     }
 
