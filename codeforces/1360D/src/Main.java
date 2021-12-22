@@ -23,7 +23,7 @@ public class Main {
         out.close();
     }
 
-    int maxn = 100000001;
+    int maxn = 200000001;
     boolean[] isPrime;
     List<Integer> list;
 
@@ -36,7 +36,7 @@ public class Main {
         for (int i = 4; i < maxn; i += 2) {
             isPrime[i] = false;
         }
-        int si = (int) Math.sqrt(maxn * 10);
+        int si = (int) Math.sqrt(maxn * 5);
         for (int i = 3; i <= si; i += 2) {
             if (isPrime[i]) {
                 list.add(i);
