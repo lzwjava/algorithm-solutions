@@ -8,19 +8,20 @@ typedef struct Result {
     long long p;
 } Result;
 
-const int maxn = 1000000000;
+#define MAXN 100000000
 
-Result map[maxn];
+Result map[MAXN];
+int n;
 
 long long key(int i, int j)
 {
-    return (long long)i * 100000 + j;
+    return (long long)i * n + j;
 }
 
 Result* get(int i, int j)
 {
     long long k = key(i, j);
-    if (k < maxn) {
+    if (k < MAXN) {
         return &map[k];
     } else {
         return NULL;
@@ -30,7 +31,7 @@ Result* get(int i, int j)
 void set(int i, int j, Result r)
 {
     long long k = key(i, j);
-    if (k < maxn) {
+    if (k < MAXN) {
         map[k] = r;
     }
 }
@@ -84,9 +85,12 @@ int main()
     int t;
     scanf("%d", &t);
     for (int i = 0; i < t; i++) {
-        memset(map, 0, sizeof(Result) * maxn);
-        int n;
         scanf("%d", &n);
+        long long size = (long long)n * n;
+        if (size > MAXN) {
+            size = MAXN;
+        }
+        memset(map, 0, sizeof(Result) * size);
         int a[n];
         for (int i = 0; i < n; i++) {
             scanf("%d", &a[i]);
