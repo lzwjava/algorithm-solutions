@@ -36,7 +36,7 @@ public class Main {
         for (int i = 4; i < maxn; i += 2) {
             isPrime[i] = false;
         }
-        int si = (int) Math.sqrt(maxn);
+        int si = (int) Math.sqrt(maxn * 10);
         for (int i = 3; i <= si; i += 2) {
             if (isPrime[i]) {
                 list.add(i);
