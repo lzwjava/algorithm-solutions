@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -29,6 +30,22 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            Arrays.sort(a);
+            int p = 1;
+            for (int i = 1; i < n; i++) {
+                if (a[i] == a[0]) {
+                    p++;
+                } else {
+                    break;
+                }
+            }
+            int ans;
+            if (p == n) {
+                ans = 0;
+            } else {
+                ans = n - p;
+            }
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
