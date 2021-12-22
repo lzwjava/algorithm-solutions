@@ -69,24 +69,15 @@ public class Main {
             }
             if (n % x == 0) {
                 int c = 0;
-                int p = 1;
                 while (n % x == 0) {
                     n /= x;
-                    p *= x;
                     c++;
                 }
                 fs.add(new Factor(x, c));
-
-                if (on / p <= k) {
-                    found = true;
-                    break;
-                }
             }
         }
-        if (!found) {
-            if (n != 1) {
-                fs.add(new Factor(n, 1));
-            }
+        if (n != 1) {
+            fs.add(new Factor(n, 1));
         }
         List<Integer> ps = new ArrayList<>();
         permutation(fs, ps, 0, fs.size(), 1);
