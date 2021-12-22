@@ -26,7 +26,30 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
-            
+            int p = (int) Math.sqrt(2 * k);
+            while (k <= (p - 1) * p / 2) {
+                p--;
+            }
+            p++;
+            int q = p * (p - 1) / 2;
+            int s = (p - 1) * (p - 2) / 2;
+            int a1 = n - p;
+            int x = q - s;
+            int a2 = p - 1 - x;
+            int a3 = n - 2 - a1 - a2;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < a1; i++) {
+                sb.append('a');
+            }
+            sb.append('b');
+            for (int i = 0; i < a2; i++) {
+                sb.append('a');
+            }
+            sb.append('b');
+            for (int i = 0; i < a3; i++) {
+                sb.append('a');
+            }
+            out.append(String.format("%s\n", sb));
             t--;
         }
     }
