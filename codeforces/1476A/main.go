@@ -6,7 +6,6 @@ import (
 )
 
 func solve() {
-
 	var t int
 	fmt.Scan(&t)
 	for t > 0 {
