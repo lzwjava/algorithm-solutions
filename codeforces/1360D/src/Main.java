@@ -20,7 +20,7 @@ public class Main {
         out.close();
     }
 
-    int maxn = 1000001;
+    int maxn = 100001;
     boolean[] isPrime;
     List<Integer> list;
 
@@ -54,7 +54,7 @@ public class Main {
     }
 
     int cal(int n, int k) {
-        if (k < 10000) {
+        if (k < 1000) {
             while (n % k != 0) {
                 k--;
             }
