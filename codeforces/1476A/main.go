@@ -34,9 +34,9 @@ func solve() {
 }
 
 func main() {
-	if _, ok := os.LookupEnv("ONLINE_JUDGE"); !ok {
-		os.Stdin, _ = os.OpenFile("1.in",
-			os.O_RDONLY, 0666)
+	_, err := os.Stat("1.in")
+	if !os.IsNotExist(err) {
+		os.Stdin, _ = os.OpenFile("1.in", os.O_RDONLY, 0666)
 	}
 	solve()
 }
