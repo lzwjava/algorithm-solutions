@@ -28,7 +28,19 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             n = Integer.parseInt(st.nextToken());
             m = Integer.parseInt(st.nextToken());
-            
+            boolean ans;
+            if (n == 1 || m == 1) {
+                ans = true;
+            } else if (n == 2 && m == 2) {
+                ans = true;
+            } else {
+                ans = false;
+            }
+            if (ans) {
+                out.append("YES\n");
+            } else {
+                out.append("NO\n");
+            }
         }
     }
 
