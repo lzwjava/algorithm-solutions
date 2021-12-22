@@ -37,7 +37,7 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
             for (int i = 0; i < k; i++) {
-                n = f(n);
+                n = f(n) + n;
             }
             out.append(String.format("%d\n", n));
         }
