@@ -1,4 +1,81 @@
+#include <assert.h>
 #include <stdio.h>
+#include <string.h>
+
+typedef struct Result {
+    int min;
+    int max;
+    long long p;
+} Result;
+
+const int maxn = 1000000000;
+
+Result map[maxn];
+
+long long key(int i, int j)
+{
+    return (long long)i * 100000 + j;
+}
+
+Result* get(int i, int j)
+{
+    long long k = key(i, j);
+    if (k < maxn) {
+        return &map[k];
+    } else {
+        return NULL;
+    }
+}
+
+void set(int i, int j, Result r)
+{
+    long long k = key(i, j);
+    if (k < maxn) {
+        map[k] = r;
+    }
+}
+
+Result dp(int a[], int i, int j)
+{
+    Result* cache = get(i, j);
+    if (cache != NULL && cache->p != 0) {
+        return *cache;
+    }
+    Result fr;
+    if (j - i == 1) {
+        Result r;
+        r.max = a[i] > a[j] ? a[i] : a[j];
+        r.min = a[i] < a[j] ? a[i] : a[j];
+        r.p = (long long)a[i] * a[j];
+        fr = r;
+    } else {
+        Result r1 = dp(a, i, j - 1);
+        Result r2 = dp(a, i + 1, j);
+        int max = r1.max > r2.max ? r1.max : r2.max;
+        int min = r1.min < r2.min ? r1.min : r2.min;
+        long long p = (long long)max * min;
+        Result r;
+        r.max = max;
+        r.min = min;
+        r.p = p;
+        if (r.p > r1.p) {
+            if (r.p > r2.p) {
+                fr = r;
+            } else {
+                fr = r2;
+            }
+        } else {
+            if (r1.p > r2.p) {
+                fr = r1;
+            } else {
+                fr = r2;
+            }
+        }
+    }
+    set(i, j, fr);
+    return fr;
+}
+
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -7,52 +84,15 @@ int main()
     int t;
     scanf("%d", &t);
     for (int i = 0; i < t; i++) {
+        memset(map, 0, sizeof(Result) * maxn);
         int n;
         scanf("%d", &n);
         int a[n];
         for (int i = 0; i < n; i++) {
             scanf("%d", &a[i]);
         }
-        long long mm = 0;
-        int mins[n][n];
-        for (int l = 1; l <= n; l++) {
-            for (int i = 0; i < n - l + 1; i++) {
-                int j = i + l - 1;
-                if (i == j) {
-                    mins[i][j] = a[i];
-                } else {
-                    if (mins[i][j - 1] < mins[j][j]) {
-                        mins[i][j] = mins[i][j - 1];
-                    } else {
-                        mins[i][j] = mins[j][j];
-                    }
-                }
-            }
-        }
-        int maxs[n][n];
-        for (int l = 1; l <= n; l++) {
-            for (int i = 0; i < n - l + 1; i++) {
-                int j = i + l - 1;
-                if (i == j) {
-                    maxs[i][j] = a[i];
-                } else {
-                    if (maxs[i][j - 1] > maxs[j][j]) {
-                        maxs[i][j] = maxs[i][j - 1];
-                    } else {
-                        maxs[i][j] = maxs[j][j];
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                long long p = (long long)mins[i][j] * maxs[i][j];
-                if (p > mm) {
-                    mm = p;
-                }
-            }
-        }
-        printf("%lld\n", mm);
+        Result r = dp(a, 0, n - 1);
+        printf("%lld\n", r.p);
     }
     return 0;
 }
