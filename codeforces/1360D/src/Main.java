@@ -48,16 +48,31 @@ public class Main {
     }
 
     int cal(int n, int k) {
+        int sn = (int) Math.sqrt(n);
         for (int x : list) {
+            if (x > sn) {
+                break;
+            }
             if (n % x == 0) {
-                if (x <= k) {
+                if (n / x <= k) {
                     return x;
                 } else {
-                    return n;
+                    int tn = n;
+                    int c = 0;
+                    while (tn % x == 0) {
+                        tn /= x;
+                        c++;
+                    }
+                    for (int i = 0; i < c; i++) {
+                        int tx = (int) Math.pow(x, i + 1);
+                        if (n / tx <= k) {
+                            return tx;
+                        }
+                    }
                 }
             }
         }
-        return -1;
+        return n;
     }
 
     boolean isPrime(int x) {
