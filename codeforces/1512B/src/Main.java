@@ -22,6 +22,9 @@ public class Main {
     class Point {
         int i, j;
 
+        Point() {
+        }
+
         Point(int i, int j) {
             this.i = i;
             this.j = j;
@@ -34,7 +37,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             char[][] grid = new char[n][n];
-            Point[] ps = new Point[2];
+            Point[] ps = new Point[4];
             int p = 0;
             for (int i = 0; i < n; i++) {
                 String s = in.readLine();
@@ -46,6 +49,41 @@ public class Main {
                         p++;
                     }
                 }
+            }
+            ps[2] = new Point();
+            ps[3] = new Point();
+            if (ps[0].i == ps[1].i) {
+                int ni = (ps[0].i + 1) % n;
+                ps[2].i = ps[3].i = ni;
+                ps[2].j = ps[0].j;
+                ps[3].j = ps[1].j;
+            } else if (ps[0].j == ps[1].j) {
+                int nj = (ps[0].j + 1) % n;
+                ps[2].j = ps[3].j = nj;
+                ps[2].i = ps[0].i;
+                ps[3].i = ps[1].i;
+            } else {
+                ps[2].i = ps[0].i;
+                ps[2].j = ps[1].j;
+                ps[3].i = ps[1].i;
+                ps[3].j = ps[0].j;
+            }
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    boolean mark = false;
+                    for (int k = 0; k < 4; k++) {
+                        if (ps[k].i == i && ps[k].j == j) {
+                            mark = true;
+                            break;
+                        }
+                    }
+                    if (mark) {
+                        out.append('*');
+                    } else {
+                        out.append('.');
+                    }
+                }
+                out.append('\n');
             }
         }
     }
