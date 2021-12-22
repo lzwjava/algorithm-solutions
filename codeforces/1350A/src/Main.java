@@ -36,10 +36,15 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
-            for (int i = 0; i < k; i++) {
+            int i;
+            for (i = 0; i < k; i++) {
                 n = f(n) + n;
+                if (n % 2 == 0) {
+                    break;
+                }
             }
-            out.append(String.format("%d\n", n));
+            int ans = n + (k - i - 1) * 2;
+            out.append(String.format("%d\n", ans));
         }
     }
 
