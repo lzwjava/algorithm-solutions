@@ -23,6 +23,11 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             int n = Integer.parseInt(in.readLine());
+            int ans = n / 10;
+            if (n % 10 == 9) {
+                ans++;
+            }
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
