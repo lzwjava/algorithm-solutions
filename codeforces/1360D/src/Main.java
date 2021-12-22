@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -47,32 +44,71 @@ public class Main {
         }
     }
 
+    class Factor {
+        int p, c;
+
+        Factor(int p, int c) {
+            this.p = p;
+            this.c = c;
+        }
+    }
+
     int cal(int n, int k) {
-        int sn = (int) Math.sqrt(n);
+        if (k < 1000) {
+            while (n % k != 0) {
+                k--;
+            }
+            return n / k;
+        }
+        int on = n;
+        List<Factor> fs = new ArrayList<>();
+        boolean found = false;
         for (int x : list) {
-            if (x > sn) {
+            if (x > (int) Math.sqrt(n)) {
                 break;
             }
             if (n % x == 0) {
-                if (n / x <= k) {
-                    return x;
-                } else {
-                    int tn = n;
-                    int c = 0;
-                    while (tn % x == 0) {
-                        tn /= x;
-                        c++;
-                    }
-                    for (int i = 0; i < c; i++) {
-                        int tx = (int) Math.pow(x, i + 1);
-                        if (n / tx <= k) {
-                            return tx;
-                        }
-                    }
+                int c = 0;
+                int p = 1;
+                while (n % x == 0) {
+                    n /= x;
+                    p *= x;
+                    c++;
+                }
+                fs.add(new Factor(x, c));
+
+                if (on / p <= k) {
+                    found = true;
+                    break;
                 }
             }
         }
-        return n;
+        if (!found) {
+            if (n != 1) {
+                fs.add(new Factor(n, 1));
+            }
+        }
+        List<Integer> ps = new ArrayList<>();
+        permutation(fs, ps, 0, fs.size(), 1);
+        Collections.sort(ps);
+        for (int i = 0; i < ps.size(); i++) {
+            int p = ps.get(i);
+            if (on / p <= k) {
+                return p;
+            }
+        }
+        return on;
+    }
+
+    void permutation(List<Factor> fs, List<Integer> ps, int cur, int n, int product) {
+        if (cur == n) {
+            ps.add(product);
+            return;
+        }
+        Factor f = fs.get(cur);
+        for (int i = 0; i <= f.c; i++) {
+            permutation(fs, ps, cur + 1, n, product * (int) Math.pow(f.p, i));
+        }
     }
 
     boolean isPrime(int x) {
