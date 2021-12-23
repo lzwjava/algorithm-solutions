@@ -49,39 +49,44 @@ public class Main {
 
     int maxc;
     int cnt;
+    int[] maxnums;
+    int even;
 
     void permutation(int[] nums, boolean[] vis, int cur, int pair) {
         cnt++;
-        if (cnt > 100000) {
+        if (cnt > 1000) {
             return;
         }
         if (cur == n) {
             if (pair > maxc) {
                 maxc = pair;
                 cnt = 0;
+                maxnums = nums.clone();
             }
             return;
         }
         for (int i = 0; i < n; i++) {
-            if (!vis[i]) {
-                vis[i] = true;
-                nums[cur] = a[i];
-                int c = 0;
-                for (int k = 0; k < cur; k++) {
-                    if (gcd(nums[k], 2 * nums[cur]) > 1) {
-                        c++;
+            if ((cur < even && a[i] % 2 == 0) || (cur >= even && a[i] % 2 == 1)) {
+                if (!vis[i]) {
+                    vis[i] = true;
+                    nums[cur] = a[i];
+                    int c = 0;
+                    for (int k = 0; k < cur; k++) {
+                        if (gcd(nums[k], 2 * nums[cur]) > 1) {
+                            c++;
+                        }
                     }
+                    int d = n - cur - 1;
+                    // n-1, n-d;
+                    int s = 0;
+                    for (int k = 0; k < d; k++) {
+                        s += (n - 1 - k);
+                    }
+                    if (pair + c + s > maxc) {
+                        permutation(nums, vis, cur + 1, pair + c);
+                    }
+                    vis[i] = false;
                 }
-                int d = n - cur - 1;
-                // n-1, n-d;
-                int s = 0;
-                for (int k = 0; k < d; k++) {
-                    s += (n - 1 - k);
-                }
-                if (pair + c + s > maxc) {
-                    permutation(nums, vis, cur + 1, pair + c);
-                }
-                vis[i] = false;
             }
         }
     }
@@ -94,6 +99,12 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
+            }
+            even = 0;
+            for (int i = 0; i < n; i++) {
+                if (a[i] % 2 == 0) {
+                    even++;
+                }
             }
             maxc = 0;
             int[] nums = new int[n];
