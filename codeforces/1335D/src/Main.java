@@ -32,6 +32,18 @@ public class Main {
                     grid[i][j] = v;
                 }
             }
+            int[] cols = new int[]{0, 3, 6, 1, 4, 7, 2, 5, 8};
+
+            for (int i = 0; i < cols.length; i++) {
+                int v = grid[i][cols[i]];
+                grid[i][cols[i]] = v % n + 1;
+            }
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    out.append(String.format("%d", grid[i][j]));
+                }
+                out.append('\n');
+            }
         }
     }
 
