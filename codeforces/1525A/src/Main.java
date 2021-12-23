@@ -33,9 +33,7 @@ public class Main {
             t--;
             int k = Integer.parseInt(in.readLine());
             int ans;
-            if (k == 1) {
-                ans = 1;
-            } else if (100 % k == 0) {
+            if (100 % k == 0) {
                 ans = 100 / k;
             } else {
                 int gcd = gcd(100, k);
