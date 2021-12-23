@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -29,6 +29,32 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
+            }
+            Map<Integer, List<Integer>> map = new HashMap<>();
+            for (int i = 0; i < n; i++) {
+                List<Integer> list = map.get(a[i]);
+                if (list == null) {
+                    list = new ArrayList<>();
+                }
+                list.add(i);
+                map.put(a[i], list);
+            }
+            boolean ok = false;
+            for (int v : map.keySet()) {
+                List<Integer> list = map.get(v);
+                int ls = list.size();
+                if (ls >= 2) {
+                    int d = list.get(ls - 1) - list.get(0);
+                    if (d > 1) {
+                        ok = true;
+                        break;
+                    }
+                }
+            }
+            if (ok) {
+                out.append("YES\n");
+            } else {
+                out.append("NO\n");
             }
         }
     }
