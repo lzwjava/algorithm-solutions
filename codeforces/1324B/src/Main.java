@@ -31,6 +31,7 @@ public class Main {
                 a[i] = Integer.parseInt(st.nextToken());
             }
             Map<Integer, List<Integer>> map = new HashMap<>();
+            boolean ok = false;
             for (int i = 0; i < n; i++) {
                 List<Integer> list = map.get(a[i]);
                 if (list == null) {
@@ -38,12 +39,8 @@ public class Main {
                 }
                 list.add(i);
                 map.put(a[i], list);
-            }
-            boolean ok = false;
-            for (int v : map.keySet()) {
-                List<Integer> list = map.get(v);
-                int ls = list.size();
-                if (ls >= 2) {
+                if (list.size() >= 2) {
+                    int ls = list.size();
                     int d = list.get(ls - 1) - list.get(0);
                     if (d > 1) {
                         ok = true;
