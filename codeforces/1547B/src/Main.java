@@ -20,7 +20,38 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            String s = in.readLine();
+            int n = s.length();
+            char c1 = s.charAt(0);
+            char c2 = s.charAt(n - 1);
+            char c = (char) Integer.max(c1, c2);
+            int p = 0;
+            int q = n - 1;
+            boolean ok = true;
+            int i = 0;
+            while (i < n) {
+                if (s.charAt(p) == c) {
+                    p++;
+                    c--;
+                    i++;
+                } else if (s.charAt(q) == c) {
+                    q--;
+                    c--;
+                    i++;
+                } else {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok && i == n && c == 'a' - 1) {
+                out.append("YES\n");
+            } else {
+                out.append("NO\n");
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
