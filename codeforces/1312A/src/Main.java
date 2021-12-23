@@ -27,6 +27,11 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
+            if (n % m == 0) {
+                out.append("YES\n");
+            } else {
+                out.append("NO\n");
+            }
         }
     }
 
