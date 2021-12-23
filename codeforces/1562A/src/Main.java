@@ -28,11 +28,11 @@ public class Main {
             int l = Integer.parseInt(st.nextToken());
             int r = Integer.parseInt(st.nextToken());
             int max = 0;
-            for (int b = l; b <= r; b++) {
-                for (int a = b; a <= r; a++) {
-                    max = Integer.max(max, a % b);
-                }
-            }
+
+            // r%b = m, m<b, b+m=r
+            int b = r / 2 + 1;
+            int m = r - b;
+            max = m;
             out.append(String.format("%d\n", max));
         }
     }
