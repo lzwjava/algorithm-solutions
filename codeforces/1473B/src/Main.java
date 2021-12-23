@@ -20,7 +20,11 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        int q = Integer.parseInt(in.readLine());
+        while (q > 0) {
+            q--;
+            
+        }
     }
 
     public static void main(String[] args) throws IOException {
