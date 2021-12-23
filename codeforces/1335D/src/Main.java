@@ -20,6 +20,19 @@ public class Main {
     }
 
     void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            int n = 9;
+            int[][] grid = new int[n][n];
+            for (int i = 0; i < n; i++) {
+                String s = in.readLine();
+                for (int j = 0; j < n; j++) {
+                    int v = s.charAt(j) - '0';
+                    grid[i][j] = v;
+                }
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
