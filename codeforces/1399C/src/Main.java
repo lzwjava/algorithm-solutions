@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -22,6 +20,28 @@ public class Main {
         out.close();
     }
 
+    int cal(int[] w, int n, int maxs) {
+        boolean[] vis = new boolean[n];
+        int fc = 0;
+        for (int i = 0; i < n; i++) {
+            if (vis[i]) {
+                continue;
+            }
+            for (int j = i + 1; j < n; j++) {
+                if (vis[j]) {
+                    continue;
+                }
+                int s = w[i] + w[j];
+                if (s == maxs) {
+                    fc++;
+                    vis[i] = vis[j] = true;
+                    break;
+                }
+            }
+        }
+        return fc;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -32,43 +52,21 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 w[i] = Integer.parseInt(st.nextToken());
             }
+            Set<Integer> set = new HashSet<>();
             Map<Integer, Integer> map = new HashMap<>();
-            int maxc = 0;
-            int maxs = 0;
             for (int i = 0; i < n; i++) {
                 for (int j = i + 1; j < n; j++) {
                     int s = w[i] + w[j];
-                    Integer c = map.get(s);
-                    if (c == null) {
-                        c = 0;
-                    }
-                    c++;
-                    map.put(s, c);
-                    if (c > maxc) {
-                        maxc = c;
-                        maxs = s;
-                    }
+                    set.add(s);
                 }
             }
-            boolean[] vis = new boolean[n];
-            int fc = 0;
-            for (int i = 0; i < n; i++) {
-                if (vis[i]) {
-                    continue;
-                }
-                for (int j = i + 1; j < n; j++) {
-                    if (vis[j]) {
-                        continue;
-                    }
-                    int s = w[i] + w[j];
-                    if (s == maxs) {
-                        fc++;
-                        vis[i] = vis[j] = true;
-                        break;
-                    }
-                }
+
+            int maxfc = 0;
+            for (int s : set) {
+                int fc = cal(w, n, s);
+                maxfc = Integer.max(maxfc, fc);
             }
-            out.append(String.format("%d\n", fc));
+            out.append(String.format("%d\n", maxfc));
         }
     }
 
