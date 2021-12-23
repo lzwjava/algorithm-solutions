@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -102,6 +103,7 @@ public class Main {
             List<Factor> fs = calFactors(n);
             List<Integer> ps = new ArrayList<>();
             permutation(fs, ps, 0, fs.size(), 1);
+            Collections.sort(ps);
             if (ps.size() >= 3) {
                 int a = ps.get(0);
                 int b = ps.get(1);
