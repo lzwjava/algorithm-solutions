@@ -20,6 +20,7 @@ public class Main {
     }
 
     void solve() throws IOException {
+        int n = Integer.parseInt(in.readLine());
     }
 
     public static void main(String[] args) throws IOException {
