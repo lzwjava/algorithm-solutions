@@ -54,6 +54,18 @@ public class Main {
         return new Factor(s, 1);
     }
 
+    int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        } else {
+            return gcd(b, a % b);
+        }
+    }
+
+    int lcm(int a, int b) {
+        return a / gcd(a, b) * b;
+    }
+
     void solve() throws IOException {
         int q = Integer.parseInt(in.readLine());
         while (q > 0) {
@@ -63,9 +75,10 @@ public class Main {
             Factor fs = calFactor(s);
             Factor ft = calFactor(t);
             if (fs.s.equals(ft.s)) {
-                
+                int lcm = lcm(fs.c, ft.c);
+            } else {
+                out.append("-1\n");
             }
-            out.append('\n');
         }
     }
 
