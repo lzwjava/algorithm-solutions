@@ -29,12 +29,43 @@ public class Main {
         }
     }
 
+    Factor calFactor(String s) {
+        int n = s.length();
+        int m = n / 2;
+        for (int l = 1; l <= m; l++) {
+            if (n % l == 0) {
+                int part = n / l;
+                boolean ok = true;
+                for (int i = 0; i < l; i++) {
+                    for (int j = 1; j < part; j++) {
+                        int ni = j * l + i;
+                        if (s.charAt(ni) != s.charAt(i)) {
+                            ok = false;
+                            break;
+                        }
+                    }
+                }
+                if (ok) {
+                    String sub = s.substring(0, l);
+                    return new Factor(sub, part);
+                }
+            }
+        }
+        return new Factor(s, 1);
+    }
+
     void solve() throws IOException {
         int q = Integer.parseInt(in.readLine());
         while (q > 0) {
             q--;
             String s = in.readLine();
             String t = in.readLine();
+            Factor fs = calFactor(s);
+            Factor ft = calFactor(t);
+            if (fs.s.equals(ft.s)) {
+                
+            }
+            out.append('\n');
         }
     }
 
