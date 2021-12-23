@@ -20,7 +20,38 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int n = Integer.parseInt(in.readLine());
+        String s = in.readLine();
+        int p = 0;
+        int n = s.length();
+        while (p < n) {
+            if (p + 3 <= n) {
+                String s3 = s.substring(p, p + 3);
+                if (s3.equals("144")) {
+                    p += 3;
+                    continue;
+                }
+            }
+            if (p + 2 <= n) {
+                String s2 = s.substring(p, p + 2);
+                if (s2.equals("14")) {
+                    p += 2;
+                    continue;
+                }
+            }
+            if (p + 1 <= n) {
+                String s1 = s.substring(p, p + 1);
+                if (s1.equals("1")) {
+                    p += 1;
+                    continue;
+                }
+            }
+            break;
+        }
+        if (p == s.length()) {
+            out.append("YES\n");
+        } else {
+            out.append("NO\n");
+        }
     }
 
     public static void main(String[] args) throws IOException {
