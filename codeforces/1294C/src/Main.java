@@ -106,7 +106,7 @@ public class Main {
                 int a = ps.get(0);
                 int b = ps.get(1);
                 int c = n / a / b;
-                if (c != a && c != b) {
+                if (c != a && c != b && c >= 2) {
                     out.append("YES\n");
                     out.append(String.format("%d %d %d\n", a, b, c));
                 } else {
