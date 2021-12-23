@@ -76,6 +76,11 @@ public class Main {
             Factor ft = calFactor(t);
             if (fs.s.equals(ft.s)) {
                 int lcm = lcm(fs.c, ft.c);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < lcm; i++) {
+                    sb.append(fs.s);
+                }
+                out.append(String.format("%s\n", sb));
             } else {
                 out.append("-1\n");
             }
