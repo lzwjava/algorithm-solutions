@@ -105,10 +105,16 @@ public class Main {
             permutation(fs, ps, 0, fs.size(), 1);
             Collections.sort(ps);
             if (ps.size() >= 3) {
-                int a = ps.get(0);
-                int b = ps.get(1);
+                int a, b;
+                if (fs.size() >= 2) {
+                    a = fs.get(0).p;
+                    b = fs.get(1).p;
+                } else {
+                    a = ps.get(0);
+                    b = ps.get(1);
+                }
                 int c = n / a / b;
-                if (c != a && c != b && c >= 2) {
+                if (c != a && c != b && c >= 2 && a * b * c == n) {
                     out.append("YES\n");
                     out.append(String.format("%d %d %d\n", a, b, c));
                 } else {
