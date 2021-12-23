@@ -19,6 +19,14 @@ public class Main {
         out.close();
     }
 
+    int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        } else {
+            return gcd(b, a % b);
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -30,7 +38,8 @@ public class Main {
             } else if (100 % k == 0) {
                 ans = 100 / k;
             } else {
-                ans = 100;
+                int gcd = gcd(100, k);
+                ans = 100 / gcd;
             }
             out.append(String.format("%d\n", ans));
         }
