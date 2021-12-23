@@ -24,7 +24,22 @@ public class Main {
         while (t > 0) {
             t--;
             String s = in.readLine();
-            
+            int zero = 0;
+            for (char c : s.toCharArray()) {
+                if (c == '0') {
+                    zero++;
+                }
+            }
+            int n = s.length();
+            int ans;
+            if (zero == n) {
+                ans = 0;
+            } else {
+                int i1 = s.indexOf('1');
+                int i2 = s.lastIndexOf('1');
+                ans = zero - i1 - (n - 1 - i2);
+            }
+            out.append(String.format("%d\n", ans));
         }
     }
 
