@@ -24,6 +24,15 @@ public class Main {
         while (t > 0) {
             t--;
             int k = Integer.parseInt(in.readLine());
+            int ans;
+            if (k == 1) {
+                ans = 1;
+            } else if (100 % k == 0) {
+                ans = 100 / k;
+            } else {
+                ans = 100;
+            }
+            out.append(String.format("%d\n", ans));
         }
     }
 
