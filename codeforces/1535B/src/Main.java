@@ -48,11 +48,17 @@ public class Main {
     }
 
     int maxc;
+    int cnt;
 
     void permutation(int[] nums, boolean[] vis, int cur, int pair) {
+        cnt++;
+        if (cnt > 100000) {
+            return;
+        }
         if (cur == n) {
             if (pair > maxc) {
                 maxc = pair;
+                cnt = 0;
             }
             return;
         }
@@ -66,7 +72,15 @@ public class Main {
                         c++;
                     }
                 }
-                permutation(nums, vis, cur + 1, pair + c);
+                int d = n - cur - 1;
+                // n-1, n-d;
+                int s = 0;
+                for (int k = 0; k < d; k++) {
+                    s += (n - 1 - k);
+                }
+                if (pair + c + s > maxc) {
+                    permutation(nums, vis, cur + 1, pair + c);
+                }
                 vis[i] = false;
             }
         }
@@ -84,6 +98,7 @@ public class Main {
             maxc = 0;
             int[] nums = new int[n];
             boolean[] vis = new boolean[n];
+            cnt = 0;
             permutation(nums, vis, 0, 0);
             out.append(String.format("%d\n", maxc));
             t--;
