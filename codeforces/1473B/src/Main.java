@@ -23,7 +23,8 @@ public class Main {
         int q = Integer.parseInt(in.readLine());
         while (q > 0) {
             q--;
-            
+            String s = in.readLine();
+            String t = in.readLine();
         }
     }
 
