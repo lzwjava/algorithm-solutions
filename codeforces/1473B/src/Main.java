@@ -19,6 +19,16 @@ public class Main {
         out.close();
     }
 
+    class Factor {
+        String s;
+        int c;
+
+        Factor(String s, int c) {
+            this.s = s;
+            this.c = c;
+        }
+    }
+
     void solve() throws IOException {
         int q = Integer.parseInt(in.readLine());
         while (q > 0) {
