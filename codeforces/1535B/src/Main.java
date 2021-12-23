@@ -49,36 +49,24 @@ public class Main {
 
     int maxc;
 
-    void permutation(int[] nums, boolean[] vis, int cur) {
+    void permutation(int[] nums, boolean[] vis, int cur, int pair) {
         if (cur == n) {
-            int[] ca = a.clone();
-            int[] nc = nums.clone();
-            for (int i = 0; i < n; i++) {
-                for (int j = i + 1; j < n; j++) {
-                    if (nc[i] > nc[j]) {
-                        swap(nc, i, j);
-                        swap(ca, i, j);
-                    }
-                }
-            }
-            int c = 0;
-            for (int i = 0; i < n - 1; i++) {
-                for (int j = i + 1; j < n; j++) {
-                    if (gcd(ca[i], 2 * ca[j]) > 1) {
-                        c++;
-                    }
-                }
-            }
-            if (c > maxc) {
-                maxc = c;
+            if (pair > maxc) {
+                maxc = pair;
             }
             return;
         }
         for (int i = 0; i < n; i++) {
             if (!vis[i]) {
                 vis[i] = true;
-                nums[cur] = i;
-                permutation(nums, vis, cur + 1);
+                nums[cur] = a[i];
+                int c = 0;
+                for (int k = 0; k < cur; k++) {
+                    if (gcd(nums[k], 2 * nums[cur]) > 1) {
+                        c++;
+                    }
+                }
+                permutation(nums, vis, cur + 1, pair + c);
                 vis[i] = false;
             }
         }
@@ -96,7 +84,7 @@ public class Main {
             maxc = 0;
             int[] nums = new int[n];
             boolean[] vis = new boolean[n];
-            permutation(nums, vis, 0);
+            permutation(nums, vis, 0, 0);
             out.append(String.format("%d\n", maxc));
             t--;
         }
