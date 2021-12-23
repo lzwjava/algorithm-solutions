@@ -54,13 +54,12 @@ public class Main {
 
     void permutation(int[] nums, boolean[] vis, int cur, int pair) {
         cnt++;
-        if (cnt > 1000) {
+        if (cnt > 10000) {
             return;
         }
         if (cur == n) {
             if (pair > maxc) {
                 maxc = pair;
-                cnt = 0;
                 maxnums = nums.clone();
             }
             return;
