@@ -30,14 +30,14 @@ public class Main {
             b = Integer.parseInt(st.nextToken());
             n = Integer.parseInt(st.nextToken());
             S = Integer.parseInt(st.nextToken());
-            int min = Integer.min(a, S / n);
-            boolean ok = false;
-            for (int x = 0; x <= min; x++) {
-                int y = S - a * n;
-                if (y >= 0 && y <= b) {
-                    ok = true;
-                    break;
-                }
+            int d = S / n;
+            int min = Integer.min(a, d);
+            int rest = S - min * n;
+            boolean ok;
+            if (rest <= b) {
+                ok = true;
+            } else {
+                ok = false;
             }
             if (ok) {
                 out.append("YES\n");
