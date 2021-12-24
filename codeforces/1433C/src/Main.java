@@ -53,7 +53,7 @@ public class Main {
                         break;
                     }
                 }
-                out.append(String.format("%d\n", i));
+                out.append(String.format("%d\n", i + 1));
             }
         }
     }
