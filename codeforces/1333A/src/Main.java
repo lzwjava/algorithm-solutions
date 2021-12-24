@@ -27,7 +27,7 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
-//            char[][] g = new char[n][m];
+            char[][] g = new char[n][m];
             int s = 0;
             boolean even = n * m % 2 == 0;
             boolean black = true;
@@ -39,15 +39,24 @@ public class Main {
                     } else {
                         c = 'W';
                     }
-                    out.append(c);
+                    g[i][j] = c;
                     s++;
                     if (!even || s != n * m - 1) {
                         black = !black;
                     }
                 }
+            }
+            if (n % 2 == 0 && m % 2 == 0) {
+                char c = g[n - 2][m - 1];
+                g[n - 2][m - 1] = g[n - 2][m - 2];
+                g[n - 2][m - 2] = c;
+            }
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    out.append(g[i][j]);
+                }
                 out.append('\n');
             }
-
         }
     }
 
