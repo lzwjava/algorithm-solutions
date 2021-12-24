@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -85,11 +86,31 @@ public class Main {
         return fs;
     }
 
+    int dp(int n) {
+        if (n == 1) {
+            return 0;
+        }
+        if (n == 2) {
+            return 1;
+        }
+        List<Factor> fs = calFactors(n);
+        int fn = fs.size();
+        if (fn == 1 && fs.get(0).p == n) {
+            return dp(n - 1) + 1;
+        } else {
+            Factor last = fs.get(fn - 1);
+            return dp(n / last.p) + 1;
+        }
+    }
+
     void solve() throws IOException {
+        calPrimes();
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
+            int ans = dp(n);
+            out.append(String.format("%d\n", ans));
         }
     }
 
