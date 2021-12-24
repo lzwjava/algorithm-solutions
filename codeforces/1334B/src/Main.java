@@ -27,7 +27,11 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int x = Integer.parseInt(st.nextToken());
-            
+            int[] a = new int[n];
+            st = new StringTokenizer(in.readLine());
+            for (int i = 0; i < n; i++) {
+                a[i] = Integer.parseInt(st.nextToken());
+            }
         }
     }
 
