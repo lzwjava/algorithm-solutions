@@ -28,44 +28,53 @@ public class Main {
         m.close();
     }
 
+    Random random = new Random();
+
+    int cal1(int n, String a, String b) {
+        int cnt = 0;
+        while (!a.equals(b) && cnt < 1000) {
+            cnt++;
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                if (a.charAt(i) == '1') {
+                    list.add(i);
+                }
+            }
+            int j = random.nextInt(list.size());
+            int pj = list.get(j);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+                char c = a.charAt(i);
+                if (i == pj) {
+                    sb.append(c);
+                } else {
+                    if (c == '1') {
+                        sb.append('0');
+                    } else {
+                        sb.append('1');
+                    }
+                }
+            }
+            a = sb.toString();
+        }
+        return cnt;
+    }
+
     void solve1() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        Random random = new Random();
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
             String a = in.readLine();
             String b = in.readLine();
-            int cnt = 0;
-            while (!a.equals(b) && cnt < 1000) {
-                cnt++;
-                List<Integer> list = new ArrayList<>();
-                for (int i = 0; i < n; i++) {
-                    if (a.charAt(i) == '1') {
-                        list.add(i);
-                    }
-                }
-                int j = random.nextInt(list.size());
-                int pj = list.get(j);
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < n; i++) {
-                    char c = a.charAt(i);
-                    if (i == pj) {
-                        sb.append(c);
-                    } else {
-                        if (c == '1') {
-                            sb.append('0');
-                        } else {
-                            sb.append('1');
-                        }
-                    }
-                }
-                a = sb.toString();
+            int c = Integer.MAX_VALUE;
+            for (int i = 0; i < 100; i++) {
+                c = Math.min(c, cal1(n, a, b));
             }
-            if (cnt == 1000) {
+            if (c == 1000) {
                 out.append("-1\n");
             } else {
-                out.append(String.format("%d\n", cnt));
+                out.append(String.format("%d\n", c));
             }
         }
     }
