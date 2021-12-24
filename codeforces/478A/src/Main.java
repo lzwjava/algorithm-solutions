@@ -29,7 +29,7 @@ public class Main {
             s += v;
         }
         int ans;
-        if (s % n == 0) {
+        if (s % n == 0 && s / n != 0) {
             ans = s / n;
         } else {
             ans = -1;
