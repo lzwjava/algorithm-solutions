@@ -27,6 +27,27 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
+//            char[][] g = new char[n][m];
+            int s = 0;
+            boolean even = n * m % 2 == 0;
+            boolean black = true;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    char c;
+                    if (black) {
+                        c = 'B';
+                    } else {
+                        c = 'W';
+                    }
+                    out.append(c);
+                    s++;
+                    if (!even || s != n * m - 1) {
+                        black = !black;
+                    }
+                }
+                out.append('\n');
+            }
+
         }
     }
 
