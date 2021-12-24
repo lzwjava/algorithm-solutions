@@ -73,6 +73,37 @@ public class Main {
             String s = in.readLine();
             int n = s.length();
             int r = s.indexOf('R');
+            int last = -1;
+            int max = 0;
+            for (int i = 0; i < n; i++) {
+                if (s.charAt(i) == 'R') {
+                    int d = i - last;
+                    if (d > max) {
+                        max = d;
+                    }
+                    last = i;
+                }
+            }
+            int d = n - last;
+            if (d > max) {
+                max = d;
+            }
+            out.append(String.format("%d\n", max));
+        }
+    }
+
+    void solve1() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            String s = in.readLine();
+            int n = s.length();
+            int r = s.indexOf('R');
+            for (int i = 0; i < n; i++) {
+                if (s.charAt(i) == 'R') {
+                    out.append(String.format("%d\n", i));
+                }
+            }
             int ans = 0;
             if (r == -1) {
                 ans = n + 1;
