@@ -27,6 +27,14 @@ public class Main {
         for (int i = 0; i < n; i++) {
             v[i] = Integer.parseInt(st.nextToken());
         }
+        int m = Integer.parseInt(in.readLine());
+        while (m > 0) {
+            m--;
+            st = new StringTokenizer(in.readLine());
+            int l = Integer.parseInt(st.nextToken());
+            int r = Integer.parseInt(st.nextToken());
+            int t = Integer.parseInt(st.nextToken());
+        }
     }
 
     public static void main(String[] args) throws IOException {
