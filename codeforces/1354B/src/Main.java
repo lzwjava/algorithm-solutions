@@ -84,11 +84,17 @@ public class Main {
                 break;
             }
         }
+        if (r > j) {
+            r = -1;
+        }
         int l = -1;
         for (l = mid - 1; l >= i; l--) {
             if (s.charAt(l) == c) {
                 break;
             }
+        }
+        if (l < i) {
+            l = -1;
         }
         return new Pos(l, r);
     }
@@ -108,6 +114,9 @@ public class Main {
             t--;
             String s = in.readLine();
             int ans = cal(s, 0, s.length() - 1);
+            if (ans == Integer.MAX_VALUE) {
+                ans = 0;
+            }
             out.append(String.format("%d\n", ans));
         }
     }
