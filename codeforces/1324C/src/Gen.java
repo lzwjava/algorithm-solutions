@@ -7,9 +7,8 @@ public class Gen {
         int t = 1;
         out.append(String.format("%d\n", t));
         int n = 200000;
-//        out.append(String.format("%d\n", n));
         for (int i = 0; i < n; i++) {
-            out.append('L');
+            out.append(Math.random() < 0.99999 ? 'L' : 'R');
         }
         out.append('\n');
         out.flush();
