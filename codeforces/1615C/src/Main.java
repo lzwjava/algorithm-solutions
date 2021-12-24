@@ -24,7 +24,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
+        m.solve1();
         m.close();
     }
 
@@ -36,7 +36,9 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             String a = in.readLine();
             String b = in.readLine();
-            while (!a.equals(b)) {
+            int cnt = 0;
+            while (!a.equals(b) && cnt < 1000) {
+                cnt++;
                 List<Integer> list = new ArrayList<>();
                 for (int i = 0; i < n; i++) {
                     if (a.charAt(i) == '1') {
@@ -51,9 +53,19 @@ public class Main {
                     if (i == pj) {
                         sb.append(c);
                     } else {
-
+                        if (c == '1') {
+                            sb.append('0');
+                        } else {
+                            sb.append('1');
+                        }
                     }
                 }
+                a = sb.toString();
+            }
+            if (cnt == 1000) {
+                out.append("-1\n");
+            } else {
+                out.append(String.format("%d\n", cnt));
             }
         }
     }
@@ -120,7 +132,7 @@ public class Main {
                             }
                         }
                         if (Math.abs(s0 - s1) <= 1) {
-                            if (s1 == 0 && s0 == 1) {
+                            if (sameZero) {
                                 ans = same + 1;
                             } else {
                                 ans = same;
