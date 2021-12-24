@@ -22,11 +22,21 @@ public class Main {
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        StringTokenizer st = new StringTokenizer(in.readLine());
-        int x = Integer.parseInt(st.nextToken());
-        int y = Integer.parseInt(st.nextToken());
-        int a = Integer.parseInt(st.nextToken());
-        int b = Integer.parseInt(st.nextToken());
+        while (t > 0) {
+            t--;
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            int ans;
+            if ((y - x) % (a + b) == 0) {
+                ans = (y - x) / (a + b);
+            } else {
+                ans = -1;
+            }
+            out.append(String.format("%d\n", ans));
+        }
     }
 
     public static void main(String[] args) throws IOException {
