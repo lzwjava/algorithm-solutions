@@ -20,6 +20,25 @@ public class Main {
     }
 
     void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            String s = in.readLine();
+            long n = Long.parseLong(s);
+            int num = 2500;
+            int k = (int) Math.log10(n / num);
+            int c = 0;
+            while (n != 0) {
+                if (n < num) {
+                    break;
+                }
+            }
+            if (n != 0) {
+                out.append("-1\n");
+            } else {
+                out.append(String.format("%d\n", c));
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
