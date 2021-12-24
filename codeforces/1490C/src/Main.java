@@ -28,7 +28,7 @@ public class Main {
         while (t > 0) {
             t--;
             long x = Long.parseLong(in.readLine());
-            long cx = cube(x);
+            long cx = cube(x / 2);
             boolean ok = false;
             for (long a = 1; a <= cx; a++) {
                 long b3 = x - a * a * a;
