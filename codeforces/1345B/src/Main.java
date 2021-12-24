@@ -26,7 +26,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             //2,5,8,11
-            int m = 25819;
+            int m = 25820;
             int[] a = new int[m];
             a[0] = 2;
             for (int i = 1; i < m; i++) {
