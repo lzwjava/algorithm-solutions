@@ -42,6 +42,10 @@ public class Main {
                     s += a[p - 1];
                     p--;
                     c++;
+                    if (s >= (long) x * n) {
+                        c = n;
+                        break;
+                    }
                 } else {
                     break;
                 }
