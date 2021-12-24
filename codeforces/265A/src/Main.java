@@ -20,6 +20,15 @@ public class Main {
     }
 
     void solve() throws IOException {
+        String s = in.readLine();
+        String t = in.readLine();
+        int p = 0;
+        for (char c : t.toCharArray()) {
+            if (c == s.charAt(p)) {
+                p++;
+            }
+        }
+        out.append(String.format("%d\n", p + 1));
     }
 
     public static void main(String[] args) throws IOException {
