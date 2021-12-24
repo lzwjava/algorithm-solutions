@@ -39,20 +39,22 @@ public class Main {
     }
 
     void test() {
-        int n = 4;
         while (true) {
+            int n = random.nextInt(7) + 1;
             String a = randBinary(n);
             String b = randBinary(n);
 //            a = "01";
 //            b = "10";
-            a = "1101";
-            b = "1001";
+//            a = "0000111";
+//            b = "0011001";
+            n = a.length();
             int a1 = solveInside(n, a, b);
             int a2 = solve1Inside(n, a, b, true);
-//            assert (a1 == a2);
-            if (a1 != a2) {
-                break;
-            }
+//            out.flush();
+            assert (a1 == a2);
+//            if (a1 != a2) {
+//                break;
+//            }
         }
     }
 
@@ -183,40 +185,31 @@ public class Main {
                 if (same == 0 && diff > 0) {
                     ans = diff;
                 } else {
-                    if (same <= diff) {
-                        int s0 = 0;
+                    if (same == 1 && sameList.get(0) == '1') {
+                        ans = 1;
+                    } else {
                         int s1 = 0;
                         for (char c : sameList) {
                             if (c == '1') {
                                 s1++;
-                            } else {
-                                s0++;
                             }
                         }
-                        if (Math.abs(s0 - s1) <= 1) {
-                            if (sameZero) {
-                                ans = same + 1;
-                            } else {
-                                ans = same;
-                            }
-                        } else {
-                            ans = -1;
-                        }
-                    } else {
-                        int s0 = 0;
-                        int s1 = 0;
+                        int s0 = sameList.size() - s1;
+                        int d1 = 0;
                         for (char c : diffList) {
                             if (c == '1') {
-                                s1++;
-                            } else {
-                                s0++;
+                                d1++;
                             }
                         }
-                        if (Math.abs(s0 - s1) <= 1) {
-                            ans = diff;
-                        } else {
-                            ans = -1;
+                        int d0 = diffList.size() - d1;
+                        int v = Integer.MAX_VALUE;
+                        if (same % 2 == 1 && s1 >= 1 && s1 == s0 + 1) {
+                            v = Math.min(v, same);
                         }
+                        if (diff % 2 == 0 && d1 >= 1 && d1 == d0) {
+                            v = Math.min(v, diff);
+                        }
+                        ans = v;
                     }
                 }
             } else {
