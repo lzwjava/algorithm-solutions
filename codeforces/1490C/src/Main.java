@@ -39,6 +39,7 @@ public class Main {
                         break;
                     }
                 }
+
             }
             if (ok) {
                 out.append("YES\n");
