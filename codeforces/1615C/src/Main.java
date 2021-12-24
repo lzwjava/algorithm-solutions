@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve1();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -40,7 +40,7 @@ public class Main {
 
     void test() {
         while (true) {
-            int n = random.nextInt(7) + 1;
+            int n = random.nextInt(8) + 1;
             String a = randBinary(n);
             String b = randBinary(n);
 //            a = "01";
