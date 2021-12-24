@@ -52,8 +52,15 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            int start = 0;
+            for (int i = n - 2; i >= 1; i--) {
+                if (a[i] < a[i + 1] && a[i] < a[i - 1]) {
+                    start = i;
+                    break;
+                }
+            }
             int i;
-            for (i = 0; i < n; i++) {
+            for (i = start; i < n; i++) {
                 if (good(a, i, n - 1)) {
                     break;
                 }
