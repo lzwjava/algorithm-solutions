@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -32,6 +33,20 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            Arrays.sort(a);
+            int p = n;
+            long s = 0;
+            int c = 0;
+            while (true) {
+                if (p - 1 >= 0 && s + a[p - 1] >= (long) x * (c + 1)) {
+                    s += a[p - 1];
+                    p--;
+                    c++;
+                } else {
+                    break;
+                }
+            }
+            out.append(String.format("%d\n", c));
         }
     }
 
