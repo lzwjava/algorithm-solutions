@@ -112,7 +112,7 @@ public class Main {
             return Integer.min(v1, v2);
         }
     }
-
+    
     void permutation(List<Factor> fs, List<Integer> ps, int cur, int n, int product) {
         if (cur == n) {
             if (product != 1) {
