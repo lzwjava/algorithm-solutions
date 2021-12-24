@@ -44,11 +44,11 @@ public class Main {
         List<Integer> sorted = new ArrayList<>(v);
         Collections.sort(sorted);
         s = 0;
+        sortedSums = new long[n];
         for (int i = 0; i < n; i++) {
             s += sorted.get(i);
             sortedSums[i] = s;
         }
-        sortedSums = new long[n];
         while (m > 0) {
             m--;
             st = new StringTokenizer(in.readLine());
