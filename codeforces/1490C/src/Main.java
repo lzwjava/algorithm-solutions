@@ -30,10 +30,10 @@ public class Main {
             long x = Long.parseLong(in.readLine());
             long cx = cube(x);
             boolean ok = false;
-            for (long a = 1; a < cx; a++) {
+            for (long a = 1; a <= cx; a++) {
                 long b3 = x - a * a * a;
                 long b = cube(b3);
-                if (b * b * b == b3) {
+                if (b >= 1 && b * b * b == b3) {
                     ok = true;
                     break;
                 }
