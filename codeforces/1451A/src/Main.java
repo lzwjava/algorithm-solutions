@@ -105,6 +105,9 @@ public class Main {
 
             int maxp = ps.get(ps.size() - 2);
             int v1 = dp(n / maxp) + 1;
+            if (n / maxp % 2 == 0) {
+                return v1;
+            }
             int v2 = dp(n - 1) + 1;
             return Integer.min(v1, v2);
         }
