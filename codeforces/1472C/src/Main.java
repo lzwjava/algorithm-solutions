@@ -20,6 +20,22 @@ public class Main {
         out.close();
     }
 
+    long[] map;
+
+    long dp(int[] a, int i) {
+        int n = a.length;
+        if (i >= n) {
+            return 0;
+        }
+        long cache = map[i];
+        if (cache != 0) {
+            return cache;
+        }
+        long ans = a[i] + dp(a, i + a[i]);
+        map[i] = ans;
+        return ans;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -27,37 +43,18 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] a = new int[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
-            long sum = 0;
-            long[] sums = new long[n];
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
-                sum += a[i];
-                sums[i] = sum;
             }
-            int ms = 0;
+            map = new long[n];
+            long ms = 0;
             for (int i = 0; i < n; i++) {
-                int j = i;
-                int s = 0;
-                while (j < n) {
-                    if (s + sum(sums, j, n - 1) < ms) {
-                        break;
-                    }
-                    s += a[j];
-                    j += a[j];
-                }
+                long s = dp(a, i);
                 if (s > ms) {
                     ms = s;
                 }
             }
             out.append(String.format("%d\n", ms));
-        }
-    }
-
-    long sum(long[] sums, int i, int j) {
-        if (i == 0) {
-            return sums[j];
-        } else {
-            return sums[j] - sums[i - 1];
         }
     }
 
