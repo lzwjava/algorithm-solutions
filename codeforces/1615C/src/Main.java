@@ -162,26 +162,20 @@ public class Main {
                 }
             }
             if (bc1 == minc || bc1 == maxc) {
-                int diff = 0;
-                int same = 0;
                 StringBuilder sb = new StringBuilder();
-                boolean sameZero = true;
                 List<Character> diffList = new ArrayList<>();
                 List<Character> sameList = new ArrayList<>();
                 for (int i = 0; i < n; i++) {
                     if (a.charAt(i) == b.charAt(i)) {
                         sb.append('-');
-                        same++;
-                        if (a.charAt(i) != '0') {
-                            sameZero = false;
-                        }
                         sameList.add(a.charAt(i));
                     } else {
                         sb.append('x');
                         diffList.add(a.charAt(i));
-                        diff++;
                     }
                 }
+                int same = sameList.size();
+                int diff = diffList.size();
                 if (same == 0 && diff > 0) {
                     ans = diff;
                 } else {
