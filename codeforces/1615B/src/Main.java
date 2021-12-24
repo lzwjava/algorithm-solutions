@@ -38,7 +38,8 @@ public class Main {
             for (int i = l; i <= r; i++) {
                 String s = Integer.toBinaryString(i);
                 int len = s.length();
-                for (int j = 0; j < len; j++) {
+                int min = Math.max(0, len - 5);
+                for (int j = min; j < len; j++) {
                     char c = s.charAt(len - 1 - j);
                     if (c == '1') {
                         cnts[j]++;
