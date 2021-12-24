@@ -25,12 +25,23 @@ public class Main {
             t--;
             String s = in.readLine();
             long n = Long.parseLong(s);
-            int num = 2500;
+            int num = 2050;
+            if (n < num) {
+                out.append("-1\n");
+                continue;
+            }
             int k = (int) Math.log10(n / num);
             int c = 0;
-            while (n != 0) {
+            while (n != 0 && k >= 0) {
                 if (n < num) {
                     break;
+                }
+                long d = (long) (num * Math.pow(10, k));
+                if (n >= d) {
+                    n -= d;
+                    c++;
+                } else {
+                    k--;
                 }
             }
             if (n != 0) {
