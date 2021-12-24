@@ -20,6 +20,28 @@ public class Main {
         out.close();
     }
 
+    boolean good(int[] a, int i, int j) {
+        int last = 0;
+        while (i != j) {
+            if (a[i] <= a[j]) {
+                if (last <= a[i]) {
+                    last = a[i];
+                    i++;
+                } else {
+                    break;
+                }
+            } else {
+                if (last <= a[j]) {
+                    last = a[j];
+                    j--;
+                } else {
+                    break;
+                }
+            }
+        }
+        return i == j;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -30,6 +52,13 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            int i;
+            for (i = 0; i < n; i++) {
+                if (good(a, i, n - 1)) {
+                    break;
+                }
+            }
+            out.append(String.format("%d\n", i));
         }
     }
 
