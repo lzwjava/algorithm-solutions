@@ -72,7 +72,6 @@ public class Main {
             t--;
             String s = in.readLine();
             int n = s.length();
-            int r = s.indexOf('R');
             int last = -1;
             int max = 0;
             for (int i = 0; i < n; i++) {
