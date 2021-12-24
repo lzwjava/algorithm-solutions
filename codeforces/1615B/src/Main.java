@@ -36,11 +36,8 @@ public class Main {
             if (l > r) {
                 continue;
             }
-//            l = 15505;
-//            r = 148149;
             int a1 = cal1(l, r);
             int a2 = cal2(l, r);
-
             assert (a1 == a2);
         }
     }
