@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -98,10 +99,30 @@ public class Main {
         if (fn == 1 && fs.get(0).p == n) {
             return dp(n - 1) + 1;
         } else {
-            Factor last = fs.get(fn - 1);
-            return dp(n / last.p) + 1;
+            List<Integer> ps = new ArrayList<>();
+            permutation(fs, ps, 0, fs.size(), 1);
+            Collections.sort(ps);
+
+            int maxp = ps.get(ps.size() - 2);
+            int v1 = dp(n / maxp) + 1;
+            int v2 = dp(n - 1) + 1;
+            return Integer.min(v1, v2);
         }
     }
+
+    void permutation(List<Factor> fs, List<Integer> ps, int cur, int n, int product) {
+        if (cur == n) {
+            if (product != 1) {
+                ps.add(product);
+            }
+            return;
+        }
+        Factor f = fs.get(cur);
+        for (int i = 0; i <= f.c; i++) {
+            permutation(fs, ps, cur + 1, n, product * (int) Math.pow(f.p, i));
+        }
+    }
+
 
     void solve() throws IOException {
         calPrimes();
