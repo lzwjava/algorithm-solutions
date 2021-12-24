@@ -46,11 +46,9 @@ public class Main {
                     }
                 }
             }
-            if (n % 2 == 0 && m % 2 == 0) {
-                char c = g[n - 2][m - 1];
-                g[n - 2][m - 1] = g[n - 2][m - 2];
-                g[n - 2][m - 2] = c;
-            }
+            char c = g[n - 2][m - 1];
+            g[n - 2][m - 1] = g[n - 2][m - 2];
+            g[n - 2][m - 2] = c;
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
                     out.append(g[i][j]);
