@@ -20,7 +20,7 @@ public class Main {
     }
 
     long cube(long x) {
-        return (long) Math.pow(x, 1.0 / 3);
+        return Math.round(Math.pow(x, 1.0 / 3));
     }
 
     void solve() throws IOException {
@@ -32,10 +32,12 @@ public class Main {
             boolean ok = false;
             for (long a = 1; a <= cx; a++) {
                 long b3 = x - a * a * a;
-                long b = cube(b3);
-                if (b >= 1 && b * b * b == b3) {
-                    ok = true;
-                    break;
+                if (b3 >= 1) {
+                    double pow = Math.pow(b3, 1.0 / 3);
+                    if (Math.abs(pow - Math.round(pow)) < 1e-10) {
+                        ok = true;
+                        break;
+                    }
                 }
             }
             if (ok) {
