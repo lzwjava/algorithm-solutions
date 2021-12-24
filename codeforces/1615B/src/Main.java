@@ -29,6 +29,7 @@ public class Main {
     }
 
     void test() {
+        setup();
         while (true) {
             int l = (int) (Math.random() * 200000 + 1);
             int r = (int) (Math.random() * 200000 + 1);
@@ -44,37 +45,35 @@ public class Main {
         }
     }
 
+    int maxn = 200001;
+
+    int[][] cnts = new int[maxn][20];
+
     int cal1(int l, int r) {
-        int[] cnts = new int[20];
-        int rl = Integer.toBinaryString(l).length();
-        int rm = Integer.toBinaryString(r).length();
-        int left;
-        int right;
-        if (r / l < 10) {
-            left = rm - 5;
-            right = rm;
-        } else {
-            int mid = (rl + rm) / 2;
-            left = mid - 6;
-            right = mid;
+        int[] cnt = new int[20];
+        for (int i = 0; i < 20; i++) {
+            cnt[i] = cnts[r][i] - cnts[l - 1][i];
         }
-        for (int i = l; i <= r; i++) {
-            String s = Integer.toBinaryString(i);
-            int len = s.length();
-            int li = Math.max(0, left);
-            int ri = Math.min(len, right);
-            for (int j = li; j < ri; j++) {
-                char c = s.charAt(len - 1 - j);
-                if (c == '1') {
-                    cnts[j]++;
-                }
-            }
-        }
-        Arrays.sort(cnts);
-        int last = cnts[cnts.length - 1];
+        Arrays.sort(cnt);
+        int last = cnt[cnt.length - 1];
         int n = r - l + 1;
         int ans = n - last;
         return ans;
+    }
+
+    void setup() {
+        int[] cnt = new int[20];
+        for (int i = 1; i < maxn; i++) {
+            String s = Integer.toBinaryString(i);
+            int len = s.length();
+            for (int j = 0; j < len; j++) {
+                char c = s.charAt(len - 1 - j);
+                if (c == '1') {
+                    cnt[j]++;
+                }
+            }
+            cnts[i] = cnt.clone();
+        }
     }
 
     int cal2(int l, int r) {
@@ -97,6 +96,7 @@ public class Main {
     }
 
     void solve() throws IOException {
+        setup();
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
