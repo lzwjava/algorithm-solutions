@@ -72,12 +72,19 @@ public class Main {
             t--;
             String s = in.readLine();
             int n = s.length();
-            for (int d = 1; d <= n + 1; d++) {
-                if (possible(s, d)) {
-                    out.append(String.format("%d\n", d));
-                    break;
+            int r = s.indexOf('R');
+            int ans = 0;
+            if (r == -1) {
+                ans = n + 1;
+            } else {
+                for (int d = r + 1; d <= n + 1; d++) {
+                    if (possible(s, d)) {
+                        ans = d;
+                        break;
+                    }
                 }
             }
+            out.append(String.format("%d\n", ans));
         }
     }
 
