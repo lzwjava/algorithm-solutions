@@ -22,11 +22,19 @@ public class Main {
 
     void solve() throws IOException {
         int n = 5;
-        int[] c = new int[n];
         StringTokenizer st = new StringTokenizer(in.readLine());
+        int s = 0;
         for (int i = 0; i < n; i++) {
-            c[i] = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            s += v;
         }
+        int ans;
+        if (s % n == 0) {
+            ans = s / n;
+        } else {
+            ans = -1;
+        }
+        out.append(String.format("%d\n", ans));
     }
 
     public static void main(String[] args) throws IOException {
