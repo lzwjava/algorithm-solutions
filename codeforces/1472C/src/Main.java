@@ -30,6 +30,19 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            int ms = 0;
+            for (int i = 0; i < n; i++) {
+                int j = i;
+                int s = 0;
+                while (j < n) {
+                    s += a[j];
+                    j += a[j];
+                }
+                if (s > ms) {
+                    ms = s;
+                }
+            }
+            out.append(String.format("%d\n", ms));
         }
     }
 
