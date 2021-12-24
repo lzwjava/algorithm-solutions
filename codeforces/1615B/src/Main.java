@@ -24,7 +24,76 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
+    }
+
+    void test() {
+        while (true) {
+            int l = (int) (Math.random() * 200000 + 1);
+            int r = (int) (Math.random() * 200000 + 1);
+            if (l > r) {
+                continue;
+            }
+//            l = 15505;
+//            r = 148149;
+            int a1 = cal1(l, r);
+            int a2 = cal2(l, r);
+
+            assert (a1 == a2);
+        }
+    }
+
+    int cal1(int l, int r) {
+        int[] cnts = new int[20];
+        int rl = Integer.toBinaryString(l).length();
+        int rm = Integer.toBinaryString(r).length();
+        int left;
+        int right;
+        if (r / l < 10) {
+            left = rm - 5;
+            right = rm;
+        } else {
+            int mid = (rl + rm) / 2;
+            left = mid - 6;
+            right = mid;
+        }
+        for (int i = l; i <= r; i++) {
+            String s = Integer.toBinaryString(i);
+            int len = s.length();
+            int li = Math.max(0, left);
+            int ri = Math.min(len, right);
+            for (int j = li; j < ri; j++) {
+                char c = s.charAt(len - 1 - j);
+                if (c == '1') {
+                    cnts[j]++;
+                }
+            }
+        }
+        Arrays.sort(cnts);
+        int last = cnts[cnts.length - 1];
+        int n = r - l + 1;
+        int ans = n - last;
+        return ans;
+    }
+
+    int cal2(int l, int r) {
+        int[] cnts = new int[20];
+        for (int i = l; i <= r; i++) {
+            String s = Integer.toBinaryString(i);
+            int len = s.length();
+            for (int j = len - 1; j >= 0; j--) {
+                char c = s.charAt(len - 1 - j);
+                if (c == '1') {
+                    cnts[j]++;
+                }
+            }
+        }
+        Arrays.sort(cnts);
+        int last = cnts[cnts.length - 1];
+        int n = r - l + 1;
+        int ans = n - last;
+        return ans;
     }
 
     void solve() throws IOException {
@@ -34,22 +103,8 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int l = Integer.parseInt(st.nextToken());
             int r = Integer.parseInt(st.nextToken());
-            int[] cnts = new int[20];
-            for (int i = l; i <= r; i++) {
-                String s = Integer.toBinaryString(i);
-                int len = s.length();
-                int min = Math.max(0, len - 5);
-                for (int j = min; j < len; j++) {
-                    char c = s.charAt(len - 1 - j);
-                    if (c == '1') {
-                        cnts[j]++;
-                    }
-                }
-            }
-            Arrays.sort(cnts);
-            int last = cnts[cnts.length - 1];
-            int n = r - l + 1;
-            out.append(String.format("%d\n", n - last));
+            int ans = cal1(l, r);
+            out.append(String.format("%d\n", ans));
         }
     }
 
