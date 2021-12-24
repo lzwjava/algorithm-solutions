@@ -37,24 +37,46 @@ public class Main {
                 ans = 0;
             } else if (a.indexOf('1') == -1 && b.indexOf('1') != -1) {
                 ans = -1;
+            } else if (a.indexOf('1') != 1 && b.indexOf('1') == -1) {
+                ans = -1;
             } else {
-                int diff = 0;
-                int same = 0;
-                StringBuilder sb = new StringBuilder();
+                int ac1 = 0;
                 for (int i = 0; i < n; i++) {
-                    if (a.charAt(i) == b.charAt(i)) {
-                        sb.append('-');
-                        same++;
-                    } else {
-                        sb.append('x');
-                        diff++;
+                    if (a.charAt(i) == '1') {
+                        ac1++;
                     }
                 }
-                int min = Math.min(same, diff);
-//                out.append(String.format("%s\n", a));
-//                out.append(String.format("%s\n", b));
-//                out.append(sb.toString());
-                ans = min;
+                int ac0 = n - ac1;
+                int minc = Integer.min(ac0, ac1 - 1) + 1;
+                int maxc = Integer.max(ac0, ac1 - 1) + 1;
+                int bc1 = 0;
+                for (int i = 0; i < n; i++) {
+                    if (b.charAt(i) == '1') {
+                        bc1++;
+                    }
+                }
+                if (bc1 >= minc && bc1 <= maxc) {
+                    int diff = 0;
+                    int same = 0;
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < n; i++) {
+                        if (a.charAt(i) == b.charAt(i)) {
+                            sb.append('-');
+                            same++;
+                        } else {
+                            sb.append('x');
+                            diff++;
+                        }
+                    }
+                    int min = Math.min(same, diff);
+//                    out.append(String.format("%s\n", a));
+//                    out.append(String.format("%s\n", b));
+//                    out.append(sb.toString());
+//                    out.append('\n');
+                    ans = min;
+                } else {
+                    ans = -1;
+                }
             }
             out.append(String.format("%d\n", ans));
         }
