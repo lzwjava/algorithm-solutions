@@ -22,16 +22,48 @@ public class Main {
     boolean possible(String s, int d) {
         int n = s.length();
         int p = -1;
+        boolean[] vis = new boolean[n];
         while (p < n) {
             if (p == -1 || s.charAt(p) == 'R') {
                 if (p + d >= n) {
                     return true;
                 }
-                
+                int i;
+                for (i = d; i >= 1; i--) {
+                    if (s.charAt(p + i) == 'R') {
+                        break;
+                    }
+                }
+                if (i == 0) {
+                    i = 1;
+                }
+                if (vis[p + i]) {
+                    return false;
+                }
+                p += i;
+                vis[p] = true;
             } else {
-
+                int i;
+                for (i = 1; i <= d; i++) {
+                    if (p - i >= 0 && s.charAt(p - i) == 'R') {
+                        break;
+                    }
+                }
+                int np;
+                if (i == d + 1) {
+                    int ni = Integer.max(0, p - d);
+                    np = ni;
+                } else {
+                    np = p - i;
+                }
+                if (vis[np]) {
+                    return false;
+                }
+                vis[np] = true;
+                p = np;
             }
         }
+        return false;
     }
 
     void solve() throws IOException {
@@ -42,6 +74,7 @@ public class Main {
             for (int d = 1; ; d++) {
                 if (possible(s, d)) {
                     out.append(String.format("%d\n", d));
+                    break;
                 }
             }
         }
