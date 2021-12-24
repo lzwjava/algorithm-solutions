@@ -37,8 +37,10 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] a = new int[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
+            int max = 0;
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
+                max = Integer.max(max, a[i]);
             }
             boolean eq = allEqual(a);
             if (eq) {
@@ -46,10 +48,10 @@ public class Main {
             } else {
                 int i;
                 for (i = 0; i < n; i++) {
-                    if (i - 1 >= 0 && a[i - 1] < a[i]) {
+                    if (i - 1 >= 0 && a[i - 1] < a[i] && a[i] == max) {
                         break;
                     }
-                    if (i + 1 < n && a[i + 1] < a[i]) {
+                    if (i + 1 < n && a[i + 1] < a[i] && a[i] == max) {
                         break;
                     }
                 }
