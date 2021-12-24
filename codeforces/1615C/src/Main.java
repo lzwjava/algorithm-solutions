@@ -24,23 +24,57 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve1();
+//        m.solve1();
+        m.test();
         m.close();
+    }
+
+    String randBinary(int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            char c = (char) (random.nextInt(2) + '0');
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    void test() {
+        int n = 4;
+        while (true) {
+            String a = randBinary(n);
+            String b = randBinary(n);
+//            a = "01";
+//            b = "10";
+            a = "1101";
+            b = "1001";
+            int a1 = solveInside(n, a, b);
+            int a2 = solve1Inside(n, a, b, true);
+//            assert (a1 == a2);
+            if (a1 != a2) {
+                break;
+            }
+        }
     }
 
     Random random = new Random();
 
-    int cal1(int n, String a, String b) {
-        int cnt = 0;
-        while (!a.equals(b) && cnt < 1000) {
-            cnt++;
+    List<String> cal1(int n, String a, String b) {
+        if (a.equals(b)) {
+            return new ArrayList<>();
+        }
+        List<String> changed = new ArrayList<>();
+        while (!a.equals(b) && changed.size() < 1000) {
             List<Integer> list = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 if (a.charAt(i) == '1') {
                     list.add(i);
                 }
             }
-            int j = random.nextInt(list.size());
+            int ln = list.size();
+            if (ln == 0) {
+                return null;
+            }
+            int j = random.nextInt(ln);
             int pj = list.get(j);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < n; i++) {
@@ -56,8 +90,37 @@ public class Main {
                 }
             }
             a = sb.toString();
+            changed.add(a);
         }
-        return cnt;
+        return changed;
+    }
+
+    int solve1Inside(int n, String a, String b, boolean print) {
+        int c = Integer.MAX_VALUE;
+        List<String> minChanged = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            List<String> changed = cal1(n, a, b);
+            int cs;
+            if (changed == null) {
+                cs = 1000;
+            } else {
+                cs = changed.size();
+            }
+            if (cs < c) {
+                c = cs;
+                minChanged = changed;
+            }
+        }
+        if (c == 1000) {
+            return -1;
+        } else {
+            if (print) {
+                for (String s : minChanged) {
+                    out.append(String.format("%s\n", s));
+                }
+            }
+            return c;
+        }
     }
 
     void solve1() throws IOException {
@@ -67,69 +130,59 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             String a = in.readLine();
             String b = in.readLine();
-            int c = Integer.MAX_VALUE;
-            for (int i = 0; i < 100; i++) {
-                c = Math.min(c, cal1(n, a, b));
-            }
-            if (c == 1000) {
-                out.append("-1\n");
-            } else {
-                out.append(String.format("%d\n", c));
-            }
+            int ans = solve1Inside(n, a, b, false);
+            out.append(String.format("%d\n", ans));
         }
     }
 
-    void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
-            t--;
-            int n = Integer.parseInt(in.readLine());
-            String a = in.readLine();
-            String b = in.readLine();
-            int ans;
-            if (a.equals(b)) {
-                ans = 0;
-            } else if (a.indexOf('1') == -1 && b.indexOf('1') != -1) {
-                ans = -1;
-            } else if (a.indexOf('1') != 1 && b.indexOf('1') == -1) {
-                ans = -1;
-            } else {
-                int ac1 = 0;
-                for (int i = 0; i < n; i++) {
-                    if (a.charAt(i) == '1') {
-                        ac1++;
-                    }
+    int solveInside(int n, String a, String b) {
+        int ans;
+        if (a.equals(b)) {
+            ans = 0;
+        } else if (a.indexOf('1') == -1 && b.indexOf('1') != -1) {
+            ans = -1;
+        } else if (a.indexOf('1') != 1 && b.indexOf('1') == -1) {
+            ans = -1;
+        } else {
+            int ac1 = 0;
+            for (int i = 0; i < n; i++) {
+                if (a.charAt(i) == '1') {
+                    ac1++;
                 }
-                int ac0 = n - ac1;
-                int minc = Integer.min(ac0, ac1 - 1) + 1;
-                int maxc = Integer.max(ac0, ac1 - 1) + 1;
-                int bc1 = 0;
-                for (int i = 0; i < n; i++) {
-                    if (b.charAt(i) == '1') {
-                        bc1++;
-                    }
+            }
+            int ac0 = n - ac1;
+            int minc = Integer.min(ac0, ac1 - 1) + 1;
+            int maxc = Integer.max(ac0, ac1 - 1) + 1;
+            int bc1 = 0;
+            for (int i = 0; i < n; i++) {
+                if (b.charAt(i) == '1') {
+                    bc1++;
                 }
-                if (bc1 >= minc && bc1 <= maxc) {
-                    int diff = 0;
-                    int same = 0;
-                    StringBuilder sb = new StringBuilder();
-                    boolean sameZero = true;
-                    List<Character> diffList = new ArrayList<>();
-                    List<Character> sameList = new ArrayList<>();
-                    for (int i = 0; i < n; i++) {
-                        if (a.charAt(i) == b.charAt(i)) {
-                            sb.append('-');
-                            same++;
-                            if (a.charAt(i) != '0') {
-                                sameZero = false;
-                            }
-                            sameList.add(a.charAt(i));
-                        } else {
-                            sb.append('x');
-                            diffList.add(a.charAt(i));
-                            diff++;
+            }
+            if (bc1 == minc || bc1 == maxc) {
+                int diff = 0;
+                int same = 0;
+                StringBuilder sb = new StringBuilder();
+                boolean sameZero = true;
+                List<Character> diffList = new ArrayList<>();
+                List<Character> sameList = new ArrayList<>();
+                for (int i = 0; i < n; i++) {
+                    if (a.charAt(i) == b.charAt(i)) {
+                        sb.append('-');
+                        same++;
+                        if (a.charAt(i) != '0') {
+                            sameZero = false;
                         }
+                        sameList.add(a.charAt(i));
+                    } else {
+                        sb.append('x');
+                        diffList.add(a.charAt(i));
+                        diff++;
                     }
+                }
+                if (same == 0 && diff > 0) {
+                    ans = diff;
+                } else {
                     if (same <= diff) {
                         int s0 = 0;
                         int s1 = 0;
@@ -165,20 +218,22 @@ public class Main {
                             ans = -1;
                         }
                     }
-//                    int min = Math.min(same, diff);
-//                    if (min == same && sameZero) {
-//                        ans = min + 1;
-//                    } else {
-//                        ans = min;
-//                    }
-//                    out.append(String.format("%s\n", a));
-//                    out.append(String.format("%s\n", b));
-//                    out.append(sb.toString());
-//                    out.append('\n');
-                } else {
-                    ans = -1;
                 }
+            } else {
+                ans = -1;
             }
+        }
+        return ans;
+    }
+
+    void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            int n = Integer.parseInt(in.readLine());
+            String a = in.readLine();
+            String b = in.readLine();
+            int ans = solveInside(n, a, b);
             out.append(String.format("%d\n", ans));
         }
     }
