@@ -20,7 +20,18 @@ public class Main {
     }
 
     boolean possible(String s, int d) {
+        int n = s.length();
+        int p = -1;
+        while (p < n) {
+            if (p == -1 || s.charAt(p) == 'R') {
+                if (p + d >= n) {
+                    return true;
+                }
+                
+            } else {
 
+            }
+        }
     }
 
     void solve() throws IOException {
