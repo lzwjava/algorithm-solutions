@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -44,6 +42,53 @@ public class Main {
         map.put(bill, c);
     }
 
+    void decrese(int bill) {
+        int c = getBill(bill);
+        c--;
+        map.put(bill, c);
+    }
+
+    void permutation(List<Integer> bills, List<Item> result, int[] cs, int cur, int m, int sum) {
+        if (cur == m) {
+            if (sum != 0) {
+                result.add(new Item(sum, cs.clone()));
+            }
+            return;
+        }
+        int bill = bills.get(cur);
+        int c = map.get(bill);
+        for (int i = 0; i <= c; i++) {
+            int v = i * bill;
+            cs[cur] = i;
+            permutation(bills, result, cs, cur + 1, m, sum + v);
+        }
+    }
+
+    class Item implements Comparable<Item> {
+        int sum;
+        int[] cs;
+
+        Item(int sum, int[] cs) {
+            this.sum = sum;
+            this.cs = cs;
+        }
+
+        @Override
+        public int compareTo(Item o) {
+            if (sum != o.sum) {
+                return Integer.compare(sum, o.sum);
+            } else {
+                int m = cs.length;
+                for (int i = m - 1; i >= 0; i--) {
+                    if (cs[i] != o.cs[i]) {
+                        return Integer.compare(cs[i], o.cs[i]);
+                    }
+                }
+            }
+            return 0;
+        }
+    }
+
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         StringTokenizer st = new StringTokenizer(in.readLine());
@@ -57,13 +102,42 @@ public class Main {
                 increase(v);
             } else {
                 int c = getBill(change);
-                if (c == 0) {
-                    ok = false;
-                    break;
-                } else {
-                    c--;
-                    map.put(change, c);
+                if (c > 0) {
+                    decrese(change);
                     increase(v);
+                } else {
+                    Set<Integer> set = map.keySet();
+                    List<Integer> bills = new ArrayList<>(set);
+                    Collections.sort(bills);
+                    int bn = bills.size();
+                    List<Item> result = new ArrayList<>();
+                    int[] cs = new int[bn];
+                    permutation(bills, result, cs, 0, bn, 0);
+                    Collections.sort(result);
+                    Item search = new Item(change, cs);
+                    int index = Collections.binarySearch(result, search, new Comparator<Item>() {
+                        @Override
+                        public int compare(Item o1, Item o2) {
+                            return Integer.compare(o1.sum, o2.sum);
+                        }
+                    });
+                    if (index >= 0) {
+                        while (index + 1 < result.size() && result.get(index + 1).sum == change) {
+                            index++;
+                        }
+                        Item item = result.get(index);
+                        for (int j = 0; j < item.cs.length; j++) {
+                            int c1 = item.cs[j];
+                            while (c1 > 0) {
+                                decrese(bills.get(j));
+                                c1--;
+                            }
+                        }
+                        increase(v);
+                    } else {
+                        ok = false;
+                        break;
+                    }
                 }
             }
         }
