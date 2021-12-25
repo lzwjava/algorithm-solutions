@@ -26,14 +26,21 @@ public class Main {
         m.close();
     }
 
+    int n;
+    int m;
+    int[][] g;
+
+    boolean dp() {
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             StringTokenizer st = new StringTokenizer(in.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            int m = Integer.parseInt(st.nextToken());
-            int[][] g = new int[n][m];
+            n = Integer.parseInt(st.nextToken());
+            m = Integer.parseInt(st.nextToken());
+            g = new int[n][m];
             for (int i = 0; i < n; i++) {
                 st = new StringTokenizer(in.readLine());
                 for (int j = 0; j < m; j++) {
