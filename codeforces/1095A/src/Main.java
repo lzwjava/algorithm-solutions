@@ -28,6 +28,18 @@ public class Main {
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         String s = in.readLine();
+        StringBuilder sb = new StringBuilder();
+        int p = 0;
+        int q = 1;
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if (i == p) {
+                sb.append(c);
+                p += q;
+                q++;
+            }
+        }
+        out.append(String.format("%s\n", sb));
     }
 
 }
