@@ -48,12 +48,41 @@ public class Main {
             }
         }
         int d = p - q;
-        double ans;
+        double ans = 0;
         if (d >= -u && d <= u) {
-            
+            boolean found = false;
+            for (int i = 0; i <= u; i++) {
+                int v = i - (u - i);
+                // 2i-u = d
+                // i = (u+d)/2
+                if (v == d) {
+                    // C(u, i)
+                    int cnt = combination(u, i);
+                    int m = 1 << u;
+                    ans = cnt * 1.0 / m;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                ans = 0;
+            }
         } else {
             ans = 0;
         }
+        out.append(String.format("%f\n", ans));
+    }
+
+    int combination(int n, int k) {
+        // n!/k!/(n-k)!
+        long p = 1;
+        for (int i = n; i >= n - k + 1; i--) {
+            p *= i;
+        }
+        for (int i = 1; i <= k; i++) {
+            p /= i;
+        }
+        return (int) p;
     }
 
 }
