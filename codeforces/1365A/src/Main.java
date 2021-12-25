@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -26,6 +23,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
     }
 
@@ -36,7 +34,7 @@ public class Main {
     int[] dy = new int[]{0, 0, -1, 1};
 
     // Ashish win
-    boolean dp(int[][] g, boolean ashish, int level) {
+    boolean dp(int[][] g, List<Pos> ps, boolean ashish, int level) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (g[i][j] == 1) {
@@ -55,9 +53,11 @@ public class Main {
                     }
                 }
                 if (ok) {
+                    ps.add(new Pos(i, j));
                     g[i][j] = 1;
-                    boolean result = dp(g, !ashish, level + 1);
+                    boolean result = dp(g, ps, !ashish, level + 1);
                     g[i][j] = 0;
+                    ps.remove(ps.size() - 1);
                     if (ashish && result) {
                         return true;
                     }
@@ -70,14 +70,20 @@ public class Main {
         if (ashish) {
             return false;
         } else {
+            winPos = new ArrayList<>(ps);
             return true;
         }
     }
 
+    List<Pos> winPos;
+
     boolean win(int n, int m, int[][] g) {
         this.n = n;
         this.m = m;
-        boolean win = dp(g, true, 0);
+        boolean win = dp(g, new ArrayList<>(), true, 0);
+        for (Pos p : winPos) {
+            out.append(String.format("%d %d\n", p.i, p.j));
+        }
         return win;
     }
 
@@ -96,6 +102,19 @@ public class Main {
             } else {
                 return Integer.compare(j, o.j);
             }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pos pos = (Pos) o;
+            return i == pos.i && j == pos.j;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(i, j);
         }
     }
 
@@ -127,7 +146,7 @@ public class Main {
         int pn = ps.size();
         for (int i = 0; i < pn; i++) {
             Pos p = ps.get(i);
-            int c = 0;
+            int c = 1;
             for (int d = 0; d < dx.length; d++) {
                 int ni = p.i + dx[d];
                 int nj = p.j + dy[d];
@@ -140,8 +159,77 @@ public class Main {
             }
             cnts.add(c);
         }
-        out.append('\n');
-        return true;
+        Collections.sort(cnts);
+        if (pn == 0) {
+            return false;
+        }
+        if (cnts.get(pn - 1) == pn) {
+            return true;
+        } else {
+
+        }
+
+        return tryCal(n, m, g, ps, true);
+    }
+
+
+    boolean tryCal(int n, int m, int[][] g, List<Pos> ps, boolean ashish) {
+        int pn = ps.size();
+        if (pn == 0) {
+            if (ashish) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        for (int i = 0; i < pn; i++) {
+            Pos p = ps.get(i);
+            List<Pos> nps = new ArrayList<>();
+            nps.add(p);
+            for (int d = 0; d < dx.length; d++) {
+                int ni = p.i + dx[d];
+                int nj = p.j + dy[d];
+                if (ni >= 0 && ni < n && nj >= 0 && nj < m) {
+                    int idx = Collections.binarySearch(nps, new Pos(ni, nj));
+                    if (idx >= 0) {
+                        nps.add(p);
+                    }
+                }
+            }
+
+            List<Pos> restPos = new ArrayList<>(ps);
+            restPos.removeAll(nps);
+            boolean win = tryCal(n, m, g, restPos, !ashish);
+            if (ashish && win) {
+                return true;
+            }
+            if (!ashish && !win) {
+                return false;
+            }
+        }
+        if (ashish) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    void test() {
+        Random random = new Random();
+        while (true) {
+            int n = 2;
+            int m = 3;
+            int[][] g = new int[n][m];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    g[i][j] = random.nextInt(2);
+                }
+            }
+            boolean win1 = win1(n, m, g);
+            boolean win = win(n, m, g);
+            assert (win == win1);
+        }
+
     }
 
     void solve() throws IOException {
@@ -158,7 +246,7 @@ public class Main {
                     g[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-            boolean win = win1(n, m, g);
+            boolean win = win(n, m, g);
             if (win) {
                 out.append("Ashish\n");
             } else {
