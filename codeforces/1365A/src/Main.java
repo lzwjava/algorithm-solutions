@@ -33,6 +33,13 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
+            int[][] g = new int[n][m];
+            for (int i = 0; i < n; i++) {
+                st = new StringTokenizer(in.readLine());
+                for (int j = 0; j < m; j++) {
+                    g[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
         }
     }
 
