@@ -32,17 +32,30 @@ public class Main {
             String s = in.readLine();
             int level = 0;
             int n = s.length();
+            boolean ok = true;
             for (int i = 0; i < n; i++) {
                 char c = s.charAt(i);
                 if (c == '(') {
                     level++;
                 } else if (c == ')') {
+                    if (level == 0) {
+                        ok = false;
+                        break;
+                    }
                     level--;
                 } else if (c == '?') {
                     if (level > 0) {
-                        
+                        // )
+                        level--;
+                    } else {
+                        level++;
                     }
                 }
+            }
+            if (ok) {
+                out.append("YES\n");
+            } else {
+                out.append("NO\n");
             }
         }
     }
