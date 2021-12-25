@@ -40,6 +40,18 @@ public class Main {
                     grid[i][j] = s.charAt(j);
                 }
             }
+            int c = 0;
+            for (int i = 0; i < n; i++) {
+                if (grid[i][m - 1] == 'R') {
+                    c++;
+                }
+            }
+            for (int j = 0; j < m; j++) {
+                if (grid[n - 1][j] == 'D') {
+                    c++;
+                }
+            }
+            out.append(String.format("%d\n", c));
         }
     }
 
