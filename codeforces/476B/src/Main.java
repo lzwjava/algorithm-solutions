@@ -70,7 +70,7 @@ public class Main {
         } else {
             ans = 0;
         }
-        out.append(String.format("%f\n", ans));
+        out.append(String.format("%.9f\n", ans));
     }
 
     int combination(int n, int k) {
