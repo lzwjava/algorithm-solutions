@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -138,76 +138,47 @@ public class Main {
     }
 
     int solveInside(int n, String a, String b) {
-        int ans;
-        if (a.equals(b)) {
-            ans = 0;
-        } else if (a.indexOf('1') == -1 && b.indexOf('1') != -1) {
-            ans = -1;
-        } else if (a.indexOf('1') != 1 && b.indexOf('1') == -1) {
-            ans = -1;
-        } else {
-            int ac1 = 0;
-            for (int i = 0; i < n; i++) {
-                if (a.charAt(i) == '1') {
-                    ac1++;
-                }
-            }
-            int ac0 = n - ac1;
-            int minc = Integer.min(ac0, ac1 - 1) + 1;
-            int maxc = Integer.max(ac0, ac1 - 1) + 1;
-            int bc1 = 0;
-            for (int i = 0; i < n; i++) {
-                if (b.charAt(i) == '1') {
-                    bc1++;
-                }
-            }
-            if (bc1 == minc || bc1 == maxc) {
-                StringBuilder sb = new StringBuilder();
-                List<Character> diffList = new ArrayList<>();
-                List<Character> sameList = new ArrayList<>();
-                for (int i = 0; i < n; i++) {
-                    if (a.charAt(i) == b.charAt(i)) {
-                        sb.append('-');
-                        sameList.add(a.charAt(i));
-                    } else {
-                        sb.append('x');
-                        diffList.add(a.charAt(i));
-                    }
-                }
-                int same = sameList.size();
-                int diff = diffList.size();
-                if (same == 0 && diff > 0) {
-                    ans = diff;
-                } else {
-                    if (same == 1 && sameList.get(0) == '1') {
-                        ans = 1;
-                    } else {
-                        int s1 = 0;
-                        for (char c : sameList) {
-                            if (c == '1') {
-                                s1++;
-                            }
-                        }
-                        int s0 = sameList.size() - s1;
-                        int d1 = 0;
-                        for (char c : diffList) {
-                            if (c == '1') {
-                                d1++;
-                            }
-                        }
-                        int d0 = diffList.size() - d1;
-                        int v = Integer.MAX_VALUE;
-                        if (same % 2 == 1 && s1 >= 1 && s1 == s0 + 1) {
-                            v = Math.min(v, same);
-                        }
-                        if (diff % 2 == 0 && d1 >= 1 && d1 == d0) {
-                            v = Math.min(v, diff);
-                        }
-                        ans = v;
-                    }
-                }
+        List<Character> diffList = new ArrayList<>();
+        List<Character> sameList = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (a.charAt(i) == b.charAt(i)) {
+                sameList.add(a.charAt(i));
             } else {
+                diffList.add(a.charAt(i));
+            }
+        }
+        int same = sameList.size();
+        int diff = diffList.size();
+
+        int s1 = 0;
+        for (char c : sameList) {
+            if (c == '1') {
+                s1++;
+            }
+        }
+        int s0 = sameList.size() - s1;
+        int d1 = 0;
+        for (char c : diffList) {
+            if (c == '1') {
+                d1++;
+            }
+        }
+        int d0 = diffList.size() - d1;
+        int ans;
+        if (same == n) {
+            ans = 0;
+        } else {
+            int v = Integer.MAX_VALUE;
+            if (same % 2 == 1 && s1 == s0 + 1) {
+                v = Math.min(v, same);
+            }
+            if (diff % 2 == 0 && d1 >= 1 && d1 == d0) {
+                v = Math.min(v, diff);
+            }
+            if (v == Integer.MAX_VALUE) {
                 ans = -1;
+            } else {
+                ans = v;
             }
         }
         return ans;
