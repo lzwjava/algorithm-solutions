@@ -125,7 +125,7 @@ public class Main {
                         Item item = result.get(result.size() - 1);
                         for (int j = 0; j < item.cs.length; j++) {
                             int c1 = item.cs[j];
-                            while (c1 > 0) {
+                            if (c1 > 0) {
                                 decrese(bills.get(j), c1);
                             }
                         }
