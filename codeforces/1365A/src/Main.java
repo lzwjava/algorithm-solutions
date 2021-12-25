@@ -22,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -164,9 +164,10 @@ public class Main {
                 int ni = p.i + dx[d];
                 int nj = p.j + dy[d];
                 if (ni >= 0 && ni < n && nj >= 0 && nj < m) {
-                    int idx = Collections.binarySearch(nps, new Pos(ni, nj));
+                    Pos np = new Pos(ni, nj);
+                    int idx = Collections.binarySearch(ps, np);
                     if (idx >= 0) {
-                        nps.add(p);
+                        nps.add(np);
                     }
                 }
             }
