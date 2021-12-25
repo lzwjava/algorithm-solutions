@@ -53,6 +53,11 @@ public class Main {
                 }
             }
             if (ok) {
+                if (level > 0) {
+                    ok = false;
+                }
+            }
+            if (ok) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
