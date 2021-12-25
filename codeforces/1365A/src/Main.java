@@ -33,7 +33,7 @@ public class Main {
     int[] dy = new int[]{0, 0, -1, 1};
 
     // Ashish win
-    boolean dp(int[][] g, boolean ashish) {
+    boolean dp(int[][] g, boolean ashish, int level) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (g[i][j] == 1) {
@@ -53,10 +53,13 @@ public class Main {
                 }
                 if (ok) {
                     g[i][j] = 1;
-                    boolean result = dp(g, !ashish);
+                    boolean result = dp(g, !ashish, level + 1);
                     g[i][j] = 0;
-                    if (result) {
+                    if (ashish && result) {
                         return true;
+                    }
+                    if (!ashish && !result) {
+                        return false;
                     }
                 }
             }
@@ -82,7 +85,7 @@ public class Main {
                     g[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-            boolean win = dp(g, true);
+            boolean win = dp(g, true, 0);
             if (win) {
                 out.append("Ashish\n");
             } else {
