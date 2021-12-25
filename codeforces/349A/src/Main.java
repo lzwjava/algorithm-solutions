@@ -43,14 +43,21 @@ public class Main {
     }
 
     void decrese(int bill) {
+        decrese(bill, 1);
+    }
+
+    void decrese(int bill, int d) {
         int c = getBill(bill);
-        c--;
+        c -= d;
         map.put(bill, c);
     }
 
-    void permutation(List<Integer> bills, List<Item> result, int[] cs, int cur, int m, int sum) {
+    void permutation(List<Integer> bills, List<Item> result, int[] cs, int cur, int m, int sum, int target) {
+        if (sum > target) {
+            return;
+        }
         if (cur == m) {
-            if (sum != 0) {
+            if (sum == target) {
                 result.add(new Item(sum, cs.clone()));
             }
             return;
@@ -60,7 +67,7 @@ public class Main {
         for (int i = 0; i <= c; i++) {
             int v = i * bill;
             cs[cur] = i;
-            permutation(bills, result, cs, cur + 1, m, sum + v);
+            permutation(bills, result, cs, cur + 1, m, sum + v, target);
         }
     }
 
@@ -112,25 +119,14 @@ public class Main {
                     int bn = bills.size();
                     List<Item> result = new ArrayList<>();
                     int[] cs = new int[bn];
-                    permutation(bills, result, cs, 0, bn, 0);
-                    Collections.sort(result);
-                    Item search = new Item(change, cs);
-                    int index = Collections.binarySearch(result, search, new Comparator<Item>() {
-                        @Override
-                        public int compare(Item o1, Item o2) {
-                            return Integer.compare(o1.sum, o2.sum);
-                        }
-                    });
-                    if (index >= 0) {
-                        while (index + 1 < result.size() && result.get(index + 1).sum == change) {
-                            index++;
-                        }
-                        Item item = result.get(index);
+                    permutation(bills, result, cs, 0, bn, 0, change);
+                    if (result.size() > 0) {
+                        Collections.sort(result);
+                        Item item = result.get(result.size() - 1);
                         for (int j = 0; j < item.cs.length; j++) {
                             int c1 = item.cs[j];
                             while (c1 > 0) {
-                                decrese(bills.get(j));
-                                c1--;
+                                decrese(bills.get(j), c1);
                             }
                         }
                         increase(v);
