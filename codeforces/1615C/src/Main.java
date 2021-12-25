@@ -172,7 +172,7 @@ public class Main {
             if (same % 2 == 1 && s1 == s0 + 1) {
                 v = Math.min(v, same);
             }
-            if (diff % 2 == 0 && d1 >= 1 && d1 == d0) {
+            if (diff % 2 == 0 && d1 == d0) {
                 v = Math.min(v, diff);
             }
             if (v == Integer.MAX_VALUE) {
