@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -30,6 +31,12 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
+            int m = 2 * n;
+            int[] a = new int[m];
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            for (int i = 0; i < m; i++) {
+                a[i] = Integer.parseInt(st.nextToken());
+            }
         }
     }
 
