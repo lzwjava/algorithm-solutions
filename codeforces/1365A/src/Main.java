@@ -53,10 +53,11 @@ public class Main {
                 }
                 if (ok) {
                     g[i][j] = 1;
-                    if (dp(g, !ashish)) {
+                    boolean result = dp(g, !ashish);
+                    g[i][j] = 0;
+                    if (result) {
                         return true;
                     }
-                    g[i][j] = 0;
                 }
             }
         }
