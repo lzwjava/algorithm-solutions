@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -53,50 +52,6 @@ public class Main {
         int c = getBill(bill);
         c -= d;
         map.put(bill, c);
-    }
-
-    void permutation(List<Integer> bills, List<Item> result, int[] cs, int cur, int m, int sum, int target) {
-        if (sum > target) {
-            return;
-        }
-        if (cur == m) {
-            if (sum == target) {
-                result.add(new Item(sum, cs.clone()));
-            }
-            return;
-        }
-        int bill = bills.get(cur);
-        int c = map.get(bill);
-        for (int i = 0; i <= c; i++) {
-            int v = i * bill;
-            cs[cur] = i;
-            permutation(bills, result, cs, cur + 1, m, sum + v, target);
-        }
-    }
-
-    class Item implements Comparable<Item> {
-        int sum;
-        int[] cs;
-
-        Item(int sum, int[] cs) {
-            this.sum = sum;
-            this.cs = cs;
-        }
-
-        @Override
-        public int compareTo(Item o) {
-            if (sum != o.sum) {
-                return Integer.compare(sum, o.sum);
-            } else {
-                int m = cs.length;
-                for (int i = m - 1; i >= 0; i--) {
-                    if (cs[i] != o.cs[i]) {
-                        return Integer.compare(cs[i], o.cs[i]);
-                    }
-                }
-            }
-            return 0;
-        }
     }
 
     void solve() throws IOException {
