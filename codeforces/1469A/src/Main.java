@@ -25,39 +25,43 @@ public class Main {
         m.close();
     }
 
+    boolean dp(String s, int i, int level) {
+        if (i == s.length()) {
+            return level == 0;
+        }
+        char c = s.charAt(i);
+        if (c == '(') {
+            return dp(s, i + 1, level + 1);
+        } else if (c == ')') {
+            if (level == 0) {
+                return false;
+            }
+            return dp(s, i + 1, level - 1);
+        } else if (c == '?') {
+            // (
+            boolean ok = dp(s, i + 1, level + 1);
+            if (ok) {
+                return true;
+            }
+            if (level > 0) {
+                // )
+                ok = dp(s, i + 1, level - 1);
+                if (ok) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             String s = in.readLine();
-            int level = 0;
-            int n = s.length();
-            boolean ok = true;
-            for (int i = 0; i < n; i++) {
-                char c = s.charAt(i);
-                if (c == '(') {
-                    level++;
-                } else if (c == ')') {
-                    if (level == 0) {
-                        ok = false;
-                        break;
-                    }
-                    level--;
-                } else if (c == '?') {
-                    if (level > 0) {
-                        // )
-                        level--;
-                    } else {
-                        level++;
-                    }
-                }
-            }
-            if (ok) {
-                if (level > 0) {
-                    ok = false;
-                }
-            }
-            if (ok) {
+            boolean ans = dp(s, 0, 0);
+            if (ans) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
