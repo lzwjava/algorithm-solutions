@@ -10,8 +10,11 @@ public class Gen {
         Random random = new Random();
         int[] arr = new int[]{25, 50, 100};
         for (int i = 0; i < n; i++) {
-            int idx = random.nextInt(3);
-            out.append(String.format("%d ", arr[idx]));
+            if (i < n / 2) {
+                out.append(String.format("%d ", 25));
+            } else {
+                out.append(String.format("%d ", 100));
+            }
         }
         out.flush();
         out.close();

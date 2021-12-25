@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -113,27 +116,25 @@ public class Main {
                     decrese(change);
                     increase(v);
                 } else {
-                    Set<Integer> set = map.keySet();
-                    List<Integer> bills = new ArrayList<>(set);
-                    Collections.sort(bills);
-                    int bn = bills.size();
-                    List<Item> result = new ArrayList<>();
-                    int[] cs = new int[bn];
-                    permutation(bills, result, cs, 0, bn, 0, change);
-                    if (result.size() > 0) {
-                        Collections.sort(result);
-                        Item item = result.get(result.size() - 1);
-                        for (int j = 0; j < item.cs.length; j++) {
-                            int c1 = item.cs[j];
-                            if (c1 > 0) {
-                                decrese(bills.get(j), c1);
-                            }
+                    if (change == 75) {
+                        if (getBill(25) >= 1 && getBill(50) >= 1) {
+                            decrese(25);
+                            decrese(50);
+                        } else if (getBill(25) >= 3) {
+                            decrese(25, 3);
+                        } else {
+                            ok = false;
+                            break;
                         }
-                        increase(v);
-                    } else {
-                        ok = false;
-                        break;
+                    } else if (change == 25) {
+                        if (getBill(25) >= 1) {
+                            decrese(25);
+                        } else {
+                            ok = false;
+                            break;
+                        }
                     }
+                    increase(v);
                 }
             }
         }
