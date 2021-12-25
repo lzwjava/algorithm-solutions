@@ -99,5 +99,4 @@ public class Main {
             permutation(nums, vis, 0);
         }
     }
-
 }
