@@ -40,6 +40,7 @@ public class Main {
                 }
                 out.append(String.format("%d", nums[i]));
             }
+            out.append('\n');
             found = true;
             return;
         }
@@ -94,6 +95,7 @@ public class Main {
             }
             int[] nums = new int[m];
             boolean[] vis = new boolean[m];
+            found = false;
             permutation(nums, vis, 0);
         }
     }
