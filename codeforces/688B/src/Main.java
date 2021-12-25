@@ -27,6 +27,8 @@ public class Main {
 
     void solve() throws IOException {
         String s = in.readLine();
+        String rs = new StringBuilder(s).reverse().toString();
+        out.append(String.format("%s%s\n", s, rs));
     }
 
 }
