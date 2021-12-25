@@ -28,6 +28,32 @@ public class Main {
     void solve() throws IOException {
         String a = in.readLine();
         String b = in.readLine();
+        int p = 0;
+        for (char c : a.toCharArray()) {
+            if (c == '+') {
+                p++;
+            } else if (c == '-') {
+                p--;
+            }
+        }
+        int u = 0;
+        int q = 0;
+        for (char c : b.toCharArray()) {
+            if (c == '+') {
+                q++;
+            } else if (c == '-') {
+                q--;
+            } else if (c == '?') {
+                u++;
+            }
+        }
+        int d = p - q;
+        double ans;
+        if (d >= -u && d <= u) {
+            
+        } else {
+            ans = 0;
+        }
     }
 
 }
