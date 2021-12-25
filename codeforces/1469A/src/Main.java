@@ -30,6 +30,20 @@ public class Main {
         while (t > 0) {
             t--;
             String s = in.readLine();
+            int level = 0;
+            int n = s.length();
+            for (int i = 0; i < n; i++) {
+                char c = s.charAt(i);
+                if (c == '(') {
+                    level++;
+                } else if (c == ')') {
+                    level--;
+                } else if (c == '?') {
+                    if (level > 0) {
+                        
+                    }
+                }
+            }
         }
     }
 
