@@ -80,6 +80,7 @@ public class Main {
     boolean win(int n, int m, int[][] g) {
         this.n = n;
         this.m = m;
+        winPos = new ArrayList<>();
         boolean win = dp(g, new ArrayList<>(), true, 0);
         for (Pos p : winPos) {
             out.append(String.format("%d %d\n", p.i, p.j));
@@ -142,33 +143,6 @@ public class Main {
                 }
             }
         }
-        List<Integer> cnts = new ArrayList<>();
-        int pn = ps.size();
-        for (int i = 0; i < pn; i++) {
-            Pos p = ps.get(i);
-            int c = 1;
-            for (int d = 0; d < dx.length; d++) {
-                int ni = p.i + dx[d];
-                int nj = p.j + dy[d];
-                if (ni >= 0 && ni < n && nj >= 0 && nj < m) {
-                    int idx = Collections.binarySearch(ps, new Pos(ni, nj));
-                    if (idx >= 0) {
-                        c++;
-                    }
-                }
-            }
-            cnts.add(c);
-        }
-        Collections.sort(cnts);
-        if (pn == 0) {
-            return false;
-        }
-        if (cnts.get(pn - 1) == pn) {
-            return true;
-        } else {
-
-        }
-
         return tryCal(n, m, g, ps, true);
     }
 
@@ -246,7 +220,7 @@ public class Main {
                     g[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-            boolean win = win(n, m, g);
+            boolean win = win1(n, m, g);
             if (win) {
                 out.append("Ashish\n");
             } else {
