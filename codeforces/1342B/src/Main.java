@@ -57,9 +57,6 @@ public class Main {
     String minks;
 
     boolean subsequence(String a, String b) {
-        if (a.equals("101")) {
-            out.append('\n');
-        }
         int an = a.length();
         int bn = b.length();
         int p = 0;
@@ -79,7 +76,7 @@ public class Main {
     void cal(char[] chs, String np, String t, boolean[] vis, int i, int m) {
         if (i == m) {
             String ns = new String(chs);
-            if (subsequence(np, t)) {
+            if (subsequence(ns, t)) {
                 int k = period(ns);
                 if (k < mink) {
                     mink = k;
