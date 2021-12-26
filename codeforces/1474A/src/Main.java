@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -38,13 +40,28 @@ public class Main {
             int[] as = new int[n];
             for (int i = 0; i < n; i++) {
                 int v = bs[i];
-                int lc;
+                int lv;
                 if (i == 0) {
-                    lc = -1;
+                    lv = -1;
                 } else {
-                    lc = as[i - 1];
+                    lv = as[i - 1];
                 }
+                List<Integer> list = new ArrayList<>();
+                for (int j = 0; j < 2; j++) {
+                    if (v + j == lv) {
+                        continue;
+                    } else {
+                        list.add(j);
+                    }
+                }
+                int fv = list.get(list.size() - 1);
+                as[i] = fv;
             }
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+                sb.append(String.format("%d", as[i]));
+            }
+            out.append(String.format("%d\n", sb));
         }
     }
 
