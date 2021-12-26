@@ -46,7 +46,9 @@ public class Main {
 
     void permutation(String s1, List<String> ps, int cur, int m) {
         if (cur == m) {
-            ps.add(s1);
+            if (period(s1) == m) {
+                ps.add(s1);
+            }
             return;
         }
         permutation(s1 + "0", ps, cur + 1, m);
@@ -116,6 +118,20 @@ public class Main {
             String t = in.readLine();
             int n = t.length();
             mink = Integer.MAX_VALUE;
+            int c0 = 0, c1 = 0;
+            for (char c : t.toCharArray()) {
+                if (c == '0') {
+                    c0++;
+                } else if (c == '1') {
+                    c1++;
+                }
+            }
+            for (int k = 1; k <= n; k++) {
+                List<String> ps = new ArrayList<>();
+                permutation("", ps, 0, k);
+                
+            }
+
             for (int i = 0; i < n; i++) {
                 List<String> ps = new ArrayList<>();
                 permutation("", ps, 0, i);
