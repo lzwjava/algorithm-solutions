@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -49,6 +47,25 @@ public class Main {
             last = d;
         }
         return true;
+    }
+
+    void cal1(int[] a, int n) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(a[i]);
+        }
+        int v = a[0];
+        Collections.sort(list, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                int d1 = Math.abs(o1 - v);
+                int d2 = Math.abs(o2 - v);
+                return Integer.compare(d1, d2);
+            }
+        });
+        for (int i = 0; i < n; i++) {
+            a[i] = list.get(i);
+        }
     }
 
     void cal(int[] a, int n) {
@@ -98,7 +115,7 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = (int) (random.nextInt(maxn) - max / 2);
             }
-            cal(a, n);
+            cal1(a, n);
             assert check(a, n);
         }
     }
@@ -109,7 +126,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
-            cal(a, n);
+            cal1(a, n);
             for (int i = 0; i < n; i++) {
                 if (i != 0) {
                     out.append(' ');
