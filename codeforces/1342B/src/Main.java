@@ -73,7 +73,15 @@ public class Main {
         return true;
     }
 
+    int cnt;
+
     void cal(char[] chs, String np, String t, boolean[] vis, int i, int m) {
+        if (mink == 1) {
+            return;
+        }
+        if (cnt > 100) {
+            return;
+        }
         if (i == m) {
             String ns = new String(chs);
             if (subsequence(ns, t)) {
@@ -81,6 +89,9 @@ public class Main {
                 if (k < mink) {
                     mink = k;
                     minks = ns;
+                    cnt = 0;
+                } else {
+                    cnt++;
                 }
             }
             return;
@@ -111,6 +122,7 @@ public class Main {
 
                     char[] chs = new char[m];
                     boolean[] vis = new boolean[m];
+                    cnt = 0;
                     cal(chs, np, t, vis, 0, m);
                 }
             }
