@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -84,13 +84,17 @@ public class Main {
 
     void test() {
         Random random = new Random();
-        int n = 100000;
-        int[] a = new int[n];
-        int maxn = (int) 2e9;
-        for (int i = 0; i < n; i++) {
-            a[i] = (int) (random.nextInt(maxn) - 1e9);
+        while (true) {
+            int n = 10;
+            int[] a = new int[n];
+            double max = 2e1;
+            int maxn = (int) max;
+            for (int i = 0; i < n; i++) {
+                a[i] = (int) (random.nextInt(maxn) - max / 2);
+            }
+            cal(a, n);
+            assert check(a, n);
         }
-        cal(a, n);
     }
 
     void solve() throws IOException {
