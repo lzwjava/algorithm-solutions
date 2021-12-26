@@ -36,6 +36,12 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            int[] c = new int[3];
+            for (int i = 0; i < n; i++) {
+                int r = a[i] % 3;
+                c[r]++;
+            }
+            out.append('\n');
         }
     }
 
