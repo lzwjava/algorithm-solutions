@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -51,7 +50,6 @@ public class Main {
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        Random random = new Random();
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
