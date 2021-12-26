@@ -44,7 +44,7 @@ public class Main {
                 if (i == 0) {
                     lv = -1;
                 } else {
-                    lv = as[i - 1];
+                    lv = as[i - 1] + bs[i - 1];
                 }
                 List<Integer> list = new ArrayList<>();
                 for (int j = 0; j < 2; j++) {
