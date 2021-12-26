@@ -26,6 +26,10 @@ public class Main {
         m.close();
     }
 
+    boolean allEqual(int[] c) {
+        return c[0] == c[1] && c[0] == c[2];
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -41,7 +45,36 @@ public class Main {
                 int r = a[i] % 3;
                 c[r]++;
             }
-            out.append('\n');
+            int ans;
+            if (allEqual(c)) {
+                ans = 0;
+            } else {
+                int avg = n / 3;
+                int move = 0;
+                while (!allEqual(c)) {
+                    for (int i = 0; i < 3; i++) {
+                        if (c[i] > avg) {
+                            int ni = (i - 1 + 3) % 3;
+                            if (c[ni] < avg) {
+                                c[i]--;
+                                c[ni]++;
+                                move++;
+                                break;
+                            }
+
+                            ni = (i + 1) % 3;
+                            if (c[ni] < avg) {
+                                c[i]--;
+                                c[ni]++;
+                                move++;
+                                break;
+                            }
+                        }
+                    }
+                }
+                ans = move;
+            }
+            out.append(String.format("%d\n", ans));
         }
     }
 
