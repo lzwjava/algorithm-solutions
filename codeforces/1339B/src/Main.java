@@ -58,13 +58,10 @@ public class Main {
             int[] a = parseArray(in.readLine());
             while (!check(a, n)) {
                 for (int i = 1; i < n - 1; i++) {
-                    int l0 = i - 1;
-                    int l1 = i;
-                    int l2 = i + 1;
-                    if (Math.abs(a[l0] - a[l1]) > Math.abs(a[l1] - a[l2])) {
-                        int ta = a[l0];
-                        a[l0] = a[l2];
-                        a[l2] = ta;
+                    if (Math.abs(a[i - 1] - a[i]) > Math.abs(a[i] - a[i + 1])) {
+                        int ta = a[i - 1];
+                        a[i - 1] = a[i + 1];
+                        a[i + 1] = ta;
                     }
                 }
             }
