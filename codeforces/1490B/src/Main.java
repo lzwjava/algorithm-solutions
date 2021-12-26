@@ -54,16 +54,8 @@ public class Main {
                 while (!allEqual(c)) {
                     for (int i = 0; i < 3; i++) {
                         if (c[i] > avg) {
-                            int ni = (i - 1 + 3) % 3;
-                            if (c[ni] < avg) {
-                                c[i]--;
-                                c[ni]++;
-                                move++;
-                                break;
-                            }
-
-                            ni = (i + 1) % 3;
-                            if (c[ni] < avg) {
+                            int ni = (i + 1) % 3;
+                            if (c[ni] <= avg) {
                                 c[i]--;
                                 c[ni]++;
                                 move++;
