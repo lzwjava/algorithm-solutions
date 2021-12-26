@@ -56,6 +56,17 @@ public class Main {
     int mink;
     String minks;
 
+    boolean subsequence(String a, String b) {
+        int an = a.length();
+        int bn = b.length();
+        int p = 0;
+        for (int i = 0; i < bn; i++) {
+            while (p < an) {
+                
+            }
+        }
+    }
+
     void cal(char[] chs, String np, boolean[] vis, int i, int m) {
         if (i == m) {
             String ns = new String(chs);
