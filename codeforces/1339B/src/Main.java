@@ -2,7 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Random;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -56,19 +57,15 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
             while (!check(a, n)) {
-                Set<Integer> set = new HashSet<>();
-                while (set.size() != 3) {
-                    int ri = random.nextInt(n);
-                    set.add(ri);
-                }
-                List<Integer> list = new ArrayList<>(set);
-                int l0 = list.get(0);
-                int l1 = list.get(1);
-                int l2 = list.get(2);
-                if (Math.abs(a[l0] - a[l1]) > Math.abs(a[l1] - a[l2])) {
-                    int ta = a[l0];
-                    a[l0] = a[l2];
-                    a[l2] = ta;
+                for (int i = 1; i < n - 1; i++) {
+                    int l0 = i - 1;
+                    int l1 = i;
+                    int l2 = i + 1;
+                    if (Math.abs(a[l0] - a[l1]) > Math.abs(a[l1] - a[l2])) {
+                        int ta = a[l0];
+                        a[l0] = a[l2];
+                        a[l2] = ta;
+                    }
                 }
             }
             for (int i = 0; i < n; i++) {
