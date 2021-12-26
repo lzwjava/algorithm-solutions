@@ -36,6 +36,19 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
+            boolean ok = true;
+            for (int i = 0; i < n; i++) {
+                double si = Math.sqrt(i);
+                if (Math.abs(si - Math.round(si)) > 1e-10) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                out.append("NO\n");
+            } else {
+                out.append("YES\n");
+            }
         }
     }
 
