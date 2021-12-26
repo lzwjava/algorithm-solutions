@@ -54,17 +54,28 @@ public class Main {
         for (int i = 0; i < n; i++) {
             list.add(a[i]);
         }
-        int v = a[0];
-        Collections.sort(list, new Comparator<Integer>() {
+        int left = n / 2;
+        int right = n - left;
+        List<Integer> leftList = list.subList(0, left);
+        List<Integer> rightList = list.subList(left, n);
+        Collections.sort(leftList);
+        Collections.sort(rightList, new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
-                int d1 = Math.abs(o1 - v);
-                int d2 = Math.abs(o2 - v);
-                return Integer.compare(d1, d2);
+                return Integer.compare(o2, o1);
             }
         });
+
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < n / 2; i++) {
+            result.add(leftList.get(i));
+            result.add(rightList.get(i));
+        }
+        if (n % 2 == 1) {
+            result.add(rightList.get(rightList.size() - 1));
+        }
         for (int i = 0; i < n; i++) {
-            a[i] = list.get(i);
+            a[i] = result.get(i);
         }
     }
 
