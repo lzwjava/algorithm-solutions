@@ -38,7 +38,7 @@ public class Main {
             }
             boolean ok = true;
             for (int i = 0; i < n; i++) {
-                double si = Math.sqrt(i);
+                double si = Math.sqrt(a[i]);
                 if (Math.abs(si - Math.round(si)) > 1e-10) {
                     ok = false;
                     break;
