@@ -79,9 +79,9 @@ public class Main {
         if (mink == 1) {
             return;
         }
-        if (cnt > 100) {
-            return;
-        }
+//        if (cnt > 3000) {
+//            return;
+//        }
         if (i == m) {
             String ns = new String(chs);
             if (subsequence(ns, t)) {
@@ -89,6 +89,9 @@ public class Main {
                 if (k < mink) {
                     mink = k;
                     minks = ns;
+                    if (mink == 2) {
+                        out.append('\n');
+                    }
                     cnt = 0;
                 } else {
                     cnt++;
@@ -124,6 +127,9 @@ public class Main {
                     boolean[] vis = new boolean[m];
                     cnt = 0;
                     cal(chs, np, t, vis, 0, m);
+                }
+                if (mink <= n / 2 - 1) {
+                    break;
                 }
             }
             out.append(String.format("%s\n", minks));
