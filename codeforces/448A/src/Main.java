@@ -26,7 +26,7 @@ public class Main {
         m.close();
     }
 
-    int[] parseArray(String s) throws IOException {
+    int[] parseArray(String s) {
         StringTokenizer st = new StringTokenizer(s);
         int n = st.countTokens();
         int[] a = new int[n];
