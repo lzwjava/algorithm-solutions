@@ -30,15 +30,23 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
-            int p = 9;
-            for (int i = 0; i < n; i++) {
-                out.append(String.format("%d", p));
-                p--;
-                if (p == -1) {
-                    p = 9;
+            String ans;
+            if (n == 1) {
+                ans = "9";
+            } else if (n == 2) {
+                ans = "98";
+            } else {
+                ans = "989";
+                int p = 0;
+                for (int i = 3; i < n; i++) {
+                    out.append(String.format("%d", p));
+                    p++;
+                    if (p == 10) {
+                        p = 0;
+                    }
                 }
             }
-            out.append('\n');
+            out.append(String.format("%s\n", ans));
         }
     }
 
