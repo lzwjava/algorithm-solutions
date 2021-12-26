@@ -57,23 +57,34 @@ public class Main {
     String minks;
 
     boolean subsequence(String a, String b) {
+        if (a.equals("101")) {
+            out.append('\n');
+        }
         int an = a.length();
         int bn = b.length();
         int p = 0;
         for (int i = 0; i < bn; i++) {
-            while (p < an) {
-                
+            char c = b.charAt(i);
+            while (p < an && a.charAt(p) != c) {
+                p++;
             }
+            if (p == an) {
+                return false;
+            }
+            p++;
         }
+        return true;
     }
 
-    void cal(char[] chs, String np, boolean[] vis, int i, int m) {
+    void cal(char[] chs, String np, String t, boolean[] vis, int i, int m) {
         if (i == m) {
             String ns = new String(chs);
-            int k = period(ns);
-            if (k < mink) {
-                mink = k;
-                minks = ns;
+            if (subsequence(np, t)) {
+                int k = period(ns);
+                if (k < mink) {
+                    mink = k;
+                    minks = ns;
+                }
             }
             return;
         }
@@ -81,7 +92,7 @@ public class Main {
             if (!vis[j]) {
                 vis[j] = true;
                 chs[i] = np.charAt(j);
-                cal(chs, np, vis, i + 1, m);
+                cal(chs, np, t, vis, i + 1, m);
                 vis[j] = false;
             }
         }
@@ -103,7 +114,7 @@ public class Main {
 
                     char[] chs = new char[m];
                     boolean[] vis = new boolean[m];
-                    cal(chs, np, vis, 0, m);
+                    cal(chs, np, t, vis, 0, m);
                 }
             }
             out.append(String.format("%s\n", minks));
