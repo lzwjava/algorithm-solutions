@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -42,13 +44,58 @@ public class Main {
         return -1;
     }
 
+    void permutation(String s1, List<String> ps, int cur, int m) {
+        if (cur == m) {
+            ps.add(s1);
+            return;
+        }
+        permutation(s1 + "0", ps, cur + 1, m);
+        permutation(s1 + "1", ps, cur + 1, m);
+    }
+
+    int mink;
+    String minks;
+
+    void cal(char[] chs, String np, boolean[] vis, int i, int m) {
+        if (i == m) {
+            String ns = new String(chs);
+            int k = period(ns);
+            if (k < mink) {
+                mink = k;
+                minks = ns;
+            }
+            return;
+        }
+        for (int j = 0; j < m; j++) {
+            if (!vis[j]) {
+                vis[j] = true;
+                chs[i] = np.charAt(j);
+                cal(chs, np, vis, i + 1, m);
+                vis[j] = false;
+            }
+        }
+    }
+
     void solve() throws IOException {
         int tt = Integer.parseInt(in.readLine());
         while (tt > 0) {
             tt--;
             String t = in.readLine();
-            int p = period(t);
-            out.append(String.format("%d\n", p));
+            int n = t.length();
+            mink = Integer.MAX_VALUE;
+            for (int i = 0; i < n; i++) {
+                List<String> ps = new ArrayList<>();
+                permutation("", ps, 0, i);
+                for (String p : ps) {
+                    String np = p + t;
+                    int m = np.length();
+
+                    char[] chs = new char[m];
+                    boolean[] vis = new boolean[m];
+                    cal(chs, np, vis, 0, m);
+                }
+            }
+            out.append(String.format("%s\n", minks));
         }
     }
 
