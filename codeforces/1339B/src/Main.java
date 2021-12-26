@@ -22,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -54,22 +54,23 @@ public class Main {
         for (int i = 0; i < n; i++) {
             list.add(a[i]);
         }
+        Collections.sort(list);
         int left = n / 2;
         int right = n - left;
         List<Integer> leftList = list.subList(0, left);
         List<Integer> rightList = list.subList(left, n);
-        Collections.sort(leftList);
-        Collections.sort(rightList, new Comparator<Integer>() {
+        Collections.sort(leftList, new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return Integer.compare(o2, o1);
             }
         });
+        Collections.sort(rightList);
 
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < n / 2; i++) {
-            result.add(leftList.get(i));
             result.add(rightList.get(i));
+            result.add(leftList.get(i));
         }
         if (n % 2 == 1) {
             result.add(rightList.get(rightList.size() - 1));
