@@ -76,6 +76,12 @@ public class Main {
                     }
                 }
             }
+            int ln = list.size();
+            int[] b = new int[ln];
+            for (int j = 0; j < ln; j++) {
+                b[j] = list.get(j);
+            }
+            assert check(b, ln);
         }
         for (int i = 0; i < n; i++) {
             a[i] = list.get(i);
