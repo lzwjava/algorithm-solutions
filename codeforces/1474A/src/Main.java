@@ -61,7 +61,7 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 sb.append(String.format("%d", as[i]));
             }
-            out.append(String.format("%d\n", sb));
+            out.append(String.format("%s\n", sb));
         }
     }
 
