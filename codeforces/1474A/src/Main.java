@@ -31,19 +31,18 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             String b = in.readLine();
-            StringBuilder a = new StringBuilder();
+            int[] bs = new int[n];
             for (int i = 0; i < n; i++) {
-                char c = b.charAt(i);
-                char lc;
+                bs[i] = b.charAt(i) - '0';
+            }
+            int[] as = new int[n];
+            for (int i = 0; i < n; i++) {
+                int v = bs[i];
+                int lc;
                 if (i == 0) {
-                    lc = ' ';
+                    lc = -1;
                 } else {
-                    lc = a.charAt(i - 1);
-                }
-                if (c == '1') {
-                    
-                } else {
-
+                    lc = as[i - 1];
                 }
             }
         }
