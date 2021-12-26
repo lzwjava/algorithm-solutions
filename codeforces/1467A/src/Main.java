@@ -36,15 +36,16 @@ public class Main {
             } else if (n == 2) {
                 ans = "98";
             } else {
-                ans = "989";
+                StringBuilder sb = new StringBuilder("989");
                 int p = 0;
                 for (int i = 3; i < n; i++) {
-                    out.append(String.format("%d", p));
+                    sb.append(String.format("%d", p));
                     p++;
                     if (p == 10) {
                         p = 0;
                     }
                 }
+                ans = sb.toString();
             }
             out.append(String.format("%s\n", ans));
         }
