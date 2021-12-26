@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -34,6 +35,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
     }
 
@@ -94,19 +96,37 @@ public class Main {
         return ans;
     }
 
+    boolean cal(int[] a, int n) {
+        this.a = a;
+        this.n = n;
+        map = new int[n + 1][3][2];
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j < 3; j++) {
+                Arrays.fill(map[i][j], -1);
+            }
+        }
+        return dp(0, true);
+    }
+
+    void test() {
+        Random random = new Random();
+        for (int j = 0; j < 100; j++) {
+            int n = random.nextInt(1000) + 1;
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = random.nextInt((int) 1e9) + 1;
+            }
+            boolean ok = cal(a, n);
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            n = Integer.parseInt(in.readLine());
-            a = parseArray(in.readLine());
-            map = new int[maxn][3][2];
-            for (int i = 0; i < maxn; i++) {
-                for (int j = 0; j < 3; j++) {
-                    Arrays.fill(map[i][j], -1);
-                }
-            }
-            boolean ok = dp(0, true);
+            int n = Integer.parseInt(in.readLine());
+            int[] a = parseArray(in.readLine());
+            boolean ok = cal(a, n);
             if (ok) {
                 out.append("First\n");
             } else {
