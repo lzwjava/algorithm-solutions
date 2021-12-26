@@ -49,14 +49,13 @@ public class Main {
         return true;
     }
 
-    void cal1(int[] a, int n) {
+    void cal(int[] a, int n) {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             list.add(a[i]);
         }
         Collections.sort(list);
         int left = n / 2;
-        int right = n - left;
         List<Integer> leftList = list.subList(0, left);
         List<Integer> rightList = list.subList(left, n);
         Collections.sort(leftList, new Comparator<Integer>() {
@@ -80,43 +79,6 @@ public class Main {
         }
     }
 
-    void cal(int[] a, int n) {
-        LinkedList<Integer> list = new LinkedList<>();
-        for (int i = 0; i < n; i++) {
-            int v = a[i];
-            if (list.size() < 2) {
-                list.add(v);
-            } else {
-                boolean ok = false;
-                int j;
-                for (j = 1; j < list.size(); j++) {
-                    if (Math.abs(v - list.get(j - 1)) <= Math.abs(v - list.get(j))) {
-                        ok = true;
-                        break;
-                    }
-                }
-                if (ok) {
-                    list.add(j, a[i]);
-                } else {
-                    if (Math.abs(v - list.get(0)) <= Math.abs(list.get(0) - list.get(1))) {
-                        list.addFirst(v);
-                    } else {
-                        list.addLast(v);
-                    }
-                }
-            }
-            int ln = list.size();
-            int[] b = new int[ln];
-            for (int j = 0; j < ln; j++) {
-                b[j] = list.get(j);
-            }
-            assert check(b, ln);
-        }
-        for (int i = 0; i < n; i++) {
-            a[i] = list.get(i);
-        }
-    }
-
     void test() {
         Random random = new Random();
         while (true) {
@@ -127,7 +89,7 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = (int) (random.nextInt(maxn) - max / 2);
             }
-            cal1(a, n);
+            cal(a, n);
             assert check(a, n);
         }
     }
@@ -138,7 +100,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
-            cal1(a, n);
+            cal(a, n);
             for (int i = 0; i < n; i++) {
                 if (i != 0) {
                     out.append(' ');
