@@ -62,7 +62,22 @@ public class Main {
                     set.add(ri);
                 }
                 List<Integer> list = new ArrayList<>(set);
+                int l0 = list.get(0);
+                int l1 = list.get(1);
+                int l2 = list.get(2);
+                if (Math.abs(a[l0] - a[l1]) > Math.abs(a[l1] - a[l2])) {
+                    int ta = a[l0];
+                    a[l0] = a[l2];
+                    a[l2] = ta;
+                }
             }
+            for (int i = 0; i < n; i++) {
+                if (i != 0) {
+                    out.append(' ');
+                }
+                out.append(String.format("%d", a[i]));
+            }
+            out.append('\n');
         }
     }
 
