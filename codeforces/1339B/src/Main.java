@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -36,12 +36,33 @@ public class Main {
         return a;
     }
 
+    boolean check(int[] a, int n) {
+        int last = -1;
+        for (int i = 0; i < n - 1; i++) {
+            int d = Math.abs(a[i + 1] - a[i]);
+            if (last > d) {
+                return false;
+            }
+            last = d;
+        }
+        return true;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
+        Random random = new Random();
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
+            while (!check(a, n)) {
+                Set<Integer> set = new HashSet<>();
+                while (set.size() != 3) {
+                    int ri = random.nextInt(n);
+                    set.add(ri);
+                }
+                List<Integer> list = new ArrayList<>(set);
+            }
         }
     }
 
