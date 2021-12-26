@@ -32,7 +32,20 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             String b = in.readLine();
             StringBuilder a = new StringBuilder();
-            
+            for (int i = 0; i < n; i++) {
+                char c = b.charAt(i);
+                char lc;
+                if (i == 0) {
+                    lc = ' ';
+                } else {
+                    lc = a.charAt(i - 1);
+                }
+                if (c == '1') {
+                    
+                } else {
+
+                }
+            }
         }
     }
 
