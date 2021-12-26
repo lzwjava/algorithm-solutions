@@ -30,7 +30,15 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
-            
+            int p = 9;
+            for (int i = 0; i < n; i++) {
+                out.append(String.format("%d", p));
+                p--;
+                if (p == -1) {
+                    p = 9;
+                }
+            }
+            out.append('\n');
         }
     }
 
