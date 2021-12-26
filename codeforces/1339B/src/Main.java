@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Random;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -50,21 +52,20 @@ public class Main {
     }
 
     void cal(int[] a, int n) {
-        long s = 0;
-        List<Integer> list = new ArrayList<>();
+        LinkedList<Integer> list = new LinkedList<>();
         for (int i = 0; i < n; i++) {
-            s += a[i];
-            list.add(a[i]);
-        }
-        double avg = s * 1.0 / n;
-        Collections.sort(list, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                double d1 = Math.abs(o1 - avg);
-                double d2 = Math.abs(o2 - avg);
-                return Double.compare(d1, d2);
+            if (list.size() == 0) {
+                list.add(a[i]);
+            } else {
+                int first = list.getFirst();
+                int last = list.getLast();
+                if (Math.abs(first - a[i]) <= Math.abs(last - a[i])) {
+                    list.addFirst(a[i]);
+                } else {
+                    list.addLast(a[i]);
+                }
             }
-        });
+        }
         for (int i = 0; i < n; i++) {
             a[i] = list.get(i);
         }
