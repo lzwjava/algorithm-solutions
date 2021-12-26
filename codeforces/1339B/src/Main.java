@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -52,22 +51,14 @@ public class Main {
     }
 
     void cal(int[] a, int n) {
-        LinkedList<Integer> list = new LinkedList<>();
-        for (int i = 0; i < n; i++) {
-            if (list.size() == 0) {
-                list.add(a[i]);
-            } else {
-                int first = list.getFirst();
-                int last = list.getLast();
-                if (Math.abs(first - a[i]) <= Math.abs(last - a[i])) {
-                    list.addFirst(a[i]);
-                } else {
-                    list.addLast(a[i]);
+//        LinkedList<Integer> list = new LinkedList<>();
+        for (int i = 2; i < n; i++) {
+            int j = i;
+            while (j >= 2) {
+                if (Math.abs(a[j - 2] - a[j - 1]) > Math.abs(a[j - 1] - a[j])) {
+                    j--;
                 }
             }
-        }
-        for (int i = 0; i < n; i++) {
-            a[i] = list.get(i);
         }
     }
 
