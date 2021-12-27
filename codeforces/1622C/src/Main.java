@@ -48,13 +48,20 @@ public class Main {
         if (n == 1) {
             dp(s - 1, decrease + 1, set);
         } else {
-            dp(s - 1 - set, decrease + 1, set);
+            long ns1 = s - 1 - set;
+            long ns2 = s;
 
             if (set < n - 1) {
                 int idx = n - 1 - set;
                 int a0 = a[0] - decrease;
                 int d = a[idx] - a0;
-                dp(s - d, decrease, set + 1);
+                ns2 = s - d;
+            }
+            
+            if (ns1 <= ns2) {
+                dp(ns1, decrease + 1, set);
+            } else {
+                dp(ns2, decrease, set + 1);
             }
         }
     }
