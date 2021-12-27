@@ -1,15 +1,36 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 public class Main {
 
-    void solve() {
-        Scanner in = new Scanner(System.in);
-        int a = in.nextInt();
-        int b = in.nextInt();
+    BufferedReader in;
+    PrintWriter out;
+
+    Main() {
+        in = new BufferedReader(new InputStreamReader(System.in));
+        out = new PrintWriter(System.out);
     }
 
-    public static void main(String[] args) {
-        new Main().solve();
+    void close() throws IOException {
+        in.close();
+        out.flush();
+        out.close();
+    }
+
+    public static void main(String[] args) throws IOException {
+        Main m = new Main();
+        m.solve();
+        m.close();
+    }
+
+    void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            int n = Integer.parseInt(in.readLine());
+        }
     }
 
 }
