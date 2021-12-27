@@ -30,6 +30,13 @@ public class Main {
         StringTokenizer st = new StringTokenizer(in.readLine());
         int k = Integer.parseInt(st.nextToken());
         int p = Integer.parseInt(st.nextToken());
+        int i;
+        for (i = 1; ; i++) {
+            if (i * k % 10 == p) {
+                break;
+            }
+        }
+        out.append(String.format("%d\n", i));
     }
 
 }
