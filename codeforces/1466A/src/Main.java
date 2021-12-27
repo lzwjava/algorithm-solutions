@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -36,6 +39,15 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 x[i] = Integer.parseInt(st.nextToken());
             }
+            Arrays.sort(x);
+            Set<Integer> set = new HashSet<>();
+            for (int i = 0; i < n; i++) {
+                for (int j = i + 1; j < n; j++) {
+                    int d = x[j] - x[i];
+                    set.add(d);
+                }
+            }
+            out.append(String.format("%d\n", set.size()));
         }
     }
 
