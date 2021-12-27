@@ -41,11 +41,15 @@ public class Main {
             time += b;
             if (sleep < a) {
                 if (c - d > 0) {
-                    while (sleep < a) {
-                        long rest = c - d;
-                        sleep += rest;
-                        time += c;
+                    long p = a - sleep;
+                    long rest = c - d;
+                    long q;
+                    if (p % rest == 0) {
+                        q = p / rest;
+                    } else {
+                        q = p / rest + 1;
                     }
+                    time += q * c;
                 } else {
                     time = -1;
                 }
