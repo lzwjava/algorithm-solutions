@@ -37,6 +37,11 @@ public class Main {
         return a;
     }
 
+    long dp(int[] a, long s, int step) {
+        if (s <= k) {
+
+        }
+    }
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
@@ -59,6 +64,7 @@ public class Main {
             } else {
                 ans = Integer.MAX_VALUE;
 //                long kn = k / n;
+                int decrease = 0, set = 0;
                 for (int i = 0; ; i++) {
                     long v = a[0] - (i + 1);
                     // a[0]+a[0]*x <=k
@@ -71,9 +77,11 @@ public class Main {
                         }
                         int step = (i + 1) + x;
                         if (step < ans) {
+                            decrease = i + 1;
+                            set = x;
                             ans = step;
                         } else {
-                            break;
+
                         }
                     }
                 }
