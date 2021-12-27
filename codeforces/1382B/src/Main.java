@@ -99,8 +99,9 @@ public class Main {
     boolean cal(int[] a, int n) {
         this.a = a;
         this.n = n;
-        map = new int[n + 1][3][2];
-        for (int i = 0; i <= n; i++) {
+        int m = n + 1;
+        map = new int[m][3][2];
+        for (int i = 0; i < m; i++) {
             for (int j = 0; j < 3; j++) {
                 Arrays.fill(map[i][j], -1);
             }
