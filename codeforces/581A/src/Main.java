@@ -31,7 +31,7 @@ public class Main {
         int a = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
         int m1 = Integer.min(a, b);
-        int m2 = a + b - m1;
+        int m2 = a + b - 2 * m1;
         out.append(String.format("%d %d\n", m1, m2 / 2));
     }
 
