@@ -24,6 +24,14 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
+//            int k = n * 2 - 1;
+            int ans;
+            if (n == 1) {
+                ans = 1;
+            } else {
+                ans = 2;
+            }
+            out.append(String.format("%d\n", ans));
         }
     }
 
