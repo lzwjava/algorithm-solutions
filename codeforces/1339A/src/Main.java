@@ -24,12 +24,6 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
-//            int ans;
-//            if (n == 1) {
-//                ans = 1;
-//            } else {
-//                ans = 2;
-//            }
             out.append(String.format("%d\n", n));
         }
     }
