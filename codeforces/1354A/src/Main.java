@@ -42,7 +42,6 @@ public class Main {
             if (sleep < a) {
                 if (c - d > 0) {
                     while (sleep < a) {
-                        // go sleep
                         long rest = c - d;
                         sleep += rest;
                         time += c;
