@@ -35,6 +35,17 @@ public class Main {
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
             int d = Integer.parseInt(st.nextToken());
+            int sleep = 0;
+            int time = 0;
+            sleep += b;
+            time += b;
+            while (sleep < a) {
+                // go sleep
+                int rest = c - d;
+                sleep += rest;
+                time += c;
+            }
+            out.append(String.format("%d\n", time));
         }
     }
 
