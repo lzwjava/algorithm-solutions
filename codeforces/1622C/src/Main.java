@@ -57,7 +57,7 @@ public class Main {
                 s += a[i];
                 sums[i] = s;
             }
-            int ans;
+            long ans;
             if (s <= k) {
                 ans = 0;
             } else {
@@ -67,13 +67,13 @@ public class Main {
                     if (set > 0) {
                         ns = s - (sum(n - set, n - 1) - (long) a[0] * set);
                     }
-                    int decrease = 0;
+                    long decrease = 0;
                     if (ns > k) {
                         long d = ns - k;
                         int m = set + 1;
                         decrease = (int) Math.ceil(d * 1.0 / m);
                     }
-                    int step = set + decrease;
+                    long step = set + decrease;
                     ans = Math.min(ans, step);
                 }
             }
