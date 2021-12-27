@@ -37,20 +37,41 @@ public class Main {
         return a;
     }
 
-    long dp(int[] a, long s, int step) {
+    void dp(long s, int decrease, int set) {
         if (s <= k) {
+            int step = decrease + set;
+            if (step < minStep) {
+                minStep = step;
+            }
+            return;
+        }
+        if (n == 1) {
+            dp(s - 1, decrease + 1, set);
+        } else {
+            dp(s - 1 - set, decrease + 1, set);
 
+            if (set < n - 1) {
+                int idx = n - 1 - set;
+                int a0 = a[0] - decrease;
+                int d = a[idx] - a0;
+                dp(s - d, decrease, set + 1);
+            }
         }
     }
+
+    long k;
+    int[] a;
+    int minStep;
+    int n;
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             StringTokenizer st = new StringTokenizer(in.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            long k = Long.parseLong(st.nextToken());
-            int[] a = parseArray(in.readLine());
+            n = Integer.parseInt(st.nextToken());
+            k = Long.parseLong(st.nextToken());
+            a = parseArray(in.readLine());
             Arrays.sort(a);
             sums = new long[n];
             long s = 0;
@@ -62,29 +83,9 @@ public class Main {
             if (s <= k) {
                 ans = 0;
             } else {
-                ans = Integer.MAX_VALUE;
-//                long kn = k / n;
-                int decrease = 0, set = 0;
-                for (int i = 0; ; i++) {
-                    long v = a[0] - (i + 1);
-                    // a[0]+a[0]*x <=k
-                    if (v * n <= k) {
-                        int x;
-                        for (x = 0; x <= n - 1; x++) {
-                            if (v + v * x + sum(1, (n - 1) - x) <= k) {
-                                break;
-                            }
-                        }
-                        int step = (i + 1) + x;
-                        if (step < ans) {
-                            decrease = i + 1;
-                            set = x;
-                            ans = step;
-                        } else {
-
-                        }
-                    }
-                }
+                minStep = Integer.MAX_VALUE;
+                dp(s, 0, 0);
+                ans = minStep;
             }
             out.append(String.format("%d\n", ans));
         }
