@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -89,49 +92,11 @@ public class Main {
                 p1++;
             }
 
-            List<Integer> qlist1 = new ArrayList<>();
-            for (int i = 0; i < c1; i++) {
-                qlist1.add(n - i);
-            }
-            Collections.sort(qlist1, new Comparator<Integer>() {
-                @Override
-                public int compare(Integer o1, Integer o2) {
-                    int idx1 = idxs[o1];
-                    int idx2 = idxs[o2];
-                    return Integer.compare(idx1, idx2);
-                }
-            });
-
-            List<Integer> qlist2 = new ArrayList<>();
-            for (int i = 0; i < c0; i++) {
-                qlist2.add(i + 1);
-            }
-            Collections.sort(qlist2, new Comparator<Integer>() {
-                @Override
-                public int compare(Integer o1, Integer o2) {
-                    int idx1 = idxs[o1];
-                    int idx2 = idxs[o2];
-                    return Integer.compare(idx1, idx2);
-                }
-            });
-
-            int q1 = 0, q2 = 0;
-            List<Integer> flist = new ArrayList<>();
-            for (int i = 0; i < s.length(); i++) {
-                char c = s.charAt(i);
-                if (c == '1') {
-                    flist.add(qlist1.get(q1));
-                    q1++;
-                } else {
-                    flist.add(qlist2.get(q2));
-                    q2++;
-                }
-            }
             for (int i = 0; i < n; i++) {
                 if (i != 0) {
                     out.append(' ');
                 }
-                out.append(String.format("%d", flist.get(i)));
+                out.append(String.format("%d", flist[i]));
             }
             out.append('\n');
         }
