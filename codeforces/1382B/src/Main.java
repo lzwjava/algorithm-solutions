@@ -95,27 +95,7 @@ public class Main {
         map[i][arrInt(a[i])][toInt(first)] = toInt(ans);
         return ans;
     }
-
-    boolean cal1(int[] a, int n) {
-        int s1 = 0;
-        int s2 = 0;
-        for (int i = 0; i < n; i++) {
-            if (a[i] > 1) {
-                s2++;
-            } else {
-                s1++;
-            }
-        }
-        int p = s1 + s2;
-        int q = s1 + 2 * s2;
-        for (int i = p; i <= q; i++) {
-            if (i % 2 == 1) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    
     boolean cal(int[] a, int n) {
         this.a = a;
         this.n = n;
