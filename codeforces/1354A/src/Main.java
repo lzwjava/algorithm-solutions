@@ -31,19 +31,25 @@ public class Main {
         while (t > 0) {
             t--;
             StringTokenizer st = new StringTokenizer(in.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
-            int d = Integer.parseInt(st.nextToken());
-            int sleep = 0;
-            int time = 0;
+            long a = Integer.parseInt(st.nextToken());
+            long b = Integer.parseInt(st.nextToken());
+            long c = Integer.parseInt(st.nextToken());
+            long d = Integer.parseInt(st.nextToken());
+            long sleep = 0;
+            long time = 0;
             sleep += b;
             time += b;
-            while (sleep < a) {
-                // go sleep
-                int rest = c - d;
-                sleep += rest;
-                time += c;
+            if (sleep < a) {
+                if (c - d > 0) {
+                    while (sleep < a) {
+                        // go sleep
+                        long rest = c - d;
+                        sleep += rest;
+                        time += c;
+                    }
+                } else {
+                    time = -1;
+                }
             }
             out.append(String.format("%d\n", time));
         }
