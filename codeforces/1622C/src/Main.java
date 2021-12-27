@@ -57,7 +57,7 @@ public class Main {
                 int d = a[idx] - a0;
                 ns2 = s - d;
             }
-            
+
             if (ns1 <= ns2) {
                 dp(ns1, decrease + 1, set);
             } else {
@@ -90,9 +90,28 @@ public class Main {
             if (s <= k) {
                 ans = 0;
             } else {
-                minStep = Integer.MAX_VALUE;
-                dp(s, 0, 0);
-                ans = minStep;
+                int set = 0;
+                int decrease = 0;
+                while (s > k) {
+                    long ns1 = s - 1 - set;
+                    long ns2 = s;
+
+                    if (set < n - 1) {
+                        int idx = n - 1 - set;
+                        int a0 = a[0] - decrease;
+                        int d = a[idx] - a0;
+                        ns2 = s - d;
+                    }
+
+                    if (ns1 <= ns2) {
+                        s = ns1;
+                        decrease++;
+                    } else {
+                        s = ns2;
+                        set++;
+                    }
+                }
+                ans = set + decrease;
             }
             out.append(String.format("%d\n", ans));
         }
