@@ -40,6 +40,7 @@ public class Main {
     long k;
     int[] a;
     int n;
+    long[] sums;
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
@@ -50,45 +51,41 @@ public class Main {
             k = Long.parseLong(st.nextToken());
             a = parseArray(in.readLine());
             Arrays.sort(a);
+            sums = new long[n];
             long s = 0;
             for (int i = 0; i < n; i++) {
                 s += a[i];
+                sums[i] = s;
             }
             int ans;
             if (s <= k) {
                 ans = 0;
             } else {
-                int set = 0;
-                int decrease = 0;
-                while (s > k) {
-                    long ns1 = s - 1 - set;
-                    long ns2 = s;
-
-                    if (set < n - 1) {
-                        int idx = n - 1 - set;
-                        int a0 = a[0] - decrease;
-                        int d = a[idx] - a0;
-                        ns2 = s - d;
+                ans = Integer.MAX_VALUE;
+                for (int set = 0; set <= n - 1; set++) {
+                    long ns = s;
+                    if (set > 0) {
+                        ns = s - (sum(n - set, n - 1) - (long) a[0] * set);
                     }
-
-                    if (ns1 <= ns2) {
-                        int d = 1 + set;
-                        long times = (s - k) / d;
-                        if (times > 0) {
-                            s -= times * d;
-                            decrease += times;
-                        } else {
-                            s = ns1;
-                            decrease++;
-                        }
-                    } else {
-                        s = ns2;
-                        set++;
+                    int decrease = 0;
+                    if (ns > k) {
+                        long d = ns - k;
+                        int m = set + 1;
+                        decrease = (int) Math.ceil(d * 1.0 / m);
                     }
+                    int step = set + decrease;
+                    ans = Math.min(ans, step);
                 }
-                ans = set + decrease;
             }
             out.append(String.format("%d\n", ans));
+        }
+    }
+
+    long sum(int i, int j) {
+        if (i == 0) {
+            return sums[j];
+        } else {
+            return sums[j] - sums[i - 1];
         }
     }
 
