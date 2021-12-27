@@ -37,6 +37,20 @@ public class Main {
         return a;
     }
 
+    class Item implements Comparable<Item> {
+        int v, i;
+
+        Item(int v, int i) {
+            this.v = v;
+            this.i = i;
+        }
+
+        @Override
+        public int compareTo(Item o) {
+            return Integer.compare(v, o.v);
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -49,17 +63,30 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 idxs[p[i]] = i;
             }
-            List<Integer> oneList = new ArrayList<>();
-            List<Integer> zeroList = new ArrayList<>();
+            List<Item> oneList = new ArrayList<>();
+            List<Item> zeroList = new ArrayList<>();
             for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
                 if (c == '1') {
-                    oneList.add(p[i]);
+                    oneList.add(new Item(p[i], i));
                     c1++;
                 } else {
-                    zeroList.add(p[i]);
+                    zeroList.add(new Item(p[i], i));
                     c0++;
                 }
+            }
+            Collections.sort(oneList);
+            int[] flist = new int[n];
+            int p1 = n;
+            for (int i = c1 - 1; i >= 0; i--) {
+                flist[oneList.get(i).i] = p1;
+                p1--;
+            }
+            Collections.sort(zeroList);
+            p1 = 1;
+            for (int i = 0; i < c0; i++) {
+                flist[zeroList.get(i).i] = p1;
+                p1++;
             }
 
             List<Integer> qlist1 = new ArrayList<>();
@@ -106,6 +133,7 @@ public class Main {
                 }
                 out.append(String.format("%d", flist.get(i)));
             }
+            out.append('\n');
         }
     }
 
