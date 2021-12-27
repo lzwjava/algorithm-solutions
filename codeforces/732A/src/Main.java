@@ -32,7 +32,8 @@ public class Main {
         int p = Integer.parseInt(st.nextToken());
         int i;
         for (i = 1; ; i++) {
-            if (i * k % 10 == p) {
+            int d = (i * k) % 10;
+            if (d == p || d == 0) {
                 break;
             }
         }
