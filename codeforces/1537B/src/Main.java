@@ -35,8 +35,23 @@ public class Main {
             int m = Integer.parseInt(st.nextToken());
             int i = Integer.parseInt(st.nextToken());
             int j = Integer.parseInt(st.nextToken());
-            int left = i - 1;
+            int left = j - 1;
             int right = m - 1;
+            int top = i - 1;
+            int bottom = n - i;
+            int x1, y1, x2, y2;
+            if (top >= bottom) {
+                if (left >= right) {
+                } else {
+
+                }
+            } else {
+                if (left >= right) {
+
+                } else {
+
+                }
+            }
         }
     }
 
