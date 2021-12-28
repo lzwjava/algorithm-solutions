@@ -20,25 +20,37 @@ public class Main {
         out.close();
     }
 
-    String options = "rbw";
-    String color = "rb";
+    String options = "rgw";
+    String color = "rg";
     String s;
     int maxk;
 
-    void permutation(char[] cs, int cur, int n) {
+    void permutation(char[] cs, int cur, int n, int red, int green) {
+        if (!notDuplicate(cs, cur)) {
+            return;
+        }
+        int rest = n - cur;
+        if (rest + red < green || rest + green < red) {
+            return;
+        }
         if (cur == n) {
-            if (check(cs, n)) {
-                int painted = painted(cs, n);
-                int k = painted / 2;
-                if (k > maxk) {
-                    maxk = k;
+            if (red == green) {
+                if (red > maxk) {
+                    maxk = red;
                 }
             }
             return;
         }
         for (int i = 0; i < 3; i++) {
-            cs[cur] = options.charAt(i);
-            permutation(cs, cur + 1, n);
+            char c = options.charAt(i);
+            cs[cur] = c;
+            int nred = red, ngreen = green;
+            if (c == 'r') {
+                nred = red + 1;
+            } else if (c == 'g') {
+                ngreen = green + 1;
+            }
+            permutation(cs, cur + 1, n, nred, ngreen);
         }
     }
 
@@ -54,7 +66,7 @@ public class Main {
         return total;
     }
 
-    boolean check(char[] cs, int n) {
+    boolean notDuplicate(char[] cs, int n) {
         List<Character>[] as = new ArrayList[2];
         for (int i = 0; i < 2; i++) {
             as[i] = new ArrayList<>();
@@ -66,7 +78,6 @@ public class Main {
                 as[idx].add(s.charAt(i));
             }
         }
-
         for (int i = 0; i < 2; i++) {
             Set<Character> set = new HashSet<>();
             set.addAll(as[i]);
@@ -74,9 +85,6 @@ public class Main {
                 //duplicate
                 return false;
             }
-        }
-        if (as[0].size() != as[1].size()) {
-            return false;
         }
         return true;
     }
@@ -86,7 +94,7 @@ public class Main {
         int n = s.length();
         char[] chs = new char[n];
         maxk = 0;
-        permutation(chs, 0, n);
+        permutation(chs, 0, n, 0, 0);
         return maxk;
     }
 
@@ -119,8 +127,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
