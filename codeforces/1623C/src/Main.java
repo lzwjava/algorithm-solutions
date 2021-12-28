@@ -1,28 +1,39 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 
-    Scanner in;
+    BufferedReader in;
     PrintWriter out;
 
     Main() {
-        in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+        in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
-    void close() {
+    void close() throws IOException {
         in.close();
         out.flush();
         out.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
         m.close();
+    }
+
+    int[] parseArray(String s) {
+        StringTokenizer st = new StringTokenizer(s);
+        int n = st.countTokens();
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = Integer.parseInt(st.nextToken());
+        }
+        return a;
     }
 
     boolean check(int[] h, int n, int x) {
@@ -49,15 +60,12 @@ public class Main {
         return true;
     }
 
-    void solve() {
-        int t = in.nextInt();
+    void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            int n = in.nextInt();
-            int[] h = new int[n];
-            for (int i = 0; i < n; i++) {
-                h[i] = in.nextInt();
-            }
+            int n = Integer.parseInt(in.readLine());
+            int[] h = parseArray(in.readLine());
             int left = Integer.MAX_VALUE, right = 0;
             for (int i = 0; i < n; i++) {
                 if (h[i] < left) {
