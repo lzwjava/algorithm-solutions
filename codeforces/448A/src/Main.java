@@ -35,11 +35,22 @@ public class Main {
         }
         return a;
     }
-    
+
+    int sum(int[] a) {
+        int s = 0;
+        for (int i = 0; i < a.length; i++) {
+            s += a[i];
+        }
+        return s;
+    }
+
     void solve() throws IOException {
         int[] a = parseArray(in.readLine());
         int[] b = parseArray(in.readLine());
         int n = Integer.parseInt(in.readLine());
+        int sa = sum(a);
+        int sb = sum(b);
+        
     }
 
 }
