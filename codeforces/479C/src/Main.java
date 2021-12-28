@@ -53,7 +53,15 @@ public class Main {
         for (int i = 0; i < n; i++) {
             Exam e = exams[i];
             int min = Math.min(e.a, e.b);
+            int other = e.a + e.b - min;
+            if (min >= last) {
+                last = min;
+            } else {
+                assert (other >= last);
+                last = other;
+            }
         }
+        out.append(String.format("%d\n", last));
     }
 
     public static void main(String[] args) throws IOException {
