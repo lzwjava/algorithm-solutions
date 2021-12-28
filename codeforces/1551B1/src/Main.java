@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Random;
 
 public class Main {
 
@@ -30,8 +30,11 @@ public class Main {
         return idx >= 0;
     }
 
+    int cnt;
+    int maxCnt;
+
     void permutation(char[] cs, int cur, int n, int red, int green) {
-        if (maxk != -1) {
+        if (cnt > maxCnt) {
             return;
         }
         int rest = n - cur;
@@ -44,7 +47,10 @@ public class Main {
         if (cur == n) {
             if (red == green) {
                 if (red > maxk) {
+                    cnt = 0;
                     maxk = red;
+                } else {
+                    cnt++;
                 }
             }
             return;
@@ -73,41 +79,6 @@ public class Main {
         }
     }
 
-    int painted(char[] cs, int n) {
-        int total = 0;
-        for (int i = 0; i < n; i++) {
-            char c = cs[i];
-            int idx = color.indexOf(c);
-            if (idx >= 0) {
-                total++;
-            }
-        }
-        return total;
-    }
-
-    boolean notDuplicate(char[] cs, int n) {
-        List<Character>[] as = new ArrayList[2];
-        for (int i = 0; i < 2; i++) {
-            as[i] = new ArrayList<>();
-        }
-        for (int i = 0; i < n; i++) {
-            char c = cs[i];
-            int idx = color.indexOf(c);
-            if (idx >= 0) {
-                as[idx].add(s.charAt(i));
-            }
-        }
-        for (int i = 0; i < 2; i++) {
-            Set<Character> set = new HashSet<>();
-            set.addAll(as[i]);
-            if (set.size() != as[i].size()) {
-                //duplicate
-                return false;
-            }
-        }
-        return true;
-    }
-
     int cal(String s) {
         this.s = s;
         int n = s.length();
@@ -128,13 +99,13 @@ public class Main {
     }
 
     void test() {
-        int cnt = 0;
         while (true) {
-            String s = randomString(50);
-            int n = cal(s);
-            cnt++;
-//            out.append(String.format("%d\n", cnt));
-//            out.flush();
+            String s = randomString(5);
+            maxCnt = Integer.MAX_VALUE;
+            int n1 = cal(s);
+            maxCnt = 1000;
+            int n2 = cal(s);
+            assert (n1 == n2);
         }
     }
 
@@ -150,8 +121,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
