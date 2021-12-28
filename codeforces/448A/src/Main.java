@@ -51,7 +51,7 @@ public class Main {
         int sa = sum(a);
         int sb = sum(b);
         int da = (int) Math.ceil(sa * 1.0 / 5);
-        int db = (int) Math.ceil(sb * 1.0 / 5);
+        int db = (int) Math.ceil(sb * 1.0 / 10);
         if (da + db <= n) {
             out.append("YES\n");
         } else {
