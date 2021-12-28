@@ -49,14 +49,14 @@ public class Main {
                     x2 = x;
                     y2 = j;
                 } else {
-                    int x = m;
+                    int x = n;
                     x1 = x;
                     y1 = y;
                     x2 = i;
                     y2 = y;
                 }
             } else {
-                int y = n;
+                int y = m;
                 if (left >= right) {
                     int x = 1;
                     x1 = x;
@@ -64,7 +64,7 @@ public class Main {
                     x2 = x;
                     y2 = j;
                 } else {
-                    int x = m;
+                    int x = n;
                     x1 = x;
                     y1 = y;
                     x2 = i;
