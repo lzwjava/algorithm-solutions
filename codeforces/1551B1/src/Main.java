@@ -118,7 +118,7 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             String s = in.readLine();
-            maxCnt = 1000;
+            maxCnt = 300;
             cnt = 0;
             int maxk = cal(s);
             out.append(String.format("%d\n", maxk));
