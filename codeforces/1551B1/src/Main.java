@@ -25,12 +25,20 @@ public class Main {
     String s;
     int maxk;
 
+    boolean isColor(char c) {
+        int idx = color.indexOf(c);
+        return idx >= 0;
+    }
+
     void permutation(char[] cs, int cur, int n, int red, int green) {
-        if (!notDuplicate(cs, cur)) {
+        if (maxk != -1) {
             return;
         }
         int rest = n - cur;
         if (rest + red < green || rest + green < red) {
+            return;
+        }
+        if (red + green + rest / 2 < maxk) {
             return;
         }
         if (cur == n) {
@@ -44,13 +52,24 @@ public class Main {
         for (int i = 0; i < 3; i++) {
             char c = options.charAt(i);
             cs[cur] = c;
-            int nred = red, ngreen = green;
-            if (c == 'r') {
-                nred = red + 1;
-            } else if (c == 'g') {
-                ngreen = green + 1;
+            boolean ok = true;
+            if (isColor(c)) {
+                for (int j = 0; j < cur; j++) {
+                    if (s.charAt(j) == s.charAt(cur) && cs[j] == c) {
+                        ok = false;
+                        break;
+                    }
+                }
             }
-            permutation(cs, cur + 1, n, nred, ngreen);
+            if (ok) {
+                int nred = red, ngreen = green;
+                if (c == 'r') {
+                    nred = red + 1;
+                } else if (c == 'g') {
+                    ngreen = green + 1;
+                }
+                permutation(cs, cur + 1, n, nred, ngreen);
+            }
         }
     }
 
@@ -93,7 +112,7 @@ public class Main {
         this.s = s;
         int n = s.length();
         char[] chs = new char[n];
-        maxk = 0;
+        maxk = -1;
         permutation(chs, 0, n, 0, 0);
         return maxk;
     }
@@ -109,9 +128,11 @@ public class Main {
     }
 
     void test() {
+        int cnt = 0;
         while (true) {
             String s = randomString(50);
             int n = cal(s);
+            cnt++;
         }
     }
 
