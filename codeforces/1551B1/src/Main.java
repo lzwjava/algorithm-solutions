@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -84,14 +81,37 @@ public class Main {
         return true;
     }
 
+    int cal(String s) {
+        this.s = s;
+        int n = s.length();
+        char[] chs = new char[n];
+        maxk = 0;
+        permutation(chs, 0, n);
+        return maxk;
+    }
+
+    String randomString(int n) {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            char c = (char) (random.nextInt(26) + 'a');
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    void test() {
+        while (true) {
+            String s = randomString(50);
+            int n = cal(s);
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
-            s = in.readLine();
-            int n = s.length();
-            char[] chs = new char[n];
-            maxk = 0;
-            permutation(chs, 0, n);
+            String s = in.readLine();
+            int maxk = cal(s);
             out.append(String.format("%d\n", maxk));
             t--;
         }
@@ -99,7 +119,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
+//        m.solve();
+        m.test();
         m.close();
     }
 
