@@ -38,24 +38,20 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
-            t--;
-            int n = Integer.parseInt(in.readLine());
-            int[] a = parseArray(in.readLine());
-            Arrays.sort(a);
-            boolean ok = false;
-            for (int i = 1; i < n - 1; i++) {
-                if (a[i] + a[i - 1] > a[i + 1]) {
-                    ok = true;
-                    break;
-                }
+        int n = Integer.parseInt(in.readLine());
+        int[] a = parseArray(in.readLine());
+        Arrays.sort(a);
+        boolean ok = false;
+        for (int i = 1; i < n - 1; i++) {
+            if (a[i] + a[i - 1] > a[i + 1]) {
+                ok = true;
+                break;
             }
-            if (ok) {
-                out.append("YES\n");
-            } else {
-                out.append("NO\n");
-            }
+        }
+        if (ok) {
+            out.append("YES\n");
+        } else {
+            out.append("NO\n");
         }
     }
 
