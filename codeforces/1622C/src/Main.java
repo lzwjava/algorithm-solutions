@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -21,7 +20,7 @@ public class Main {
         out.close();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Main m = new Main();
         m.solve();
         m.close();
