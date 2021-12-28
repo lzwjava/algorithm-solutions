@@ -133,6 +133,8 @@ public class Main {
             String s = randomString(50);
             int n = cal(s);
             cnt++;
+//            out.append(String.format("%d\n", cnt));
+//            out.flush();
         }
     }
 
@@ -148,8 +150,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
