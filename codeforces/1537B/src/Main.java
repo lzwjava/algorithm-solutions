@@ -35,7 +35,8 @@ public class Main {
             int m = Integer.parseInt(st.nextToken());
             int i = Integer.parseInt(st.nextToken());
             int j = Integer.parseInt(st.nextToken());
-            
+            int left = i - 1;
+            int right = m - 1;
         }
     }
 
