@@ -50,8 +50,8 @@ public class Main {
         int n = Integer.parseInt(in.readLine());
         int sa = sum(a);
         int sb = sum(b);
-        int da = (sa - 1) / 5 + 1;
-        int db = (sb - 1) / 10 + 1;
+        int da = (int) Math.ceil(sa * 1.0 / 5);
+        int db = (int) Math.ceil(sb * 1.0 / 5);
         if (da + db <= n) {
             out.append("YES\n");
         } else {
