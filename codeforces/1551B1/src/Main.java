@@ -102,15 +102,15 @@ public class Main {
     void test() {
         int c = 0;
         while (true) {
-            String s = randomString(50);
-//            maxCnt = Integer.MAX_VALUE;
-//            int n1 = cal(s);
-            maxCnt = 1000;
+            String s = randomString(6);
+            maxCnt = Integer.MAX_VALUE;
+            int n1 = cal(s);
+            maxCnt = 2;
             int n2 = cal(s);
-//            assert (n1 == n2);
+            assert (n1 == n2);
             c++;
-            out.append(String.format("%d\n", c));
-            out.flush();
+//            out.append(String.format("%d\n", c));
+//            out.flush();
         }
     }
 
@@ -118,8 +118,7 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             String s = in.readLine();
-            maxCnt = 300;
-            cnt = 0;
+            maxCnt = 2;
             int maxk = cal(s);
             out.append(String.format("%d\n", maxk));
             t--;
