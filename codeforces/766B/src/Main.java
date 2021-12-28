@@ -44,8 +44,17 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
             Arrays.sort(a);
-            if (a[n - 1] + a[n - 2] >= a[0]) {
-                
+            boolean ok = false;
+            for (int i = 1; i < n - 1; i++) {
+                if (a[i] + a[i - 1] > a[i + 1]) {
+                    ok = true;
+                    break;
+                }
+            }
+            if (ok) {
+                out.append("YES\n");
+            } else {
+                out.append("NO\n");
             }
         }
     }
