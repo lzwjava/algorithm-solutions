@@ -57,7 +57,6 @@ public class Main {
             if (min >= last) {
                 last = min;
             } else {
-                assert (other >= last);
                 last = other;
             }
         }
