@@ -38,9 +38,8 @@ public class Main {
     }
 
     long cal(int n, long k, int[] a) {
-        long[] sums;
+        long[] sums = new long[n];
         Arrays.sort(a);
-        sums = new long[n];
         long s = 0;
         for (int i = 0; i < n; i++) {
             s += a[i];
