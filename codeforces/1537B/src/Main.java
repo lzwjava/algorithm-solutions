@@ -41,30 +41,30 @@ public class Main {
             int bottom = n - i;
             int x1, y1, x2, y2;
             if (top >= bottom) {
-                int y = 1;
+                int x = 1;
                 if (left >= right) {
-                    int x = 1;
+                    int y = 1;
                     x1 = x;
                     y1 = y;
                     x2 = x;
                     y2 = j;
                 } else {
-                    int x = n;
+                    int y = m;
                     x1 = x;
                     y1 = y;
                     x2 = i;
                     y2 = y;
                 }
             } else {
-                int y = m;
+                int x = n;
                 if (left >= right) {
-                    int x = 1;
+                    int y = 1;
                     x1 = x;
                     y1 = y;
                     x2 = x;
                     y2 = j;
                 } else {
-                    int x = n;
+                    int y = m;
                     x1 = x;
                     y1 = y;
                     x2 = i;
