@@ -39,7 +39,6 @@ public class Main {
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         int[] b = parseArray(in.readLine());
-//        int[] a = new int[n];
         int v;
         int last = 0;
         for (int i = 0; i < n; i++) {
