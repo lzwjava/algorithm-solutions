@@ -37,11 +37,8 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
-            t--;
-            int n = Integer.parseInt(in.readLine());
-        }
+        int n = Integer.parseInt(in.readLine());
+        int[] b = parseArray(in.readLine());
     }
 
 }
