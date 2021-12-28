@@ -35,42 +35,7 @@ public class Main {
             int m = Integer.parseInt(st.nextToken());
             int i = Integer.parseInt(st.nextToken());
             int j = Integer.parseInt(st.nextToken());
-            int left = j - 1;
-            int right = m - 1;
-            int top = i - 1;
-            int bottom = n - i;
-            int x1, y1, x2, y2;
-            if (top >= bottom) {
-                int x = 1;
-                if (left >= right) {
-                    int y = 1;
-                    x1 = x;
-                    y1 = y;
-                    x2 = x;
-                    y2 = j;
-                } else {
-                    int y = m;
-                    x1 = x;
-                    y1 = y;
-                    x2 = i;
-                    y2 = y;
-                }
-            } else {
-                int x = n;
-                if (left >= right) {
-                    int y = 1;
-                    x1 = x;
-                    y1 = y;
-                    x2 = x;
-                    y2 = j;
-                } else {
-                    int y = m;
-                    x1 = x;
-                    y1 = y;
-                    x2 = i;
-                    y2 = y;
-                }
-            }
+            int x1 = 1, y1 = 1, x2 = n, y2 = m;
             out.append(String.format("%d %d %d %d\n", x1, y1, x2, y2));
         }
     }
