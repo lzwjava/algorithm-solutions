@@ -58,16 +58,18 @@ public class Main {
                     mh = h[i];
                 }
             }
+            int curMin = 0;
             for (int i = 2; i < n; i++) {
                 // a[i-2], a[i-1], a[i]
                 // a[i-2]+2d, a[i-1]+d, a[i]-3d
                 // a[i-2]+5d<=a[i],  a[i-1]+4d<=a[i]
                 // d<= (a[i]-a[i-2])/5, d<= (a[i]-a[i-1])/4
-
-                int mad = h[i] / 3;
-
-                int d1 = h[i] / 3;
-                int md = Integer.max(d1, d2);
+                int md;
+                if (i == n - 1) {
+                    md = (h[i] - curMin) / 3;
+                } else {
+                    md = h[i] / 3;
+                }
                 if (md > 0) {
                     h[i - 2] += 2 * md;
                     h[i - 1] += md;
@@ -75,6 +77,14 @@ public class Main {
                     int min = min(h);
                     if (min > mh) {
                         mh = min;
+                    }
+                }
+
+                if (i == 2) {
+                    curMin = h[0];
+                } else {
+                    if (h[i - 2] < curMin) {
+                        curMin = h[i - 2];
                     }
                 }
             }
