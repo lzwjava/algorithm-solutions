@@ -34,13 +34,13 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
             Arrays.sort(a);
-            int c = 1;
-            for (int i = 0; i < n; i++) {
-                if (a[i] <= c) {
-                    c++;
+            int i;
+            for (i = n - 1; i >= 0; i--) {
+                if (a[i] <= i + 1) {
+                    break;
                 }
             }
-            out.append(String.format("%d\n", c));
+            out.append(String.format("%d\n", i + 2));
         }
     }
 
