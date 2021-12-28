@@ -19,18 +19,20 @@ public class Main {
         out.close();
     }
 
+    void permutation(char[] cs, int cur, int n) {
+        String color = "rbw";
+        for (int i = 0; i < 3; i++) {
+            cs[cur] = color.charAt(i);
+            permutation(cs, cur + 1, n);
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             String s = in.readLine();
             int n = s.length();
-            int ans;
-            if (n % 2 == 0) {
-                ans = n / 2;
-            } else {
-                ans = (n - 1) / 2;
-            }
-            out.append(String.format("%d\n", ans));
+
             t--;
         }
     }
