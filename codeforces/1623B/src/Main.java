@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -91,6 +89,8 @@ public class Main {
             }
             Arrays.sort(rs);
 
+            Set<Range> set = new HashSet<>();
+
             int[] ns = new int[n];
             for (int i = n - 1; i >= 0; i--) {
                 Range range = rs[i];
@@ -102,14 +102,14 @@ public class Main {
                         boolean ok = true;
                         if (range.l <= j - 1) {
                             Range left = new Range(range.l, j - 1);
-                            if (!exist(left, i + 1)) {
+                            if (!set.contains(left)) {
                                 ok = false;
                             }
                         }
                         if (ok) {
                             if (j + 1 <= range.r) {
                                 Range right = new Range(j + 1, range.r);
-                                if (!exist(right, i + 1)) {
+                                if (!set.contains(right)) {
                                     ok = false;
                                 }
                             }
@@ -120,6 +120,7 @@ public class Main {
                     }
                     ns[i] = j;
                 }
+                set.add(range);
             }
             for (int i = 0; i < n; i++) {
                 Range range = rs[i];
