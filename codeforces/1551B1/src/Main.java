@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Main {
@@ -89,6 +91,31 @@ public class Main {
         return maxk;
     }
 
+    int cal1(String s) {
+        this.s = s;
+        int n = s.length();
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            Integer cnt = map.get(c);
+            if (cnt == null) {
+                cnt = 0;
+            }
+            cnt++;
+            map.put(c, cnt);
+        }
+        int sum = 0;
+        for (char key : map.keySet()) {
+            Integer cnt = map.get(key);
+            if (cnt <= 2) {
+                sum += cnt;
+            } else {
+                sum += 2;
+            }
+        }
+        return sum / 2;
+    }
+
     String randomString(int n) {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
@@ -118,8 +145,8 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             String s = in.readLine();
-            maxCnt = 2;
-            int maxk = cal(s);
+//            maxCnt = 2;
+            int maxk = cal1(s);
             out.append(String.format("%d\n", maxk));
             t--;
         }
