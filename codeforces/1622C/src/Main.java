@@ -37,7 +37,7 @@ public class Main {
         return a;
     }
 
-    long cal(int n, long k, int[] a) throws IOException {
+    long cal(int n, long k, int[] a) {
         long[] sums;
         Arrays.sort(a);
         sums = new long[n];
