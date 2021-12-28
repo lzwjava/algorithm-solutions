@@ -29,7 +29,7 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            int n = Integer.parseInt(in.readLine());
+            long n = Long.parseLong(in.readLine());
         }
     }
 
