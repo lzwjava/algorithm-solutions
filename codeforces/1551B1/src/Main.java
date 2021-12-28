@@ -84,6 +84,7 @@ public class Main {
         int n = s.length();
         char[] chs = new char[n];
         maxk = -1;
+        cnt = 0;
         permutation(chs, 0, n, 0, 0);
         return maxk;
     }
@@ -99,13 +100,17 @@ public class Main {
     }
 
     void test() {
+        int c = 0;
         while (true) {
-            String s = randomString(5);
-            maxCnt = Integer.MAX_VALUE;
-            int n1 = cal(s);
+            String s = randomString(50);
+//            maxCnt = Integer.MAX_VALUE;
+//            int n1 = cal(s);
             maxCnt = 1000;
             int n2 = cal(s);
-            assert (n1 == n2);
+//            assert (n1 == n2);
+            c++;
+            out.append(String.format("%d\n", c));
+            out.flush();
         }
     }
 
@@ -113,6 +118,8 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             String s = in.readLine();
+            maxCnt = 1000;
+            cnt = 0;
             int maxk = cal(s);
             out.append(String.format("%d\n", maxk));
             t--;
@@ -121,8 +128,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
