@@ -41,7 +41,7 @@ public class Main {
         int[] a = parseArray(in.readLine());
 
         int product = 1;
-        int step = 0;
+        long step = 0;
         int c0 = 0;
         for (int i = 0; i < n; i++) {
             if (a[i] > 1) {
