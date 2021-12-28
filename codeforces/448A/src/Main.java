@@ -50,7 +50,13 @@ public class Main {
         int n = Integer.parseInt(in.readLine());
         int sa = sum(a);
         int sb = sum(b);
-        
+        int da = (sa - 1) / 5 + 1;
+        int db = (sb - 1) / 10 + 1;
+        if (da + db <= n) {
+            out.append("YES\n");
+        } else {
+            out.append("NO\n");
+        }
     }
 
 }
