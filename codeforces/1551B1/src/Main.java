@@ -20,6 +20,9 @@ public class Main {
     }
 
     void permutation(char[] cs, int cur, int n) {
+        if (cur == n) {
+            return;
+        }
         String color = "rbw";
         for (int i = 0; i < 3; i++) {
             cs[cur] = color.charAt(i);
@@ -32,7 +35,8 @@ public class Main {
         while (t > 0) {
             String s = in.readLine();
             int n = s.length();
-
+            char[] chs = new char[n];
+            permutation(chs, 0, n);
             t--;
         }
     }
