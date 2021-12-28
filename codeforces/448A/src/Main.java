@@ -35,7 +35,7 @@ public class Main {
         }
         return a;
     }
-
+    
     void solve() throws IOException {
         int[] a = parseArray(in.readLine());
         int[] b = parseArray(in.readLine());
