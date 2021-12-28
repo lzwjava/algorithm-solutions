@@ -3,19 +3,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
 
-    BufferedReader in;
+    Scanner in;
     PrintWriter out;
 
     Main() {
-        in = new BufferedReader(new InputStreamReader(System.in));
+        in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
         out = new PrintWriter(System.out);
     }
 
-    void close() throws IOException {
+    void close() {
         in.close();
         out.flush();
         out.close();
@@ -26,19 +26,17 @@ public class Main {
         m.solve();
         m.close();
     }
-    
-    void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
+
+    void solve() {
+        int t = in.nextInt();
         while (t > 0) {
             t--;
-            StringTokenizer st = new StringTokenizer(in.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            long k = Long.parseLong(st.nextToken());
-            st = new StringTokenizer(in.readLine());
+            int n = in.nextInt();
+            long k = in.nextLong();
             int[] a = new int[n];
             long s = 0;
             for (int i = 0; i < n; i++) {
-                a[i] = Integer.parseInt(st.nextToken());
+                a[i] = in.nextInt();
                 s += a[i];
             }
             Arrays.sort(a);
