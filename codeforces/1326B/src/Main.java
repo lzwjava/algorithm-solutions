@@ -39,6 +39,18 @@ public class Main {
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         int[] b = parseArray(in.readLine());
+//        int[] a = new int[n];
+        int v;
+        int last = 0;
+        for (int i = 0; i < n; i++) {
+            // a[i] - last = b[i]
+            if (i != 0) {
+                out.append(' ');
+            }
+            v = last + b[i];
+            last = Integer.max(last, v);
+            out.append(String.format("%d", v));
+        }
     }
 
 }
