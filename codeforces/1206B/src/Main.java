@@ -37,41 +37,37 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
-            t--;
-            int n = Integer.parseInt(in.readLine());
-            int[] a = parseArray(in.readLine());
+        int n = Integer.parseInt(in.readLine());
+        int[] a = parseArray(in.readLine());
 
-            int product = 1;
-            int step = 0;
-            int c0 = 0;
-            for (int i = 0; i < n; i++) {
-                if (a[i] > 1) {
-                    step += a[i] - 1;
-                    product *= 1;
-                } else if (a[i] < -1) {
-                    step += (-1 - a[i]);
-                    product *= -1;
-                } else if (a[i] == 0) {
-                    c0++;
-                } else if (a[i] == -1) {
-                    product *= -1;
-                }
+        int product = 1;
+        int step = 0;
+        int c0 = 0;
+        for (int i = 0; i < n; i++) {
+            if (a[i] > 1) {
+                step += a[i] - 1;
+                product *= 1;
+            } else if (a[i] < -1) {
+                step += (-1 - a[i]);
+                product *= -1;
+            } else if (a[i] == 0) {
+                c0++;
+            } else if (a[i] == -1) {
+                product *= -1;
             }
-            if (product == 1) {
-                if (c0 > 0) {
-                    step += c0;
-                }
-            } else {
-                if (c0 > 0) {
-                    step += c0;
-                } else {
-                    step += 2;
-                }
-            }
-            out.append(String.format("%d\n", step));
         }
+        if (product == 1) {
+            if (c0 > 0) {
+                step += c0;
+            }
+        } else {
+            if (c0 > 0) {
+                step += c0;
+            } else {
+                step += 2;
+            }
+        }
+        out.append(String.format("%d\n", step));
     }
 
 }
