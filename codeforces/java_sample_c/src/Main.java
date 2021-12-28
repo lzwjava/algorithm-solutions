@@ -8,6 +8,7 @@ public class Main {
 
     void solve() {
         Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
     }
 
 }
