@@ -104,14 +104,14 @@ public class Main {
                             Range left = new Range(range.l, j - 1);
                             if (!exist(left, i + 1)) {
                                 ok = false;
-                                continue;
                             }
                         }
-                        if (range.r + 1 <= range.r) {
-                            Range right = new Range(range.r + 1, range.r);
-                            if (!exist(right, i + 1)) {
-                                ok = false;
-                                break;
+                        if (ok) {
+                            if (j + 1 <= range.r) {
+                                Range right = new Range(j + 1, range.r);
+                                if (!exist(right, i + 1)) {
+                                    ok = false;
+                                }
                             }
                         }
                         if (ok) {
