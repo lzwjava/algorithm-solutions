@@ -73,6 +73,9 @@ public class Main {
             }
             out.append('\n');
         }
+        in.close();
+        out.flush();
+        out.close();
     }
 
 }
