@@ -61,10 +61,10 @@ public class Main {
         }
     }
 
-    boolean change(Set<Item> ds, int[] b, int op) {
+    int change(Set<Item> ds, int[] b, int op) {
         int n = b.length;
         if (b.length == 1) {
-            return true;
+            return 0;
         }
         for (Item it : ds) {
             int c = 0;
@@ -78,10 +78,10 @@ public class Main {
                 }
             }
             if (c <= op) {
-                return true;
+                return c;
             }
         }
-        return false;
+        return -1;
     }
 
     void solve() throws IOException {
@@ -103,8 +103,9 @@ public class Main {
             while (left < right) {
                 int mid = (left + right) / 2;
                 int[] b = a.clone();
-                if (change(ds, b, mid)) {
-                    right = mid;
+                int v = change(ds, b, mid);
+                if (v != -1) {
+                    right = v;
                 } else {
                     left = mid + 1;
                 }
