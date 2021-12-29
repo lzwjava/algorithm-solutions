@@ -35,12 +35,43 @@ public class Main {
         return a;
     }
 
+    boolean good(int[] a) {
+        int n = a.length;
+        for (int l = 0; l <= n; l++) {
+            for (int r = l; r <= n; r++) {
+                int sum = sum(l, r);
+                int right = (a[l] + a[r]) * (r - l + 1);
+                if (sum * 2 != right) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    int[] sums;
+
+    int sum(int i, int j) {
+        if (i == 0) {
+            return sums[j];
+        } else {
+            return sums[j] - sums[i - 1];
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
+            int s = 0;
+            sums = new int[n];
+            for (int i = 0; i < n; i++) {
+                s += a[i];
+                sums[i] = s;
+            }
+
         }
     }
 }
