@@ -30,6 +30,20 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
+            String ans = "";
+            for (int i = 0; i < n; i++) {
+                String s1 = s.substring(0, i + 1);
+                String s2 = new StringBuilder(s1).reverse().toString();
+                String ns = String.format("%s%s", s1, s2);
+                if (ans.equals("")) {
+                    ans = ns;
+                } else {
+                    if (ns.compareTo(ans) < 0) {
+                        ans = ns;
+                    }
+                }
+            }
+            out.append(String.format("%s\n", ans));
         }
     }
 }
