@@ -16,8 +16,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -54,8 +54,12 @@ public class Main {
                 }
             }
             for (int x : set) {
-                List<Integer> tl = new ArrayList<>(list);
-                tl.removeIf(integer -> integer == x);
+                List<Integer> tl = new ArrayList<>();
+                for (int y : list) {
+                    if (y != x) {
+                        tl.add(y);
+                    }
+                }
                 if (palindrome(tl)) {
                     ok = true;
                     break;
