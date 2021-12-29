@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -14,23 +12,22 @@ public class Main {
         while (t > 0) {
             t--;
             int n = in.nextInt();
-            List<Integer> a = new ArrayList<>();
+            int[] a = new int[n];
             int mx = 0;
             for (int i = 0; i < n; i++) {
-                int v = in.nextInt();
-                a.add(v);
-                mx = Integer.max(mx, v);
+                a[i] = in.nextInt();
+                mx = Integer.max(mx, a[i]);
             }
             int p = n - 1;
             int c = 0;
             while (true) {
-                int x = a.get(p);
+                int x = a[p];
                 if (x == mx) {
                     break;
                 }
                 int i;
                 for (i = p - 1; i >= 0; i--) {
-                    if (a.get(i) > x) {
+                    if (a[i] > x) {
                         break;
                     }
                 }
