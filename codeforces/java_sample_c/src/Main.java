@@ -25,5 +25,4 @@ public class Main {
     void solve() {
         int t = in.nextInt();
     }
-
 }
