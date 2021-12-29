@@ -136,7 +136,7 @@ public class Main {
 
     int cal1(int n, int m, Segment[] segments) {
         int x = segments[0].x;
-        for (int i = 0; i < m; i++) {
+        for (int i = 1; i < m; i++) {
             x |= segments[i].x;
         }
         BigInteger bi = BigInteger.valueOf(2);
@@ -147,7 +147,6 @@ public class Main {
 
     void solve() {
         int t = in.nextInt();
-        Random random = new Random();
         while (t > 0) {
             t--;
             int n = in.nextInt();
