@@ -87,8 +87,14 @@ public class Main {
             Arrays.sort(segments);
             int[] a = new int[n];
             Arrays.fill(a, -1);
+            int v = -1;
             for (int i = 0; i < m; i++) {
                 Segment s = segments[i];
+                if (v == -1) {
+                    v = s.x;
+                } else {
+                    v |= s.x;
+                }
                 if (s.l == s.r) {
                     a[s.l] = s.x;
                 } else {
@@ -127,11 +133,16 @@ public class Main {
                     }
                 }
             }
+            out.append(String.format("%d\n", v));
+            for (int i = 0; i < n; i++) {
+                out.append(String.format("%d   %3s\n", a[i], Integer.toBinaryString(a[i])));
+            }
             ans = 0;
             for (int len = 1; len <= n; len++) {
                 permutation(a, 0, len, 0, n, -1);
             }
             out.append(String.format("%d\n", ans));
+            out.append('\n');
             out.flush();
         }
     }
