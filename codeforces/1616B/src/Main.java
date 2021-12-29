@@ -50,14 +50,21 @@ public class Main {
                     }
                 }
             }
+            List<Integer> nps = new ArrayList<>();
             int p0 = ps.get(0);
             for (int i = 0; i < p0; i++) {
-                ps.add(i);
+                nps.add(i);
             }
+            nps.addAll(ps);
             String ans = "";
-            for (int i = 0; i < ps.size(); i++) {
-                int p = ps.get(i);
+            for (int i = 0; i < nps.size(); i++) {
+                int p = nps.get(i);
                 String s1 = s.substring(0, p + 1);
+                if (!ans.equals("")) {
+                    if (ans.compareTo(s1) < 0) {
+                        break;
+                    }
+                }
                 String s2 = new StringBuilder(s1).reverse().toString();
                 String ns = String.format("%s%s", s1, s2);
                 if (ans.equals("")) {
