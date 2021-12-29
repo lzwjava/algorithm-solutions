@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -30,33 +32,32 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
-            int mp = -1;
+            List<Integer> ps = new ArrayList<>();
             char mc = 'a';
             for (int i = 0; i < n; i++) {
                 char c = s.charAt(i);
-                if (mp == -1) {
+                if (ps.size() == 0) {
                     mc = c;
-                    mp = i;
+                    ps.add(i);
                 } else {
-                    if (Character.compare(c, mc) < 0) {
+                    int cmp = Character.compare(c, mc);
+                    if (cmp < 0) {
                         mc = c;
-                        mp = i;
+                        ps.clear();
+                        ps.add(i);
+                    } else if (cmp == 0) {
+                        ps.add(i);
                     }
                 }
             }
-//            String s1 = s.substring(0, mp + 1);
-//            String s2 = new StringBuilder(s1).reverse().toString();
-//            String ns = String.format("%s%s", s1, s2);
-
-
+            int p0 = ps.get(0);
+            for (int i = 0; i < p0; i++) {
+                ps.add(i);
+            }
             String ans = "";
-            for (int i = 0; i <= mp; i++) {
-                String s1 = s.substring(0, i + 1);
-                if (!ans.equals("")) {
-                    if (ans.compareTo(s1) < 0) {
-                        break;
-                    }
-                }
+            for (int i = 0; i < ps.size(); i++) {
+                int p = ps.get(i);
+                String s1 = s.substring(0, p + 1);
                 String s2 = new StringBuilder(s1).reverse().toString();
                 String ns = String.format("%s%s", s1, s2);
                 if (ans.equals("")) {
