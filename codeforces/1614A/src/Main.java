@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -19,6 +20,20 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = in.nextInt();
             }
+            Arrays.sort(a);
+            int s = 0;
+            int c = 0;
+            for (int i = 0; i < n; i++) {
+                if (a[i] >= l && a[i] <= r) {
+                    if (s + a[i] <= k) {
+                        s += a[i];
+                        c++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            System.out.println(c);
         }
     }
 
