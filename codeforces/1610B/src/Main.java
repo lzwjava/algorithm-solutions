@@ -26,7 +26,7 @@ public class Main {
         int m = list.size();
         for (int i = 0; i < m; i++) {
             int a = list.get(i);
-            int b = list.get(m + 1 - i);
+            int b = list.get(m - 1 - i);
             if (a != b) {
                 return false;
             }
@@ -37,6 +37,7 @@ public class Main {
     void solve() {
         int t = in.nextInt();
         while (t > 0) {
+            t--;
             int n = in.nextInt();
             List<Integer> list = new ArrayList<>();
             Set<Integer> set = new HashSet<>();
