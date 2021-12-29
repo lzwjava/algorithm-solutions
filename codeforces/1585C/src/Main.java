@@ -25,59 +25,63 @@ public class Main {
                     left.add(x[i]);
                 }
             }
-            Collections.sort(left, new Comparator<Integer>() {
+            Collections.sort(right, new Comparator<Integer>() {
                 @Override
                 public int compare(Integer o1, Integer o2) {
                     return Integer.compare(o2, o1);
                 }
             });
+            Collections.sort(left);
             Collections.sort(right);
             // visited depot count
             int vis = 0;
             int rn = right.size();
             long dist = 0;
             int pos = 0;
-            while (vis < rn) {
-                if (pos != 0) {
-                    dist += pos;
-                    pos = 0;
-                }
-                // rn: 3
-                if (vis + k <= rn) {
-                    int rp = right.get(vis + k - 1);
-                    dist += rp;
-                    pos = rp;
-                    vis += k;
-                } else {
-                    int nk = rn - vis;
-                    int rp = right.get(vis + nk - 1);
-                    pos = rp;
-                    dist += rp;
-                    vis += nk;
+            if (rn > 0) {
+                pos = right.get(0);
+                while (vis < rn) {
+                    if (pos != right.get(vis)) {
+                        dist += pos;
+                        pos = right.get(vis);
+                    }
+                    // rn: 3
+                    if (vis + k <= rn) {
+                        int rp = pos;
+                        dist += rp;
+                        pos = 0;
+                        vis += k;
+                    } else {
+                        int nk = rn - vis;
+                        int rp = pos;
+                        pos = 0;
+                        dist += rp;
+                        vis += nk;
+                    }
                 }
             }
             int ln = left.size();
             if (ln > 0) {
-                if (pos != 0) {
-                    dist += pos;
-                    pos = 0;
+                if (rn > 0) {
+                    pos = left.get(0);
+                    dist += -pos;
+                } else {
+                    pos = left.get(0);
                 }
                 vis = 0;
                 while (vis < ln) {
-                    if (pos != 0) {
+                    if (pos != left.get(vis)) {
                         dist += -pos;
-                        pos = 0;
+                        pos = left.get(vis);
                     }
                     if (vis + k <= ln) {
-                        int lp = left.get(vis + k - 1);
-                        dist += -lp;
-                        pos = lp;
+                        dist += -pos;
+                        pos = 0;
                         vis += k;
                     } else {
                         int nk = ln - vis;
-                        int lp = left.get(vis + nk - 1);
-                        pos = lp;
-                        dist += -lp;
+                        pos = 0;
+                        dist += -pos;
                         vis += nk;
                     }
                 }
