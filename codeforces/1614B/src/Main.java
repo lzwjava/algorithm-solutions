@@ -1,8 +1,12 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Main().solve();
     }
 
@@ -20,16 +24,18 @@ public class Main {
         }
     }
 
-    void solve() {
-        Scanner in = new Scanner(System.in);
-        int t = in.nextInt();
+    void solve() throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(System.out);
+        int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            int n = in.nextInt();
+            int n = Integer.parseInt(in.readLine());
             List<Integer> list = new ArrayList<>();
             List<Item> sorted = new ArrayList<>();
+            StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
-                int v = in.nextInt();
+                int v = Integer.parseInt(st.nextToken());
                 list.add(v);
                 sorted.add(new Item(v, i));
             }
@@ -60,12 +66,12 @@ public class Main {
                 xs.add(new Item(x[i], sorted.get(i - 1).i));
             }
             Collections.sort(xs, Comparator.comparingInt(o -> o.i));
-            System.out.println(time);
-            System.out.print(String.format("%d ", 0));
+            out.append(String.format("%d\n", time));
+            out.append(String.format("%d ", 0));
             for (int i = 0; i < xs.size(); i++) {
-                System.out.print(String.format("%d ", xs.get(i).v));
+                out.append(String.format("%d ", xs.get(i).v));
             }
-            System.out.println();
+            out.append('\n');
         }
     }
 
