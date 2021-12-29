@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -25,18 +28,8 @@ public class Main {
                     left.add(-x[i]);
                 }
             }
-            Collections.sort(right, new Comparator<Integer>() {
-                @Override
-                public int compare(Integer o1, Integer o2) {
-                    return Integer.compare(o2, o1);
-                }
-            });
-            Collections.sort(left, new Comparator<Integer>() {
-                @Override
-                public int compare(Integer o1, Integer o2) {
-                    return Integer.compare(o2, o1);
-                }
-            });
+            Collections.sort(right, (o1, o2) -> Integer.compare(o2, o1));
+            Collections.sort(left, (o1, o2) -> Integer.compare(o2, o1));
 
             int rn = right.size();
             int ln = left.size();
