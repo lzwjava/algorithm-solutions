@@ -54,21 +54,19 @@ public class Main {
 
     int mod = 1000000007;
 
-    void permutation(int[] a, int st, int n, int cur, int xor) {
-        if (st >= n) {
+    void permutation(int[] a, int st, int n, int cur, int m, int xor) {
+        if (cur == n) {
+            ans = (ans + xor) % mod;
             return;
         }
-        if (xor != -1) {
-            ans = (ans + xor) % mod;
-        }
-        for (int i = st; i < n; i++) {
+        for (int i = st; i < m; i++) {
             int nxor;
             if (xor == -1) {
                 nxor = a[i];
             } else {
                 nxor = xor ^ a[i];
             }
-            permutation(a, st + 1, n, cur + 1, nxor);
+            permutation(a, i + 1, n, cur + 1, m, nxor);
         }
     }
 
@@ -130,7 +128,9 @@ public class Main {
                 }
             }
             ans = 0;
-            permutation(a, 0, n, 0, -1);
+            for (int len = 1; len <= n; len++) {
+                permutation(a, 0, len, 0, n, -1);
+            }
             out.append(String.format("%d\n", ans));
             out.flush();
         }
