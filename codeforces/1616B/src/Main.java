@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -18,6 +19,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
     }
 
@@ -26,58 +28,134 @@ public class Main {
         out.close();
     }
 
+    String cal(String s) {
+        int n = s.length();
+        String ans = "";
+        for (int i = 0; i < n; i++) {
+            String s1 = s.substring(0, i + 1);
+            if (!ans.equals("")) {
+                if (ans.compareTo(s1) < 0) {
+                    break;
+                }
+            }
+            String s2 = new StringBuilder(s1).reverse().toString();
+            String ns = String.format("%s%s", s1, s2);
+            if (ans.equals("")) {
+                ans = ns;
+            } else {
+                if (ns.compareTo(ans) < 0) {
+                    ans = ns;
+                }
+            }
+        }
+        return ans;
+    }
+
+    class Seg {
+        char c;
+        int p;
+
+        Seg(char c, int p) {
+            this.c = c;
+            this.p = p;
+        }
+    }
+
+    String cal1(String s) {
+        int n = s.length();
+        char lastC = ' ';
+        int lastP = 0;
+        List<Seg> list = new ArrayList<>();
+        List<Integer> ps = new ArrayList<>();
+        String ns = String.format("%s.", s);
+        char minC = ' ';
+        for (int i = 0; i < ns.length(); i++) {
+            char c = ns.charAt(i);
+            if (c != lastC) {
+                if (lastC != ' ') {
+                    ps.add(i);
+                    list.add(new Seg(lastC, lastP));
+                }
+                lastC = c;
+                lastP = 1;
+            } else {
+                lastP++;
+            }
+            if (i < n) {
+                if (minC == ' ') {
+                    minC = c;
+                } else {
+                    if (Character.compare(c, minC) < 0) {
+                        minC = c;
+                    }
+                }
+            }
+        }
+        int ln = list.size();
+        String ans = "";
+        for (int i = 0; i < ln; i++) {
+            Seg seg = list.get(i);
+            int pos;
+            if (i == 0) {
+                pos = 0;
+            } else {
+                Seg leftSeg = list.get(i - 1);
+                if (Integer.compare(leftSeg.c, seg.c) < 0) {
+                    pos = ps.get(i);
+                } else {
+                    if (i == ln - 1) {
+                        pos = n - 1;
+                    } else {
+                        pos = ps.get(i + 1) - 1;
+                    }
+                }
+            }
+            String s1 = s.substring(0, pos + 1);
+            if (!ans.equals("")) {
+                if (ans.compareTo(s1) < 0) {
+                    break;
+                }
+            }
+            String s2 = new StringBuilder(s1).reverse().toString();
+            String tns = String.format("%s%s", s1, s2);
+            if (ans.equals("")) {
+                ans = tns;
+            } else {
+                if (tns.compareTo(ans) < 0) {
+                    ans = tns;
+                }
+            }
+        }
+        return ans;
+    }
+
+    String randomString(int len) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < len; i++) {
+            char c = (char) (random.nextInt(1) + 'a');
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    void test() {
+        while (true) {
+            String s = randomString(10);
+//            s = "eadcedcdca";
+            String ans = cal(s);
+            String ans1 = cal1(s);
+            assert (ans.equals(ans1));
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
-            List<Integer> ps = new ArrayList<>();
-            char mc = 'a';
-            for (int i = 0; i < n; i++) {
-                char c = s.charAt(i);
-                if (ps.size() == 0) {
-                    mc = c;
-                    ps.add(i);
-                } else {
-                    int cmp = Character.compare(c, mc);
-                    if (cmp < 0) {
-                        mc = c;
-                        ps.clear();
-                        ps.add(i);
-                    } else if (cmp == 0) {
-                        ps.add(i);
-                    }
-                }
-            }
-            List<Integer> nps = new ArrayList<>();
-            int p0 = ps.get(0);
-            for (int i = 0; i < p0; i++) {
-                nps.add(i);
-            }
-            nps.addAll(ps);
-            String ans = "";
-            for (int i = 0; i < nps.size(); i++) {
-                int p = nps.get(i);
-                String s1 = s.substring(0, p + 1);
-                if (!ans.equals("")) {
-                    if (ans.compareTo(s1) < 0) {
-                        break;
-                    }
-                }
-                String s2 = new StringBuilder(s1).reverse().toString();
-                String ns = String.format("%s%s", s1, s2);
-                if (ans.equals("")) {
-                    ans = ns;
-                } else {
-                    if (ns.compareTo(ans) < 0) {
-                        ans = ns;
-                        if (s.indexOf(ns) == 0) {
-                            break;
-                        }
-                    }
-                }
-            }
+            String ans = cal1(s);
             out.append(String.format("%s\n", ans));
         }
     }
