@@ -61,11 +61,9 @@ public class Main {
             }
             Collections.sort(xs, Comparator.comparingInt(o -> o.i));
             System.out.println(time);
+            System.out.print(String.format("%d ", 0));
             for (int i = 0; i < xs.size(); i++) {
-                if (i != 0) {
-                    System.out.print(' ');
-                }
-                System.out.print(xs.get(i).v);
+                System.out.print(String.format("%d ", xs.get(i).v));
             }
             System.out.println();
         }
