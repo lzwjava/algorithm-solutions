@@ -61,16 +61,16 @@ public class Main {
         }
     }
 
-    int change(Set<Item> ds, int[] b, int op) {
-        int n = b.length;
-        if (b.length == 1) {
+    int change(Set<Item> ds, int[] a, int op) {
+        int n = a.length;
+        if (a.length == 1) {
             return 0;
         }
         for (Item it : ds) {
             int c = 0;
             for (int i = 0; i < n; i++) {
                 double v = it.start + i * it.d;
-                if (Double.compare(v, b[i]) != 0) {
+                if (Double.compare(v, a[i]) != 0) {
                     c++;
                     if (c > op) {
                         break;
@@ -102,8 +102,7 @@ public class Main {
             int right = n;
             while (left < right) {
                 int mid = (left + right) / 2;
-                int[] b = a.clone();
-                int v = change(ds, b, mid);
+                int v = change(ds, a, mid);
                 if (v != -1) {
                     right = v;
                 } else {
