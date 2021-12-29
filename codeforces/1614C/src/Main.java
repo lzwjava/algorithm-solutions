@@ -1,6 +1,5 @@
 import java.io.PrintWriter;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -23,13 +22,31 @@ public class Main {
         out.close();
     }
 
-    class Segment {
+    class Segment implements Comparable<Segment> {
         int l, r, x;
 
         Segment(int l, int r, int x) {
             this.l = l;
             this.r = r;
             this.x = x;
+        }
+
+        boolean contain(Segment a, Segment b) {
+            return b.l >= a.l && b.r <= a.r;
+        }
+
+        int len() {
+            return r - l + 1;
+        }
+
+        @Override
+        public int compareTo(Segment o) {
+            if (contain(this, o)) {
+                return 1;
+            } else if (contain(o, this)) {
+                return -1;
+            }
+            return Integer.compare(len(), o.len());
         }
     }
 
@@ -69,30 +86,53 @@ public class Main {
                 int x = in.nextInt();
                 segments[i] = new Segment(l, r, x);
             }
+            Arrays.sort(segments);
             int[] a = new int[n];
-            while (true) {
-                for (int i = 0; i < n; i++) {
-                    a[i] = random.nextInt(10);
-                }
-                boolean ok = true;
-                for (int i = 0; i < m; i++) {
-                    Segment s = segments[i];
-                    int xor = s.l;
-                    for (int j = s.l + 1; j <= s.r; j++) {
-                        xor = xor ^ a[j];
+            Arrays.fill(a, -1);
+            for (int i = 0; i < m; i++) {
+                Segment s = segments[i];
+                if (s.l == s.r) {
+                    a[i] = s.x;
+                } else {
+                    List<Integer> list = new ArrayList<>();
+                    for (int j = s.l; j <= s.r; j++) {
+                        if (a[i] != -1) {
+                            list.add(a[i]);
+                        }
                     }
-                    if (xor == s.x) {
-                        ok = false;
-                        break;
+                    int len = s.len();
+                    int rest = len - list.size();
+                    if (rest > 0) {
+                        int[] p = new int[rest];
+                        while (true) {
+                            for (int j = 0; j < rest; j++) {
+                                p[j] = random.nextInt(20);
+                            }
+                            int xor = p[0];
+                            for (int j = 1; j < rest; j++) {
+                                xor = xor ^ p[j];
+                            }
+                            for (int y : list) {
+                                xor = xor ^ y;
+                            }
+                            if (xor == s.x) {
+                                break;
+                            }
+                        }
+                        int q = 0;
+                        for (int j = s.l; j <= s.r; j++) {
+                            if (a[j] == -1) {
+                                a[j] = p[q];
+                                q++;
+                            }
+                        }
                     }
-                }
-                if (ok) {
-                    break;
                 }
             }
             ans = 0;
             permutation(a, 0, n, 0, -1);
             out.append(String.format("%d\n", ans));
+            out.flush();
         }
     }
 }
