@@ -17,7 +17,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
         m.close();
     }
 
@@ -51,6 +50,7 @@ public class Main {
                 if (!list.get(i1).equals(list.get(i2))) {
                     set.add(list.get(i1));
                     set.add(list.get(i2));
+                    break;
                 }
             }
             for (int x : set) {
@@ -67,34 +67,6 @@ public class Main {
             }
         }
         return ok;
-    }
-
-    void test() {
-        Random random = new Random();
-//        while (true) {
-        List<Integer> list = new ArrayList<>();
-        int m = 200000;
-        for (int i = 0; i < m; i++) {
-            list.add(random.nextInt(10));
-        }
-        int n = list.size();
-        List<Integer> nlist = new ArrayList<>(list);
-        for (int i = 0; i < nlist.size() / 2; i++) {
-            int t = nlist.get(i);
-            nlist.set(i, nlist.get(n - 1 - i));
-            nlist.set(n - 1 - i, t);
-        }
-        list.addAll(nlist);
-        int k = random.nextInt(100);
-        int v = random.nextInt(10);
-        for (int i = 0; i < k; i++) {
-            int idx = random.nextInt(list.size());
-            list.add(idx, v);
-        }
-//        list.add(random.nextInt(list.size()), random.nextInt(m));
-        List<Integer> alist = new ArrayList<>(list);
-        assert kalindrome(alist.size(), alist);
-//        }
     }
 
     void solve() throws IOException {
