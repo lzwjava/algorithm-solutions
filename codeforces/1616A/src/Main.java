@@ -58,7 +58,7 @@ public class Main {
             for (int key : map.keySet()) {
                 int c = map.get(key);
                 if (key == 0) {
-                    c++;
+                    ans++;
                 } else {
                     if (c == 1) {
                         ans++;
