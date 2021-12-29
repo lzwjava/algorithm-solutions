@@ -18,8 +18,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -95,18 +95,21 @@ public class Main {
         String ans = "";
         for (int i = 0; i < ln; i++) {
             Seg seg = list.get(i);
+            if (i > 0 && seg.c != minC) {
+                continue;
+            }
             int pos;
             if (i == 0) {
                 pos = 0;
             } else {
                 Seg leftSeg = list.get(i - 1);
                 if (Integer.compare(leftSeg.c, seg.c) < 0) {
-                    pos = ps.get(i);
+                    pos = ps.get(i - 1);
                 } else {
                     if (i == ln - 1) {
                         pos = n - 1;
                     } else {
-                        pos = ps.get(i + 1) - 1;
+                        pos = ps.get(i) - 1;
                     }
                 }
             }
@@ -133,7 +136,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < len; i++) {
-            char c = (char) (random.nextInt(1) + 'a');
+            char c = (char) (random.nextInt(5) + 'a');
             sb.append(c);
         }
         return sb.toString();
@@ -141,7 +144,7 @@ public class Main {
 
     void test() {
         while (true) {
-            String s = randomString(10);
+            String s = randomString(5);
 //            s = "eadcedcdca";
             String ans = cal(s);
             String ans1 = cal1(s);
