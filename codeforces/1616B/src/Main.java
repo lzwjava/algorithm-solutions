@@ -72,6 +72,9 @@ public class Main {
                 } else {
                     if (ns.compareTo(ans) < 0) {
                         ans = ns;
+                        if (s.indexOf(ns) == 0) {
+                            break;
+                        }
                     }
                 }
             }
