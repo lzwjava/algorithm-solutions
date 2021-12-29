@@ -52,7 +52,7 @@ public class Main {
                     c = 0;
                 }
                 c++;
-                map.put(a[i], c);
+                map.put(v, c);
             }
             int ans = 0;
             for (int key : map.keySet()) {
