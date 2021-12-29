@@ -32,7 +32,6 @@ public class Main {
                 }
             });
             Collections.sort(left);
-            Collections.sort(right);
             // visited depot count
             int vis = 0;
             int rn = right.size();
@@ -42,8 +41,8 @@ public class Main {
                 pos = right.get(0);
                 while (vis < rn) {
                     if (pos != right.get(vis)) {
-                        dist += pos;
                         pos = right.get(vis);
+                        dist += pos;
                     }
                     // rn: 3
                     if (vis + k <= rn) {
@@ -71,8 +70,8 @@ public class Main {
                 vis = 0;
                 while (vis < ln) {
                     if (pos != left.get(vis)) {
-                        dist += -pos;
                         pos = left.get(vis);
+                        dist += -pos;
                     }
                     if (vis + k <= ln) {
                         dist += -pos;
