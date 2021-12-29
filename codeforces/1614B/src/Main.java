@@ -53,7 +53,7 @@ public class Main {
             for (int i = 1; i <= n; i++) {
                 int d = Math.abs(x[i] - x[0]);
                 d *= sorted.get(i - 1).v;
-                time += d;
+                time += 2 * d;
             }
             List<Item> xs = new ArrayList<>();
             for (int i = 1; i <= n; i++) {
