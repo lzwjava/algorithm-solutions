@@ -35,7 +35,7 @@ public class Main {
             // visited depot count
             int vis = 0;
             int rn = right.size();
-            int dist = 0;
+            long dist = 0;
             int pos = 0;
             while (vis < rn) {
                 if (pos != 0) {
