@@ -92,12 +92,12 @@ public class Main {
             for (int i = 0; i < m; i++) {
                 Segment s = segments[i];
                 if (s.l == s.r) {
-                    a[i] = s.x;
+                    a[s.l] = s.x;
                 } else {
                     List<Integer> list = new ArrayList<>();
                     for (int j = s.l; j <= s.r; j++) {
-                        if (a[i] != -1) {
-                            list.add(a[i]);
+                        if (a[j] != -1) {
+                            list.add(a[j]);
                         }
                     }
                     int len = s.len();
@@ -108,14 +108,14 @@ public class Main {
                             for (int j = 0; j < rest; j++) {
                                 p[j] = random.nextInt(20);
                             }
-                            int xor = p[0];
+                            int or = p[0];
                             for (int j = 1; j < rest; j++) {
-                                xor = xor ^ p[j];
+                                or = or | p[j];
                             }
                             for (int y : list) {
-                                xor = xor ^ y;
+                                or = or | y;
                             }
-                            if (xor == s.x) {
+                            if (or == s.x) {
                                 break;
                             }
                         }
