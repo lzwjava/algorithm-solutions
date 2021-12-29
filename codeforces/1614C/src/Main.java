@@ -50,7 +50,7 @@ public class Main {
         }
     }
 
-    long ans;
+    int ans;
 
     int mod = 1000000007;
 
@@ -70,6 +70,69 @@ public class Main {
         }
     }
 
+    int cal(int n, int m, Segment[] segments) {
+        Random random = new Random();
+        Arrays.sort(segments);
+        int[] a = new int[n];
+        Arrays.fill(a, -1);
+        int v = -1;
+        for (int i = 0; i < m; i++) {
+            Segment s = segments[i];
+            if (v == -1) {
+                v = s.x;
+            } else {
+                v |= s.x;
+            }
+            if (s.l == s.r) {
+                a[s.l] = s.x;
+            } else {
+                List<Integer> list = new ArrayList<>();
+                for (int j = s.l; j <= s.r; j++) {
+                    if (a[j] != -1) {
+                        list.add(a[j]);
+                    }
+                }
+                int len = s.len();
+                int rest = len - list.size();
+                if (rest > 0) {
+                    int[] p = new int[rest];
+                    while (true) {
+                        for (int j = 0; j < rest; j++) {
+                            p[j] = random.nextInt(20);
+                        }
+                        int or = p[0];
+                        for (int j = 1; j < rest; j++) {
+                            or = or | p[j];
+                        }
+                        for (int y : list) {
+                            or = or | y;
+                        }
+                        if (or == s.x) {
+                            break;
+                        }
+                    }
+                    int q = 0;
+                    for (int j = s.l; j <= s.r; j++) {
+                        if (a[j] == -1) {
+                            a[j] = p[q];
+                            q++;
+                        }
+                    }
+                }
+            }
+        }
+//        out.append(String.format("%d\n", v));
+//        for (int i = 0; i < n; i++) {
+//            out.append(String.format("%d   %3s\n", a[i], Integer.toBinaryString(a[i])));
+//        }
+        ans = 0;
+        for (int len = 1; len <= n; len++) {
+            permutation(a, 0, len, 0, n, -1);
+        }
+//        out.append(String.format("%d\n", ans));
+        return ans;
+    }
+
     void solve() {
         int t = in.nextInt();
         Random random = new Random();
@@ -84,63 +147,7 @@ public class Main {
                 int x = in.nextInt();
                 segments[i] = new Segment(l, r, x);
             }
-            Arrays.sort(segments);
-            int[] a = new int[n];
-            Arrays.fill(a, -1);
-            int v = -1;
-            for (int i = 0; i < m; i++) {
-                Segment s = segments[i];
-                if (v == -1) {
-                    v = s.x;
-                } else {
-                    v |= s.x;
-                }
-                if (s.l == s.r) {
-                    a[s.l] = s.x;
-                } else {
-                    List<Integer> list = new ArrayList<>();
-                    for (int j = s.l; j <= s.r; j++) {
-                        if (a[j] != -1) {
-                            list.add(a[j]);
-                        }
-                    }
-                    int len = s.len();
-                    int rest = len - list.size();
-                    if (rest > 0) {
-                        int[] p = new int[rest];
-                        while (true) {
-                            for (int j = 0; j < rest; j++) {
-                                p[j] = random.nextInt(20);
-                            }
-                            int or = p[0];
-                            for (int j = 1; j < rest; j++) {
-                                or = or | p[j];
-                            }
-                            for (int y : list) {
-                                or = or | y;
-                            }
-                            if (or == s.x) {
-                                break;
-                            }
-                        }
-                        int q = 0;
-                        for (int j = s.l; j <= s.r; j++) {
-                            if (a[j] == -1) {
-                                a[j] = p[q];
-                                q++;
-                            }
-                        }
-                    }
-                }
-            }
-            out.append(String.format("%d\n", v));
-            for (int i = 0; i < n; i++) {
-                out.append(String.format("%d   %3s\n", a[i], Integer.toBinaryString(a[i])));
-            }
-            ans = 0;
-            for (int len = 1; len <= n; len++) {
-                permutation(a, 0, len, 0, n, -1);
-            }
+            int ans = cal(n, m, segments);
             out.append(String.format("%d\n", ans));
             out.append('\n');
             out.flush();
