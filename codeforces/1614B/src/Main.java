@@ -60,7 +60,14 @@ public class Main {
                 xs.add(new Item(x[i], sorted.get(i - 1).i));
             }
             Collections.sort(xs, Comparator.comparingInt(o -> o.i));
-            
+            System.out.println(time);
+            for (int i = 0; i < xs.size(); i++) {
+                if (i != 0) {
+                    System.out.print(' ');
+                }
+                System.out.print(xs.get(i).v);
+            }
+            System.out.println();
         }
     }
 
