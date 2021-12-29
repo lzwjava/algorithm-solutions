@@ -24,5 +24,17 @@ public class Main {
 
     void solve() {
         int t = in.nextInt();
+        while (t > 0) {
+            t--;
+            int n = in.nextInt();
+            int m = in.nextInt();
+            int ans;
+            if (n == 1 || m == 1) {
+                ans = 1;
+            } else {
+                ans = 2;
+            }
+            out.append(String.format("%d\n", ans));
+        }
     }
 }
