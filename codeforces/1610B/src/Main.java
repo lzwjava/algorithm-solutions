@@ -40,14 +40,18 @@ public class Main {
             t--;
             int n = in.nextInt();
             List<Integer> list = new ArrayList<>();
+            Set<Integer> set = new HashSet<>();
             for (int i = 0; i < n; i++) {
                 int v = in.nextInt();
                 list.add(v);
+                set.add(v);
             }
-            Set<Integer> set = new HashSet<>();
-            set.add(list.get(0));
-            set.add(list.get(n - 1));
             boolean ok = false;
+            if (!list.get(0).equals(list.get(n - 1))) {
+                set = new HashSet<>();
+                set.add(list.get(0));
+                set.add(list.get(n - 1));
+            }
             for (int x : set) {
                 List<Integer> tl = new ArrayList<>(list);
                 tl.removeIf(integer -> integer == x);
