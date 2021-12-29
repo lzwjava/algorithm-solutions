@@ -21,7 +21,7 @@ public class Main {
                 a[i] = in.nextInt();
             }
             Arrays.sort(a);
-            int s = 0;
+            long s = 0;
             int c = 0;
             for (int i = 0; i < n; i++) {
                 if (a[i] >= l && a[i] <= r) {
