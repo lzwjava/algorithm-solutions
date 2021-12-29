@@ -1,17 +1,19 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class Main {
 
-    Scanner in;
+    BufferedReader in;
     PrintWriter out;
 
     Main() {
-        in = new Scanner(System.in);
+        in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
         m.close();
@@ -22,7 +24,11 @@ public class Main {
         out.close();
     }
 
-    void solve() {
-        int t = in.nextInt();
+    void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            int n = Integer.parseInt(in.readLine());
+        }
     }
 }
