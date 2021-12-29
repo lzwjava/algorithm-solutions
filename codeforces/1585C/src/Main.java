@@ -16,13 +16,12 @@ public class Main {
             k = in.nextInt();
             int[] x = new int[n];
             List<Integer> right = new ArrayList<>();
-            List<Integer> left = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 x[i] = in.nextInt();
                 if (x[i] > 0) {
                     right.add(x[i]);
                 } else {
-                    left.add(x[i]);
+                    right.add(-x[i]);
                 }
             }
             Collections.sort(right, new Comparator<Integer>() {
@@ -31,7 +30,7 @@ public class Main {
                     return Integer.compare(o2, o1);
                 }
             });
-            Collections.sort(left);
+
             // visited depot count
             int vis = 0;
             int rn = right.size();
@@ -55,32 +54,6 @@ public class Main {
                         int rp = pos;
                         pos = 0;
                         dist += rp;
-                        vis += nk;
-                    }
-                }
-            }
-            int ln = left.size();
-            if (ln > 0) {
-                if (rn > 0) {
-                    pos = left.get(0);
-                    dist += -pos;
-                } else {
-                    pos = left.get(0);
-                }
-                vis = 0;
-                while (vis < ln) {
-                    if (pos != left.get(vis)) {
-                        pos = left.get(vis);
-                        dist += -pos;
-                    }
-                    if (vis + k <= ln) {
-                        dist += -pos;
-                        pos = 0;
-                        vis += k;
-                    } else {
-                        int nk = ln - vis;
-                        pos = 0;
-                        dist += -pos;
                         vis += nk;
                     }
                 }
