@@ -1,12 +1,9 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Main().solve();
     }
 
@@ -24,18 +21,17 @@ public class Main {
         }
     }
 
-    void solve() throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    void solve() {
+        Scanner in = new Scanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int t = Integer.parseInt(in.readLine());
+        int t = in.nextInt();
         while (t > 0) {
             t--;
-            int n = Integer.parseInt(in.readLine());
+            int n = in.nextInt();
             List<Integer> list = new ArrayList<>();
             List<Item> sorted = new ArrayList<>();
-            StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
-                int v = Integer.parseInt(st.nextToken());
+                int v = in.nextInt();
                 list.add(v);
                 sorted.add(new Item(v, i));
             }
@@ -55,9 +51,9 @@ public class Main {
                     c = 0;
                 }
             }
-            int time = 0;
+            long time = 0;
             for (int i = 1; i <= n; i++) {
-                int d = Math.abs(x[i] - x[0]);
+                long d = Math.abs(x[i] - x[0]);
                 d *= sorted.get(i - 1).v;
                 time += 2 * d;
             }
@@ -73,7 +69,6 @@ public class Main {
             }
             out.append('\n');
         }
-        in.close();
         out.flush();
         out.close();
     }
