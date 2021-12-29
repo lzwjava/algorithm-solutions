@@ -30,8 +30,27 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
-            String ans = "";
+            int mp = -1;
+            char mc = 'a';
             for (int i = 0; i < n; i++) {
+                char c = s.charAt(i);
+                if (mp == -1) {
+                    mc = c;
+                    mp = i;
+                } else {
+                    if (Character.compare(c, mc) < 0) {
+                        mc = c;
+                        mp = i;
+                    }
+                }
+            }
+//            String s1 = s.substring(0, mp + 1);
+//            String s2 = new StringBuilder(s1).reverse().toString();
+//            String ns = String.format("%s%s", s1, s2);
+
+
+            String ans = "";
+            for (int i = 0; i <= mp; i++) {
                 String s1 = s.substring(0, i + 1);
                 if (!ans.equals("")) {
                     if (ans.compareTo(s1) < 0) {
