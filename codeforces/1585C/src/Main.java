@@ -62,18 +62,14 @@ public class Main {
                     pos = depots.get(vis);
                     dist += pos;
                 }
-                // rn: 3
                 if (vis + k <= rn) {
-                    int rp = pos;
-                    dist += rp;
+                    dist += pos;
                     pos = 0;
                     vis += k;
                 } else {
-                    int nk = rn - vis;
-                    int rp = pos;
+                    dist += pos;
                     pos = 0;
-                    dist += rp;
-                    vis += nk;
+                    vis += rn - vis;
                 }
             }
         }
