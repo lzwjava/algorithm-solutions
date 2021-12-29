@@ -24,5 +24,15 @@ public class Main {
 
     void solve() {
         int t = in.nextInt();
+        while (t > 0) {
+            t--;
+            int n = in.nextInt();
+            int m = in.nextInt();
+            for (int i = 0; i < m; i++) {
+                int l = in.nextInt();
+                int r = in.nextInt();
+                int x = in.nextInt();
+            }
+        }
     }
 }
