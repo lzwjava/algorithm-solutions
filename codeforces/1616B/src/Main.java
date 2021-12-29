@@ -33,6 +33,11 @@ public class Main {
             String ans = "";
             for (int i = 0; i < n; i++) {
                 String s1 = s.substring(0, i + 1);
+                if (!ans.equals("")) {
+                    if (ans.compareTo(s1) < 0) {
+                        break;
+                    }
+                }
                 String s2 = new StringBuilder(s1).reverse().toString();
                 String ns = String.format("%s%s", s1, s2);
                 if (ans.equals("")) {
