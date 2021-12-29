@@ -1,4 +1,5 @@
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
@@ -133,6 +134,17 @@ public class Main {
         return ans;
     }
 
+    int cal1(int n, int m, Segment[] segments) {
+        int x = segments[0].x;
+        for (int i = 0; i < m; i++) {
+            x |= segments[i].x;
+        }
+        BigInteger bi = BigInteger.valueOf(2);
+        BigInteger bm = BigInteger.valueOf(mod);
+        int ans = BigInteger.valueOf(x).multiply(bi.modPow(BigInteger.valueOf(n - 1), bm)).mod(bm).intValue();
+        return ans;
+    }
+
     void solve() {
         int t = in.nextInt();
         Random random = new Random();
@@ -147,10 +159,8 @@ public class Main {
                 int x = in.nextInt();
                 segments[i] = new Segment(l, r, x);
             }
-            int ans = cal(n, m, segments);
+            int ans = cal1(n, m, segments);
             out.append(String.format("%d\n", ans));
-            out.append('\n');
-            out.flush();
         }
     }
 }
