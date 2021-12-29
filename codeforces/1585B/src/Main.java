@@ -21,25 +21,21 @@ public class Main {
                 a.add(v);
                 mx = Integer.max(mx, v);
             }
+            int p = n - 1;
             int c = 0;
             while (true) {
-                int x = a.get(n - 1);
+                int x = a.get(p);
                 if (x == mx) {
                     break;
                 }
-                List<Integer> left = new ArrayList<>();
-                List<Integer> right = new ArrayList<>();
-                for (int i = 0; i < n; i++) {
-                    int v = a.get(i);
-                    if (v <= x) {
-                        left.add(v);
-                    } else {
-                        right.add(v);
+                int i;
+                for (i = p - 1; i >= 0; i--) {
+                    if (a.get(i) > x) {
+                        break;
                     }
                 }
-                left.addAll(right);
-                a = left;
                 c++;
+                p = i;
             }
             System.out.println(c);
         }
