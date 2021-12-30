@@ -28,7 +28,25 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            int n = Integer.parseInt(in.readLine());
+            long a = Long.parseLong(in.readLine());
+            long k = Long.parseLong(in.readLine());
+            for (int i = 0; i < k; i++) {
+                String s = String.format("%d", a);
+                int min = 10;
+                int max = -1;
+                for (char c : s.toCharArray()) {
+                    int digit = Character.digit(c, 10);
+                    if (digit < min) {
+                        min = digit;
+                    }
+                    if (digit > max) {
+                        max = digit;
+                    }
+                }
+                long b = a + min + max;
+                a = b;
+            }
+            out.append(String.format("%d\n", a));
         }
     }
 }
