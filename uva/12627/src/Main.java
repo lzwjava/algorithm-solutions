@@ -15,9 +15,8 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
-            t--;
+        int tt = Integer.parseInt(in.readLine());
+        for (int t = 0; t < tt; t++) {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int k = Integer.parseInt(st.nextToken());
             int a = Integer.parseInt(st.nextToken());
@@ -63,7 +62,7 @@ public class Main {
                     }
                 }
             }
-            out.append(String.format("%d\n", red));
+            out.append(String.format("Case %d: %d\n", t + 1, red));
         }
     }
 
