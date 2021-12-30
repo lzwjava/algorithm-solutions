@@ -68,19 +68,34 @@ public class Main {
         return red;
     }
 
+    long[][] map;
+    int maxn = 1 << 20;
+
     long dp(int k, int i) {
         if (k == 0) {
             return 1;
         }
-        int m = 1 << (k - 1);
-        if (i < m) {
-            return dp(k - 1, i) * 2;
-        } else {
-            return dp(k - 1, i - m);
+        if (i < maxn) {
+            long cache = map[k][i];
+            if (cache != 0) {
+                return cache;
+            }
         }
+        int m = 1 << (k - 1);
+        long ans;
+        if (i < m) {
+            ans = dp(k - 1, i) * 2;
+        } else {
+            ans = dp(k - 1, i - m);
+        }
+        if (i < maxn) {
+            map[k][i] = ans;
+        }
+        return ans;
     }
 
     long cal2(int k, int a, int b) {
+        map = new long[31][maxn];
         long ans = 0;
         for (int i = a - 1; i <= b - 1; i++) {
             ans += dp(k, i);
