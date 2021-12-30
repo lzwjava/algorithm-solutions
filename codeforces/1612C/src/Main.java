@@ -31,7 +31,7 @@ public class Main {
             t--;
             StringTokenizer st = new StringTokenizer(in.readLine());
             int k = Integer.parseInt(st.nextToken());
-            int x = Integer.parseInt(st.nextToken());
+            long x = Long.parseLong(st.nextToken());
         }
     }
 }
