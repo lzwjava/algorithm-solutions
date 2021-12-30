@@ -62,7 +62,20 @@ public class Main {
                 }
             }
             if (lp == m && rp == m && left[0] < left[m - 1] && right[0] > right[m - 1]) {
-                
+                for (int i = 0; i < n; i++) {
+                    if (i != 0) {
+                        out.append(' ');
+                    }
+                    int v;
+                    if (i < m) {
+                        v = left[i];
+                    } else {
+                        v = right[i - m];
+                    }
+                    out.append(String.format("%d", v));
+                }
+            } else {
+                out.append("-1\n");
             }
         }
     }
