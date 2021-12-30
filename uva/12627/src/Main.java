@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -68,39 +70,36 @@ public class Main {
         return red;
     }
 
-    long[][] map;
-    int maxn = 1 << 20;
+    Map<String, Long> map = new HashMap<>();
 
-    long dp(int k, int i) {
+    String key(int k, int a, int b) {
+        return String.format("%d,%d,%d", k, a, b);
+    }
+
+    long dp(int k, int a, int b) {
         if (k == 0) {
             return 1;
         }
-        if (i < maxn) {
-            long cache = map[k][i];
-            if (cache != 0) {
-                return cache;
-            }
+        String key = key(k, a, b);
+        Long cache = map.get(key);
+        if (cache != null) {
+            return cache;
         }
         int m = 1 << (k - 1);
         long ans;
-        if (i < m) {
-            ans = dp(k - 1, i) * 2;
+        if (b < m) {
+            ans = dp(k - 1, a, b) * 2;
+        } else if (a >= m) {
+            ans = dp(k - 1, a - m, b - m);
         } else {
-            ans = dp(k - 1, i - m);
+            ans = dp(k - 1, a, m - 1) * 2 + dp(k - 1, a - m, b - m);
         }
-        if (i < maxn) {
-            map[k][i] = ans;
-        }
+        map.put(key, ans);
         return ans;
     }
 
     long cal2(int k, int a, int b) {
-        map = new long[31][maxn];
-        long ans = 0;
-        for (int i = a - 1; i <= b - 1; i++) {
-            ans += dp(k, i);
-        }
-        return ans;
+        return dp(k, a - 1, b - 1);
     }
 
     int cal1(int k, int a, int b) {
