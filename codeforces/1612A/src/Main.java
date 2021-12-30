@@ -59,15 +59,16 @@ public class Main {
                 c.x = b.x / 2;
                 c.y = b.y / 2;
             } else {
-                if (b.x < b.y) {
-                    int d = dist(a, b);
-                    if (d % 2 != 1) {
-                        int hd = d / 2;
-                        for (int x = 0; x <= b.x; x++) {
-                            int d1 = x;
-                            // 2*(d1 + d2) = d;
-                            int y = hd - d1;
-                            if (y >= 0) {
+                int d = dist(a, b);
+                if (d % 2 != 1) {
+                    int hd = d / 2;
+                    for (int x = 0; x <= b.x; x++) {
+                        int d1 = x;
+                        // 2*(d1 + d2) = d;
+                        int y = hd - d1;
+                        if (y >= 0) {
+                            Point cc = new Point(x, y);
+                            if (dist(a, cc) == dist(b, cc)) {
                                 c.x = x;
                                 c.y = y;
                                 break;
