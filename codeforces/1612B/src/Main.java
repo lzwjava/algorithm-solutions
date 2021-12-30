@@ -33,6 +33,37 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
+
+            int m = n / 2;
+            int[] left = new int[m];
+            int[] right = new int[m];
+            boolean[] vis = new boolean[n + 1];
+            vis[a] = vis[b] = true;
+            left[0] = a;
+            right[0] = b;
+            int lp = 1;
+            for (int i = n; i >= 1; i--) {
+                if (!vis[i]) {
+                    left[lp] = i;
+                    lp++;
+                    if (lp == m) {
+                        break;
+                    }
+                }
+            }
+            int rp = 1;
+            for (int i = 1; i <= n; i++) {
+                if (!vis[i]) {
+                    right[rp] = i;
+                    rp++;
+                    if (rp == m) {
+                        break;
+                    }
+                }
+            }
+            if (lp == m && rp == m && left[0] < left[m - 1] && right[0] > right[m - 1]) {
+                
+            }
         }
     }
 }
