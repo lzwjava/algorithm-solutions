@@ -61,7 +61,7 @@ public class Main {
                     }
                 }
             }
-            if (lp == m && rp == m && left[0] < left[m - 1] && right[0] > right[m - 1]) {
+            if (lp == m && rp == m && left[0] <= left[m - 1] && right[0] >= right[m - 1]) {
                 for (int i = 0; i < n; i++) {
                     if (i != 0) {
                         out.append(' ');
