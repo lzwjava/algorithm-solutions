@@ -68,20 +68,20 @@ public class Main {
         return red;
     }
 
-    int dp(int k, int i) {
+    long dp(int k, int i) {
         if (k == 0) {
             return 1;
         }
         int m = 1 << (k - 1);
         if (i < m) {
-            return dp(k - 1, i);
+            return dp(k - 1, i) * 2;
         } else {
             return dp(k - 1, i - m);
         }
     }
 
-    int cal2(int k, int a, int b) {
-        int ans = 0;
+    long cal2(int k, int a, int b) {
+        long ans = 0;
         for (int i = a - 1; i <= b - 1; i++) {
             ans += dp(k, i);
         }
@@ -118,7 +118,7 @@ public class Main {
             int k = Integer.parseInt(st.nextToken());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            int red = cal2(k, a, b);
+            long red = cal2(k, a, b);
             out.append(String.format("Case %d: %d\n", t + 1, red));
         }
     }
