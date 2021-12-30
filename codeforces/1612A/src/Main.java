@@ -28,6 +28,9 @@ public class Main {
     class Point {
         int x, y;
 
+        Point() {
+        }
+
         Point(int x, int y) {
             this.x = x;
             this.y = y;
@@ -49,8 +52,28 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            Point a = parsePoint(in.readLine());
+            Point a = new Point(0, 0);
             Point b = parsePoint(in.readLine());
+            Point c = new Point();
+            boolean ok;
+            if (b.x % 2 == 0 && b.y % 2 == 0) {
+                c.x = b.x / 2;
+                c.y = b.y / 2;
+                ok = true;
+            } else {
+                if (b.x < b.y) {
+                    int d = dist(a, b);
+                    if (d % 2 == 1) {
+                        ok = false;
+                    } else {
+                        ok = true;
+                        for (int x = 0; x <= b.x; x++) {
+                            int d1 = x;
+                            // 2*(d1 + d2) = d;
+                        }
+                    }
+                }
+            }
         }
     }
 }
