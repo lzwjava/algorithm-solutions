@@ -28,7 +28,9 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            int n = Integer.parseInt(in.readLine());
+            int a = Integer.parseInt(in.readLine());
+            int b = Integer.parseInt(in.readLine());
+            int c = Integer.parseInt(in.readLine());
         }
     }
 }
