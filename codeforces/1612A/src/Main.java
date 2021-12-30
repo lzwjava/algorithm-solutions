@@ -25,13 +25,32 @@ public class Main {
         out.close();
     }
 
+    class Point {
+        int x, y;
+
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    int dist(Point a, Point b) {
+        return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+    }
+
+    Point parsePoint(String s) {
+        StringTokenizer st = new StringTokenizer(s);
+        int x = Integer.parseInt(st.nextToken());
+        int y = Integer.parseInt(st.nextToken());
+        return new Point(x, y);
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            StringTokenizer st = new StringTokenizer(in.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
+            Point a = parsePoint(in.readLine());
+            Point b = parsePoint(in.readLine());
         }
     }
 }
