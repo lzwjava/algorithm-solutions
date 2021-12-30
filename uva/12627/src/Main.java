@@ -17,10 +17,13 @@ public class Main {
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
+            t--;
             StringTokenizer st = new StringTokenizer(in.readLine());
             int k = Integer.parseInt(st.nextToken());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
+            int n = (1 << k) + 1;
+            int[][] grid = new int[n][n];
         }
     }
 
