@@ -45,8 +45,7 @@ public class Main {
                         max = digit;
                     }
                 }
-                long b = a + min * max;
-                a = b;
+                a = a + min * max;
             }
             out.append(String.format("%d\n", a));
         }
