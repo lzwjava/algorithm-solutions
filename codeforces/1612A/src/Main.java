@@ -54,26 +54,29 @@ public class Main {
             t--;
             Point a = new Point(0, 0);
             Point b = parsePoint(in.readLine());
-            Point c = new Point();
-            boolean ok;
+            Point c = new Point(-1, -1);
             if (b.x % 2 == 0 && b.y % 2 == 0) {
                 c.x = b.x / 2;
                 c.y = b.y / 2;
-                ok = true;
             } else {
                 if (b.x < b.y) {
                     int d = dist(a, b);
-                    if (d % 2 == 1) {
-                        ok = false;
-                    } else {
-                        ok = true;
+                    if (d % 2 != 1) {
+                        int hd = d / 2;
                         for (int x = 0; x <= b.x; x++) {
                             int d1 = x;
                             // 2*(d1 + d2) = d;
+                            int y = hd - d1;
+                            if (y >= 0) {
+                                c.x = x;
+                                c.y = y;
+                                break;
+                            }
                         }
                     }
                 }
             }
+            out.append(String.format("%d %d\n", c.x, c.y));
         }
     }
 }
