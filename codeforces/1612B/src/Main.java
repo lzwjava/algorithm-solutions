@@ -74,6 +74,7 @@ public class Main {
                     }
                     out.append(String.format("%d", v));
                 }
+                out.append('\n');
             } else {
                 out.append("-1\n");
             }
