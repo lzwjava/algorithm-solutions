@@ -68,6 +68,26 @@ public class Main {
         return red;
     }
 
+    int dp(int k, int i) {
+        if (k == 0) {
+            return 1;
+        }
+        int m = 1 << (k - 1);
+        if (i < m) {
+            return dp(k - 1, i);
+        } else {
+            return dp(k - 1, i - m);
+        }
+    }
+
+    int cal2(int k, int a, int b) {
+        int ans = 0;
+        for (int i = a - 1; i <= b - 1; i++) {
+            ans += dp(k, i);
+        }
+        return ans;
+    }
+
     int cal1(int k, int a, int b) {
         int[] rs = new int[1];
         rs[0] = 1;
@@ -98,7 +118,7 @@ public class Main {
             int k = Integer.parseInt(st.nextToken());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            int red = cal1(k, a, b);
+            int red = cal2(k, a, b);
             out.append(String.format("Case %d: %d\n", t + 1, red));
         }
     }
