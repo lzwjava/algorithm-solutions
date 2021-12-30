@@ -32,7 +32,7 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             long a = Long.parseLong(st.nextToken());
             long k = Long.parseLong(st.nextToken());
-            for (int i = 0; i < k; i++) {
+            for (int i = 0; i < k - 1; i++) {
                 String s = String.format("%d", a);
                 int min = 10;
                 int max = -1;
@@ -45,7 +45,7 @@ public class Main {
                         max = digit;
                     }
                 }
-                long b = a + min + max;
+                long b = a + min * max;
                 a = b;
             }
             out.append(String.format("%d\n", a));
