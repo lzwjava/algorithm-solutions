@@ -92,7 +92,7 @@ public class Main {
         } else if (a >= m) {
             ans = dp(k - 1, a - m, b - m);
         } else {
-            ans = dp(k - 1, a, m - 1) * 2 + dp(k - 1, a - m, b - m);
+            ans = dp(k - 1, a, m - 1) * 2 + dp(k - 1, 0, b - m);
         }
         map.put(key, ans);
         return ans;
