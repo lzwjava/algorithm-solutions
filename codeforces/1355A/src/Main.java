@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -28,8 +29,9 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            long a = Long.parseLong(in.readLine());
-            long k = Long.parseLong(in.readLine());
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            long a = Long.parseLong(st.nextToken());
+            long k = Long.parseLong(st.nextToken());
             for (int i = 0; i < k; i++) {
                 String s = String.format("%d", a);
                 int min = 10;
