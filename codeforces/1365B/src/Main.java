@@ -66,6 +66,49 @@ public class Main {
         return Arrays.hashCode(a);
     }
 
+    boolean cal(int[] a, int[] b) {
+        int n = a.length;
+        Random random = new Random();
+        int cnt = 0;
+        Set<Integer> set = new HashSet<>();
+        set.add(hash(a));
+        print(a);
+        print(b);
+        while (cnt < 1000) {
+            int i = random.nextInt(n);
+            int j = random.nextInt(n);
+            if (a[i] > a[j] && b[i] != b[j]) {
+                swap(a, i, j);
+                swap(b, i, j);
+            }
+            int h = hash(a);
+            if (set.contains(h)) {
+                continue;
+            }
+            set.add(h);
+            print(a);
+            print(b);
+            if (check(a)) {
+                break;
+            }
+            cnt++;
+        }
+        return check(a);
+    }
+
+    boolean cal1(int[] a, int[] b) {
+        int n = a.length;
+        if (check(a)) {
+            return true;
+        }
+        for (int i = 0; i < n; i++) {
+            if (b[i] == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         Random random = new Random();
@@ -74,29 +117,8 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
             int[] b = parseArray(in.readLine());
-            int cnt = 0;
-            Set<Integer> set = new HashSet<>();
-            set.add(hash(a));
-            while (cnt < 1000) {
-                int i = random.nextInt(n);
-                int j = random.nextInt(n);
-                if (a[i] > a[j] && b[i] != b[j]) {
-                    swap(a, i, j);
-                    swap(b, i, j);
-                }
-                int h = hash(a);
-                if (set.contains(h)) {
-                    continue;
-                }
-                set.add(h);
-                print(a);
-                print(b);
-                if (check(a)) {
-                    break;
-                }
-                cnt++;
-            }
-            if (check(a)) {
+            boolean ok = cal1(a, b);
+            if (ok) {
                 out.append("Yes\n");
             } else {
                 out.append("No\n");
