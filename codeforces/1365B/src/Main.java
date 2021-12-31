@@ -41,6 +41,18 @@ public class Main {
         arr[j] = t;
     }
 
+    boolean check(int[] a) {
+        int n = a.length;
+        boolean ok = true;
+        for (int i = 0; i < n - 1; i++) {
+            if (a[i] > a[i + 1]) {
+                ok = false;
+                break;
+            }
+        }
+        return ok;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -56,14 +68,7 @@ public class Main {
                     }
                 }
             }
-            boolean ok = true;
-            for (int i = 0; i < n - 1; i++) {
-                if (a[i] > a[i + 1]) {
-                    ok = false;
-                    break;
-                }
-            }
-            if (ok) {
+            if (check(a)) {
                 out.append("Yes\n");
             } else {
                 out.append("No\n");
