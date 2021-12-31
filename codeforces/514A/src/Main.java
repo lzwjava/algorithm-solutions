@@ -31,7 +31,7 @@ public class Main {
         for (char c : s.toCharArray()) {
             int v = c - '0';
             int nv;
-            if (v >= 5) {
+            if (v > 5) {
                 nv = v - 5;
             } else {
                 nv = v;
