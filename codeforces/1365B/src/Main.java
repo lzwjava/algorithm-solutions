@@ -2,8 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Random;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -44,14 +43,27 @@ public class Main {
 
     boolean check(int[] a) {
         int n = a.length;
-        boolean ok = true;
         for (int i = 0; i < n - 1; i++) {
             if (a[i] > a[i + 1]) {
-                ok = false;
-                break;
+                return false;
             }
         }
-        return ok;
+        return true;
+    }
+
+    void print(int[] a) {
+        int n = a.length;
+        for (int i = 0; i < n; i++) {
+            if (i != 0) {
+                out.append(' ');
+            }
+            out.append(String.format("%2d", a[i]));
+        }
+        out.append('\n');
+    }
+
+    int hash(int[] a) {
+        return Arrays.hashCode(a);
     }
 
     void solve() throws IOException {
@@ -63,6 +75,8 @@ public class Main {
             int[] a = parseArray(in.readLine());
             int[] b = parseArray(in.readLine());
             int cnt = 0;
+            Set<Integer> set = new HashSet<>();
+            set.add(hash(a));
             while (cnt < 1000) {
                 int i = random.nextInt(n);
                 int j = random.nextInt(n);
@@ -70,6 +84,13 @@ public class Main {
                     swap(a, i, j);
                     swap(b, i, j);
                 }
+                int h = hash(a);
+                if (set.contains(h)) {
+                    continue;
+                }
+                set.add(h);
+                print(a);
+                print(b);
                 if (check(a)) {
                     break;
                 }
