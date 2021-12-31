@@ -56,6 +56,18 @@ public class Main {
                     }
                 }
             }
+            boolean ok = true;
+            for (int i = 0; i < n - 1; i++) {
+                if (a[i] > a[i + 1]) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                out.append("Yes\n");
+            } else {
+                out.append("No\n");
+            }
         }
     }
 }
