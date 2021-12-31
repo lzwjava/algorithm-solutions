@@ -31,13 +31,15 @@ public class Main {
         for (char c : s.toCharArray()) {
             int v = c - '0';
             int nv;
-            if (v > 5) {
+            if (v >= 5) {
                 nv = v - 5;
             } else {
                 nv = v;
             }
             sb.append(String.valueOf(nv));
         }
-        out.append(String.format("%s\n", sb));
+        String fs = sb.toString();
+        long ans = Long.parseLong(fs);
+        out.append(String.format("%d\n", ans));
     }
 }
