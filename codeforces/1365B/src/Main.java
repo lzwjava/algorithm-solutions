@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -55,18 +56,24 @@ public class Main {
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
+        Random random = new Random();
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
             int[] b = parseArray(in.readLine());
-            for (int i = 0; i < n - 1; i++) {
-                for (int j = i + 1; j < n; j++) {
-                    if (a[i] > a[j] && b[i] != b[j]) {
-                        swap(a, i, j);
-                        swap(b, i, j);
-                    }
+            int cnt = 0;
+            while (cnt < 1000) {
+                int i = random.nextInt(n);
+                int j = random.nextInt(n);
+                if (a[i] > a[j] && b[i] != b[j]) {
+                    swap(a, i, j);
+                    swap(b, i, j);
                 }
+                if (check(a)) {
+                    break;
+                }
+                cnt++;
             }
             if (check(a)) {
                 out.append("Yes\n");
