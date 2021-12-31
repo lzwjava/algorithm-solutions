@@ -32,7 +32,7 @@ public class Main {
             int v = c - '0';
             int nv;
             if (v >= 5) {
-                nv = v - 5;
+                nv = 9 - v;
             } else {
                 nv = v;
             }
