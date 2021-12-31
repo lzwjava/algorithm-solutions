@@ -28,6 +28,7 @@ public class Main {
         long x = Long.parseLong(in.readLine());
         String s = String.format("%d", x);
         StringBuilder sb = new StringBuilder();
+        boolean first = true;
         for (char c : s.toCharArray()) {
             int v = c - '0';
             int nv;
@@ -36,6 +37,10 @@ public class Main {
             } else {
                 nv = v;
             }
+            if (first && nv == 0) {
+                nv = v;
+            }
+            first = false;
             sb.append(String.valueOf(nv));
         }
         String fs = sb.toString();
