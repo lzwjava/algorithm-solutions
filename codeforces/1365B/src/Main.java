@@ -14,10 +14,10 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.test();
-//        m.solve();
+//        m.test();
+        m.solve();
         m.close();
     }
 
@@ -102,18 +102,17 @@ public class Main {
         if (check(a)) {
             return true;
         }
+        int[] c = new int[2];
         for (int i = 0; i < n; i++) {
-            if (b[i] == 1) {
-                return true;
-            }
+            c[b[i]]++;
         }
-        return false;
+        return c[0] > 0 && c[1] > 0;
     }
 
     void test() {
         Random random = new Random();
         while (true) {
-            int n = random.nextInt(7) + 1;
+            int n = random.nextInt(10) + 1;
             int[] a = new int[n];
             int[] b = new int[n];
             for (int i = 0; i < n; i++) {
