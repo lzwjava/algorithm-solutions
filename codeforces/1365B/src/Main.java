@@ -113,7 +113,7 @@ public class Main {
     void test() {
         Random random = new Random();
         while (true) {
-            int n = random.nextInt(5) + 1;
+            int n = random.nextInt(7) + 1;
             int[] a = new int[n];
             int[] b = new int[n];
             for (int i = 0; i < n; i++) {
