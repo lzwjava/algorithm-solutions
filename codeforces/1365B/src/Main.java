@@ -14,9 +14,10 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Main m = new Main();
-        m.solve();
+        m.test();
+//        m.solve();
         m.close();
     }
 
@@ -109,9 +110,24 @@ public class Main {
         return false;
     }
 
+    void test() {
+        Random random = new Random();
+        while (true) {
+            int n = random.nextInt(5);
+            int[] a = new int[n];
+            int[] b = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = random.nextInt(10);
+                b[i] = random.nextInt(2);
+            }
+            boolean ok = cal(a, b);
+            boolean ok1 = cal1(a, b);
+            assert ok == ok1;
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        Random random = new Random();
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
