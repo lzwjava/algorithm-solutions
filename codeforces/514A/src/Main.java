@@ -26,5 +26,16 @@ public class Main {
 
     void solve() throws IOException {
         long x = Long.parseLong(in.readLine());
+        String s = String.format("%d", x);
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            int v = c - '0';
+            int nv;
+            if (v >= 5) {
+                nv = v - 5;
+            } else {
+                nv = v;
+            }
+        }
     }
 }
