@@ -35,6 +35,12 @@ public class Main {
         return a;
     }
 
+    void swap(int[] arr, int i, int j) {
+        int t = arr[i];
+        arr[i] = arr[j];
+        arr[j] = t;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -42,6 +48,14 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
             int[] b = parseArray(in.readLine());
+            for (int i = 0; i < n - 1; i++) {
+                for (int j = i + 1; j < n; j++) {
+                    if (a[i] > a[j] && b[i] != b[j]) {
+                        swap(a, i, j);
+                        swap(b, i, j);
+                    }
+                }
+            }
         }
     }
 }
