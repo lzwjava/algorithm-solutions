@@ -36,6 +36,8 @@ public class Main {
             } else {
                 nv = v;
             }
+            sb.append(String.valueOf(nv));
         }
+        out.append(String.format("%s\n", sb));
     }
 }
