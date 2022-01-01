@@ -25,10 +25,6 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
-            t--;
-            int n = Integer.parseInt(in.readLine());
-        }
+        int a = Integer.parseInt(in.readLine());
     }
 }
