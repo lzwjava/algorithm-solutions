@@ -36,6 +36,7 @@ public class Main {
                 grid[i][j] = s.charAt(j);
             }
         }
+        boolean[][] used = new boolean[r][c];
         int s = 0;
         for (int i = 0; i < r; i++) {
             boolean ok = true;
@@ -47,18 +48,25 @@ public class Main {
             }
             if (ok) {
                 s += c;
+                for (int j = 0; j < c; j++) {
+                    used[i][j] = true;
+                }
             }
         }
         for (int j = 0; j < c; j++) {
             boolean ok = true;
+            int notUsed = 0;
             for (int i = 0; i < r; i++) {
                 if (grid[i][j] == 'S') {
                     ok = false;
                     break;
                 }
+                if (!used[i][j]) {
+                    notUsed++;
+                }
             }
             if (ok) {
-                s += r;
+                s += notUsed;
             }
         }
         out.append(String.format("%d\n", s));
