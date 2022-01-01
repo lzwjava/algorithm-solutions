@@ -42,11 +42,16 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] h = parseArray(in.readLine());
             long s = 0;
+            boolean ok = true;
             for (int i = 0; i < n; i++) {
+                int min = i * (i + 1) / 2;
                 s += h[i];
+                if (s < min) {
+                    ok = false;
+                    break;
+                }
             }
-            int min = (n - 1) * n / 2;
-            if (s >= min) {
+            if (ok) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
