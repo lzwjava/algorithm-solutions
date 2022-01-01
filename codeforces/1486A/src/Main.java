@@ -41,6 +41,16 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] h = parseArray(in.readLine());
+            int s = 0;
+            for (int i = 0; i < n; i++) {
+                s += h[i];
+            }
+            int min = (n - 1) * n / 2;
+            if (s >= min) {
+                out.append("YES\n");
+            } else {
+                out.append("NO\n");
+            }
         }
     }
 }
