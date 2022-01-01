@@ -36,5 +36,31 @@ public class Main {
                 grid[i][j] = s.charAt(j);
             }
         }
+        int s = 0;
+        for (int i = 0; i < r; i++) {
+            boolean ok = true;
+            for (int j = 0; j < c; j++) {
+                if (grid[i][j] == 'S') {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                s += c;
+            }
+        }
+        for (int j = 0; j < c; j++) {
+            boolean ok = true;
+            for (int i = 0; i < r; i++) {
+                if (grid[i][j] == 'S') {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                s += r;
+            }
+        }
+        out.append(String.format("%d\n", s));
     }
 }
