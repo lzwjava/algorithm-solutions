@@ -33,7 +33,7 @@ public class Main {
     }
 
     int lcm(int a, int b) {
-        return a / gcd(a, b) / b;
+        return a / gcd(a, b) * b;
     }
 
     void solve() throws IOException {
@@ -43,7 +43,7 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int minLcm = Integer.MAX_VALUE;
             int ma = 0, mb = 0;
-            for (int a = 1; a <= n; a++) {
+            for (int a = 1; a < n; a++) {
                 int b = n - a;
                 int lcm = lcm(a, b);
                 if (lcm < minLcm) {
