@@ -81,7 +81,13 @@ public class Main {
                 if (leftPeek.id == rightPeek.id) {
                     coin = leftPeek.c;
                 } else {
-                    coin = leftPeek.c + rightPeek.c;
+                    if (rightPeek.l == leftPeek.l) {
+                        coin = rightPeek.c;
+                    } else if (leftPeek.r == rightPeek.r) {
+                        coin = leftPeek.c;
+                    } else {
+                        coin = leftPeek.c + rightPeek.c;
+                    }
                 }
                 out.append(String.format("%d\n", coin));
             }
