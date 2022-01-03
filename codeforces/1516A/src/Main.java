@@ -91,6 +91,7 @@ public class Main {
                 }
                 out.append(String.format("%d", a[i]));
             }
+            out.append('\n');
         }
     }
 }
