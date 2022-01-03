@@ -64,7 +64,21 @@ public class Main {
                     int[] b = a.clone();
                     b[i1]--;
                     b[i2]++;
+                    boolean smaller = smaller(b, a);
+                    if (smaller) {
+                        a = b;
+                        k--;
+                        if (k == 0) {
+                            break;
+                        }
+                    }
                 }
+            }
+            for (int i = 0; i < n; i++) {
+                if (i != 0) {
+                    out.append(' ');
+                }
+                out.append(String.format("%d", a[i]));
             }
         }
     }
