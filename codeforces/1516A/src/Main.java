@@ -57,6 +57,7 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
             int[] a = parseArray(in.readLine());
+            int cnt = 0;
             while (true) {
                 int i1 = random.nextInt(n);
                 int i2 = random.nextInt(n);
@@ -71,6 +72,16 @@ public class Main {
                         if (k == 0) {
                             break;
                         }
+                    } else {
+                        cnt++;
+                        if (cnt > 10) {
+                            break;
+                        }
+                    }
+                } else {
+                    cnt++;
+                    if (cnt > 10) {
+                        break;
                     }
                 }
             }
