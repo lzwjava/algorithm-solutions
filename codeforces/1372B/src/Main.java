@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -46,6 +43,19 @@ public class Main {
         Pair(int a, int b) {
             this.a = a;
             this.b = b;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pair pair = (Pair) o;
+            return a == pair.a && b == pair.b;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(a, b);
         }
     }
 
@@ -141,7 +151,7 @@ public class Main {
     }
 
     Pair cal1(int n) {
-        int a = 0, b = 0;
+        int a, b;
         if (n % 2 == 0) {
             a = b = n / 2;
         } else if (n % 3 == 0) {
@@ -155,7 +165,22 @@ public class Main {
             List<Integer> ps = new ArrayList<>();
             permutation(fs, ps, 0, fs.size(), 1);
             Collections.sort(ps);
-            
+            int minLCM = Integer.MAX_VALUE;
+            int ma = 0, mb = 0;
+            for (int p : ps) {
+                a = p;
+                b = n - a;
+                if (a > 0 && b > 0) {
+                    int lcm = lcm(a, b);
+                    if (lcm < minLCM) {
+                        minLCM = lcm;
+                        ma = a;
+                        mb = b;
+                    }
+                }
+            }
+            a = ma;
+            b = mb;
         }
         return new Pair(a, b);
     }
@@ -178,13 +203,16 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
-            Pair pair = cal(n);
+            Pair pair = cal1(n);
             out.append(String.format("%d %d\n", pair.a, pair.b));
         }
-        for (int i = 1; i < 50; i++) {
-            out.append(String.format("%d: ", i));
-            Pair pair = cal(i);
-            out.append(String.format("%d %d\n", pair.a, pair.b));
-        }
+//        for (int i = 2; i < 50; i++) {
+//            out.append(String.format("%d: ", i));
+//            i = 25;
+//            Pair pair = cal(i);
+//            Pair pair1 = cal1(i);
+//            assert pair.equals(pair1);
+//            out.append(String.format("%d %d\n", pair.a, pair.b));
+//        }
     }
 }
