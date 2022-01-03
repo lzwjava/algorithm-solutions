@@ -38,5 +38,16 @@ public class Main {
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         int[] a = parseArray(in.readLine());
+        int[] times = new int[3];
+        for (int i = 0; i < n; i++) {
+            times[i % 3] += a[i];
+        }
+        if (times[0] > times[1] && times[0] > times[2]) {
+            out.append("chest\n");
+        } else if (times[1] > times[0] && times[1] > times[2]) {
+            out.append("biceps\n");
+        } else {
+            out.append("back\n");
+        }
     }
 }
