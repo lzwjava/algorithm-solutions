@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -29,8 +30,9 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
-            int n = Integer.parseInt(in.readLine());
-            int k = Integer.parseInt(in.readLine());
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            int n = Integer.parseInt(st.nextToken());
+            int k = Integer.parseInt(st.nextToken());
             char[][] grid = new char[n][n];
             for (int i = 0; i < n; i++) {
                 Arrays.fill(grid[i], '.');
