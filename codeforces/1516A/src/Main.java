@@ -57,41 +57,6 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
             int[] a = parseArray(in.readLine());
-            int cnt = 0;
-            while (true) {
-                int i1 = random.nextInt(n);
-                int i2 = random.nextInt(n);
-                if (i1 != i2 && a[i1] > 1) {
-                    int[] b = a.clone();
-                    b[i1]--;
-                    b[i2]++;
-                    boolean smaller = smaller(b, a);
-                    if (smaller) {
-                        a = b;
-                        k--;
-                        if (k == 0) {
-                            break;
-                        }
-                    } else {
-                        cnt++;
-                        if (cnt > 10) {
-                            break;
-                        }
-                    }
-                } else {
-                    cnt++;
-                    if (cnt > 10) {
-                        break;
-                    }
-                }
-            }
-            for (int i = 0; i < n; i++) {
-                if (i != 0) {
-                    out.append(' ');
-                }
-                out.append(String.format("%d", a[i]));
-            }
-            out.append('\n');
         }
     }
 }
