@@ -44,7 +44,8 @@ public class Main {
                 max = n / 2 + 1;
             }
             if (k <= max) {
-                for (int i = 0; i < max; i++) {
+                int min = Integer.min(k, max);
+                for (int i = 0; i < min; i++) {
                     int x = 2 * i;
                     int y = 2 * i;
                     grid[x][y] = 'R';
