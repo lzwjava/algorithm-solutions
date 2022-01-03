@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
@@ -65,25 +64,19 @@ public class Main {
                 int c = Integer.parseInt(st.nextToken());
                 segments[i] = new Segment(i, l, r, c);
             }
-            PriorityQueue<Segment> lens = new PriorityQueue<>(new Comparator<Segment>() {
-                @Override
-                public int compare(Segment o1, Segment o2) {
-                    if (o1.len() != o2.len()) {
-                        return Integer.compare(o2.len(), o1.len());
-                    } else {
-                        return Integer.compare(o1.c, o2.c);
-                    }
+            PriorityQueue<Segment> lens = new PriorityQueue<>((o1, o2) -> {
+                if (o1.len() != o2.len()) {
+                    return Integer.compare(o2.len(), o1.len());
+                } else {
+                    return Integer.compare(o1.c, o2.c);
                 }
             });
             PriorityQueue<Segment> left = new PriorityQueue<>();
-            PriorityQueue<Segment> right = new PriorityQueue<>(new Comparator<Segment>() {
-                @Override
-                public int compare(Segment o1, Segment o2) {
-                    if (o1.r != o2.r) {
-                        return Integer.compare(o2.r, o1.r);
-                    } else {
-                        return Integer.compare(o1.c, o2.c);
-                    }
+            PriorityQueue<Segment> right = new PriorityQueue<>((o1, o2) -> {
+                if (o1.r != o2.r) {
+                    return Integer.compare(o2.r, o1.r);
+                } else {
+                    return Integer.compare(o1.c, o2.c);
                 }
             });
             for (int i = 0; i < n; i++) {
