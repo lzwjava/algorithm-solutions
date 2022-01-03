@@ -37,6 +37,10 @@ public class Main {
             this.c = c;
         }
 
+        int len() {
+            return r - l + 1;
+        }
+
 
         @Override
         public int compareTo(Segment o) {
@@ -61,6 +65,16 @@ public class Main {
                 int c = Integer.parseInt(st.nextToken());
                 segments[i] = new Segment(i, l, r, c);
             }
+            PriorityQueue<Segment> lens = new PriorityQueue<>(new Comparator<Segment>() {
+                @Override
+                public int compare(Segment o1, Segment o2) {
+                    if (o1.len() != o2.len()) {
+                        return Integer.compare(o2.len(), o1.len());
+                    } else {
+                        return Integer.compare(o1.c, o2.c);
+                    }
+                }
+            });
             PriorityQueue<Segment> left = new PriorityQueue<>();
             PriorityQueue<Segment> right = new PriorityQueue<>(new Comparator<Segment>() {
                 @Override
@@ -75,19 +89,19 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 left.add(segments[i]);
                 right.add(segments[i]);
+                lens.add(segments[i]);
                 Segment leftPeek = left.peek();
                 Segment rightPeek = right.peek();
+                Segment longest = lens.peek();
                 int coin;
+                int len = rightPeek.r - leftPeek.l + 1;
                 if (leftPeek.id == rightPeek.id) {
                     coin = leftPeek.c;
                 } else {
-                    if (rightPeek.l == leftPeek.l) {
-                        coin = rightPeek.c;
-                    } else if (leftPeek.r == rightPeek.r) {
-                        coin = leftPeek.c;
-                    } else {
-                        coin = leftPeek.c + rightPeek.c;
-                    }
+                    coin = leftPeek.c + rightPeek.c;
+                }
+                if (len == longest.len() && coin > longest.c) {
+                    coin = longest.c;
                 }
                 out.append(String.format("%d\n", coin));
             }
