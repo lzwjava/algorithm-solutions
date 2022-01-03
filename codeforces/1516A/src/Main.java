@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -35,14 +36,36 @@ public class Main {
         return a;
     }
 
+    boolean smaller(int[] x, int[] y) {
+        int xn = x.length;
+        int yn = y.length;
+        int mn = Integer.min(xn, yn);
+        for (int i = 0; i < mn; i++) {
+            if (x[i] != y[i]) {
+                return x[i] < y[i];
+            }
+        }
+        return false;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
+        Random random = new Random();
         while (t > 0) {
             t--;
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
             int[] a = parseArray(in.readLine());
+            while (true) {
+                int i1 = random.nextInt(n);
+                int i2 = random.nextInt(n);
+                if (i1 != i2 && a[i1] > 1) {
+                    int[] b = a.clone();
+                    b[i1]--;
+                    b[i2]++;
+                }
+            }
         }
     }
 }
