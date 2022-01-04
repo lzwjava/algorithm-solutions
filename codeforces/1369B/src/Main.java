@@ -57,6 +57,7 @@ public class Main {
                 // remove 0
                 String ns1 = s.substring(0, i + 1) + s.substring(i + 2, n);
                 dp(ns1);
+
                 // remove 1
                 String ns2 = s.substring(0, i) + s.substring(i + 1, n);
                 dp(ns2);
