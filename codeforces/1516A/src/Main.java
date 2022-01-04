@@ -57,6 +57,37 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
             int[] a = parseArray(in.readLine());
+            int p = 0, q = n - 1;
+            for (int i = 0; i < k; i++) {
+                if (a[p] == 0) {
+                    while (a[p] == 0 && p != q) {
+                        p++;
+                    }
+                    if (p == q) {
+                        break;
+                    }
+                }
+                if (a[q] == 9) {
+                    while (a[q] == 9 && p != q) {
+                        q--;
+                    }
+                    if (p == q) {
+                        break;
+                    }
+                }
+                if (p == q) {
+                    break;
+                }
+                a[p]--;
+                a[q]++;
+            }
+            for (int i = 0; i < n; i++) {
+                if (i != 0) {
+                    out.append(' ');
+                }
+                out.append(String.format("%d", a[i]));
+            }
+            out.append('\n');
         }
     }
 }
