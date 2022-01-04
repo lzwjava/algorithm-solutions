@@ -63,6 +63,7 @@ public class Main {
                 // remove 1
                 String ns2 = s.substring(0, i) + s.substring(i + 1, n);
                 dp(ns2);
+                break;
             }
         }
     }
