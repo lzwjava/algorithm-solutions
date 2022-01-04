@@ -142,7 +142,7 @@ public class Main {
             sb.append((char) ('A' + i));
         }
         String s = sb.toString();
-        int l = 4;
+        int l = 3;
         int w = 3;
         int k = w * l;
         for (int h = 1; ; h++) {
