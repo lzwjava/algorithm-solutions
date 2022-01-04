@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Random;
 
 public class Main {
 
@@ -17,7 +16,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
         m.close();
     }
 
@@ -85,16 +83,5 @@ public class Main {
             ans = cal(s);
             out.append(String.format("%s\n", ans));
         }
-    }
-
-    void test() {
-        StringBuilder sb = new StringBuilder();
-        int n = 100000;
-        Random random = new Random();
-        for (int i = 0; i < n; i++) {
-            int digit = random.nextInt(2);
-            sb.append((char) (digit + '0'));
-        }
-        cal(sb.toString());
     }
 }
