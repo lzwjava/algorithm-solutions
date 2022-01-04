@@ -24,17 +24,24 @@ public class Main {
         out.close();
     }
 
-    String ans;
-
-    void dp(StringBuilder s, int i, int left1, int right0) {
-        while (true) {
-            int n = s.length();
-            if (i < 0) {
-                ans = s.toString();
-                return;
+    String cal(String s) {
+        int n = s.length();
+        int left1 = 0;
+        for (int j = 0; j < n; j++) {
+            if (s.charAt(j) == '1') {
+                left1++;
             }
-            if (i == n - 1 || s.charAt(i) == '0' || (s.charAt(i) == '1' && s.charAt(i + 1) == '1')) {
-                char c = s.charAt(i);
+        }
+        int right0 = 0;
+        StringBuilder sb = new StringBuilder(s);
+        int i = s.length() - 1;
+        while (true) {
+            int n1 = sb.length();
+            if (i < 0) {
+                return sb.toString();
+            }
+            if (i == n1 - 1 || sb.charAt(i) == '0' || (sb.charAt(i) == '1' && sb.charAt(i + 1) == '1')) {
+                char c = sb.charAt(i);
                 if (c == '1') {
                     left1--;
                 } else {
@@ -48,30 +55,15 @@ public class Main {
                 if (sleft1 < sright0) {
                     // remove 0
                     right0--;
-                    s.deleteCharAt(i + 1);
+                    sb.deleteCharAt(i + 1);
                 } else {
                     // remove 1
                     left1--;
-                    s.deleteCharAt(i);
+                    sb.deleteCharAt(i);
                     i--;
                 }
             }
         }
-    }
-
-    String cal(String s) {
-        ans = s;
-        int n = s.length();
-        int left1 = 0;
-        for (int j = 0; j < n; j++) {
-            if (s.charAt(j) == '1') {
-                left1++;
-            }
-        }
-        int right0 = 0;
-        StringBuilder sb = new StringBuilder(s);
-        dp(sb, s.length() - 1, left1, right0);
-        return ans;
     }
 
     void solve() throws IOException {
@@ -80,7 +72,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
-            ans = cal(s);
+            String ans = cal(s);
             out.append(String.format("%s\n", ans));
         }
     }
