@@ -70,16 +70,10 @@ public class Main {
         return ans;
     }
 
-    void dp1(String s, boolean[] removed, int i, int left1, int right0) {
+    void dp1(String s, int i, int left1, int right0) {
         int n = s.length();
         if (i < 0) {
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < n; j++) {
-                if (!removed[j]) {
-                    sb.append(s.charAt(j));
-                }
-            }
-            ans = sb.toString();
+            ans = s;
             return;
         }
         if (i == n - 1 || s.charAt(i) == '0' || (s.charAt(i) == '1' && s.charAt(i + 1) == '1')) {
@@ -90,19 +84,26 @@ public class Main {
             } else {
                 nright0++;
             }
-            dp1(s, removed, i - 1, nleft1, nright0);
+            dp1(s, i - 1, nleft1, nright0);
         } else {
             // 1, 0
             int sleft1 = left1 - 1;
             int sright0 = right0 - 1;
+            String ns;
+            int nleft1 = left1, nright0 = right0;
+            int ni;
             if (sleft1 < sright0) {
-                removed[i + 1] = true;
                 // remove 0
+                nright0--;
+                ns = s.substring(0, i + 1) + s.substring(i + 2, n);
+                ni = i;
             } else {
-                removed[i] = true;
                 // remove 1
+                nleft1--;
+                ns = s.substring(0, i) + s.substring(i + 1, n);
+                ni = i - 1;
             }
-            dp1(s, removed, i - 1, left1 - 1, right0);
+            dp1(ns, ni, nleft1, nright0);
         }
     }
 
@@ -116,8 +117,7 @@ public class Main {
             }
         }
         int right0 = 0;
-        boolean[] removed = new boolean[n];
-        dp1(s, removed, s.length() - 1, left1, right0);
+        dp1(s, s.length() - 1, left1, right0);
         return ans;
     }
 
