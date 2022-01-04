@@ -93,9 +93,10 @@ public class Main {
                 }
             }
             for (int i = 0; i < h - 1; i++) {
-                int si = (i + 1) * k;
+                int si = i * k;
+                int sj = (i + 1) * k;
                 for (int j = 0; j < k; j++) {
-                    addPair(pairs, chs[j], chs[si + j]);
+                    addPair(pairs, chs[si], chs[sj + j]);
                 }
             }
             int pm = m * (m - 1) / 2;
@@ -118,14 +119,7 @@ public class Main {
             }
             return true;
         }
-        int st;
-        if (cur == 0) {
-            st = 0;
-        } else {
-            char ch = chs[cur - 1];
-            st = s.indexOf(ch);
-        }
-        for (int i = st; i < m; i++) {
+        for (int i = 0; i < m; i++) {
             chs[cur] = s.charAt(i);
             boolean ok = cal(chs, s, cur + 1, n, w, l);
             if (ok) {
