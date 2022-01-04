@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -38,5 +39,11 @@ public class Main {
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         int[] a = parseArray(in.readLine());
+        Arrays.sort(a);
+        int s = 0;
+        for (int i = 0; i < n; i += 2) {
+            s += a[i + 1] - a[i];
+        }
+        out.append(String.format("%d\n", s));
     }
 }
