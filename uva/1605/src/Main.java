@@ -61,7 +61,7 @@ public class Main {
         }
     }
 
-    boolean cal(char[] chs, String s, int cur, int n) {
+    boolean cal(char[] chs, String s, int cur, int n, int w, int l) {
         int m = s.length();
         if (cur == n) {
             Set<Character> set = new HashSet<>();
@@ -71,18 +71,30 @@ public class Main {
             if (set.size() != m) {
                 return false;
             }
-            int h = n / 4;
+            int k = w * l;
+            int h = n / k;
             Set<Pair> pairs = new HashSet<>();
             for (int i = 0; i < h; i++) {
-                int si = i * 4;
-                addPair(pairs, chs[si], chs[si + 1]);
-                addPair(pairs, chs[si], chs[si + 2]);
-                addPair(pairs, chs[si + 2], chs[si + 3]);
-                addPair(pairs, chs[si + 1], chs[si + 3]);
+                int si = i * k;
+                for (int j = 0; j < w - 1; j++) {
+                    for (int d = 0; d < l; d++) {
+                        int sj = si + j * l + d;
+                        int nj = si + (j + 1) * l + d;
+                        addPair(pairs, chs[sj], chs[nj]);
+                    }
+                }
+
+                for (int j = 0; j < w; j++) {
+                    for (int d = 0; d < l - 1; d++) {
+                        int sj = si + j * l + d;
+                        int nj = sj + 1;
+                        addPair(pairs, chs[sj], chs[nj]);
+                    }
+                }
             }
             for (int i = 0; i < h - 1; i++) {
-                int si = (i + 1) * 4;
-                for (int j = 0; j < 4; j++) {
+                int si = (i + 1) * k;
+                for (int j = 0; j < k; j++) {
                     addPair(pairs, chs[j], chs[si + j]);
                 }
             }
@@ -90,14 +102,19 @@ public class Main {
             if (pairs.size() != pm) {
                 return false;
             }
-            out.append(String.format("%d %d %d\n", h, 2, 2));
+            out.append(String.format("%d %d %d\n", h, w, l));
             for (int i = 0; i < h; i++) {
                 if (i != 0) {
                     out.append('\n');
                 }
-                int si = i * 4;
-                out.append(String.format("%c%c\n", chs[si], chs[si + 1]));
-                out.append(String.format("%c%c\n", chs[si + 2], chs[si + 3]));
+                int si = i * k;
+                for (int j = 0; j < w; j++) {
+                    for (int d = 0; d < l; d++) {
+                        int sj = si + j * l + d;
+                        out.append(String.format("%c", chs[sj]));
+                    }
+                    out.append('\n');
+                }
             }
             return true;
         }
@@ -110,7 +127,7 @@ public class Main {
         }
         for (int i = st; i < m; i++) {
             chs[cur] = s.charAt(i);
-            boolean ok = cal(chs, s, cur + 1, n);
+            boolean ok = cal(chs, s, cur + 1, n, w, l);
             if (ok) {
                 return true;
             }
@@ -125,10 +142,13 @@ public class Main {
             sb.append((char) ('A' + i));
         }
         String s = sb.toString();
+        int l = 4;
+        int w = 2;
+        int k = w * l;
         for (int h = 1; ; h++) {
-            int h4 = h * 4;
+            int h4 = h * k;
             char[] chs = new char[h4];
-            boolean ok = cal(chs, s, 0, h4);
+            boolean ok = cal(chs, s, 0, h4, w, l);
             if (ok) {
                 break;
             }
