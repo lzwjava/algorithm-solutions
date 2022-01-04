@@ -27,39 +27,35 @@ public class Main {
     String ans;
 
     void dp(String s, int i, int left1, int right0) {
-        int n = s.length();
-        if (i < 0) {
-            ans = s;
-            return;
-        }
-        if (i == n - 1 || s.charAt(i) == '0' || (s.charAt(i) == '1' && s.charAt(i + 1) == '1')) {
-            char c = s.charAt(i);
-            int nleft1 = left1, nright0 = right0;
-            if (c == '1') {
-                nleft1--;
-            } else {
-                nright0++;
+        while (true) {
+            int n = s.length();
+            if (i < 0) {
+                ans = s;
+                return;
             }
-            dp(s, i - 1, nleft1, nright0);
-        } else {
-            // 1, 0
-            int sleft1 = left1 - 1;
-            int sright0 = right0 - 1;
-            String ns;
-            int nleft1 = left1, nright0 = right0;
-            int ni;
-            if (sleft1 < sright0) {
-                // remove 0
-                nright0--;
-                ns = s.substring(0, i + 1) + s.substring(i + 2, n);
-                ni = i;
+            if (i == n - 1 || s.charAt(i) == '0' || (s.charAt(i) == '1' && s.charAt(i + 1) == '1')) {
+                char c = s.charAt(i);
+                if (c == '1') {
+                    left1--;
+                } else {
+                    right0++;
+                }
+                i--;
             } else {
-                // remove 1
-                nleft1--;
-                ns = s.substring(0, i) + s.substring(i + 1, n);
-                ni = i - 1;
+                // 1, 0
+                int sleft1 = left1 - 1;
+                int sright0 = right0 - 1;
+                if (sleft1 < sright0) {
+                    // remove 0
+                    right0--;
+                    s = s.substring(0, i + 1) + s.substring(i + 2, n);
+                } else {
+                    // remove 1
+                    left1--;
+                    s = s.substring(0, i) + s.substring(i + 1, n);
+                    i--;
+                }
             }
-            dp(ns, ni, nleft1, nright0);
         }
     }
 
