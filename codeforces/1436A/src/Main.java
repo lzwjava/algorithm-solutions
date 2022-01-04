@@ -35,30 +35,8 @@ public class Main {
         return a;
     }
 
-    void permutation(int[] nums, boolean[] vis, int cur, int s) {
-        if (found) {
-            return;
-        }
-        if (cur == n) {
-            if (s == m) {
-                found = true;
-            }
-            return;
-        }
-        for (int i = 0; i < n; i++) {
-            if (!vis[i]) {
-                vis[i] = true;
-                int v = a[i];
-                nums[cur] = v;
-                permutation(nums, vis, cur + 1, s + v);
-                vis[i] = false;
-            }
-        }
-    }
-
     int n, m;
     int[] a;
-    boolean found;
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
@@ -68,11 +46,11 @@ public class Main {
             n = Integer.parseInt(st.nextToken());
             m = Integer.parseInt(st.nextToken());
             a = parseArray(in.readLine());
-            int[] nums = new int[n];
-            boolean[] vis = new boolean[n];
-            found = false;
-            permutation(nums, vis, 0, 0);
-            if (found) {
+            int s = 0;
+            for (int i = 0; i < n; i++) {
+                s += a[i];
+            }
+            if (s == m) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
