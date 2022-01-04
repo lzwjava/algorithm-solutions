@@ -40,7 +40,7 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
-            int[] e = new int[n];
+            int[] e = parseArray(in.readLine());
         }
     }
 }
