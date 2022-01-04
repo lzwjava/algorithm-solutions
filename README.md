@@ -1,4 +1,4 @@
-# uva
+# UVa
 
 Some Online Judge Solutions, mainly UVa and Codeforces.
 
