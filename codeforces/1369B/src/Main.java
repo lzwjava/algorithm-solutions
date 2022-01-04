@@ -50,7 +50,7 @@ public class Main {
             ans = s;
         }
         int n = s.length();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n - 1; i++) {
             char si = s.charAt(i);
             char sj = s.charAt(i + 1);
             if (si == '1' && sj == '0') {
