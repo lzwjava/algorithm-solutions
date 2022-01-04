@@ -83,7 +83,9 @@ public class Main {
                 }
                 int right0 = 0;
                 for (int j = i + 2; j < n; j++) {
-                    right0++;
+                    if (s.charAt(j) == '0') {
+                        right0++;
+                    }
                 }
                 if (left1 < right0) {
                     // remove 0
