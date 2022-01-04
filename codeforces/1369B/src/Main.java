@@ -24,53 +24,9 @@ public class Main {
         out.close();
     }
 
-    boolean better(String a, String b) {
-        int an = a.length();
-        int bn = b.length();
-        if (an < bn) {
-            return true;
-        } else if (an > bn) {
-            return false;
-        } else {
-            for (int i = 0; i < an; i++) {
-                char ca = a.charAt(i);
-                char cb = b.charAt(i);
-                if (ca != cb) {
-                    return ca < cb;
-                }
-            }
-            return false;
-        }
-    }
-
     String ans;
 
-    void dp(String s) {
-        if (better(s, ans)) {
-            ans = s;
-        }
-        int n = s.length();
-        for (int i = 0; i < n - 1; i++) {
-            char si = s.charAt(i);
-            char sj = s.charAt(i + 1);
-            if (si == '1' && sj == '0') {
-                // remove 0
-                String ns1 = s.substring(0, i + 1) + s.substring(i + 2, n);
-                dp(ns1);
-                // remove 1
-                String ns2 = s.substring(0, i) + s.substring(i + 1, n);
-                dp(ns2);
-            }
-        }
-    }
-
-    String cal(String s) {
-        ans = s;
-        dp(s);
-        return ans;
-    }
-
-    void dp1(String s, int i, int left1, int right0) {
+    void dp(String s, int i, int left1, int right0) {
         int n = s.length();
         if (i < 0) {
             ans = s;
@@ -84,7 +40,7 @@ public class Main {
             } else {
                 nright0++;
             }
-            dp1(s, i - 1, nleft1, nright0);
+            dp(s, i - 1, nleft1, nright0);
         } else {
             // 1, 0
             int sleft1 = left1 - 1;
@@ -103,11 +59,11 @@ public class Main {
                 ns = s.substring(0, i) + s.substring(i + 1, n);
                 ni = i - 1;
             }
-            dp1(ns, ni, nleft1, nright0);
+            dp(ns, ni, nleft1, nright0);
         }
     }
 
-    String cal1(String s) {
+    String cal(String s) {
         ans = s;
         int n = s.length();
         int left1 = 0;
@@ -117,7 +73,7 @@ public class Main {
             }
         }
         int right0 = 0;
-        dp1(s, s.length() - 1, left1, right0);
+        dp(s, s.length() - 1, left1, right0);
         return ans;
     }
 
@@ -127,7 +83,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
-            ans = cal1(s);
+            ans = cal(s);
             out.append(String.format("%s\n", ans));
         }
     }
