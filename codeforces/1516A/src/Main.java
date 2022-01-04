@@ -67,17 +67,6 @@ public class Main {
                         break;
                     }
                 }
-                if (a[q] == 9) {
-                    while (a[q] == 9 && p != q) {
-                        q--;
-                    }
-                    if (p == q) {
-                        break;
-                    }
-                }
-                if (p == q) {
-                    break;
-                }
                 a[p]--;
                 a[q]++;
             }
