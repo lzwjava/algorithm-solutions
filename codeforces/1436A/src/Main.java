@@ -35,30 +35,22 @@ public class Main {
         return a;
     }
 
-    void permutation(int[] nums, boolean[] vis, int cur) {
+    void permutation(int[] nums, boolean[] vis, int cur, int s) {
         if (found) {
             return;
         }
         if (cur == n) {
-            double s = 0;
-            for (int i = 0; i < n; i++) {
-                for (int j = i; j < n; j++) {
-                    s += a[j] * 1.0 / (j + 1);
-                }
-            }
-            if (Math.abs(s - Math.round(s)) < 1e-10) {
-                int v = (int) Math.round(s);
-                if (v == m) {
-                    found = true;
-                }
+            if (s == m) {
+                found = true;
             }
             return;
         }
         for (int i = 0; i < n; i++) {
             if (!vis[i]) {
                 vis[i] = true;
-                nums[cur] = a[i];
-                permutation(nums, vis, cur + 1);
+                int v = a[i];
+                nums[cur] = v;
+                permutation(nums, vis, cur + 1, s + v);
                 vis[i] = false;
             }
         }
@@ -79,7 +71,7 @@ public class Main {
             int[] nums = new int[n];
             boolean[] vis = new boolean[n];
             found = false;
-            permutation(nums, vis, 0);
+            permutation(nums, vis, 0, 0);
             if (found) {
                 out.append("YES\n");
             } else {
