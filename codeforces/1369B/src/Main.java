@@ -70,44 +70,54 @@ public class Main {
         return ans;
     }
 
-    void dp1(String s) {
+    void dp1(String s, boolean[] removed, int i, int left1, int right0) {
         int n = s.length();
-        boolean found = false;
-        for (int i = n - 2; i >= 0; i--) {
-            if (s.charAt(i) == '1' && s.charAt(i + 1) == '0') {
-                int left1 = 0;
-                for (int j = 0; j < i; j++) {
-                    if (s.charAt(j) == '1') {
-                        left1++;
-                    }
+        if (i < 0) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < n; j++) {
+                if (!removed[j]) {
+                    sb.append(s.charAt(j));
                 }
-                int right0 = 0;
-                for (int j = i + 2; j < n; j++) {
-                    if (s.charAt(j) == '0') {
-                        right0++;
-                    }
-                }
-                if (left1 < right0) {
-                    // remove 0
-                    String ns1 = s.substring(0, i + 1) + s.substring(i + 2, n);
-                    dp(ns1);
-                } else {
-                    // remove 1
-                    String ns2 = s.substring(0, i) + s.substring(i + 1, n);
-                    dp(ns2);
-                }
-                found = true;
-                break;
             }
+            ans = sb.toString();
+            return;
         }
-        if (!found) {
-            ans = s;
+        if (i == n - 1 || s.charAt(i) == '0' || (s.charAt(i) == '1' && s.charAt(i + 1) == '1')) {
+            char c = s.charAt(i);
+            int nleft1 = left1, nright0 = right0;
+            if (c == '1') {
+                nleft1--;
+            } else {
+                nright0++;
+            }
+            dp1(s, removed, i - 1, nleft1, nright0);
+        } else {
+            // 1, 0
+            int sleft1 = left1 - 1;
+            int sright0 = right0 - 1;
+            if (sleft1 < sright0) {
+                removed[i + 1] = true;
+                // remove 0
+            } else {
+                removed[i] = true;
+                // remove 1
+            }
+            dp1(s, removed, i - 1, left1 - 1, right0);
         }
     }
 
     String cal1(String s) {
         ans = s;
-        dp1(s);
+        int n = s.length();
+        int left1 = 0;
+        for (int j = 0; j < n; j++) {
+            if (s.charAt(j) == '1') {
+                left1++;
+            }
+        }
+        int right0 = 0;
+        boolean[] removed = new boolean[n];
+        dp1(s, removed, s.length() - 1, left1, right0);
         return ans;
     }
 
