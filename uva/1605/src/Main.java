@@ -55,6 +55,12 @@ public class Main {
         }
     }
 
+    void addPair(Set<Pair> pairs, char a, char b) {
+        if (a != b) {
+            pairs.add(new Pair(a, b));
+        }
+    }
+
     boolean cal(char[] chs, String s, int cur, int n) {
         int m = s.length();
         if (cur == n) {
@@ -68,15 +74,17 @@ public class Main {
             int h = n / 4;
             Set<Pair> pairs = new HashSet<>();
             for (int i = 0; i < h; i++) {
-                int si = i * h;
-                pairs.add(new Pair(chs[si], chs[si + 1]));
-                pairs.add(new Pair(chs[si], chs[si + 2]));
-                pairs.add(new Pair(chs[si + 2], chs[si + 3]));
-                pairs.add(new Pair(chs[si + 1], chs[si + 3]));
+                int si = i * 4;
+                addPair(pairs, chs[si], chs[si + 1]);
+                addPair(pairs, chs[si], chs[si + 2]);
+                addPair(pairs, chs[si + 2], chs[si + 3]);
+                addPair(pairs, chs[si + 1], chs[si + 3]);
             }
             for (int i = 0; i < h - 1; i++) {
-                int si = (i + 1) * h;
-                pairs.add(new Pair(chs[i], chs[si]));
+                int si = (i + 1) * 4;
+                for (int j = 0; j < 4; j++) {
+                    addPair(pairs, chs[j], chs[si + j]);
+                }
             }
             int pm = m * (m - 1) / 2;
             if (pairs.size() != pm) {
@@ -87,7 +95,7 @@ public class Main {
                 if (i != 0) {
                     out.append('\n');
                 }
-                int si = i * h;
+                int si = i * 4;
                 out.append(String.format("%c%c\n", chs[si], chs[si + 1]));
                 out.append(String.format("%c%c\n", chs[si + 2], chs[si + 3]));
             }
