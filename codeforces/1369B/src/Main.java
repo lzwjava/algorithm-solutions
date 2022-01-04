@@ -54,13 +54,29 @@ public class Main {
             char si = s.charAt(i);
             char sj = s.charAt(i + 1);
             if (si == '1' && sj == '0') {
-                // remove 0
-                String ns1 = s.substring(0, i + 1) + s.substring(i + 2, n);
-                dp(ns1);
+                int left1 = 0;
+                for (int j = 0; j < i; j++) {
+                    if (s.charAt(j) == '1') {
+                        left1++;
+                    }
+                }
 
-                // remove 1
-                String ns2 = s.substring(0, i) + s.substring(i + 1, n);
-                dp(ns2);
+                int right0 = 0;
+                for (int j = i + 2; j < n; j++) {
+                    if (s.charAt(j) == '0') {
+                        right0++;
+                    }
+                }
+                if (left1 <= right0) {
+                    // remove 0
+                    String ns1 = s.substring(0, i + 1) + s.substring(i + 2, n);
+                    dp(ns1);
+                } else {
+                    // remove 1
+                    String ns2 = s.substring(0, i) + s.substring(i + 1, n);
+                    dp(ns2);
+                }
+                break;
             }
         }
     }
