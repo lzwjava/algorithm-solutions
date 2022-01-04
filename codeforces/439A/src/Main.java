@@ -40,5 +40,19 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int d = Integer.parseInt(st.nextToken());
         int[] t = parseArray(in.readLine());
+        int s = 0;
+        for (int i = 0; i < n; i++) {
+            s += t[i];
+        }
+        int min = s + (n - 1) * 10;
+        int ans;
+        if (d < min) {
+            ans = -1;
+        } else {
+            ans = (n - 1) * 2;
+            int rest = d - min;
+            ans += rest / 5;
+        }
+        out.append(String.format("%d\n", ans));
     }
 }
