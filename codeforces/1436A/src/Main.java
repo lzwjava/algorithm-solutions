@@ -36,7 +36,6 @@ public class Main {
     }
 
     void permutation(int[] nums, boolean[] vis, int cur) {
-        found = true;
         if (found) {
             return;
         }
@@ -50,7 +49,7 @@ public class Main {
             if (Math.abs(s - Math.round(s)) < 1e-10) {
                 int v = (int) Math.round(s);
                 if (v == m) {
-
+                    found = true;
                 }
             }
             return;
