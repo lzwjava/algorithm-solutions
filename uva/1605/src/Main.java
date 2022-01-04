@@ -143,7 +143,7 @@ public class Main {
         }
         String s = sb.toString();
         int l = 4;
-        int w = 2;
+        int w = 3;
         int k = w * l;
         for (int h = 1; ; h++) {
             int h4 = h * k;
