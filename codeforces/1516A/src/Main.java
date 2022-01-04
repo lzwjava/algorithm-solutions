@@ -36,18 +36,6 @@ public class Main {
         return a;
     }
 
-    boolean smaller(int[] x, int[] y) {
-        int xn = x.length;
-        int yn = y.length;
-        int mn = Integer.min(xn, yn);
-        for (int i = 0; i < mn; i++) {
-            if (x[i] != y[i]) {
-                return x[i] < y[i];
-            }
-        }
-        return false;
-    }
-
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         Random random = new Random();
