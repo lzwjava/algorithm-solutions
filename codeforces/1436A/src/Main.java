@@ -43,7 +43,7 @@ public class Main {
             double s = 0;
             for (int i = 0; i < n; i++) {
                 for (int j = i; j < n; j++) {
-                    s += a[j] * 1.0 / j;
+                    s += a[j] * 1.0 / (j + 1);
                 }
             }
             if (Math.abs(s - Math.round(s)) < 1e-10) {
