@@ -46,9 +46,6 @@ public class Main {
     String ans;
 
     void dp(String s) {
-        if (s.length() == ans.length() && better(ans, s)) {
-            return;
-        }
         if (better(s, ans)) {
             ans = s;
         }
@@ -63,9 +60,53 @@ public class Main {
                 // remove 1
                 String ns2 = s.substring(0, i) + s.substring(i + 1, n);
                 dp(ns2);
+            }
+        }
+    }
+
+    String cal(String s) {
+        ans = s;
+        dp(s);
+        return ans;
+    }
+
+    void dp1(String s) {
+        int n = s.length();
+        boolean found = false;
+        for (int i = n - 2; i >= 0; i--) {
+            if (s.charAt(i) == '1' && s.charAt(i + 1) == '0') {
+                int left1 = 0;
+                for (int j = 0; j < i; j++) {
+                    if (s.charAt(j) == '1') {
+                        left1++;
+                    }
+                }
+                int right0 = 0;
+                for (int j = i + 2; j < n; j++) {
+                    right0++;
+                }
+                if (left1 < right0) {
+                    // remove 0
+                    String ns1 = s.substring(0, i + 1) + s.substring(i + 2, n);
+                    dp(ns1);
+                } else {
+                    // remove 1
+                    String ns2 = s.substring(0, i) + s.substring(i + 1, n);
+                    dp(ns2);
+                }
+                found = true;
                 break;
             }
         }
+        if (!found) {
+            ans = s;
+        }
+    }
+
+    String cal1(String s) {
+        ans = s;
+        dp1(s);
+        return ans;
     }
 
     void solve() throws IOException {
@@ -74,8 +115,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
-            ans = s;
-            dp(s);
+            ans = cal1(s);
             out.append(String.format("%s\n", ans));
         }
     }
