@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -50,20 +53,42 @@ public class Main {
         }
     }
 
+    class Item implements Comparable<Item> {
+        int v, d;
+
+        Item(int v, int d) {
+            this.v = v;
+            this.d = d;
+        }
+
+        @Override
+        public int compareTo(Item o) {
+            return Integer.compare(o.d, d);
+        }
+    }
+
     int cal(int[] a) {
         int n = a.length;
         int[] d = new int[n];
         int max = 0;
+        PriorityQueue<Item> pq = new PriorityQueue<>(new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return Integer.compare(o2.d, o1.d);
+            }
+        });
         for (int i = 0; i < n; i++) {
+            Iterator<Item> iterator = pq.iterator();
             int maxLen = 0;
-            for (int j = 0; j < i; j++) {
-                if (a[j] < a[i]) {
-                    if (d[j] > maxLen) {
-                        maxLen = d[j];
-                    }
+            while (iterator.hasNext()) {
+                Item next = iterator.next();
+                if (next.v <= a[i]) {
+                    maxLen = next.d;
+                    break;
                 }
             }
             d[i] = maxLen + 1;
+            pq.add(new Item(a[i], d[i]));
             if (d[i] > max) {
                 max = d[i];
             }
