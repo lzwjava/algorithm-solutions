@@ -179,7 +179,7 @@ public class Main {
             if (s == null) {
                 break;
             }
-            int n = Integer.parseInt(in.readLine());
+            int n = Integer.parseInt(s);
             solve2(n);
         }
     }
