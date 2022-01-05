@@ -167,7 +167,12 @@ public class Main {
         String s = sb.toString();
         int m = s.length();
         int sum = m * (m - 1);
-        char[] chs = new char[sum];
+        int ss = (int) Math.ceil(Math.sqrt(sum));
+        if (ss % 2 == 1) {
+            ss++;
+        }
+        int len = ss * ss;
+        char[] chs = new char[len];
         int p = 0;
         for (int i = 0; i < m; i++) {
             for (int j = i + 1; j < m; j++) {
@@ -175,18 +180,27 @@ public class Main {
                 chs[p++] = s.charAt(j);
             }
         }
-        out.append(String.format("%d %d %d\n", 1, 1, sum));
-        for (int i = 0; i < sum; i++) {
-            out.append(String.format("%c", chs[i]));
+        out.append(String.format("%d %d %d\n", 1, ss, ss));
+        for (int i = 0; i < ss; i++) {
+            for (int j = 0; j < ss; j++) {
+                int idx = i * ss + j;
+                out.append(String.format("%c", chs[idx]));
+            }
+            out.append('\n');
         }
     }
 
     void solve() throws IOException {
+        boolean first = true;
         while (true) {
             String s = in.readLine();
             if (s == null) {
                 break;
             }
+            if (!first) {
+                out.append('\n');
+            }
+            first = false;
             int n = Integer.parseInt(s);
             solve2(n);
         }
