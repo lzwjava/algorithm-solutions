@@ -56,7 +56,7 @@ public class Main {
             z--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
-            int ans = dp(a, 0, 0);
+            int ans = dp1(a);
             out.append(String.format("%d\n", ans));
         }
     }
