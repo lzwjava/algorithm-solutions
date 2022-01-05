@@ -151,10 +151,18 @@ public class Main {
         }
     }
 
+    char charAt(int i) {
+        if (i < 26) {
+            return (char) ('A' + i);
+        } else {
+            return (char) ('a' + i - 26);
+        }
+    }
+
     void solve2(int n) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            sb.append((char) ('A' + i));
+            sb.append(charAt(i));
         }
         String s = sb.toString();
         int m = s.length();
