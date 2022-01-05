@@ -2,9 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 public class Main {
 
@@ -73,25 +72,28 @@ public class Main {
     int cal(int[] a) {
         int n = a.length;
         int[] d = new int[n];
-        int max = 0;
-        TreeSet<Item> treeSet = new TreeSet<>();
+        int[] v = new int[n];
+        Arrays.fill(v, -1);
+        int vn = 1;
+        v[0] = 0;
         for (int i = 0; i < n; i++) {
-            Iterator<Item> iterator = treeSet.iterator();
             int maxLen = 0;
-            while (iterator.hasNext()) {
-                Item next = iterator.next();
-                if (next.v <= a[i]) {
-                    maxLen = next.d;
+            for (int j = vn - 1; j >= 0; j--) {
+                if (v[j] < a[i]) {
+                    maxLen = j;
                     break;
                 }
             }
-            d[i] = maxLen + 1;
-            treeSet.add(new Item(a[i], d[i]));
-            if (d[i] > max) {
-                max = d[i];
+            int k = maxLen + 1;
+            d[i] = k;
+            if (v[k] == -1 || v[k] > a[i]) {
+                v[k] = a[i];
+            }
+            if (k >= vn) {
+                vn++;
             }
         }
-        return max;
+        return vn - 1;
     }
 
     void solve() throws IOException {
