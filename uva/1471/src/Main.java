@@ -36,9 +36,28 @@ public class Main {
         m.close();
     }
 
+    int dp(int[] a, int i, int start) {
+        int n = a.length;
+        if (i == n) {
+            return 0;
+        }
+        if (a[i] > start) {
+            int len1 = dp(a, i + 1, a[i]) + 1;
+            int len2 = dp(a, i + 1, start);
+            return Integer.max(len1, len2);
+        } else {
+            return dp(a, i + 1, start);
+        }
+    }
+
     void solve() throws IOException {
         int z = Integer.parseInt(in.readLine());
-        int n = Integer.parseInt(in.readLine());
-        int[] a = parseArray(in.readLine());
+        while (z > 0) {
+            z--;
+            int n = Integer.parseInt(in.readLine());
+            int[] a = parseArray(in.readLine());
+            int ans = dp(a, 0, 0);
+            out.append(String.format("%d\n", ans));
+        }
     }
 }
