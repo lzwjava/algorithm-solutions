@@ -183,11 +183,19 @@ public class Main {
         while (p < len) {
             chs[p++] = s.charAt(0);
         }
-        out.append(String.format("%d %d %d\n", 1, ss, ss));
+        out.append(String.format("%d %d %d\n", 2, ss, ss));
         for (int i = 0; i < ss; i++) {
             for (int j = 0; j < ss; j++) {
                 int idx = i * ss + j;
                 out.append(String.format("%c", chs[idx]));
+            }
+            out.append('\n');
+        }
+
+        out.append('\n');
+        for (int i = 0; i < ss; i++) {
+            for (int j = 0; j < ss; j++) {
+                out.append(String.format("%c", s.charAt(0)));
             }
             out.append('\n');
         }
