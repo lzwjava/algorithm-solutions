@@ -201,6 +201,26 @@ public class Main {
         }
     }
 
+    void solve3(int n) {
+        out.append(String.format("%d %d %d\n", 2, n, n));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                out.append(charAt(i));
+            }
+            out.append('\n');
+        }
+
+        out.append('\n');
+
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i < n; i++) {
+                out.append(charAt(j));
+            }
+            out.append('\n');
+        }
+    }
+
     void solve() throws IOException {
         boolean first = true;
         while (true) {
@@ -213,7 +233,7 @@ public class Main {
             }
             first = false;
             int n = Integer.parseInt(s);
-            solve2(n);
+            solve3(n);
         }
     }
 
