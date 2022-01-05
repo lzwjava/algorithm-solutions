@@ -72,7 +72,7 @@ public class Main {
     int cal(int[] a) {
         int n = a.length;
         int[] d = new int[n];
-        int[] v = new int[n];
+        int[] v = new int[n + 1];
         Arrays.fill(v, -1);
         int vn = 1;
         v[0] = 0;
