@@ -50,13 +50,34 @@ public class Main {
         }
     }
 
+    int cal(int[] a) {
+        int n = a.length;
+        int[] d = new int[n];
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            int maxLen = 0;
+            for (int j = 0; j < i; j++) {
+                if (a[j] < a[i]) {
+                    if (d[j] > maxLen) {
+                        maxLen = d[j];
+                    }
+                }
+            }
+            d[i] = maxLen + 1;
+            if (d[i] > max) {
+                max = d[i];
+            }
+        }
+        return max;
+    }
+
     void solve() throws IOException {
         int z = Integer.parseInt(in.readLine());
         while (z > 0) {
             z--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
-            int ans = dp1(a);
+            int ans = cal(a);
             out.append(String.format("%d\n", ans));
         }
     }
