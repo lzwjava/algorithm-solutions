@@ -215,7 +215,7 @@ public class Main {
 
         for (int j = 0; j < n; j++) {
             for (int i = 0; i < n; i++) {
-                out.append(charAt(j));
+                out.append(charAt(i));
             }
             out.append('\n');
         }
