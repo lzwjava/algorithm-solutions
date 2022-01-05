@@ -80,7 +80,10 @@ public class Main {
             int maxLen = 0;
             int idx = Arrays.binarySearch(v, 0, vn, a[i]);
             if (idx >= 0) {
-                maxLen = idx - 1;
+                while (v[idx] == a[i]) {
+                    idx--;
+                }
+                maxLen = idx;
             } else {
                 idx = -(idx + 1);
                 maxLen = idx - 1;
