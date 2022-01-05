@@ -180,6 +180,9 @@ public class Main {
                 chs[p++] = s.charAt(j);
             }
         }
+        while (p < len) {
+            chs[p++] = s.charAt(0);
+        }
         out.append(String.format("%d %d %d\n", 1, ss, ss));
         for (int i = 0; i < ss; i++) {
             for (int j = 0; j < ss; j++) {
