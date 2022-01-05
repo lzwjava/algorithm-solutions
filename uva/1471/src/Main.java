@@ -78,11 +78,12 @@ public class Main {
         v[0] = 0;
         for (int i = 0; i < n; i++) {
             int maxLen = 0;
-            for (int j = vn - 1; j >= 0; j--) {
-                if (v[j] < a[i]) {
-                    maxLen = j;
-                    break;
-                }
+            int idx = Arrays.binarySearch(v, 0, vn, a[i]);
+            if (idx >= 0) {
+                maxLen = idx - 1;
+            } else {
+                idx = -(idx + 1);
+                maxLen = idx - 1;
             }
             int k = maxLen + 1;
             d[i] = k;
