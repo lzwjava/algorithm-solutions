@@ -2,10 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Comparator;
 import java.util.Iterator;
-import java.util.PriorityQueue;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class Main {
 
@@ -63,7 +62,11 @@ public class Main {
 
         @Override
         public int compareTo(Item o) {
-            return Integer.compare(o.d, d);
+            if (d != o.d) {
+                return Integer.compare(o.d, d);
+            } else {
+                return Integer.compare(v, o.v);
+            }
         }
     }
 
@@ -71,14 +74,9 @@ public class Main {
         int n = a.length;
         int[] d = new int[n];
         int max = 0;
-        PriorityQueue<Item> pq = new PriorityQueue<>(new Comparator<Item>() {
-            @Override
-            public int compare(Item o1, Item o2) {
-                return Integer.compare(o2.d, o1.d);
-            }
-        });
+        TreeSet<Item> treeSet = new TreeSet<>();
         for (int i = 0; i < n; i++) {
-            Iterator<Item> iterator = pq.iterator();
+            Iterator<Item> iterator = treeSet.iterator();
             int maxLen = 0;
             while (iterator.hasNext()) {
                 Item next = iterator.next();
@@ -88,7 +86,7 @@ public class Main {
                 }
             }
             d[i] = maxLen + 1;
-            pq.add(new Item(a[i], d[i]));
+            treeSet.add(new Item(a[i], d[i]));
             if (d[i] > max) {
                 max = d[i];
             }
