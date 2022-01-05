@@ -63,11 +63,14 @@ public class Main {
 
     boolean cal(char[] chs, String s, int cur, int n, int w, int l) {
         int m = s.length();
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < cur; i++) {
+            set.add(chs[i]);
+        }
+        if (set.size() + (n - cur) < m) {
+            return false;
+        }
         if (cur == n) {
-            Set<Character> set = new HashSet<>();
-            for (int i = 0; i < n; i++) {
-                set.add(chs[i]);
-            }
             if (set.size() != m) {
                 return false;
             }
@@ -129,8 +132,7 @@ public class Main {
         return false;
     }
 
-    void solve() throws IOException {
-        int n = Integer.parseInt(in.readLine());
+    void solve1(int n) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
             sb.append((char) ('A' + i));
@@ -146,6 +148,39 @@ public class Main {
             if (ok) {
                 break;
             }
+        }
+    }
+
+    void solve2(int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append((char) ('A' + i));
+        }
+        String s = sb.toString();
+        int m = s.length();
+        int sum = m * (m - 1);
+        char[] chs = new char[sum];
+        int p = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = i + 1; j < m; j++) {
+                chs[p++] = s.charAt(i);
+                chs[p++] = s.charAt(j);
+            }
+        }
+        out.append(String.format("%d %d %d\n", 1, 1, sum));
+        for (int i = 0; i < sum; i++) {
+            out.append(String.format("%c", chs[i]));
+        }
+    }
+
+    void solve() throws IOException {
+        while (true) {
+            String s = in.readLine();
+            if (s == null) {
+                break;
+            }
+            int n = Integer.parseInt(in.readLine());
+            solve2(n);
         }
     }
 
