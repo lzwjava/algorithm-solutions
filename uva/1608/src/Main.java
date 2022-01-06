@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -42,6 +44,37 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
+            boolean boring = false;
+            for (int i = 0; i < n && !boring; i++) {
+                for (int j = i; j < n; j++) {
+                    Map<Integer, Integer> map = new HashMap<>();
+                    for (int k = i; k <= j; k++) {
+                        Integer cnt = map.get(k);
+                        if (cnt == null) {
+                            cnt = 0;
+                        }
+                        cnt++;
+                        map.put(k, cnt);
+                    }
+                    boolean ok = false;
+                    for (int key : map.keySet()) {
+                        int cnt = map.get(key);
+                        if (cnt == 1) {
+                            ok = true;
+                            break;
+                        }
+                    }
+                    if (!ok) {
+                        boring = true;
+                        break;
+                    }
+                }
+            }
+            if (boring) {
+                out.append("boring\n");
+            } else {
+                out.append("non-boring\n");
+            }
         }
     }
 }
