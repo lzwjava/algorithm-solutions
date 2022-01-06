@@ -38,38 +38,44 @@ public class Main {
         return a;
     }
 
+    boolean cal(int[] a) {
+        int n = a.length;
+        boolean boring = false;
+        for (int i = 0; i < n && !boring; i++) {
+            for (int j = i; j < n; j++) {
+                Map<Integer, Integer> map = new HashMap<>();
+                for (int k = i; k <= j; k++) {
+                    Integer cnt = map.get(a[k]);
+                    if (cnt == null) {
+                        cnt = 0;
+                    }
+                    cnt++;
+                    map.put(a[k], cnt);
+                }
+                boolean ok = false;
+                for (int key : map.keySet()) {
+                    int cnt = map.get(key);
+                    if (cnt == 1) {
+                        ok = true;
+                        break;
+                    }
+                }
+                if (!ok) {
+                    boring = true;
+                    break;
+                }
+            }
+        }
+        return boring;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
-            boolean boring = false;
-            for (int i = 0; i < n && !boring; i++) {
-                for (int j = i; j < n; j++) {
-                    Map<Integer, Integer> map = new HashMap<>();
-                    for (int k = i; k <= j; k++) {
-                        Integer cnt = map.get(k);
-                        if (cnt == null) {
-                            cnt = 0;
-                        }
-                        cnt++;
-                        map.put(k, cnt);
-                    }
-                    boolean ok = false;
-                    for (int key : map.keySet()) {
-                        int cnt = map.get(key);
-                        if (cnt == 1) {
-                            ok = true;
-                            break;
-                        }
-                    }
-                    if (!ok) {
-                        boring = true;
-                        break;
-                    }
-                }
-            }
+            boolean boring = cal(a);
             if (boring) {
                 out.append("boring\n");
             } else {
