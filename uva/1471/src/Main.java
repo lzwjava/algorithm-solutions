@@ -74,11 +74,42 @@ public class Main {
         int[] d = new int[n];
         int[] v = new int[n + 1];
         Arrays.fill(v, -1);
-        int vn = 1;
         v[0] = 0;
+        d[0] = 1;
+        // d[i]: length ending at i
+        for (int i = 1; i < n; i++) {
+            if (a[i] > a[i - 1]) {
+                d[i] = d[i - 1] + 1;
+            } else {
+                d[i] = 1;
+            }
+        }
+        int vn = 0;
         for (int i = 0; i < n; i++) {
-            int maxLen = 0;
+            int k = d[i];
+            if (v[k] == -1 || v[k] > a[i]) {
+                v[k] = a[i];
+            }
+            if (k >= vn) {
+                vn = k + 1;
+            }
+        }
+        // length starting at i
+        int[] f = new int[n];
+        f[n - 1] = 1;
+        for (int i = n - 2; i >= 0; i--) {
+            if (a[i] < a[i + 1]) {
+                f[i] = f[i + 1] + 1;
+            } else {
+                f[i] = 1;
+            }
+        }
+
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
             int idx = Arrays.binarySearch(v, 0, vn, a[i]);
+            int maxLen;
             if (idx >= 0) {
                 while (v[idx] == a[i]) {
                     idx--;
@@ -88,16 +119,12 @@ public class Main {
                 idx = -(idx + 1);
                 maxLen = idx - 1;
             }
-            int k = maxLen + 1;
-            d[i] = k;
-            if (v[k] == -1 || v[k] > a[i]) {
-                v[k] = a[i];
-            }
-            if (k >= vn) {
-                vn++;
+            int flen = maxLen + f[i];
+            if (flen > ans) {
+                ans = flen;
             }
         }
-        return vn - 1;
+        return ans;
     }
 
     void solve() throws IOException {
