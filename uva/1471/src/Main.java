@@ -74,7 +74,6 @@ public class Main {
         int[] d = new int[n];
         int[] v = new int[n + 1];
         Arrays.fill(v, -1);
-        v[0] = 0;
         d[0] = 1;
         // d[i]: length ending at i
         for (int i = 1; i < n; i++) {
@@ -82,16 +81,6 @@ public class Main {
                 d[i] = d[i - 1] + 1;
             } else {
                 d[i] = 1;
-            }
-        }
-        int vn = 0;
-        for (int i = 0; i < n; i++) {
-            int k = d[i];
-            if (v[k] == -1 || v[k] > a[i]) {
-                v[k] = a[i];
-            }
-            if (k >= vn) {
-                vn = k + 1;
             }
         }
         // length starting at i
@@ -106,7 +95,9 @@ public class Main {
         }
 
         int ans = 0;
-
+        
+        int vn = 1;
+        v[0] = 0;
         for (int i = 0; i < n; i++) {
             int idx = Arrays.binarySearch(v, 0, vn, a[i]);
             int maxLen;
@@ -122,6 +113,13 @@ public class Main {
             int flen = maxLen + f[i];
             if (flen > ans) {
                 ans = flen;
+            }
+            int k = d[i];
+            if (v[k] == -1 || v[k] > a[i]) {
+                v[k] = a[i];
+            }
+            if (k >= vn) {
+                vn = k + 1;
             }
         }
         return ans;
