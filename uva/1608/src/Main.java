@@ -100,10 +100,10 @@ public class Main {
         // boring: two consecutive same,
         // 4 1 5 1 5
         // 4 5 5 3 2
+        Random random = new Random();
         while (true) {
-            int n = 4;
+            int n = random.nextInt(5);
             int[] a = new int[n];
-            Random random = new Random();
             for (int i = 0; i < n; i++) {
                 a[i] = random.nextInt(5) + 1;
             }
