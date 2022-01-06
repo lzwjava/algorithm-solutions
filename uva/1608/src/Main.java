@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -71,6 +68,15 @@ public class Main {
         return boring;
     }
 
+    void count(Map<Integer, Integer> map, int v) {
+        Integer cnt = map.get(v);
+        if (cnt == null) {
+            cnt = 0;
+        }
+        cnt++;
+        map.put(v, cnt);
+    }
+
     boolean cal1(int[] a) {
         int n = a.length;
         for (int len = 1; len <= n / 2; len++) {
@@ -83,23 +89,109 @@ public class Main {
 //                 if (j + len >= n) {
 //                    break;
 //                 }
-                boolean ok = true;
                 int k;
+                Map<Integer, Integer> map = new HashMap<>();
                 for (k = i; k <= j; k++) {
                     int nk = k + len;
-                    if (a[k] != a[nk]) {
-                        ok = false;
-                        break;
-                    }
+                    count(map, a[k]);
+                    count(map, a[nk]);
                 }
-                if (ok) {
+                if (len == 3 && i == 0) {
+                    out.append('\n');
+                }
+                if (unique(map)) {
                     return true;
-                } else {
-                    i = k;
                 }
             }
         }
         return false;
+    }
+
+    boolean unique(Map<Integer, Integer> map) {
+        for (int key : map.keySet()) {
+            Integer cnt = map.get(key);
+            if (cnt == 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    boolean cal2(int[] a) {
+        int n = a.length;
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            List<Integer> ps = map.get(a[i]);
+            if (ps == null) {
+                ps = new ArrayList<>();
+                map.put(a[i], ps);
+            }
+            ps.add(i);
+        }
+        boolean[] vis = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            List<Integer> list = map.get(a[i]);
+            if (list.size() == 1) {
+                vis[i] = true;
+            }
+        }
+        List<Range> list = new ArrayList<>();
+        int p = -1;
+        for (int i = 0; i < n; i++) {
+            if (vis[i]) {
+                if (p != -1) {
+                    list.add(new Range(p, i - 1));
+                }
+                p = -1;
+            } else {
+                if (p != -1) {
+                    continue;
+                } else {
+                    p = i;
+                }
+            }
+        }
+        if (p != -1) {
+            list.add(new Range(p, n - 1));
+        }
+        boolean boring = false;
+        for (Range range : list) {
+            for (int i = range.l; i <= range.r; i++) {
+                for (int j = i; j <= range.r; j++) {
+                    Map<Integer, Integer> m = new HashMap<>();
+                    for (int k = i; k <= j; k++) {
+                        Integer cnt = m.get(a[k]);
+                        if (cnt == null) {
+                            cnt = 0;
+                        }
+                        cnt++;
+                        m.put(a[k], cnt);
+                    }
+                    boolean ok = false;
+                    for (int key : m.keySet()) {
+                        int cnt = m.get(key);
+                        if (cnt == 1) {
+                            ok = true;
+                            break;
+                        }
+                    }
+                    if (!ok) {
+                        boring = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return boring;
+    }
+
+    class Range {
+        int l, r;
+
+        Range(int l, int r) {
+            this.l = l;
+            this.r = r;
+        }
     }
 
     void test() {
@@ -108,13 +200,13 @@ public class Main {
         // 4 5 5 3 2
         Random random = new Random();
         while (true) {
-            int n = random.nextInt(100);
+            int n = random.nextInt(10);
             int[] a = new int[n];
             for (int i = 0; i < n; i++) {
-                a[i] = random.nextInt(100) + 1;
+                a[i] = random.nextInt(10) + 1;
             }
             boolean boring = cal(a);
-            boolean boring1 = cal1(a);
+            boolean boring1 = cal2(a);
             assert boring == boring1;
         }
     }
@@ -125,7 +217,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
-            boolean boring = cal1(a);
+            boolean boring = cal2(a);
             if (boring) {
                 out.append("boring\n");
             } else {
