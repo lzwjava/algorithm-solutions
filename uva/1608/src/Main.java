@@ -25,8 +25,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -84,7 +84,8 @@ public class Main {
 //                    break;
 //                 }
                 boolean ok = true;
-                for (int k = i; k <= j; k++) {
+                int k;
+                for (k = i; k <= j; k++) {
                     int nk = k + len;
                     if (a[k] != a[nk]) {
                         ok = false;
@@ -93,6 +94,8 @@ public class Main {
                 }
                 if (ok) {
                     return true;
+                } else {
+                    i = k;
                 }
             }
         }
@@ -105,10 +108,10 @@ public class Main {
         // 4 5 5 3 2
         Random random = new Random();
         while (true) {
-            int n = random.nextInt(5);
+            int n = random.nextInt(100);
             int[] a = new int[n];
             for (int i = 0; i < n; i++) {
-                a[i] = random.nextInt(5) + 1;
+                a[i] = random.nextInt(100) + 1;
             }
             boolean boring = cal(a);
             boolean boring1 = cal1(a);
