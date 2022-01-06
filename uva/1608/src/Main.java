@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -25,6 +26,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
     }
 
@@ -69,13 +71,53 @@ public class Main {
         return boring;
     }
 
+    boolean cal1(int[] a) {
+        int n = a.length;
+        for (int len = 1; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+                boolean ok = true;
+                for (int k = i; k <= j; k++) {
+                    int nk = k + len;
+                    if (nk >= n) {
+                        break;
+                    }
+                    if (a[k] != a[nk]) {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    void test() {
+        // boring: two consecutive same,
+        // 4 1 5 1 5
+        // 4 5 5 3 2
+        while (true) {
+            int n = 4;
+            int[] a = new int[n];
+            Random random = new Random();
+            for (int i = 0; i < n; i++) {
+                a[i] = random.nextInt(5) + 1;
+            }
+            boolean boring = cal(a);
+            out.append('\n');
+        }
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
-            boolean boring = cal(a);
+            boolean boring = cal1(a);
             if (boring) {
                 out.append("boring\n");
             } else {
