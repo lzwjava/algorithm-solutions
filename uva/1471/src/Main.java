@@ -36,39 +36,7 @@ public class Main {
         m.solve();
         m.close();
     }
-
-    int dp(int[] a, int i, int start) {
-        int n = a.length;
-        if (i == n) {
-            return 0;
-        }
-        if (a[i] > start) {
-            int len1 = dp(a, i + 1, a[i]) + 1;
-            int len2 = dp(a, i + 1, start);
-            return Integer.max(len1, len2);
-        } else {
-            return dp(a, i + 1, start);
-        }
-    }
-
-    class Item implements Comparable<Item> {
-        int v, d;
-
-        Item(int v, int d) {
-            this.v = v;
-            this.d = d;
-        }
-
-        @Override
-        public int compareTo(Item o) {
-            if (d != o.d) {
-                return Integer.compare(o.d, d);
-            } else {
-                return Integer.compare(v, o.v);
-            }
-        }
-    }
-
+    
     int cal(int[] a) {
         int n = a.length;
         int[] d = new int[n];
