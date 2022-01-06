@@ -73,7 +73,7 @@ public class Main {
 
     boolean cal1(int[] a) {
         int n = a.length;
-        for (int len = 1; len <= n; len++) {
+        for (int len = 1; len <= n / 2; len++) {
             for (int i = 0; i <= n - len; i++) {
                 int j = i + len - 1;
                 // consecutive same
