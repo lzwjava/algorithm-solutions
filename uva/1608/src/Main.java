@@ -77,12 +77,12 @@ public class Main {
             int ei = n - 2 * len + 1;
             for (int i = 0; i < ei; i++) {
                 int j = i + len - 1;
-                // consecutive same
-                // i+2*len-1<n
-                // i < n-2*len+1
-//                if (j + len >= n) {
+//                 consecutive same
+//                 i+2*len-1<n
+//                 i < n-2*len+1
+//                 if (j + len >= n) {
 //                    break;
-//                }
+//                 }
                 boolean ok = true;
                 for (int k = i; k <= j; k++) {
                     int nk = k + len;
