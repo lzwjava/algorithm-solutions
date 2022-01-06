@@ -74,12 +74,15 @@ public class Main {
     boolean cal1(int[] a) {
         int n = a.length;
         for (int len = 1; len <= n / 2; len++) {
-            for (int i = 0; i <= n - len; i++) {
+            int ei = n - 2 * len + 1;
+            for (int i = 0; i < ei; i++) {
                 int j = i + len - 1;
                 // consecutive same
-                if (j + len >= n) {
-                    continue;
-                }
+                // i+2*len-1<n
+                // i < n-2*len+1
+//                if (j + len >= n) {
+//                    break;
+//                }
                 boolean ok = true;
                 for (int k = i; k <= j; k++) {
                     int nk = k + len;
