@@ -95,24 +95,24 @@ public class Main {
         }
 
         int ans = 0;
-        
+
         int vn = 1;
         v[0] = 0;
         for (int i = 0; i < n; i++) {
             int idx = Arrays.binarySearch(v, 0, vn, a[i]);
-            int maxLen;
+            int leftLen;
             if (idx >= 0) {
                 while (v[idx] == a[i]) {
                     idx--;
                 }
-                maxLen = idx;
+                leftLen = idx;
             } else {
                 idx = -(idx + 1);
-                maxLen = idx - 1;
+                leftLen = idx - 1;
             }
-            int flen = maxLen + f[i];
-            if (flen > ans) {
-                ans = flen;
+            int totalLen = leftLen + f[i];
+            if (totalLen > ans) {
+                ans = totalLen;
             }
             int k = d[i];
             if (v[k] == -1 || v[k] > a[i]) {
