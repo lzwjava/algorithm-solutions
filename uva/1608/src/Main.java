@@ -22,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -194,9 +194,46 @@ public class Main {
         }
     }
 
+    int[] leftPos, rightPos;
+
+    // [left, right], non-boring
+    boolean judge(int left, int right) {
+        if (left >= right) {
+            return true;
+        }
+        for (int i = left; i <= right; i++) {
+            if (leftPos[i] < left && rightPos[i] > right) {
+                return judge(left, i - 1) && judge(i + 1, right);
+            }
+        }
+        return false;
+    }
+
     boolean cal3(int[] a) {
         int n = a.length;
-        return true;
+        leftPos = new int[n];
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            Integer pos = map.get(a[i]);
+            if (pos != null) {
+                leftPos[i] = pos;
+            } else {
+                leftPos[i] = -1;
+            }
+            map.put(a[i], i);
+        }
+        rightPos = new int[n];
+        map = new HashMap<>();
+        for (int i = n - 1; i >= 0; i--) {
+            Integer pos = map.get(a[i]);
+            if (pos != null) {
+                rightPos[i] = pos;
+            } else {
+                rightPos[i] = n;
+            }
+            map.put(a[i], i);
+        }
+        return !judge(0, n - 1);
     }
 
     void test() {
@@ -211,7 +248,7 @@ public class Main {
                 a[i] = random.nextInt(10) + 1;
             }
             boolean boring = cal(a);
-            boolean boring1 = cal2(a);
+            boolean boring1 = cal3(a);
             assert boring == boring1;
         }
     }
