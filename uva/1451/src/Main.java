@@ -40,7 +40,7 @@ public class Main {
             sb.append(String.format("%d", random.nextInt(2)));
         }
         String s = sb.toString();
-        int L = n;
+        int L = random.nextInt(n) + 1;
         Result r = cal(n, L, s);
         StringBuilder rsb = new StringBuilder();
         for (int i = r.start; i <= r.end; i++) {
