@@ -34,6 +34,10 @@ public class Main {
             int n = Integer.parseInt(st.nextToken());
             int L = Integer.parseInt(st.nextToken());
             String s = in.readLine();
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = s.charAt(i) - '0';
+            }
         }
     }
 }
