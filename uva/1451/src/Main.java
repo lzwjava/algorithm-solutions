@@ -30,6 +30,51 @@ public class Main {
     int[] a;
     int[] sums;
 
+    void test() {
+
+    }
+
+    class Result {
+        int start, end;
+
+        Result(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    Result cal(int n, int L, String s) {
+        this.n = n;
+        this.n = L;
+        a = new int[n];
+        int sum = 0;
+        sums = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = s.charAt(i) - '0';
+            sum += a[i];
+            sums[i] = sum;
+        }
+        double maxAvg = 0;
+        int maxD = 0, maxI = 0;
+        for (int d = L; d <= n; d++) {
+            // j-i+1=d
+            // n-1-i+1=d
+            // n-i=d
+            // i=n-d
+            for (int i = 0; i <= n - d; i++) {
+                int j = i + d - 1;
+                int si = sum(i, j);
+                double avg = si * 1.0 / d;
+                if (Double.compare(avg, maxAvg) > 0) {
+                    maxAvg = avg;
+                    maxD = d;
+                    maxI = i;
+                }
+            }
+        }
+        return new Result(maxI + 1, maxI + maxD);
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -38,33 +83,8 @@ public class Main {
             n = Integer.parseInt(st.nextToken());
             L = Integer.parseInt(st.nextToken());
             String s = in.readLine();
-            a = new int[n];
-            int sum = 0;
-            sums = new int[n];
-            for (int i = 0; i < n; i++) {
-                a[i] = s.charAt(i) - '0';
-                sum += a[i];
-                sums[i] = sum;
-            }
-            double maxAvg = 0;
-            int maxD = 0, maxI = 0;
-            for (int d = L; d <= n; d++) {
-                // j-i+1=d
-                // n-1-i+1=d
-                // n-i=d
-                // i=n-d
-                for (int i = 0; i <= n - d; i++) {
-                    int j = i + d - 1;
-                    int si = sum(i, j);
-                    double avg = si * 1.0 / d;
-                    if (Double.compare(avg, maxAvg) > 0) {
-                        maxAvg = avg;
-                        maxD = d;
-                        maxI = i;
-                    }
-                }
-            }
-            out.append(String.format("%d %d\n", maxI + 1, maxI + maxD));
+            Result r = cal(n, L, s);
+            out.append(String.format("%d %d\n", r.start, r.end));
         }
     }
 
