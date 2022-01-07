@@ -33,6 +33,7 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int n = Integer.parseInt(st.nextToken());
             int L = Integer.parseInt(st.nextToken());
+            String s = in.readLine();
         }
     }
 }
