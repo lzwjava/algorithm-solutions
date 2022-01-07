@@ -26,18 +26,27 @@ public class Main {
         m.close();
     }
 
+    int n, L;
+    int[] a;
+    int[] sums;
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
             StringTokenizer st = new StringTokenizer(in.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            int L = Integer.parseInt(st.nextToken());
+            n = Integer.parseInt(st.nextToken());
+            L = Integer.parseInt(st.nextToken());
             String s = in.readLine();
-            int[] a = new int[n];
+            a = new int[n];
+            int sum = 0;
+            sums = new int[n];
             for (int i = 0; i < n; i++) {
                 a[i] = s.charAt(i) - '0';
+                sum += a[i];
+                sums[i] = sum;
             }
         }
     }
+
 }
