@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -42,6 +42,7 @@ public class Main {
                 sb.append(String.format("%d", random.nextInt(2)));
             }
             String s = sb.toString();
+//            s = "0111111100";
             int L = random.nextInt(n) + 1;
             Result r = cal(n, L, s);
             StringBuilder rsb = new StringBuilder();
@@ -130,7 +131,7 @@ public class Main {
             int j = i + d - 1;
             int si = sum(i, j);
             double avg = si * 1.0 / d;
-            if (Double.compare(avg, maxAvg) > 0 || (Double.compare(avg, maxAvg) == 0 && ones(i, j) > maxOne)) {
+            if (Double.compare(avg, maxAvg) > 0 || (Double.compare(avg, maxAvg) == 0 && Double.compare(avg, 1.0) != 0 && ones(i, j) > maxOne)) {
                 maxAvg = avg;
                 maxD = d;
                 maxI = i;
@@ -139,11 +140,13 @@ public class Main {
         }
         int start = maxI;
         int end = maxI + maxD - 1;
-        while (start - 1 >= 0 && a[start - 1] == 1) {
-            start--;
-        }
-        while (end + 1 < n && a[end + 1] == 1) {
-            end++;
+        if (Double.compare(maxAvg, 1.0) < 0) {
+            while (start - 1 >= 0 && a[start - 1] == 1) {
+                start--;
+            }
+            while (end + 1 < n && a[end + 1] == 1) {
+                end++;
+            }
         }
         return new Result(start, end);
     }
@@ -152,9 +155,11 @@ public class Main {
         int s = 0;
         while (i - 1 >= 0 && a[i - 1] == 1) {
             s++;
+            i--;
         }
         while (j + 1 < n && a[j + 1] == 1) {
             s++;
+            j++;
         }
         return s;
     }
@@ -167,7 +172,7 @@ public class Main {
             n = Integer.parseInt(st.nextToken());
             L = Integer.parseInt(st.nextToken());
             String s = in.readLine();
-            Result r = cal(n, L, s);
+            Result r = cal1(n, L, s);
             out.append(String.format("%d %d\n", r.start + 1, r.end + 1));
         }
     }
