@@ -194,6 +194,11 @@ public class Main {
         }
     }
 
+    boolean cal3(int[] a) {
+        int n = a.length;
+        return true;
+    }
+
     void test() {
         // boring: two consecutive same,
         // 4 1 5 1 5
@@ -217,7 +222,7 @@ public class Main {
             t--;
             int n = Integer.parseInt(in.readLine());
             int[] a = parseArray(in.readLine());
-            boolean boring = cal2(a);
+            boolean boring = cal3(a);
             if (boring) {
                 out.append("boring\n");
             } else {
