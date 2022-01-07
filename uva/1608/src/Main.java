@@ -22,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -201,9 +201,15 @@ public class Main {
         if (left >= right) {
             return true;
         }
-        for (int i = left; i <= right; i++) {
-            if (leftPos[i] < left && rightPos[i] > right) {
-                return judge(left, i - 1) && judge(i + 1, right);
+        int mid = (right - left) / 2;
+        for (int i = 0; i <= mid; i++) {
+            int leftIdx = left + i;
+            int rightIdx = right - i;
+            if (leftPos[leftIdx] < left && rightPos[leftIdx] > right) {
+                return judge(left, leftIdx - 1) && judge(leftIdx + 1, right);
+            }
+            if (leftPos[rightIdx] < left && rightPos[rightIdx] > right) {
+                return judge(left, rightIdx - 1) && judge(rightIdx + 1, right);
             }
         }
         return false;
