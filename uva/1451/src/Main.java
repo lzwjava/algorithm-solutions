@@ -40,6 +40,7 @@ public class Main {
             sb.append(String.format("%d", random.nextInt(2)));
         }
         String s = sb.toString();
+        int L = n;
         Result r = cal(n, L, s);
         StringBuilder rsb = new StringBuilder();
         for (int i = r.start; i <= r.end; i++) {
@@ -87,7 +88,7 @@ public class Main {
                 }
             }
         }
-        return new Result(maxI + 1, maxI + maxD);
+        return new Result(maxI, maxI + maxD - 1);
     }
 
     void solve() throws IOException {
@@ -99,7 +100,7 @@ public class Main {
             L = Integer.parseInt(st.nextToken());
             String s = in.readLine();
             Result r = cal(n, L, s);
-            out.append(String.format("%d %d\n", r.start, r.end));
+            out.append(String.format("%d %d\n", r.start + 1, r.end + 1));
         }
     }
 
