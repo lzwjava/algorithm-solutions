@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -51,7 +51,7 @@ public class Main {
             }
             String rs = rsb.toString();
             int len = r.end - r.start + 1;
-            Result r1 = cal1(n, L, s);
+            Result r1 = cal2(n, L, s);
             assert r.equals(r1);
             out.append(String.format("%s\n%s\n", s, rs));
             out.append('\n');
@@ -114,7 +114,7 @@ public class Main {
 
     Result cal1(int n, int L, String s) {
         this.n = n;
-        this.n = L;
+        this.L = L;
         a = new int[n];
         int sum = 0;
         sums = new int[n];
@@ -151,6 +151,32 @@ public class Main {
         return new Result(start, end);
     }
 
+    Result cal2(int n, int L, String s) {
+        this.n = n;
+        this.L = L;
+        a = new int[n];
+        int sum = 0;
+        sums = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = s.charAt(i) - '0';
+            sum += a[i];
+            sums[i] = sum;
+        }
+        double maxd = 0;
+        int start = 0, end = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                double d = sum(i, j) * 1.0 / (j - i + 1);
+                if (d > maxd) {
+                    maxd = d;
+                    start = i;
+                    end = j;
+                }
+            }
+        }
+        return new Result(start, end);
+    }
+
     int ones(int i, int j) {
         int s = 0;
         while (i - 1 >= 0 && a[i - 1] == 1) {
@@ -172,7 +198,7 @@ public class Main {
             n = Integer.parseInt(st.nextToken());
             L = Integer.parseInt(st.nextToken());
             String s = in.readLine();
-            Result r = cal1(n, L, s);
+            Result r = cal2(n, L, s);
             out.append(String.format("%d %d\n", r.start + 1, r.end + 1));
         }
     }
