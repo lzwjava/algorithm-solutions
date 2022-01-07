@@ -33,7 +33,7 @@ public class Main {
     int[] sums;
 
     void test() {
-        int n = 5;
+        int n = 10;
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < n; i++) {
