@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -91,7 +91,7 @@ public class Main {
             sum += a[i];
             sums[i] = sum;
         }
-        double maxAvg = 0;
+        double maxAvg = -1;
         int maxD = 0, maxI = 0;
         for (int d = L; d <= n; d++) {
             // j-i+1=d
@@ -162,13 +162,14 @@ public class Main {
             sum += a[i];
             sums[i] = sum;
         }
-        double maxd = 0;
+        double maxAvg = -1;
         int start = 0, end = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
-                double d = sum(i, j) * 1.0 / (j - i + 1);
-                if (d > maxd) {
-                    maxd = d;
+        for (int d = L; d <= n; d++) {
+            for (int i = 0; i <= n - d; i++) {
+                int j = i + d - 1;
+                double avg = sum(i, j) * 1.0 / d;
+                if (Double.compare(avg, maxAvg) > 0) {
+                    maxAvg = avg;
                     start = i;
                     end = j;
                 }
