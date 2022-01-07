@@ -64,7 +64,7 @@ public class Main {
                     }
                 }
             }
-            out.append(String.format("%d %d\n", maxD, maxI));
+            out.append(String.format("%d %d\n", maxI + 1, maxI + maxD));
         }
     }
 
