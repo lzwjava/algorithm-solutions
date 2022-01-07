@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -22,7 +23,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -31,7 +33,20 @@ public class Main {
     int[] sums;
 
     void test() {
-
+        int n = 5;
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < n; i++) {
+            sb.append(String.format("%d", random.nextInt(2)));
+        }
+        String s = sb.toString();
+        Result r = cal(n, L, s);
+        StringBuilder rsb = new StringBuilder();
+        for (int i = r.start; i <= r.end; i++) {
+            rsb.append(String.format("%c", s.charAt(i)));
+        }
+        String rs = rsb.toString();
+        out.append(String.format("%s\n%s\n", s, rs));
     }
 
     class Result {
