@@ -46,6 +46,33 @@ public class Main {
                 sum += a[i];
                 sums[i] = sum;
             }
+            double maxAvg = 0;
+            int maxD = 0, maxI = 0;
+            for (int d = L; d <= n; d++) {
+                // j-i+1=d
+                // n-1-i+1=d
+                // n-i=d
+                // i=n-d
+                for (int i = 0; i <= n - d; i++) {
+                    int j = i + d - 1;
+                    int si = sum(i, j);
+                    double avg = si * 1.0 / d;
+                    if (Double.compare(avg, maxAvg) > 0) {
+                        maxAvg = avg;
+                        maxD = d;
+                        maxI = i;
+                    }
+                }
+            }
+            out.append(String.format("%d %d\n", maxD, maxI));
+        }
+    }
+
+    int sum(int i, int j) {
+        if (i == 0) {
+            return sums[j];
+        } else {
+            return sums[j] - sums[i - 1];
         }
     }
 
