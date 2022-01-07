@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -124,15 +124,17 @@ public class Main {
         }
         double maxAvg = 0;
         int maxD = 0, maxI = 0;
+        int maxOne = 0;
         int d = L;
         for (int i = 0; i <= n - d; i++) {
             int j = i + d - 1;
             int si = sum(i, j);
             double avg = si * 1.0 / d;
-            if (Double.compare(avg, maxAvg) > 0) {
+            if (Double.compare(avg, maxAvg) > 0 || (Double.compare(avg, maxAvg) == 0 && ones(i, j) > maxOne)) {
                 maxAvg = avg;
                 maxD = d;
                 maxI = i;
+                maxOne = ones(i, j);
             }
         }
         int start = maxI;
@@ -144,6 +146,17 @@ public class Main {
             end++;
         }
         return new Result(start, end);
+    }
+
+    int ones(int i, int j) {
+        int s = 0;
+        while (i - 1 >= 0 && a[i - 1] == 1) {
+            s++;
+        }
+        while (j + 1 < n && a[j + 1] == 1) {
+            s++;
+        }
+        return s;
     }
 
     void solve() throws IOException {
