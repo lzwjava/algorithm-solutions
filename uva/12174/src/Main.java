@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -38,13 +37,7 @@ public class Main {
         }
         return a;
     }
-
-    boolean checkGroup(List<Integer> items) {
-        int size = items.size();
-        Set<Integer> set = new HashSet<>(items);
-        return set.size() == size;
-    }
-
+    
     int cal1(int s, int n, int[] x) {
         int m = Integer.min(s, n);
         int total = 0;
