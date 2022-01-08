@@ -22,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -91,40 +91,90 @@ public class Main {
             }
             map.put(x[i], i);
         }
-        int min = n;
-        int mini = -1;
-        int[] ds = new int[n];
+        List<Range> list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            int dist;
             if (leftPos[i] != -1) {
-                dist = i - leftPos[i];
-                if (dist < min) {
-                    min = dist;
-                    mini = i;
+                if (i - leftPos[i] < s) {
+                    int len = i - leftPos[i];
+                    int start = (leftPos[i] + 1) % s;
+                    int end = (start + len - 1) % s;
+                    List<Range> rs = new ArrayList<>();
+                    if (end < start) {
+                        rs.add(new Range(start, s - 1));
+                        rs.add(new Range(0, end));
+                    } else {
+                        rs.add(new Range(start, end));
+                    }
+                    if (list.size() == 0) {
+                        list = rs;
+                    } else {
+                        List<Range> ns = new ArrayList<>();
+                        for (Range a : list) {
+                            for (Range b : rs) {
+                                Range inter = intersect(a, b);
+                                if (inter.possible()) {
+                                    ns.add(inter);
+                                }
+                            }
+                        }
+                        list = ns;
+                        if (list.size() == 0) {
+                            return 0;
+                        }
+                    }
                 }
-            } else {
-                dist = -1;
             }
-            ds[i] = dist;
         }
-        if (min == n) {
+        if (list.size() == 0) {
             return s;
-        }
-        int total = 0;
-        for (int i = leftPos[mini]; i < mini; i++) {
-            boolean ok = check(s, n, x, i);
-            if (ok) {
-                total++;
+        } else {
+            int ans = 0;
+            for (Range r : list) {
+                ans += r.len();
             }
+            return ans;
         }
-        return total;
+    }
+
+    boolean contain(Range a, Range b) {
+        return a.start <= b.start && b.end <= a.end;
+    }
+
+    Range intersect(Range a, Range b) {
+        if (contain(a, b)) {
+            return b;
+        } else if (contain(b, a)) {
+            return a;
+        } else {
+            int max = Integer.max(a.start, b.start);
+            int min = Integer.min(a.end, b.end);
+            return new Range(max, min);
+        }
+    }
+
+    class Range {
+        int start;
+        int end;
+
+        int len() {
+            return end - start + 1;
+        }
+
+        boolean possible() {
+            return start <= end;
+        }
+
+        Range(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
     }
 
     boolean check(int s, int n, int[] x, int pos) {
         int j = pos;
         boolean ok = true;
         while (j > 0) {
-            int md = Integer.min(j, s);
+            int md = Integer.min(j + 1, s);
             Set<Integer> set = new HashSet<>();
             for (int i = 0; i < md; i++) {
                 if (set.contains(x[j])) {
@@ -164,7 +214,7 @@ public class Main {
         Random random = new Random();
         while (true) {
             int s = random.nextInt(10) + 1;
-            int n = random.nextInt(10) + 1;
+            int n = random.nextInt(20) + 1;
             int[] x = new int[n];
             for (int i = 0; i < n; i++) {
                 x[i] = random.nextInt(s) + 1;
