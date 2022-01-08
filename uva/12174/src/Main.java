@@ -45,6 +45,48 @@ public class Main {
         return set.size() == size;
     }
 
+    int cal1(int s, int n, int[] x) {
+        int m = Integer.min(s, n);
+        int total = 0;
+        for (int i = 1; i <= m; i++) {
+            int group = (n - i + s - 1) / s + 1;
+            int[] groupSize = new int[group];
+            groupSize[0] = i;
+            int tn = n - i;
+            for (int j = 1; j < group; j++) {
+                if (tn >= s) {
+                    groupSize[j] = s;
+                    tn -= s;
+                } else {
+                    groupSize[j] = tn;
+                }
+            }
+            int p = 0;
+            boolean ok = true;
+            for (int j = 0; j < group; j++) {
+                Set<Integer> set = new HashSet<>();
+                for (int k = 0; k < groupSize[j]; k++) {
+                    if (set.contains(x[p])) {
+                        ok = false;
+                        break;
+                    } else {
+                        set.add(x[p++]);
+                    }
+                }
+                if (!ok) {
+                    break;
+                }
+            }
+            if (ok) {
+                total++;
+            }
+        }
+        if (n <= s && total == n) {
+            total = s;
+        }
+        return total;
+    }
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -53,44 +95,7 @@ public class Main {
             int s = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
             int[] x = parseArray(in.readLine());
-            int m = Integer.min(s, n);
-            int total = 0;
-            for (int i = 1; i <= m; i++) {
-                int group = (n - i + s - 1) / s + 1;
-                int[] groupSize = new int[group];
-                groupSize[0] = i;
-                int tn = n - i;
-                for (int j = 1; j < group; j++) {
-                    if (tn >= s) {
-                        groupSize[j] = s;
-                        tn -= s;
-                    } else {
-                        groupSize[j] = tn;
-                    }
-                }
-                int p = 0;
-                boolean ok = true;
-                for (int j = 0; j < group; j++) {
-                    Set<Integer> set = new HashSet<>();
-                    for (int k = 0; k < groupSize[j]; k++) {
-                        if (set.contains(x[p])) {
-                            ok = false;
-                            break;
-                        } else {
-                            set.add(x[p++]);
-                        }
-                    }
-                    if (!ok) {
-                        break;
-                    }
-                }
-                if (ok) {
-                    total++;
-                }
-            }
-            if (n <= s && total == n) {
-                total = s;
-            }
+            int total = cal1(s, n, x);
             out.append(String.format("%d\n", total));
         }
     }
