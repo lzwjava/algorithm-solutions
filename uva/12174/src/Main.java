@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -25,6 +23,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
     }
 
@@ -37,7 +36,7 @@ public class Main {
         }
         return a;
     }
-    
+
     int cal1(int s, int n, int[] x) {
         int m = Integer.min(s, n);
         int total = 0;
@@ -78,6 +77,86 @@ public class Main {
             total = s;
         }
         return total;
+    }
+
+    int cal2(int s, int n, int[] x) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int[] leftPos = new int[n];
+        for (int i = 0; i < n; i++) {
+            Integer p = map.get(x[i]);
+            if (p == null) {
+                leftPos[i] = -1;
+            } else {
+                leftPos[i] = p;
+            }
+            map.put(x[i], i);
+        }
+        int min = n;
+        int mini = -1;
+        for (int i = 0; i < n; i++) {
+            if (leftPos[i] != -1) {
+                int dist = i - leftPos[i];
+                if (dist < min) {
+                    min = dist;
+                    mini = i;
+                }
+            }
+        }
+        if (min == n) {
+            return s;
+        }
+        int j = leftPos[mini];
+        boolean ok = true;
+        while (j >= 0) {
+            int md = Integer.min(j, s);
+            Set<Integer> set = new HashSet<>();
+            for (int i = 0; i < md; i++) {
+                if (set.contains(x[j])) {
+                    ok = false;
+                    break;
+                }
+                set.add(x[j]);
+                j--;
+            }
+            if (!ok) {
+                break;
+            }
+        }
+        j = leftPos[mini] + 1;
+        while (j < n) {
+            int md = Integer.min(n - j, s);
+            Set<Integer> set = new HashSet<>();
+            for (int i = 0; i < md; i++) {
+                if (set.contains(x[j])) {
+                    ok = false;
+                    break;
+                }
+                set.add(x[j]);
+                j++;
+            }
+            if (!ok) {
+                break;
+            }
+        }
+        if (!ok) {
+            return 0;
+        }
+        return min;
+    }
+
+    void test() {
+        Random random = new Random();
+        while (true) {
+            int s = random.nextInt(10);
+            int n = random.nextInt(100);
+            int[] x = new int[n];
+            for (int i = 0; i < n; i++) {
+                x[i] = random.nextInt(s) + 1;
+            }
+            int ans1 = cal1(s, n, x);
+            int ans2 = cal2(s, n, x);
+            assert ans1 == ans2;
+        }
     }
 
     void solve() throws IOException {
