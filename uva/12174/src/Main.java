@@ -65,17 +65,14 @@ public class Main {
                         groupSize[j] = tn;
                     }
                 }
-                List<Integer>[] groups = new ArrayList[group];
                 int p = 0;
-                for (int j = 0; j < group; j++) {
-                    groups[j] = new ArrayList<>();
-                    for (int k = 0; k < groupSize[j]; k++) {
-                        groups[j].add(x[p++]);
-                    }
-                }
                 boolean ok = true;
-                for (List<Integer> groupItem : groups) {
-                    if (!checkGroup(groupItem)) {
+                for (int j = 0; j < group; j++) {
+                    List<Integer> list = new ArrayList<>();
+                    for (int k = 0; k < groupSize[j]; k++) {
+                        list.add(x[p++]);
+                    }
+                    if (!checkGroup(list)) {
                         ok = false;
                         break;
                     }
