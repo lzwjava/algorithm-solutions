@@ -2,9 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Objects;
-import java.util.Random;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -24,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -151,6 +149,10 @@ public class Main {
         return new Result(start, end);
     }
 
+    int compareAverage(int x1, int x2, int x3, int x4) {
+        return sum(x1, x2) * (x4 - x3 + 1) - sum(x3, x4) * (x2 - x1 + 1);
+    }
+
     Result cal2(int n, int L, String s) {
         this.n = n;
         this.L = L;
@@ -162,20 +164,43 @@ public class Main {
             sum += a[i];
             sums[i] = sum;
         }
-        double maxAvg = -1;
-        int start = 0, end = 0;
-        for (int d = L; d <= n; d++) {
-            for (int i = 0; i <= n - d; i++) {
-                int j = i + d - 1;
-                double avg = sum(i, j) * 1.0 / d;
-                if (Double.compare(avg, maxAvg) > 0) {
-                    maxAvg = avg;
-                    start = i;
-                    end = j;
+        int ansL = 0, ansR = L - 1;
+        ArrayDeque<Integer> q = new ArrayDeque<>(n);
+        for (int t = L; t <= n; t++) {
+            boolean ok;
+            do {
+                ok = false;
+                if (q.size() > 1) {
+                    Iterator<Integer> iterator = q.descendingIterator();
+                    int a1 = iterator.next();
+                    int a2 = iterator.next();
+                    if (compareAverage(a2, t - L - 1, a1, t - L - 1) >= 0) {
+                        q.removeLast();
+                        ok = true;
+                    }
                 }
+            } while (ok);
+            q.add(t - L);
+            do {
+                ok = false;
+                if (q.size() > 1) {
+                    Iterator<Integer> iterator = q.iterator();
+                    int a1 = iterator.next();
+                    int a2 = iterator.next();
+                    if (compareAverage(a1, t - 1, a2, t - 1) <= 0) {
+                        q.removeFirst();
+                        ok = true;
+                    }
+                }
+            } while (ok);
+            int qf = q.getFirst();
+            int c = compareAverage(qf, t - 1, ansL, ansR);
+            if (c > 0 || (c == 0 && t - 1 - qf < ansR - ansL)) {
+                ansL = qf;
+                ansR = t - 1;
             }
         }
-        return new Result(start, end);
+        return new Result(ansL, ansR);
     }
 
     int ones(int i, int j) {
