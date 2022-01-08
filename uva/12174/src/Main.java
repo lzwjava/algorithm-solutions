@@ -84,6 +84,9 @@ public class Main {
                     total++;
                 }
             }
+            if (n <= s && total == n) {
+                total = s;
+            }
             out.append(String.format("%d\n", total));
         }
     }
