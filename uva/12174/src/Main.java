@@ -38,9 +38,16 @@ public class Main {
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        StringTokenizer st = new StringTokenizer(in.readLine());
-        int s = Integer.parseInt(st.nextToken());
-        int n = Integer.parseInt(st.nextToken());
-        int[] x = parseArray(in.readLine());
+        while (t > 0) {
+            t--;
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int n = Integer.parseInt(st.nextToken());
+            int[] x = parseArray(in.readLine());
+            int m = Integer.min(s, n);
+            for (int i = 1; i <= m; i++) {
+                
+            }
+        }
     }
 }
