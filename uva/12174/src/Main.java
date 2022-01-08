@@ -22,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
-//        m.test();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -93,21 +93,37 @@ public class Main {
         }
         int min = n;
         int mini = -1;
+        int[] ds = new int[n];
         for (int i = 0; i < n; i++) {
+            int dist;
             if (leftPos[i] != -1) {
-                int dist = i - leftPos[i];
+                dist = i - leftPos[i];
                 if (dist < min) {
                     min = dist;
                     mini = i;
                 }
+            } else {
+                dist = -1;
             }
+            ds[i] = dist;
         }
         if (min == n) {
             return s;
         }
-        int j = leftPos[mini];
+        int total = 0;
+        for (int i = leftPos[mini]; i < mini; i++) {
+            boolean ok = check(s, n, x, i);
+            if (ok) {
+                total++;
+            }
+        }
+        return total;
+    }
+
+    boolean check(int s, int n, int[] x, int pos) {
+        int j = pos;
         boolean ok = true;
-        while (j >= 0) {
+        while (j > 0) {
             int md = Integer.min(j, s);
             Set<Integer> set = new HashSet<>();
             for (int i = 0; i < md; i++) {
@@ -122,7 +138,10 @@ public class Main {
                 break;
             }
         }
-        j = leftPos[mini] + 1;
+        if (!ok) {
+            return false;
+        }
+        j = pos + 1;
         while (j < n) {
             int md = Integer.min(n - j, s);
             Set<Integer> set = new HashSet<>();
@@ -138,17 +157,14 @@ public class Main {
                 break;
             }
         }
-        if (!ok) {
-            return 0;
-        }
-        return min;
+        return ok;
     }
 
     void test() {
         Random random = new Random();
         while (true) {
-            int s = random.nextInt(10);
-            int n = random.nextInt(100);
+            int s = random.nextInt(10) + 1;
+            int n = random.nextInt(10) + 1;
             int[] x = new int[n];
             for (int i = 0; i < n; i++) {
                 x[i] = random.nextInt(s) + 1;
@@ -167,7 +183,7 @@ public class Main {
             int s = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
             int[] x = parseArray(in.readLine());
-            int total = cal1(s, n, x);
+            int total = cal2(s, n, x);
             out.append(String.format("%d\n", total));
         }
     }
