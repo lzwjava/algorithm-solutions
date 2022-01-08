@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -68,12 +71,16 @@ public class Main {
                 int p = 0;
                 boolean ok = true;
                 for (int j = 0; j < group; j++) {
-                    List<Integer> list = new ArrayList<>();
+                    Set<Integer> set = new HashSet<>();
                     for (int k = 0; k < groupSize[j]; k++) {
-                        list.add(x[p++]);
+                        if (set.contains(x[p])) {
+                            ok = false;
+                            break;
+                        } else {
+                            set.add(x[p++]);
+                        }
                     }
-                    if (!checkGroup(list)) {
-                        ok = false;
+                    if (!ok) {
                         break;
                     }
                 }
