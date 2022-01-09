@@ -36,6 +36,16 @@ public class Main {
         return a;
     }
 
+    boolean check(int[] p, int[] s, int[] v) {
+        int n = p.length;
+        for (int i = 0; i < n; i++) {
+            if (p[i] + v[i] > s[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     void solve() throws IOException {
         int z = Integer.parseInt(in.readLine());
         while (z > 0) {
@@ -43,6 +53,9 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] p = parseArray(in.readLine());
             int[] s = parseArray(in.readLine());
+            int[] v = new int[n];
+            boolean ok = check(p, s, v);
+            
         }
     }
 }
