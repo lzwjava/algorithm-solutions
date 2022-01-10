@@ -93,6 +93,9 @@ public class Main {
             a = parseArray(in.readLine());
             int all0 = calAll(0);
             int all1 = calAll(1);
+            if (all0 == all1) {
+                
+            }
             out.append(String.format("%s\n", mins));
         }
     }
