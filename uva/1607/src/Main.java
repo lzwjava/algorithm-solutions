@@ -99,17 +99,27 @@ public class Main {
 
     boolean check(int[] inputs) {
         boolean ok = true;
-        for (int y = 0; y <= 1; y++) {
-            int[] is = inputs.clone();
+        int all0 = calAll(0);
+        int all1 = calAll(0);
+        if (all0 == all1) {
             for (int i = 0; i < n; i++) {
-                if (is[i] == -1) {
-                    is[i] = y;
+                if (inputs[i] == -1) {
+                    return false;
                 }
             }
-            int fv = calInputs(is);
-            if (fv != y) {
-                ok = false;
-                break;
+        } else {
+            for (int y = 0; y <= 1; y++) {
+                int[] is = inputs.clone();
+                for (int i = 0; i < n; i++) {
+                    if (is[i] == -1) {
+                        is[i] = y;
+                    }
+                }
+                int fv = calInputs(is);
+                if (fv != y) {
+                    ok = false;
+                    break;
+                }
             }
         }
         return ok;
@@ -124,7 +134,7 @@ public class Main {
         if (all0 == all1) {
             int[] inputs = new int[n];
             Arrays.fill(inputs, 0);
-            inputs[0] = -1;
+//            inputs[0] = -1;
             return inputs;
         } else {
             int left = 0, right = n;
@@ -154,6 +164,7 @@ public class Main {
             } else {
                 inputs[0] = -1;
             }
+//            assert check(inputs);
             return inputs;
         }
     }
