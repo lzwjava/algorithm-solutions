@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -59,6 +60,10 @@ public class Main {
         for (int i = 0; i < n; i++) {
             inputs[i] = y;
         }
+        return calInputs(inputs);
+    }
+
+    int calInputs(int[] inputs) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
             map.put(-(i + 1), inputs[i]);
@@ -68,7 +73,6 @@ public class Main {
 
     int n, m;
     int[] a;
-    String mins;
 
     int cal(Map<Integer, Integer> map) {
         int[] v = new int[m];
@@ -83,6 +87,36 @@ public class Main {
         return v[m - 1];
     }
 
+    String build(int[] inputs) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            if (inputs[i] == -1) {
+                sb.append('x');
+            } else {
+                sb.append((char) (inputs[i] + '0'));
+            }
+        }
+        return sb.toString();
+    }
+
+    boolean check(int[] inputs) {
+        boolean ok = true;
+        for (int y = 0; y <= 1; y++) {
+            int[] is = inputs.clone();
+            for (int i = 0; i < n; i++) {
+                if (is[i] == -1) {
+                    is[i] = y;
+                }
+            }
+            int fv = calInputs(is);
+            if (fv != y) {
+                ok = false;
+                break;
+            }
+        }
+        return ok;
+    }
+
     void solve() throws IOException {
         int d = Integer.parseInt(in.readLine());
         while (d > 0) {
@@ -93,10 +127,38 @@ public class Main {
             a = parseArray(in.readLine());
             int all0 = calAll(0);
             int all1 = calAll(1);
+            String ans;
             if (all0 == all1) {
-                
+                int[] inputs = new int[n];
+                Arrays.fill(inputs, 0);
+                inputs[0] = -1;
+                ans = build(inputs);
+            } else {
+                int left = 0, right = n;
+                int[] inputs = new int[n];
+                while (left < right) {
+                    int mid = (left + right) / 2;
+                    Arrays.fill(inputs, 0);
+                    for (int i = 0; i < mid; i++) {
+                        inputs[i] = 1;
+                    }
+                    int v = calInputs(inputs);
+                    if (v == all0) {
+                        left = mid + 1;
+                    } else {
+                        right = mid;
+                    }
+                }
+                for (int i = n - 1; i >= 0; i--) {
+                    if (inputs[i] == 1) {
+                        inputs[i] = -1;
+                        break;
+                    }
+                }
+//                assert check(inputs);
+                ans = build(inputs);
             }
-            out.append(String.format("%s\n", mins));
+            out.append(String.format("%s\n", ans));
         }
     }
 }
