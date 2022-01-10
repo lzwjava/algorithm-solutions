@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
@@ -26,6 +23,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+//        m.test();
         m.close();
     }
 
@@ -117,6 +115,96 @@ public class Main {
         return ok;
     }
 
+    int[] solve(int n, int m, int[] a) {
+        this.n = n;
+        this.m = m;
+        this.a = a;
+        int all0 = calAll(0);
+        int all1 = calAll(1);
+        if (all0 == all1) {
+            int[] inputs = new int[n];
+            Arrays.fill(inputs, 0);
+            inputs[0] = -1;
+            return inputs;
+        } else {
+            int left = 0, right = n;
+            int[] inputs = new int[n];
+            while (left < right) {
+                int mid = (left + right) / 2;
+                Arrays.fill(inputs, 0);
+                for (int i = 0; i < mid; i++) {
+                    inputs[i] = 1;
+                }
+                int v = calInputs(inputs);
+                if (v == all0) {
+                    left = mid + 1;
+                } else {
+                    right = mid;
+                }
+            }
+            Arrays.fill(inputs, 0);
+            if (left > 0) {
+                for (int i = 0; i < left; i++) {
+                    if (i != left - 1) {
+                        inputs[i] = 1;
+                    } else {
+                        inputs[i] = -1;
+                    }
+                }
+            } else {
+                inputs[0] = -1;
+            }
+            return inputs;
+        }
+    }
+
+    void test() {
+        Random random = new Random();
+        while (true) {
+            int n = random.nextInt(3) + 1;
+            int m = 2 * n;
+            int k = 3 * m;
+            int[] a = new int[k];
+            for (int i = 0; i < k; i++) {
+                int id = i / 2;
+                int type = random.nextInt(2);
+                if (type == 0 || id == 0) {
+                    int v1 = -(random.nextInt(n) + 1);
+                    a[i] = v1;
+                } else {
+                    do {
+                        int v2 = random.nextInt(id) + 1;
+                        a[i] = v2;
+                        if (v2 != m) {
+                            break;
+                        }
+                    } while (true);
+                }
+            }
+            Set<Integer> input = new HashSet<>();
+            Set<Integer> output = new HashSet<>();
+            boolean connectSelf = false;
+            for (int i = 0; i < k; i++) {
+                if (a[i] < 0) {
+                    input.add(a[i]);
+                } else {
+                    output.add(a[i]);
+                }
+                int id = i / 2;
+                if (a[i] > 0 && a[i] == id + 1) {
+                    connectSelf = true;
+                    break;
+                }
+            }
+            if (connectSelf || input.size() != n || output.size() != m - 1) {
+                continue;
+            }
+            int[] inputs = solve(n, m, a);
+//            String ans = build(inputs);
+            assert check(inputs);
+        }
+    }
+
     void solve() throws IOException {
         int d = Integer.parseInt(in.readLine());
         while (d > 0) {
@@ -125,39 +213,8 @@ public class Main {
             n = Integer.parseInt(st.nextToken());
             m = Integer.parseInt(st.nextToken());
             a = parseArray(in.readLine());
-            int all0 = calAll(0);
-            int all1 = calAll(1);
-            String ans;
-            if (all0 == all1) {
-                int[] inputs = new int[n];
-                Arrays.fill(inputs, 0);
-                inputs[0] = -1;
-                ans = build(inputs);
-            } else {
-                int left = 0, right = n;
-                int[] inputs = new int[n];
-                while (left < right) {
-                    int mid = (left + right) / 2;
-                    Arrays.fill(inputs, 0);
-                    for (int i = 0; i < mid; i++) {
-                        inputs[i] = 1;
-                    }
-                    int v = calInputs(inputs);
-                    if (v == all0) {
-                        left = mid + 1;
-                    } else {
-                        right = mid;
-                    }
-                }
-                for (int i = n - 1; i >= 0; i--) {
-                    if (inputs[i] == 1) {
-                        inputs[i] = -1;
-                        break;
-                    }
-                }
-//                assert check(inputs);
-                ans = build(inputs);
-            }
+            int[] is = solve(n, m, a);
+            String ans = build(is);
             out.append(String.format("%s\n", ans));
         }
     }
