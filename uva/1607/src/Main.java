@@ -105,7 +105,6 @@ public class Main {
 
     int n, m;
     int[] a;
-    boolean found;
     int minx;
     String mins;
 
