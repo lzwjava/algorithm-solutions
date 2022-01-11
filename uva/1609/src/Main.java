@@ -36,7 +36,7 @@ public class Main {
                 int j = 2 * i;
                 int k = 2 * i + 1;
                 as[i] = winner(nums[j], nums[k]);
-                sb.append(String.format("%d %d\n", nums[j], nums[k]));
+                sb.append(String.format("%d %d\n", nums[j] + 1, nums[k] + 1));
             }
             nums = as;
             cur /= 2;
@@ -89,16 +89,23 @@ public class Main {
     }
 
     void solve() throws IOException {
-        n = Integer.parseInt(in.readLine());
-        strs = new String[n];
-        for (int i = 0; i < n; i++) {
-            strs[i] = in.readLine();
+        while (true) {
+            String line = in.readLine();
+            if (line == null) {
+                break;
+            }
+            n = Integer.parseInt(line);
+            strs = new String[n];
+            for (int i = 0; i < n; i++) {
+                strs[i] = in.readLine();
+            }
+            int[] nums = new int[n];
+            boolean[] vis = new boolean[n];
+            nums[0] = 0;
+            vis[0] = true;
+            found = false;
+            int round = (int) (Math.log(n) / Math.log(2));
+            permutation(nums, vis, round, 1);
         }
-        int[] nums = new int[n];
-        boolean[] vis = new boolean[n];
-        nums[0] = 0;
-        vis[0] = true;
-        int round = (int) (Math.log(n) / Math.log(2));
-        permutation(nums, vis, round, 1);
     }
 }
