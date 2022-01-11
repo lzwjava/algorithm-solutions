@@ -54,7 +54,7 @@ public class Main {
 
     boolean found;
 
-    void permutation(int[] nums, boolean[] vis, int round, int cur) {
+    void permutation(int[] nums, boolean[] vis, int cur) {
         if (found) {
             return;
         }
@@ -82,7 +82,7 @@ public class Main {
             if (!vis[i]) {
                 nums[cur] = i;
                 vis[i] = true;
-                permutation(nums, vis, round, cur + 1);
+                permutation(nums, vis, cur + 1);
                 vis[i] = false;
             }
         }
@@ -104,8 +104,7 @@ public class Main {
             nums[0] = 0;
             vis[0] = true;
             found = false;
-            int round = (int) (Math.log(n) / Math.log(2));
-            permutation(nums, vis, round, 1);
+            permutation(nums, vis, 1);
         }
     }
 }
