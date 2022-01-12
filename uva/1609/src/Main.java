@@ -101,6 +101,10 @@ public class Main {
         return ans;
     }
 
+    String cal1(int n, String[] strs) {
+        return "";
+    }
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -112,8 +116,8 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 strs[i] = in.readLine();
             }
-            String ans = cal(n, strs);
-            out.append(String.format("%s\n", ans));
+            String ans = cal1(n, strs);
+            out.append(String.format("%s", ans));
         }
     }
 }
