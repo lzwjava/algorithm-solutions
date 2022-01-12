@@ -25,8 +25,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-//        m.solve();
-        m.test();
+        m.solve();
+//        m.test();
         m.close();
     }
 
@@ -40,7 +40,7 @@ public class Main {
 
     List<Pair> cal1(List<Integer> teams, String[] strs) {
         int n = teams.size();
-        if (n == 1) {
+        if (n <= 1) {
             return new ArrayList<>();
         }
         List<Integer> black = new ArrayList<>();
@@ -179,7 +179,7 @@ public class Main {
             int next = wn / 2;
             List<Integer> actuals = new ArrayList<>();
             for (int i = 0; i < next; i++) {
-                Pair p = pairs.get(wn + i);
+                Pair p = pairs.get(next + i);
                 actuals.add(p.a);
                 actuals.add(p.b);
             }
@@ -199,20 +199,37 @@ public class Main {
     }
 
     void test() {
-        Random random = new Random();
-        int n = random.nextInt(10);
-        char[][] grid = new char[n][n];
-        for (int i = 0; i < n; i++) {
-            grid[i][i] = '0';
-            for (int j = i + 1; j < n; j++) {
-                int win = random.nextInt(2);
-                grid[i][j] = (char) (win + '0');
-                grid[j][i] = (char) ((1 - win) + '0');
+        while (true) {
+            Random random = new Random();
+            int n = random.nextInt(8) + 2;
+            double round = Math.log(n) / Math.log(2);
+            if (Math.abs(round - (int) round) > 1e-10) {
+                continue;
             }
-        }
-        String[] strs = new String[n];
-        for (int i = 0; i < n; i++) {
-            strs[i] = new String(grid[i]);
+            char[][] grid = new char[n][n];
+            for (int i = 0; i < n; i++) {
+                grid[i][i] = '0';
+                for (int j = i + 1; j < n; j++) {
+                    int win = random.nextInt(2);
+                    grid[i][j] = (char) (win + '0');
+                    grid[j][i] = (char) ((1 - win) + '0');
+                }
+            }
+            String[] strs = new String[n];
+            for (int i = 0; i < n; i++) {
+                strs[i] = new String(grid[i]);
+            }
+            int c = 0;
+            for (int i = 1; i < n; i++) {
+                if (grid[0][i] == '1') {
+                    c++;
+                }
+            }
+            if (c < n / 2) {
+                continue;
+            }
+            List<Pair> pairs = solve1(n, strs);
+            assert check(pairs, n / 2, strs);
         }
     }
 
@@ -237,7 +254,7 @@ public class Main {
                 strs[i] = in.readLine();
             }
             List<Pair> pairs = solve1(n, strs);
-//            assert check(pairs, n / 2, strs);
+            check(pairs, n / 2, strs);
             StringBuilder sb = new StringBuilder();
             for (Pair p : pairs) {
                 sb.append(String.format("%d %d\n", p.a + 1, p.b + 1));
