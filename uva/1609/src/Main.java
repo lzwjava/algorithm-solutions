@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -28,80 +29,12 @@ public class Main {
         m.close();
     }
 
-    int n;
-    String[] strs;
-    String ans;
-
-    boolean check(int[] nums, int cur, StringBuilder sb) {
-        while (cur != 1) {
-            int nc = cur / 2;
-            int[] as = new int[nc];
-            for (int i = 0; i < nc; i++) {
-                int j = 2 * i;
-                int k = 2 * i + 1;
-                as[i] = winner(strs, nums[j], nums[k]);
-                sb.append(String.format("%d %d\n", nums[j] + 1, nums[k] + 1));
-            }
-            nums = as;
-            cur /= 2;
-        }
-        return nums[0] == 0;
-    }
-
     int winner(String[] strs, int a, int b) {
         if (strs[a].charAt(b) == '1') {
             return a;
         } else {
             return b;
         }
-    }
-
-    boolean found;
-
-    void permutation(int[] nums, boolean[] vis, int cur) {
-        if (found) {
-            return;
-        }
-        if (cur == n) {
-            StringBuilder sb = new StringBuilder();
-            if (check(nums, n, sb)) {
-                found = true;
-                ans = sb.toString();
-            }
-            return;
-        }
-        double rd = Math.log(cur) / Math.log(2);
-        if (Math.abs(rd - (int) rd) < 1e-10) {
-            if (!check(nums, cur, new StringBuilder())) {
-                return;
-            }
-        }
-        int st;
-        if (cur % 2 == 0) {
-            st = nums[cur - 2] + 1;
-        } else {
-            st = 0;
-        }
-        for (int i = st; i < n; i++) {
-            if (!vis[i]) {
-                nums[cur] = i;
-                vis[i] = true;
-                permutation(nums, vis, cur + 1);
-                vis[i] = false;
-            }
-        }
-    }
-
-    String cal(int n, String[] strs) {
-        this.n = n;
-        this.strs = strs;
-        int[] nums = new int[n];
-        boolean[] vis = new boolean[n];
-        nums[0] = 0;
-        vis[0] = true;
-        found = false;
-        permutation(nums, vis, 1);
-        return ans;
     }
 
     List<Pair> cal1(List<Integer> teams, String[] strs) {
@@ -175,10 +108,10 @@ public class Main {
             }
         }
         int oi = 0;
-        if (!ok) {
-            int ov = other.get(0);
-            pairs.add(new Pair(0, ov));
+        if (!ok && oi < other.size()) {
+            int ov = other.get(oi);
             oi++;
+            pairs.add(new Pair(0, ov));
         }
         if (bi != bn) {
             int blackPair = (bn - bi) / 2;
@@ -264,21 +197,26 @@ public class Main {
         return a.equals(b);
     }
 
+    void test() {
+        Random random = new Random();
+        int n = random.nextInt(10);
+    }
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
             if (line == null) {
                 break;
             }
-            n = Integer.parseInt(line);
-            strs = new String[n];
+            int n = Integer.parseInt(line);
+            String[] strs = new String[n];
             List<Integer> teams = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 strs[i] = in.readLine();
                 teams.add(i);
             }
             List<Pair> pairs = cal1(teams, strs);
-            assert check(pairs, n / 2, strs);
+//            assert check(pairs, n / 2, strs);
             StringBuilder sb = new StringBuilder();
             for (Pair p : pairs) {
                 sb.append(String.format("%d %d\n", p.a + 1, p.b + 1));
