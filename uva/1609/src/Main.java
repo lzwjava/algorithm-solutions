@@ -27,6 +27,7 @@ public class Main {
 
     int n;
     String[] strs;
+    String ans;
 
     boolean check(int[] nums, int cur, StringBuilder sb) {
         while (cur != 1) {
@@ -62,7 +63,7 @@ public class Main {
             StringBuilder sb = new StringBuilder();
             if (check(nums, n, sb)) {
                 found = true;
-                out.append(String.format("%s", sb));
+                ans = sb.toString();
             }
             return;
         }
@@ -88,6 +89,18 @@ public class Main {
         }
     }
 
+    String cal(int n, String[] strs) {
+        this.n = n;
+        this.strs = strs;
+        int[] nums = new int[n];
+        boolean[] vis = new boolean[n];
+        nums[0] = 0;
+        vis[0] = true;
+        found = false;
+        permutation(nums, vis, 1);
+        return ans;
+    }
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -99,12 +112,8 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 strs[i] = in.readLine();
             }
-            int[] nums = new int[n];
-            boolean[] vis = new boolean[n];
-            nums[0] = 0;
-            vis[0] = true;
-            found = false;
-            permutation(nums, vis, 1);
+            String ans = cal(n, strs);
+            out.append(String.format("%s\n", ans));
         }
     }
 }
