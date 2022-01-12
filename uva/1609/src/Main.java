@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -229,6 +230,40 @@ public class Main {
         }
     }
 
+    boolean check(List<Pair> pairs, int wn, String[] strs) {
+        if (pairs.size() == 1) {
+            Pair p = pairs.get(0);
+            int w = winner(strs, p.a, p.b);
+            return w == 0;
+        } else {
+            List<Integer> ws = new ArrayList<>();
+            for (int i = 0; i < wn; i++) {
+                Pair p = pairs.get(i);
+                int w = winner(strs, p.a, p.b);
+                ws.add(w);
+            }
+            int next = wn / 2;
+            List<Integer> actuals = new ArrayList<>();
+            for (int i = 0; i < next; i++) {
+                Pair p = pairs.get(wn + i);
+                actuals.add(p.a);
+                actuals.add(p.b);
+            }
+            if (equal(ws, actuals)) {
+                List<Pair> subPairs = pairs.subList(wn, pairs.size());
+                return check(subPairs, next, strs);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    boolean equal(List<Integer> a, List<Integer> b) {
+        Collections.sort(a);
+        Collections.sort(b);
+        return a.equals(b);
+    }
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -243,6 +278,7 @@ public class Main {
                 teams.add(i);
             }
             List<Pair> pairs = cal1(teams, strs);
+            assert check(pairs, n / 2, strs);
             StringBuilder sb = new StringBuilder();
             for (Pair p : pairs) {
                 sb.append(String.format("%d %d\n", p.a + 1, p.b + 1));
