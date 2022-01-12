@@ -25,7 +25,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -200,6 +201,28 @@ public class Main {
     void test() {
         Random random = new Random();
         int n = random.nextInt(10);
+        char[][] grid = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            grid[i][i] = '0';
+            for (int j = i + 1; j < n; j++) {
+                int win = random.nextInt(2);
+                grid[i][j] = (char) (win + '0');
+                grid[j][i] = (char) ((1 - win) + '0');
+            }
+        }
+        String[] strs = new String[n];
+        for (int i = 0; i < n; i++) {
+            strs[i] = new String(grid[i]);
+        }
+    }
+
+    List<Pair> solve1(int n, String[] strs) {
+        List<Integer> teams = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            teams.add(i);
+        }
+        List<Pair> pairs = cal1(teams, strs);
+        return pairs;
     }
 
     void solve() throws IOException {
@@ -210,12 +233,10 @@ public class Main {
             }
             int n = Integer.parseInt(line);
             String[] strs = new String[n];
-            List<Integer> teams = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 strs[i] = in.readLine();
-                teams.add(i);
             }
-            List<Pair> pairs = cal1(teams, strs);
+            List<Pair> pairs = solve1(n, strs);
 //            assert check(pairs, n / 2, strs);
             StringBuilder sb = new StringBuilder();
             for (Pair p : pairs) {
