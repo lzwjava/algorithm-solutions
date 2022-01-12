@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -36,7 +38,7 @@ public class Main {
             for (int i = 0; i < nc; i++) {
                 int j = 2 * i;
                 int k = 2 * i + 1;
-                as[i] = winner(nums[j], nums[k]);
+                as[i] = winner(strs, nums[j], nums[k]);
                 sb.append(String.format("%d %d\n", nums[j] + 1, nums[k] + 1));
             }
             nums = as;
@@ -45,7 +47,7 @@ public class Main {
         return nums[0] == 0;
     }
 
-    int winner(int a, int b) {
+    int winner(String[] strs, int a, int b) {
         if (strs[a].charAt(b) == '1') {
             return a;
         } else {
@@ -101,8 +103,130 @@ public class Main {
         return ans;
     }
 
-    String cal1(int n, String[] strs) {
-        return "";
+    List<Pair> cal1(List<Integer> teams, String[] strs) {
+        int n = teams.size();
+        if (n == 1) {
+            return new ArrayList<>();
+        }
+        List<Integer> black = new ArrayList<>();
+        List<Integer> rest = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int ti = teams.get(i);
+            if (ti == 0) {
+                continue;
+            }
+            if (strs[0].charAt(ti) == '0') {
+                black.add(ti);
+            } else {
+                rest.add(ti);
+            }
+        }
+        List<Integer> gray = new ArrayList<>();
+        List<Integer> other = new ArrayList<>();
+        for (int x : rest) {
+            String str = strs[x];
+            boolean ok = false;
+            for (int y : black) {
+                if (str.charAt(y) == '1') {
+                    ok = true;
+                    break;
+                }
+            }
+            if (ok) {
+                gray.add(x);
+            } else {
+                other.add(x);
+            }
+        }
+        int bi;
+        int gn = gray.size();
+        int bn = black.size();
+        boolean[] grayVis = new boolean[gn];
+        boolean[] blackVis = new boolean[bn];
+        List<Pair> pairs = new ArrayList<>();
+        for (bi = 0; bi < bn; bi++) {
+            int bv = black.get(bi);
+            boolean ok = false;
+            for (int i = 0; i < gn; i++) {
+                if (!grayVis[i]) {
+                    int gv = gray.get(i);
+                    if (winner(strs, gv, bv) == gv) {
+                        grayVis[i] = true;
+                        blackVis[bi] = true;
+                        pairs.add(new Pair(gv, bv));
+                        ok = true;
+                        break;
+                    }
+                }
+            }
+            if (!ok) {
+                break;
+            }
+        }
+        boolean ok = false;
+        for (int i = 0; i < gn; i++) {
+            int gv = gray.get(i);
+            if (!grayVis[i]) {
+                grayVis[i] = true;
+                pairs.add(new Pair(0, gv));
+                ok = true;
+                break;
+            }
+        }
+        int oi = 0;
+        if (!ok) {
+            int ov = other.get(0);
+            pairs.add(new Pair(0, ov));
+            oi++;
+        }
+        if (bi != bn) {
+            int blackPair = (bn - bi) / 2;
+            int obi = bi;
+            for (int i = 0; i < blackPair; i++) {
+                int bj = obi + i * 2;
+                int bv1 = black.get(bj);
+                int bv2 = black.get(bj + 1);
+                blackVis[bj] = blackVis[bj + 1] = true;
+                pairs.add(new Pair(bv1, bv2));
+                bi += 2;
+            }
+        }
+        List<Integer> notPaired = new ArrayList<>();
+        if (bi != bn) {
+            for (; bi < bn; bi++) {
+                notPaired.add(black.get(bi));
+            }
+        }
+        for (; oi < other.size(); oi++) {
+            notPaired.add(other.get(oi));
+        }
+        for (int i = 0; i < gn; i++) {
+            if (!grayVis[i]) {
+                notPaired.add(gray.get(i));
+            }
+        }
+        int pn = notPaired.size() / 2;
+        for (int i = 0; i < pn; i++) {
+            int v1 = notPaired.get(2 * i);
+            int v2 = notPaired.get(2 * i + 1);
+            pairs.add(new Pair(v1, v2));
+        }
+        List<Integer> wins = new ArrayList<>();
+        for (Pair p : pairs) {
+            wins.add(winner(strs, p.a, p.b));
+        }
+        List<Pair> subPairs = cal1(wins, strs);
+        pairs.addAll(subPairs);
+        return pairs;
+    }
+
+    class Pair {
+        int a, b;
+
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
     }
 
     void solve() throws IOException {
@@ -113,11 +237,17 @@ public class Main {
             }
             n = Integer.parseInt(line);
             strs = new String[n];
+            List<Integer> teams = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 strs[i] = in.readLine();
+                teams.add(i);
             }
-            String ans = cal1(n, strs);
-            out.append(String.format("%s", ans));
+            List<Pair> pairs = cal1(teams, strs);
+            StringBuilder sb = new StringBuilder();
+            for (Pair p : pairs) {
+                sb.append(String.format("%d %d\n", p.a + 1, p.b + 1));
+            }
+            out.append(String.format("%s", sb.toString()));
         }
     }
 }
