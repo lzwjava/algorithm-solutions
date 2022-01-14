@@ -25,7 +25,7 @@ public class Main {
         m.solve();
         m.close();
     }
-
+    
     int[] parseArray(String s) {
         StringTokenizer st = new StringTokenizer(s);
         int n = st.countTokens();
@@ -55,7 +55,6 @@ public class Main {
             int[] s = parseArray(in.readLine());
             int[] v = new int[n];
             boolean ok = check(p, s, v);
-            
         }
     }
 }
