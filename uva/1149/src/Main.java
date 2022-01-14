@@ -25,7 +25,17 @@ public class Main {
         m.close();
     }
 
-    void solve() {
-
+    void solve() throws IOException {
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            in.readLine();
+            int n = Integer.parseInt(in.readLine());
+            int l = Integer.parseInt(in.readLine());
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = Integer.parseInt(in.readLine());
+            }
+        }
     }
 }
