@@ -79,6 +79,7 @@ public class Main {
         boolean[] grayVis = new boolean[gn];
         boolean[] blackVis = new boolean[bn];
         List<Pair> pairs = new ArrayList<>();
+        List<Integer> notPaired = new ArrayList<>();
         for (bi = 0; bi < bn; bi++) {
             int bv = black.get(bi);
             boolean ok = false;
@@ -95,7 +96,7 @@ public class Main {
                 }
             }
             if (!ok) {
-                break;
+                notPaired.add(bv);
             }
         }
         boolean ok = false;
@@ -113,24 +114,6 @@ public class Main {
             int ov = other.get(oi);
             oi++;
             pairs.add(new Pair(0, ov));
-        }
-        if (bi != bn) {
-            int blackPair = (bn - bi) / 2;
-            int obi = bi;
-            for (int i = 0; i < blackPair; i++) {
-                int bj = obi + i * 2;
-                int bv1 = black.get(bj);
-                int bv2 = black.get(bj + 1);
-                blackVis[bj] = blackVis[bj + 1] = true;
-                pairs.add(new Pair(bv1, bv2));
-                bi += 2;
-            }
-        }
-        List<Integer> notPaired = new ArrayList<>();
-        if (bi != bn) {
-            for (; bi < bn; bi++) {
-                notPaired.add(black.get(bi));
-            }
         }
         for (; oi < other.size(); oi++) {
             notPaired.add(other.get(oi));
@@ -254,7 +237,7 @@ public class Main {
                 strs[i] = in.readLine();
             }
             List<Pair> pairs = solve1(n, strs);
-            check(pairs, n / 2, strs);
+//            check(pairs, n / 2, strs);
             StringBuilder sb = new StringBuilder();
             for (Pair p : pairs) {
                 sb.append(String.format("%d %d\n", p.a + 1, p.b + 1));
