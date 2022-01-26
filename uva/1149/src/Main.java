@@ -50,8 +50,13 @@ public class Main {
                     q--;
                 }
             }
+            if (p == q) {
+                ans++;
+            }
             out.append(String.format("%d\n", ans));
-            out.append('\n');
+            if (t != 0) {
+                out.append('\n');
+            }
         }
     }
 }
