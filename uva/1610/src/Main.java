@@ -58,7 +58,8 @@ public class Main {
     String randomeString(Random random, int n) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            sb.append(random.nextInt(26) + 'A');
+            char ch = (char) (random.nextInt(26) + 'A');
+            sb.append(ch);
         }
         return sb.toString();
     }
@@ -69,7 +70,7 @@ public class Main {
             int n = (random.nextInt(10) + 1) * 2;
             String[] ns = new String[n];
             for (int i = 0; i < n; i++) {
-                ns[i] = randomeString(random, random.nextInt(10) + 1);
+                ns[i] = randomeString(random, random.nextInt(5) + 1);
             }
             String ans = cal(n, ns);
             int c = 0;
