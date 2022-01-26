@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class Main {
 
@@ -36,6 +37,21 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(in.readLine());
             }
+            Arrays.sort(a);
+            int p = 0, q = n - 1;
+            int ans = 0;
+            while (p < q) {
+                if (a[p] + a[q] <= l) {
+                    ans++;
+                    p++;
+                    q--;
+                } else {
+                    ans++;
+                    q--;
+                }
+            }
+            out.append(String.format("%d\n", ans));
+            out.append('\n');
         }
     }
 }
