@@ -26,6 +26,35 @@ public class Main {
         m.close();
     }
 
+    String cal(int n, String[] names) {
+        Arrays.sort(names);
+        int half = n / 2;
+        String a = names[half - 1];
+        String b = names[half];
+        StringBuilder ans = new StringBuilder();
+        int an = a.length();
+        int bn = b.length();
+        int mn = Integer.min(an, bn);
+        int i;
+        for (i = 0; i < mn; i++) {
+            char ai = a.charAt(i);
+            char bi = b.charAt(i);
+            if (ai != bi) {
+                break;
+            } else {
+                ans.append(ai);
+            }
+        }
+        if (i == mn) {
+
+        } else {
+            char ai = a.charAt(i);
+            char nai = (char) (ai + 1);
+            ans.append(nai);
+        }
+        return ans.toString();
+    }
+
     void solve() throws IOException {
         while (true) {
             int n = Integer.parseInt(in.readLine());
@@ -36,31 +65,7 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 names[i] = in.readLine();
             }
-            Arrays.sort(names);
-            int half = n / 2;
-            String a = names[half - 1];
-            String b = names[half];
-            StringBuilder ans = new StringBuilder();
-            int an = a.length();
-            int bn = b.length();
-            int mn = Integer.min(an, bn);
-            int i;
-            for (i = 0; i < mn; i++) {
-                char ai = a.charAt(i);
-                char bi = b.charAt(i);
-                if (ai != bi) {
-                    break;
-                } else {
-                    ans.append(ai);
-                }
-            }
-            if (i == mn) {
-
-            } else {
-                char ai = a.charAt(i);
-                char nai = (char) (ai + 1);
-                ans.append(nai);
-            }
+            String ans = cal(n, names);
             out.append(String.format("%s\n", ans));
         }
     }
