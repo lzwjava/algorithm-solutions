@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Main {
 
@@ -22,7 +23,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
-        m.solve();
+//        m.solve();
+        m.test();
         m.close();
     }
 
@@ -45,14 +47,39 @@ public class Main {
                 ans.append(ai);
             }
         }
-        if (i == mn) {
-
-        } else {
+        if (i < mn) {
             char ai = a.charAt(i);
             char nai = (char) (ai + 1);
             ans.append(nai);
         }
         return ans.toString();
+    }
+
+    String randomeString(Random random, int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append(random.nextInt(26) + 'A');
+        }
+        return sb.toString();
+    }
+
+    void test() {
+        Random random = new Random();
+        while (true) {
+            int n = (random.nextInt(10) + 1) * 2;
+            String[] ns = new String[n];
+            for (int i = 0; i < n; i++) {
+                ns[i] = randomeString(random, random.nextInt(10) + 1);
+            }
+            String ans = cal(n, ns);
+            int c = 0;
+            for (int i = 0; i < n; i++) {
+                if (ns[i].compareTo(ans) <= 0) {
+                    c++;
+                }
+            }
+            assert c * 2 == n;
+        }
     }
 
     void solve() throws IOException {
