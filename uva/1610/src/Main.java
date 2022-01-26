@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class Main {
 
@@ -25,7 +26,17 @@ public class Main {
         m.close();
     }
 
-    void solve() {
-        
+    void solve() throws IOException {
+        while (true) {
+            int n = Integer.parseInt(in.readLine());
+            if (n == 0) {
+                break;
+            }
+            String[] names = new String[n];
+            for (int i = 0; i < n; i++) {
+                names[i] = in.readLine();
+            }
+            Arrays.sort(names);
+        }
     }
 }
