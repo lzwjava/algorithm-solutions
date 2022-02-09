@@ -25,7 +25,9 @@ public class Main {
         m.close();
     }
 
-    void solve() {
-
+    void solve() throws IOException {
+        int c = Integer.parseInt(in.readLine());
+        String a = in.readLine();
+        String b = in.readLine();
     }
 }
