@@ -26,8 +26,11 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int c = Integer.parseInt(in.readLine());
-        String a = in.readLine();
-        String b = in.readLine();
+        int t = Integer.parseInt(in.readLine());
+        while (t > 0) {
+            t--;
+            String a = in.readLine();
+            String b = in.readLine();
+        }
     }
 }
