@@ -32,9 +32,17 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             int[] array = new int[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
+            int max = 0;
             for (int i = 0; i < n; i++) {
                 array[i] = Integer.parseInt(st.nextToken());
+                if (array[i] > max) {
+                    max = array[i];
+                }
             }
+            String binaryString = Integer.toBinaryString(max);
+            int len = binaryString.length();
+            int ans = (1 << len) - 1;
+            System.out.println(ans);
         }
     }
 }
