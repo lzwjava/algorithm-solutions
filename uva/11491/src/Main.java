@@ -32,7 +32,6 @@ public class Main {
             if (n == 0 && d == 0) {
                 break;
             }
-            
         }
     }
 
