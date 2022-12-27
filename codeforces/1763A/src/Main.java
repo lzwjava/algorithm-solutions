@@ -33,16 +33,26 @@ public class Main {
             int[] array = new int[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
             int max = 0;
+            int digits[][] = new int[12][2];
+            int maxLen = 0;
             for (int i = 0; i < n; i++) {
                 array[i] = Integer.parseInt(st.nextToken());
                 if (array[i] > max) {
                     max = array[i];
                 }
+                String binaryString = Integer.toBinaryString(array[i]);
+                int len = binaryString.length();
+                if (len > maxLen) {
+                    maxLen = len;
+                }
+                for (int j = 0; j < len; j++) {
+                    int k = len - 1 - j;
+                    int d = binaryString.charAt(k) - '0';
+                    digits[j][d]++;
+                }
             }
-            String binaryString = Integer.toBinaryString(max);
-            int len = binaryString.length();
-            int ans = (1 << len) - 1;
-            System.out.println(ans);
+            
+            System.out.println(digits);
         }
     }
 }
