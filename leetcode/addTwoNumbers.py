@@ -22,7 +22,7 @@ class Solution:
         while l is not None:
             arr.append(l.val)
             l = l.next
-        return arr
+        return list(reversed(arr))
 
     def createList(self, arr: List[int]):
         node = None
@@ -67,11 +67,13 @@ class Solution:
         if inc == 1:
             arr3.append(inc)
 
+        arr3 = reversed(arr3)
+
         return self.createList(arr3)
 
 
 sol = Solution()
-l1 = sol.createList([2, 4, 3])
-l2 = sol.createList([5, 6, 4])
+l1 = sol.createList(reversed([2, 4, 9]))
+l2 = sol.createList(reversed([5, 6, 4, 9]))
 
 print(sol.addTwoNumbers(l1, l2))
