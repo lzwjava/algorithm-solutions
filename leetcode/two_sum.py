@@ -13,15 +13,17 @@ class Solution:
 
             other = target - nums[i]
             sorted_idx = self.binary_search(sorted_nums, other)
+
+            if sorted_idx == -1:
+                continue
+
             idx = sorted_nums[sorted_idx][0]
 
-            ans = -1
             if idx == i:
                 if sorted_nums[sorted_idx - 1][1] == nums[i]:
-                    ans = sorted_idx - 1
+                    return [i, (sorted_idx - 1)]
                 elif sorted_nums[sorted_idx + 1][1] == nums[i]:
-                    ans = sorted_idx + 1
-                return [i, ans]
+                    return [i, (sorted_idx + 1)]
             else:
                 return [i, idx]
 
@@ -42,4 +44,4 @@ class Solution:
         return -1
 
 
-print(Solution().twoSum([3, 2, 4], 6))
+print(Solution().twoSum([2, 5, 5, 11], 10))
