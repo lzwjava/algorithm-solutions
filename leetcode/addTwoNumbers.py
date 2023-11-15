@@ -6,6 +6,14 @@ class ListNode:
         self.val = val
         self.next = next
 
+    def __str__(self):
+        arr = []
+        node = self
+        while node is not None:
+            arr.append(self.val)
+            node = node.next
+        return arr.__str__()
+
 
 class Solution:
 
