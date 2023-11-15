@@ -10,7 +10,7 @@ class ListNode:
         arr = []
         node = self
         while node is not None:
-            arr.append(self.val)
+            arr.append(node.val)
             node = node.next
         return arr.__str__()
 
