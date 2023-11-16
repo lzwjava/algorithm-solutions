@@ -1,7 +1,7 @@
 class Solution:
     def intToRoman(self, num: int) -> str:
-        vs = [1000, 500, 100, 50, 10, 5, 1]
-        symbols = ['M', 'D', 'C', 'L', 'X', 'V', 'I']
+        vs = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+        symbols = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']
         n = len(vs)
         cnts = []
         for i in range(0, n):
@@ -9,10 +9,13 @@ class Solution:
             cnts.append(cnt)
             num -= cnt * vs[i]
 
+        ans = ''
+
         for i in range(0, n):
             if cnts[i] > 0:
                 for _ in range(cnts[i]):
-                    print(symbols[i], end='')
+                    ans += symbols[i]
 
+        return ans
 
-Solution().intToRoman(58)
+print(Solution().intToRoman(1994))
