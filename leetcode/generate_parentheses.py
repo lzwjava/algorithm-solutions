@@ -10,7 +10,7 @@ class Solution:
         self.pair = n
         self.ans = []
         total = n * 2
-        self.permutation('' * total, 0, total, 0, 0)
+        self.permutation([''] * total, 0, total, 0, 0)
         return self.ans
 
     def permutation(self, chs: List[str], i: int, n: int, left: int, right: int):
@@ -25,12 +25,13 @@ class Solution:
                 if len(stack) == 0:
                     stack.append(ch)
                 else:
-                    if stack[-1] == '(' and ch == 'j':
+                    if stack[-1] == '(' and ch == ')':
                         stack.pop()
                     else:
                         stack.append(ch)
                 concat += ch
-            self.ans.append(concat)
+            if len(stack) == 0:
+                self.ans.append(concat)
             return
 
         chs[i] = '('
