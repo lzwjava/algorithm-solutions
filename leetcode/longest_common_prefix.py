@@ -7,9 +7,10 @@ class Solution:
         for s in strs:
             min_len = min(min_len, len(s))
         i = 0
+        base_str = strs[0]
         while i < min_len:
             ok = True
-            ch = strs[0][i]
+            ch = base_str[i]
             for s in strs:
                 if s[i] != ch:
                     ok = False
@@ -19,9 +20,12 @@ class Solution:
             else:
                 break
         if i == min_len:
-            return strs[0][0:i]
+            return base_str[0:i]
         else:
             if i != 0:
-                return strs[0][0:i - 1]
+                return base_str[0:i]
             else:
                 return ''
+
+
+print(Solution().longestCommonPrefix(["flower", "flow", "flight"]))
