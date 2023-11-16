@@ -9,7 +9,9 @@ class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         self.pair = n
         self.ans = []
-        return []
+        total = n * 2
+        self.permutation('' * total, 0, total, 0, 0)
+        return self.ans
 
     def permutation(self, chs: List[str], i: int, n: int, left: int, right: int):
         if left > self.pair or right > self.pair:
