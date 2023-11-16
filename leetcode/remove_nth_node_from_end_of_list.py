@@ -50,5 +50,5 @@ class Solution:
 
 
 sol = Solution()
-la = sol.createList(reversed([1, 2, 3, 4, 5]))
-print(sol.removeNthFromEnd(la, 2))
+la = sol.createList(reversed([1, 2]))
+print(sol.removeNthFromEnd(la, 1))
