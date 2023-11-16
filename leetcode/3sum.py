@@ -1,4 +1,3 @@
-import bisect
 from typing import List
 
 
@@ -26,19 +25,20 @@ class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)
 
-        sorted_nums = sorted(nums)
-
         ans = set()
-        for i in range(0, n - 2):
-            for j in range(i + 1, n - 1):
-                vk = - (nums[i] + nums[j])
+        for i in range(0, n - 1):
+            target = -nums[i]
 
-                ik = bisect.bisect_left(sorted_nums, vk)
-
-                if ik != n and sorted_nums[ik] == vk:
-                    ans.add(ItemComparable([nums[i], nums[j], vk]))
+            h = {}
+            for j in range(i + 1, n):
+                remaining = target - nums[j]
+                idx = h.get(remaining)
+                if idx is not None:
+                    ans.add(ItemComparable([nums[i], nums[j], nums[idx]]))
+                else:
+                    h[nums[j]] = j
 
         return [x.val for x in ans]
 
 
-print(Solution().threeSum([-1, 0, 1, 2, -1, -4]))
+print(Solution().threeSum([0, 0, 0]))
