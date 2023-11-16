@@ -18,7 +18,7 @@ class Solution:
         i = 0
         sn = len(s)
         ans = 0
-        while True:
+        while i < sn:
             v = self.value(s[i])
             if i + 1 == sn:
                 ans += v
@@ -27,8 +27,9 @@ class Solution:
             if nv > v:
                 ans += (nv - v)
                 i += 2
-                if i == sn:
-                    break
+            else:
+                ans += v
+                i += 1
 
         return ans
 
