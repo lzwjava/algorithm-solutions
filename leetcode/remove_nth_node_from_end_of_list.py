@@ -15,9 +15,32 @@ class ListNode:
         return arr.__str__()
 
 
+def list_len(head: Optional[ListNode]):
+    hn = 0
+    while head is not None:
+        hn += 1
+        head = head.next
+    return hn
+
+
 class Solution:
+
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        return None
+        hn = list_len(head)
+
+        idx = hn - n
+
+        if idx == 0:
+            return head.next
+        else:
+            prev = head
+            root = head
+            while idx > 0:
+                idx -= 1
+                prev = head
+                head = head.next
+            prev.next = head.next
+            return root
 
     def createList(self, arr: List[int]):
         node = None
@@ -28,4 +51,4 @@ class Solution:
 
 sol = Solution()
 la = sol.createList(reversed([1, 2, 3, 4, 5]))
-sol.removeNthFromEnd(la, 1)
+print(sol.removeNthFromEnd(la, 2))
