@@ -29,7 +29,9 @@ for _ in range(t):
 
     m = max(a)
 
-    print(m)
+    an = len(a)
+
+    # print(m)
 
     b = []
     for i in range(n):
@@ -68,4 +70,22 @@ for _ in range(t):
     for i in range(n):
         if a[i] != m:
             ops += (m - a[i]) / x
-    
+
+    an1_1 = m + x
+    ops1 = ops + an
+
+    an1_2 = m
+
+    sa = set(a)
+
+    while True:
+        an1_2 = an1_2 - x
+        if an1_2 not in sa:
+            break
+
+    ops2 = ops + (m - an1_2) / x
+
+    if ops1 < ops2:
+        print(ops1)
+    else:
+        print(ops2)
