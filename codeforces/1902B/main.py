@@ -10,11 +10,7 @@ input = sys.stdin.readline
 t = int(input())
 
 for _ in range(t):
-    a = list(map(int, input().split()))
-    n = a[0]
-    P = a[1]
-    l = a[2]
-    t = a[3]
+    n, P, l, t = map(int, input().split())
 
     double_weeks = n // 14
 
