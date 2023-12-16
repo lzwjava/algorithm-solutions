@@ -10,7 +10,13 @@ t = int(input())
 for _ in range(t):
     n = int(input())
     s = input().strip()
-    if s[-1] == '0':
+
+    ok = False
+    for i in range(n):
+        if s[i] == '0':
+            ok = True
+
+    if ok:
         print('YES')
     else:
         print('NO')
