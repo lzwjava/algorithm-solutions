@@ -9,4 +9,5 @@ input = sys.stdin.readline
 t = int(input())
 
 for _ in range(t):
-    pass
+    m = map(int, input().split())
+    print(m)
