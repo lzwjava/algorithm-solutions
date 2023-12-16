@@ -16,15 +16,16 @@ for _ in range(t):
     l = a[2]
     t = a[3]
 
-    weeks = math.ceil(n / 7)
+    double_weeks = n // 14
 
     work_days = 0
 
-    if weeks > 0:
-        if (l + 2 * t) * weeks >= P:
-            day = math.ceil(P / (l + 2 * t))
+    if double_weeks > 0:
+        pts = l + 2 * t
+        if pts * double_weeks >= P:
+            day = math.ceil(P / pts)
             work_days += day
             P = 0
         else:
-            P -= (l + 2 * t) * weeks
-            work_days += weeks
+            P -= pts * double_weeks
+            work_days += double_weeks
