@@ -42,34 +42,35 @@ for _ in range(t):
 
     x = 1
 
-    for j in range(pmn):
-        p = pms[j]
-        while True:
-            ok = True
-            for i in range(bn):
-                if b[i] % p != 0:
-                    ok = False
+    if bn > 0:
+        for j in range(pmn):
+            p = pms[j]
+            while True:
+                ok = True
+                for i in range(bn):
+                    if b[i] % p != 0:
+                        ok = False
+                        break
+
+                if ok:
+                    x *= p
+                    for i in range(bn):
+                        b[i] /= p
+                else:
                     break
 
-            if ok:
-                x *= p
-                for i in range(bn):
-                    b[i] /= p
-            else:
+            greater = True
+            for i in range(bn):
+                if p <= b[i]:
+                    greater = False
+                    break
+            if greater:
                 break
-
-        greater = True
-        for i in range(bn):
-            if p <= b[i]:
-                greater = False
-                break
-        if greater:
-            break
 
     ops = 0
     for i in range(n):
         if a[i] != m:
-            ops += (m - a[i]) / x
+            ops += (m - a[i]) // x
 
     an1_1 = m + x
     ops1 = ops + an
@@ -83,7 +84,7 @@ for _ in range(t):
         if an1_2 not in sa:
             break
 
-    ops2 = ops + (m - an1_2) / x
+    ops2 = ops + (m - an1_2) // x
 
     if ops1 < ops2:
         print(ops1)
