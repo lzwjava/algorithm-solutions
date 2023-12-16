@@ -62,7 +62,7 @@ for _ in range(t):
         for i in range(bn):
             fss.append(factorize(b[i]))
 
-        ps = set.union(*fss)
+        ps = set.intersection(*fss)
 
         for p in ps:
             while True:
