@@ -20,12 +20,36 @@ for _ in range(t):
 
     work_days = 0
 
+    pts1 = l + 2 * t
+
     if double_weeks > 0:
-        pts = l + 2 * t
-        if pts * double_weeks >= P:
-            day = math.ceil(P / pts)
+        if pts1 * double_weeks >= P:
+            day = math.ceil(P / pts1)
             work_days += day
             P = 0
         else:
-            P -= pts * double_weeks
+            P -= pts1 * double_weeks
             work_days += double_weeks
+
+    if P > 0:
+        other_days = n - double_weeks * 14
+
+        pts2 = l + t
+
+        if other_days > 7:
+            P -= pts1
+            work_days += 1
+        else:
+            P -= pts2
+            work_days += 1
+
+        if P > 0:
+            left_days = n - work_days
+
+            need_days = math.ceil(P / l)
+            assert need_days <= left_days
+
+            work_days += need_days
+
+    rest_days = n - work_days
+    print(rest_days)
