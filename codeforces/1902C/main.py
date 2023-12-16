@@ -31,8 +31,6 @@ for _ in range(t):
 
     an = len(a)
 
-    # print(m)
-
     b = []
     for i in range(n):
         if a[i] != m:
