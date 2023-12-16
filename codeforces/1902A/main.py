@@ -15,6 +15,7 @@ for _ in range(t):
     for i in range(n):
         if s[i] == '0':
             ok = True
+            break
 
     if ok:
         print('YES')
