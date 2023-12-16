@@ -34,14 +34,15 @@ for _ in range(t):
     if P > 0:
         other_days = n - double_weeks * 14
 
-        pts2 = l + t
+        if other_days != 0:
+            pts2 = l + t
 
-        if other_days > 7:
-            P -= pts1
-            work_days += 1
-        else:
-            P -= pts2
-            work_days += 1
+            if other_days > 7:
+                P -= pts1
+                work_days += 1
+            else:
+                P -= pts2
+                work_days += 1
 
         if P > 0:
             left_days = n - work_days
