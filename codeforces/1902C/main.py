@@ -75,7 +75,7 @@ for _ in range(t):
                 if ok:
                     x *= p
                     for i in range(bn):
-                        b[i] /= p
+                        b[i] //= p
                 else:
                     break
 
