@@ -57,12 +57,12 @@ for _ in range(t):
                 else:
                     break
 
-            greater = True
+            hasOne = False
             for i in range(bn):
-                if p <= b[i]:
-                    greater = False
+                if b[i] == 1:
+                    hasOne = True
                     break
-            if greater:
+            if hasOne:
                 break
 
     ops = 0
