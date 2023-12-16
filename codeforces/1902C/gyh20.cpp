@@ -36,6 +36,7 @@ int t, n, m, a[1000002], ans, A, B, R[1000002], stk[1000002], tp;
 char s[1000002];
 int main()
 {
+	freopen("in.txt", "r", stdin);
     t = read();
     while (t--) {
         n = read();
