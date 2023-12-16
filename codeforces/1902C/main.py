@@ -23,6 +23,22 @@ for i in range(2, pm):
 
 pmn = len(pms)
 
+
+def factorize(x):
+    fs = set()
+    for i in range(pmn):
+
+        if pms[i] ** 2 > x or x == 1:
+            break
+
+        if x % pms[i] == 0:
+            fs.add(pms[i])
+
+            while x % pms[i] == 0:
+                x /= pms[i]
+    return fs
+
+
 for _ in range(t):
     n = int(input())
     a = list(map(int, input().split()))
@@ -41,8 +57,14 @@ for _ in range(t):
     x = 1
 
     if bn > 0:
-        for j in range(pmn):
-            p = pms[j]
+
+        fss = []
+        for i in range(bn):
+            fss.append(factorize(b[i]))
+
+        ps = set.union(*fss)
+
+        for p in ps:
             while True:
                 ok = True
                 for i in range(bn):
@@ -56,14 +78,6 @@ for _ in range(t):
                         b[i] /= p
                 else:
                     break
-
-            hasOne = False
-            for i in range(bn):
-                if b[i] == 1:
-                    hasOne = True
-                    break
-            if hasOne:
-                break
 
     ops = 0
     for i in range(n):
