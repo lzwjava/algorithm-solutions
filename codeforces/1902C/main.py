@@ -43,6 +43,13 @@ def factorize(x):
     return fs
 
 
+def gcd(a, b):
+    if b == 0:
+        return a
+    else:
+        return gcd(b, a % b)
+
+
 for _ in range(t):
     n = int(input())
     a = list(map(int, input().split()))
@@ -62,32 +69,17 @@ for _ in range(t):
 
     if bn > 0:
 
-        fss = []
-        ps = set()
-
-        for i in range(bn):
-            fs = factorize(b[i])
-            if i == 0:
-                ps = fs
-            else:
-                ps.intersection_update(fs)
-            if len(ps) == 0:
-                break
-
-        for p in ps:
-            while True:
-                ok = True
-                for i in range(bn):
-                    if b[i] % p != 0:
-                        ok = False
-                        break
-
-                if ok:
-                    x *= p
-                    for i in range(bn):
-                        b[i] //= p
-                else:
+        if bn == 1:
+            d = 1
+        else:
+            bi = b[0]
+            for j in range(1, bn):
+                bi = gcd(bi, b[j])
+                if bi == 1:
                     break
+            d = bi
+
+        x *= d
 
     ops = 0
     for i in range(n):
