@@ -3,18 +3,18 @@ import sys
 
 sys.stdout = open('in.txt', 'w')
 
-t = 1
+t = 10
 
 print(t)
 
 for _ in range(t):
 
-    n = random.randint(5, 10)
+    n = random.randint(50, 100)
 
     print(n)
 
-    start_range = -10
-    end_range = 10
+    start_range = -200
+    end_range = 200
     batch_size = n
 
     if batch_size <= end_range - start_range + 1:
