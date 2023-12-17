@@ -9,7 +9,7 @@ print(t)
 
 for _ in range(t):
 
-    n = random.randint(50, 100)
+    n = random.randint(10, 30)
 
     print(n)
 
