@@ -9,39 +9,6 @@ input = sys.stdin.readline
 
 t = int(input())
 
-pm = int(math.sqrt(1e9))
-
-is_primes = [True] * (pm + 1)
-
-pms = []
-
-for i in range(2, pm):
-    if is_primes[i]:
-        pms.append(i)
-        for j in range(i * i, pm + 1, i):
-            is_primes[j] = False
-
-pmn = len(pms)
-
-
-def factorize(x):
-    fs = set()
-    for i in range(pmn):
-
-        if pms[i] ** 2 > x or x == 1:
-            break
-
-        if x % pms[i] == 0:
-            fs.add(pms[i])
-
-            while x % pms[i] == 0:
-                x //= pms[i]
-
-    if x != 1:
-        fs.add(x)
-
-    return fs
-
 
 def gcd(a, b):
     if b == 0:

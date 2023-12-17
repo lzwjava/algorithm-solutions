@@ -9,12 +9,12 @@ print(t)
 
 for _ in range(t):
 
-    n = random.randint(15, 30)
+    n = random.randint(5, 10)
 
     print(n)
 
-    start_range = -1000000000
-    end_range = 1000000000
+    start_range = -10
+    end_range = 10
     batch_size = n
 
     if batch_size <= end_range - start_range + 1:
