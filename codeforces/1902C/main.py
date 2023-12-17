@@ -63,10 +63,16 @@ for _ in range(t):
     if bn > 0:
 
         fss = []
-        for i in range(bn):
-            fss.append(factorize(b[i]))
+        ps = set()
 
-        ps = set.intersection(*fss)
+        for i in range(bn):
+            fs = factorize(b[i])
+            if i == 0:
+                ps = fs
+            else:
+                ps = ps.intersection_update(fs)
+            if len(ps) == 0:
+                break
 
         for p in ps:
             while True:
