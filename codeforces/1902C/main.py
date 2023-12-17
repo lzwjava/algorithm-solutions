@@ -39,7 +39,7 @@ for _ in range(t):
         if bn == 1:
             d = 1
         else:
-            bi = 0
+            bi = 1
             for j in range(1, bn):
                 bj = gcd(b[0], b[j])
                 if j == 1:
@@ -54,9 +54,8 @@ for _ in range(t):
         x *= d
 
     ops = 0
-    for i in range(n):
-        if a[i] != m:
-            ops += (m - a[i]) // x
+    for j in range(0, bn):
+        ops += b[j] // x
 
     an1_1 = m + x
     ops1 = ops + an
