@@ -39,15 +39,18 @@ for _ in range(t):
         if bn == 1:
             d = 1
         else:
-            bi = gcd(b[0], b[1])
+            bi = 0
             for j in range(1, bn):
                 bj = gcd(b[0], b[j])
-                if bj < bi:
+                if j == 1:
                     bi = bj
+                else:
+                    bi = gcd(bi, bj)
+
                 if bi == 1:
                     break
             d = bi
-            
+
         x *= d
 
     ops = 0
