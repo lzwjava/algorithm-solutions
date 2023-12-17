@@ -70,7 +70,7 @@ for _ in range(t):
             if i == 0:
                 ps = fs
             else:
-                ps = ps.intersection_update(fs)
+                ps.intersection_update(fs)
             if len(ps) == 0:
                 break
 
