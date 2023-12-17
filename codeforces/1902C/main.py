@@ -35,7 +35,11 @@ def factorize(x):
             fs.add(pms[i])
 
             while x % pms[i] == 0:
-                x /= pms[i]
+                x //= pms[i]
+
+    if x != 1:
+        fs.add(x)
+
     return fs
 
 
