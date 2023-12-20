@@ -26,7 +26,12 @@ for _ in range(q):
     xi = 0
     yi = 0
     visited = False
-    for i in range(n):
+    for i in range(n + 1):
+        if xi == x and yi == y:
+            visited = True
+            break
+        if i == n:
+            break
         if rs[i] == 'U':
             yi += 1
         elif rs[i] == 'D':
@@ -35,9 +40,7 @@ for _ in range(q):
             xi -= 1
         elif rs[i] == 'R':
             xi += 1
-        if xi == x and yi == y:
-            visited = True
-            break
+
     if visited:
         print('YES')
     else:
