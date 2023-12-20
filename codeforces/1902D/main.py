@@ -39,13 +39,25 @@ def visit(ss):
 
 
 s_pos_list = visit(s)
-rs_pos_list = visit(reversed_str(s))
+# rs_pos_list = visit(reversed_str(s))
+rs_pos_list = list(reversed(s_pos_list))
 
 for _ in range(q):
     x, y, l, r = map(int, input().split())
     l -= 1
     r -= 1
-    ns = s_pos_list[:l] + rs_pos_list[l:r + 1] + s_pos_list[r + 1:]
+    ns = s_pos_list[:l] + s_pos_list[r + 1:]
+    ns_set = set(ns)
+
+    str_xy = f'{x},{y}'
+
+    if str_xy in ns_set:
+        print('YES')
+    else:
+        print('NO')
+
+    rs_pos_list[l:r + 1]
+
     if ns.count(f'{x},{y}') > 0:
         print('YES')
     else:
