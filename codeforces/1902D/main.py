@@ -18,6 +18,29 @@ def reversed_str(ss):
     return rs
 
 
+def visit(ss):
+    xi = 0
+    yi = 0
+    pos_list = []
+    for i in range(n + 1):
+        if i == n:
+            pos_list.append(f'{xi},{yi}')
+            break
+        if ss[i] == 'U':
+            yi += 1
+        elif ss[i] == 'D':
+            yi -= 1
+        elif ss[i] == 'L':
+            xi -= 1
+        elif ss[i] == 'R':
+            xi += 1
+
+    return pos_list
+
+
+s_pos_list = visit(s)
+rs_pos_list = visit(reversed_str(s))
+
 for _ in range(q):
     x, y, l, r = map(int, input().split())
     l -= 1
