@@ -31,6 +31,10 @@ def visit(ss):
     return pos_list
 
 
+def ask():
+    pass
+
+
 def main():
     if path.exists('in.txt'):
         sys.stdin = open('in.txt', 'r')
