@@ -11,6 +11,7 @@ def reversed_str(ss):
 
 
 def visit(ss):
+    n = len(ss)
     xi = 0
     yi = 0
     pos_list = []
