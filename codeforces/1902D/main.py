@@ -1,14 +1,6 @@
 import sys
 from os import path
 
-if path.exists('in.txt'):
-    sys.stdin = open('in.txt', 'r')
-
-input = sys.stdin.readline
-
-n, q = map(int, input().split())
-s = input().strip()
-
 
 def reversed_str(ss):
     sub = list(ss)
@@ -38,25 +30,46 @@ def visit(ss):
     return pos_list
 
 
-s_pos_list = visit(s)
-# rs_pos_list = visit(reversed_str(s))
-rs_pos_list = list(reversed(s_pos_list))
+def main():
+    if path.exists('in.txt'):
+        sys.stdin = open('in.txt', 'r')
 
-for _ in range(q):
-    x, y, l, r = map(int, input().split())
-    l -= 1
-    r -= 1
-    ns = s_pos_list[:l] + s_pos_list[r + 1:]
-    ns_set = set(ns)
+    input = sys.stdin.readline
 
-    str_xy = f'{x},{y}'
+    n, q = map(int, input().split())
+    s = input().strip()
 
-    if str_xy in ns_set:
-        print('YES')
-    else:
-        print('NO')
+    s_pos_list = visit(s)
+    s_map = {}
 
-    if ns.count(f'{x},{y}') > 0:
-        print('YES')
-    else:
-        print('NO')
+    for i in range(len(s_pos_list)):
+        pos = s_pos_list[i]
+        if s_map[pos] is None:
+            s_map[pos] = [i]
+        else:
+            s_map[pos].append(i)
+
+    # rs_pos_list = visit(reversed_str(s))
+    rs_pos_list = list(reversed(s_pos_list))
+
+    for _ in range(q):
+        x, y, l, r = map(int, input().split())
+        l -= 1
+        r -= 1
+        ns = s_pos_list[:l] + s_pos_list[r + 1:]
+        ns_set = set(ns)
+
+        str_xy = f'{x},{y}'
+
+        if str_xy in ns_set:
+            print('YES')
+        else:
+            print('NO')
+
+        if ns.count(f'{x},{y}') > 0:
+            print('YES')
+        else:
+            print('NO')
+
+
+main()
