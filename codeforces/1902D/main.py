@@ -56,8 +56,6 @@ for _ in range(q):
     else:
         print('NO')
 
-    rs_pos_list[l:r + 1]
-
     if ns.count(f'{x},{y}') > 0:
         print('YES')
     else:
