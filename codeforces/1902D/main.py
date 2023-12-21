@@ -1,3 +1,4 @@
+import bisect
 import sys
 from os import path
 
@@ -31,8 +32,19 @@ def visit(ss):
     return pos_list
 
 
-def ask():
-    pass
+s_map = {}
+max_size = 200002
+X = [0] * max_size
+Y = [0] * max_size
+
+
+def ask(x, y, l, r):
+    str_xy = f'{x},{y}'
+    pos = s_map[str_xy]
+    idx = bisect.bisect_left(pos, l)
+    if idx >= len(pos):
+        return False
+    return pos[idx] <= r
 
 
 def main():
@@ -44,8 +56,10 @@ def main():
     n, q = map(int, input().split())
     s = input().strip()
 
+    for i in range(1, n + 1):
+        pass
+    
     s_pos_list = visit(s)
-    s_map = {}
 
     for i in range(len(s_pos_list)):
         pos = s_pos_list[i]
@@ -59,6 +73,12 @@ def main():
 
     for _ in range(q):
         x, y, l, r = map(int, input().split())
+        if ask(x, y, 0, l - 1):
+            print('YES')
+        elif ask(x, y, r, n):
+            print('YES')
+        elif ask()
+
         l -= 1
         r -= 1
         ns = s_pos_list[:l] + s_pos_list[r + 1:]
