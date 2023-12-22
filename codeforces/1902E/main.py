@@ -8,7 +8,12 @@ def main():
 
     input = sys.stdin.readline
 
-    t = int(input())
+    n = int(input())
 
+    strs = []
+    for _ in range(n):
+        str = input()
+        strs.append(str)
 
+    
 main()
