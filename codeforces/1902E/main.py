@@ -23,15 +23,15 @@ def main():
 
     strs = []
     for _ in range(n):
-        str = input()
-        strs.append(str)
+        s = input()
+        strs.append(s)
 
-    sum = 0
+    cs = 0
     for i in range(n):
         for j in range(n):
             res = collapse(strs[i], strs[j])
-            sum += len(res)
-    print(sum)
+            cs += len(res)
+    print(cs)
 
 
 main()
