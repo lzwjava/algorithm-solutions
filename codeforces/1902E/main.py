@@ -3,12 +3,12 @@ from os import path
 
 
 def collapse(a, b):
-    if a == '':
+    if len(a) == 0:
         return b
-    elif b == '':
+    elif len(b) == 0:
         return a
     elif a[-1] == b[0]:
-        return collapse(a[0:], b[1:])
+        return collapse(a[0:-1], b[1:])
     else:
         return a + b
 
