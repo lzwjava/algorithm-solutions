@@ -2,36 +2,6 @@ import bisect
 import sys
 from os import path
 
-
-def reversed_str(ss):
-    sub = list(ss)
-    sub.reverse()
-
-    rs = ''.join(sub)
-    return rs
-
-
-def visit(ss):
-    n = len(ss)
-    xi = 0
-    yi = 0
-    pos_list = []
-    for i in range(n + 1):
-        pos_list.append(f'{xi},{yi}')
-        if i == n:
-            break
-        if ss[i] == 'U':
-            yi += 1
-        elif ss[i] == 'D':
-            yi -= 1
-        elif ss[i] == 'L':
-            xi -= 1
-        elif ss[i] == 'R':
-            xi += 1
-
-    return pos_list
-
-
 s_map = {}
 max_size = 200002
 X = [0] * max_size
@@ -39,8 +9,10 @@ Y = [0] * max_size
 
 
 def ask(x, y, l, r):
-    str_xy = f'{x},{y}'
-    pos = s_map[str_xy]
+    if (x, y) not in s_map:
+        return False
+
+    pos = s_map[(x, y)]
     idx = bisect.bisect_left(pos, l)
     if idx >= len(pos):
         return False
@@ -57,19 +29,24 @@ def main():
     s = input().strip()
 
     for i in range(1, n + 1):
-        pass
-    
-    s_pos_list = visit(s)
-
-    for i in range(len(s_pos_list)):
-        pos = s_pos_list[i]
-        if s_map[pos] is None:
-            s_map[pos] = [i]
+        si = s[i - 1]
+        X[i] = X[i - 1]
+        Y[i] = Y[i - 1]
+        if si == 'U':
+            Y[i] += 1
+        elif si == 'D':
+            Y[i] -= 1
+        elif si == 'L':
+            X[i] -= 1
         else:
-            s_map[pos].append(i)
+            X[i] += 1
 
-    # rs_pos_list = visit(reversed_str(s))
-    rs_pos_list = list(reversed(s_pos_list))
+    for i in range(0, n + 1):
+        pair = (X[i], Y[i])
+        if pair in s_map:
+            s_map[pair].append(i)
+        else:
+            s_map[pair] = [i]
 
     for _ in range(q):
         x, y, l, r = map(int, input().split())
@@ -77,21 +54,7 @@ def main():
             print('YES')
         elif ask(x, y, r, n):
             print('YES')
-        elif ask()
-
-        l -= 1
-        r -= 1
-        ns = s_pos_list[:l] + s_pos_list[r + 1:]
-        ns_set = set(ns)
-
-        str_xy = f'{x},{y}'
-
-        if str_xy in ns_set:
-            print('YES')
-        else:
-            print('NO')
-
-        if ns.count(f'{x},{y}') > 0:
+        elif ask(X[l - 1] + X[r] - x, Y[l - 1] + Y[r] - y, l, r):
             print('YES')
         else:
             print('NO')
