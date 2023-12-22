@@ -23,7 +23,7 @@ def main():
 
     strs = []
     for _ in range(n):
-        s = input()
+        s = input().strip()
         strs.append(s)
 
     cs = 0
