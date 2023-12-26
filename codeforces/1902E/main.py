@@ -30,6 +30,7 @@ def main():
     for i in range(n):
         for j in range(n):
             res = collapse(strs[i], strs[j])
+            print(f'{strs[i]} {strs[j]} = {res}')
             cs += len(res)
     print(cs)
 
