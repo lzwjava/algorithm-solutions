@@ -2,6 +2,9 @@ import sys
 from os import path
 
 
+# from memory_profiler import profile
+
+
 class TrieNode:
     def __init__(self):
         self.children = {}
@@ -12,6 +15,7 @@ def create_node():
     return TrieNode()
 
 
+# @profile
 def main():
     if path.exists('in.txt'):
         sys.stdin = open('in.txt', 'r')

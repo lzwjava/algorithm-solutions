@@ -2,7 +2,7 @@ import random
 import string
 import sys
 
-n = random.randint(1, 106)
+n = 100194
 
 strings = []
 
@@ -14,7 +14,7 @@ def generate_random_string(length):
 
 
 for _ in range(n):
-    max_length = max(1, 106 - sum(len(s) for s in strings))
+    max_length = 100
     length = random.randint(1, max_length)
 
     random_str = generate_random_string(length)
