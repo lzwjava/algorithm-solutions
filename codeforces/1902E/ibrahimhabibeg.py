@@ -27,9 +27,10 @@ def main():
         sm += len(s[i])
         r = root
         for j in range(len(s[i])):
-            if not r.children[ord(s[i][j]) - ord('a')]:
-                r.children[ord(s[i][j]) - ord('a')] = create_node()
-            r = r.children[ord(s[i][j]) - ord('a')]
+            v = ord(s[i][j]) - ord('a')
+            if not r.children[v]:
+                r.children[v] = create_node()
+            r = r.children[v]
             r.cnt += 1
 
     res = 2 * n * sm
@@ -37,9 +38,10 @@ def main():
     for i in range(n):
         r = root
         for j in range(len(s[i]) - 1, -1, -1):
-            if not r.children[ord(s[i][j]) - ord('a')]:
+            ord_a = ord(s[i][j]) - ord('a')
+            if not r.children[ord_a]:
                 break
-            r = r.children[ord(s[i][j]) - ord('a')]
+            r = r.children[ord_a]
             res -= 2 * r.cnt
 
     print(res)
