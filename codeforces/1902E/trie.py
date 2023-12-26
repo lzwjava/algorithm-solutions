@@ -35,7 +35,9 @@ def main():
         for j in range(ls):
             v = ord(strs[i][j]) - ord('a')
             if r.children[v] is None:
-                r.children[v] = create_node()
+                node = create_node()
+                node.cnt = 1
+                r.children[v] = node
 
             r.cnt += 1
             r = r.children[v]
