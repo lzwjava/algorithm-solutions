@@ -23,8 +23,11 @@ def main():
 
     root = create_node()
 
+    strs = []
+
     for _ in range(n):
         s = input().strip()
+        strs.append(s)
         ls = len(s)
         sm += ls
         r = root
@@ -42,10 +45,10 @@ def main():
 
     for i in range(n):
         r = root
-        ls = len(s)
+        ls = len(strs[i])
 
         for j in range(ls - 1, -1, -1):
-            v = ord(s[j]) - ord('a')
+            v = ord(strs[i][j]) - ord('a')
 
             if v not in r.children:
                 break
