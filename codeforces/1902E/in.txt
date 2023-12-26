@@ -1,6 +1,4 @@
-5
-abab
-babx
-xab
-xba
-bab
+3
+aba
+ab
+ba
