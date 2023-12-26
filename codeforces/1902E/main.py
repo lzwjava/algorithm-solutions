@@ -2,15 +2,15 @@ import sys
 from os import path
 
 
-def collapse(a, b):
-    if len(a) == 0:
-        return b
-    elif len(b) == 0:
-        return a
-    elif a[-1] == b[0]:
-        return collapse(a[0:-1], b[1:])
-    else:
-        return a + b
+class TrieNode:
+
+    def __init__(self):
+        self.children = [None] * 26
+        self.cnt = 0
+
+
+def create_node():
+    return TrieNode()
 
 
 def main():
@@ -26,13 +26,33 @@ def main():
         s = input().strip()
         strs.append(s)
 
-    cs = 0
+    root = create_node()
+    sm = 0
     for i in range(n):
-        for j in range(n):
-            res = collapse(strs[i], strs[j])
-            print(f'{strs[i]} {strs[j]} = {res}')
-            cs += len(res)
-    print(cs)
+        r = root
+        ls = len(strs[i])
+        sm += ls
+        for j in range(ls):
+            v = ord(strs[i][j]) - ord('a')
+            if not r.children[v]:
+                r.children[v] = create_node()
+
+            r = r.children[v]
+            r.cnt += 1
+
+    ans = 2 * n * sm
+
+    for i in range(n):
+        r = root
+        ls = len(strs[i])
+        for j in range(ls - 1, -1, -1):
+            v = ord(strs[i][j]) - ord('a')
+            if not r.children[v]:
+                break
+            r = r.children[v]
+            ans -= r.cnt * 2
+
+    print(ans)
 
 
 main()

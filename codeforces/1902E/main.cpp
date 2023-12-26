@@ -56,7 +56,7 @@ int main() {
         }
     }
 
-    int ans = 2 * n * sm;
+    long long ans = (long long)2 * n * sm;
 
     for (int i = 0; i < n; i++) {
         TrieNode* r = root;
