@@ -34,13 +34,11 @@ def main():
         sm += ls
         for j in range(ls):
             v = ord(strs[i][j]) - ord('a')
-            if r.children[v] is None:
-                node = create_node()
-                node.cnt = 1
-                r.children[v] = node
+            if not r.children[v]:
+                r.children[v] = create_node()
 
-            r.cnt += 1
             r = r.children[v]
+            r.cnt += 1
 
     ans = 2 * n * sm
 
