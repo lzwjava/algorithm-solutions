@@ -36,7 +36,8 @@ def main():
             v = ord(strs[i][j]) - ord('a')
             if r.children[v] is None:
                 r.children[v] = create_node()
-                r.cnt += 1
+
+            r.cnt += 1
             r = r.children[v]
 
     ans = 2 * n * sm
@@ -48,6 +49,7 @@ def main():
             v = ord(strs[i][j]) - ord('a')
             if not r.children[v]:
                 break
+            r = r.children[v]
             ans -= r.cnt * 2
 
     print(ans)
