@@ -38,10 +38,10 @@ def main():
     for i in range(n):
         r = root
         for j in range(len(s[i]) - 1, -1, -1):
-            ord_a = ord(s[i][j]) - ord('a')
-            if not r.children[ord_a]:
+            v = ord(s[i][j]) - ord('a')
+            if not r.children[v]:
                 break
-            r = r.children[ord_a]
+            r = r.children[v]
             res -= 2 * r.cnt
 
     print(res)
