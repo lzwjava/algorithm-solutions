@@ -10,17 +10,13 @@ def main():
 
     n = int(input())
     a = list(map(int, input().split()))
+    print(a)
     for i in range(n - 1):
-        b = list(map(int, input().split()))
-        u = b[0]
-        v = b[1]
+        u, v = map(int, input().split())
         print(u, v)
     q = int(input())
     for i in range(q):
-        c = list(map(int, input().split()))
-        x = c[0]
-        y = c[1]
-        k = c[2]
+        x, y, k = map(int, input().split())
         print(x, y, k)
 
 
