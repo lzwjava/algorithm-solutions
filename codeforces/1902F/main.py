@@ -1,22 +1,48 @@
 import sys
 from os import path
 
+g = None
+x, y, k = None, None, None
+n = None
 
-def permutation(selected, i, n, func):
+
+def permutation(selected, i, func):
     if i == n:
         ok = func(selected)
         return ok
     selected[i] = False
-    if permutation(selected, i + 1, n, func):
+    if permutation(selected, i + 1, func):
         return True
     selected[i] = True
-    if permutation(selected, i + 1, n, func):
+    if permutation(selected, i + 1, func):
         return True
     return False
 
 
+def dfs(cur, vj, visited):
+    if cur == vj:
+        return True
+    if cur == y:
+        return False
+
+    for v in g[cur]:
+        if not visited[v]:
+            visited[v] = True
+            if dfs(v, vj, visited):
+                return True
+            visited[v] = False
+    return False
+
+
+def in_simple_path(vj):
+    visited = [False] * n
+    return dfs(x, vj, visited)
+
+
 def meet_constraint(selected):
-    pass
+    for i in range(n):
+        if selected[i]:
+            in_simple_path(selected[i])
 
 
 def main():
@@ -41,7 +67,7 @@ def main():
     for i in range(q):
         x, y, k = map(int, input().split())
         selected = [False] * n
-        permutation(selected, 0, n, )
+        permutation(selected, 0, meet_constraint)
         print(x, y, k)
 
 
