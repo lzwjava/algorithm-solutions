@@ -20,35 +20,45 @@ def permutation(selected, i, func):
     return False
 
 
-def dfs(cur, vj, visited):
-    if cur == vj:
-        return True
+def dfs(cur, vj, visited, routes):
     if cur == y:
-        return False
+        on_path = False
+        for rv in routes:
+            if rv == vj:
+                on_path = True
+                print(routes)
+                break
+
+        return on_path
 
     for v in g[cur]:
         if not visited[v]:
             visited[v] = True
-            if dfs(v, vj, visited):
+            routes.append(v)
+            if dfs(v, vj, visited, routes):
                 return True
+            routes.pop()
             visited[v] = False
     return False
 
 
 def in_simple_path(vj):
     visited = [False] * n
-    return dfs(x, vj, visited)
+    routes = list()
+    visited[x] = True
+    routes.append(x)
+    return dfs(x, vj, visited, routes)
 
 
 def meet_constraint(selected):
     ok = True
     for i in range(n):
-        if selected[i] and not in_simple_path(selected[i]):
+        if selected[i] and not in_simple_path(i):
             ok = False
             break
 
     if ok:
-        av = None
+        av = 0
 
         for i in range(n):
             if selected[i]:
@@ -57,6 +67,11 @@ def meet_constraint(selected):
                 else:
                     av = av ^ a[i]
         if av == k:
+            ans = list()
+            for i in range(n):
+                if selected[i]:
+                    ans.append(i)
+            print(ans)
             return True
 
     return False
@@ -73,17 +88,19 @@ def main():
     n = int(input())
     a = list(map(int, input().split()))
 
-    g = [list()] * n
+    g = [set() for _ in range(n)]
     for i in range(n - 1):
         u, v = map(int, input().split())
         u -= 1
         v -= 1
-        g[u].append(v)
-        g[v].append(u)
+        g[u].add(v)
+        g[v].add(u)
 
     q = int(input())
     for i in range(q):
         x, y, k = map(int, input().split())
+        x -= 1
+        y -= 1
         selected = [False] * n
         res = permutation(selected, 0, meet_constraint)
         if res:
