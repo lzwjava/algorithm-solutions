@@ -80,8 +80,8 @@ def meet_constraint(selected):
 
 
 def main():
-    if path.exists('in.txt'):
-        sys.stdin = open('in.txt', 'r')
+    if path.exists('in1.txt'):
+        sys.stdin = open('in1.txt', 'r')
 
     input = sys.stdin.readline
 
