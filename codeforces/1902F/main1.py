@@ -15,9 +15,10 @@ def permutation(selected, i, func):
     selected[i] = False
     if permutation(selected, i + 1, func):
         return True
-    selected[i] = True
-    if permutation(selected, i + 1, func):
-        return True
+    if in_simple_path(i):
+        selected[i] = True
+        if permutation(selected, i + 1, func):
+            return True
     return False
 
 
@@ -52,31 +53,26 @@ def get_all_routes():
     dfs(x, visited, routes)
 
 
+def bitwise(selected):
+    av = 0
+    for i in range(n):
+        if selected[i]:
+            if not av:
+                av = a[i]
+            else:
+                av = av ^ a[i]
+    return av
+
+
 def meet_constraint(selected):
-    ok = True
     for i in range(n):
         if selected[i] and not in_simple_path(i):
-            ok = False
-            break
+            return False
 
-    if ok:
-        av = 0
+    if bitwise(selected) != k:
+        return False
 
-        for i in range(n):
-            if selected[i]:
-                if not av:
-                    av = a[i]
-                else:
-                    av = av ^ a[i]
-        if av == k:
-            ans = list()
-            for i in range(n):
-                if selected[i]:
-                    ans.append(i)
-            # print(ans)
-            return True
-
-    return False
+    return True
 
 
 def main():
