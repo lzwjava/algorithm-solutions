@@ -56,6 +56,10 @@ def meet_constraint(selected):
                     av = a[i]
                 else:
                     av = av ^ a[i]
+        if av == k:
+            return True
+
+    return False
 
 
 def main():
@@ -81,8 +85,11 @@ def main():
     for i in range(q):
         x, y, k = map(int, input().split())
         selected = [False] * n
-        permutation(selected, 0, meet_constraint)
-        print(x, y, k)
+        res = permutation(selected, 0, meet_constraint)
+        if res:
+            print('YES')
+        else:
+            print('NO')
 
 
 main()
