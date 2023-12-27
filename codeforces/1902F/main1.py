@@ -23,32 +23,32 @@ def permutation(selected, i, func):
 
 def dfs(cur, visited, routes):
     if cur == y:
+        # print(routes)
         all_routes.append(routes.copy())
         return
 
     for v in g[cur]:
         if not visited[v]:
             visited[v] = True
-            routes.append(v)
+            routes.add(v)
             dfs(v, visited, routes)
-            routes.pop()
+            routes.remove(v)
             visited[v] = False
 
 
 def in_simple_path(vj):
-    for i in range(len(all_routes)):
-        route = all_routes[i]
-        for j in range(len(route)):
-            if route[j] == vj:
-                return True
+    for route in all_routes:
+        if vj in route:
+            return True
+
     return False
 
 
 def get_all_routes():
     visited = [False] * n
-    routes = list()
+    routes = set()
     visited[x] = True
-    routes.append(x)
+    routes.add(x)
     dfs(x, visited, routes)
 
 
