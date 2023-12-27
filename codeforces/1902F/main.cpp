@@ -6,23 +6,20 @@
 #include <cstring>
 #include <fstream>
 
-
 using namespace std;
+
 typedef long long ll;
 typedef long double ld;
-#define rep(a, b) for (int a = 0; a < (b); ++a)
-#define st first
-#define nd second
-#define pb push_back
-#define all(a) a.begin(), a.end()
+
 const int LIM = 2e5 + 7, LG = 20;
+
 vector<int> V[LIM];
 pair<int, int> baza[LIM][LG];
 int nxt[LIM][LG], pre[LIM], post[LIM], lpre, lpost;
 int odl[LIM], T[LIM], pyt[LG];
-void dodaj(int x)
-{
-    for (int i = LG - 1; i >= 0; --i)
+
+void dodaj(int x) {
+    for (int i = LG - 1; i >= 0; --i) {
         if (x & (1 << i)) {
             if (!pyt[i]) {
                 pyt[i] = x;
@@ -30,17 +27,18 @@ void dodaj(int x)
             } else
                 x ^= pyt[i];
         }
+    }
 }
-void DFS(int x, int o)
-{
-    pair<int, int> akt = { T[x], odl[x] };
+
+void DFS(int x, int o) {
+    pair<int, int> akt = {T[x], odl[x]};
     for (int i = LG - 1; i >= 0; --i) {
-        if (akt.st & (1 << i)) {
-            if (akt.nd > baza[x][i].nd)
+        if (akt.first & (1 << i)) {
+            if (akt.second > baza[x][i].second)
                 swap(akt, baza[x][i]);
-            if (akt.nd == -1)
+            if (akt.second == -1)
                 break;
-            akt.st ^= baza[x][i].st;
+            akt.first ^= baza[x][i].first;
         }
     }
     pre[x] = ++lpre;
@@ -50,17 +48,18 @@ void DFS(int x, int o)
             nxt[i][0] = x;
             for (int j = 1; j < LG; ++j)
                 nxt[i][j] = nxt[nxt[i][j - 1]][j - 1];
-            rep(j, LG) baza[i][j] = baza[x][j];
+            for (int j = 0; j < LG; ++j)
+                baza[i][j] = baza[x][j];
             DFS(i, x);
         }
     post[x] = ++lpost;
 }
-bool oc(int a, int b)
-{
+
+bool oc(int a, int b) {
     return pre[a] <= pre[b] && post[a] >= post[b];
 }
-int lca(int a, int b)
-{
+
+int lca(int a, int b) {
     if (oc(a, b))
         return a;
     for (int i = LG - 1; i >= 0; --i)
@@ -68,31 +67,29 @@ int lca(int a, int b)
             a = nxt[a][i];
     return nxt[a][0];
 }
-int main()
-{
-     // Redirecting stdin to read from a file if 'in.txt' exists
+
+int main() {
+    // Redirecting stdin to read from a file if 'in.txt' exists
     if (ifstream("in.txt")) {
         freopen("in.txt", "r", stdin);
     }
-
 
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     int n;
     cin >> n;
-    rep(i, n)
-    {
+    for (int i = 0; i < n; ++i) {
         cin >> T[i];
-        rep(j, LG) baza[i][j].nd = -1;
+        for (int j = 0; j < LG; ++j)
+            baza[i][j].second = -1;
     }
-    rep(i, n - 1)
-    {
+    for (int i = 0; i < n - 1; ++i) {
         int a, b;
         cin >> a >> b;
         --a;
         --b;
-        V[a].pb(b);
-        V[b].pb(a);
+        V[a].push_back(b);
+        V[b].push_back(a);
     }
     DFS(0, 0);
     int q;
@@ -103,9 +100,12 @@ int main()
         --a;
         --b;
         int c = lca(a, b);
-        rep(i, LG) pyt[i] = 0;
-        rep(i, LG) if (baza[a][i].nd >= odl[c]) dodaj(baza[a][i].st);
-        rep(i, LG) if (baza[b][i].nd >= odl[c]) dodaj(baza[b][i].st);
+        for (int i = 0; i < LG; ++i)
+            pyt[i] = 0;
+        for (int i = 0; i < LG; ++i)
+            if (baza[a][i].second >= odl[c]) dodaj(baza[a][i].first);
+        for (int i = 0; i < LG; ++i)
+            if (baza[b][i].second >= odl[c]) dodaj(baza[b][i].first);
         for (int i = LG - 1; i >= 0; --i)
             if (x & (1 << i))
                 x ^= pyt[i];
