@@ -23,7 +23,7 @@ def permutation(selected, i, func):
 
 def dfs(cur, visited, routes):
     if cur == y:
-        all_routes.append(routes)
+        all_routes.append(routes.copy())
         return
 
     for v in g[cur]:
@@ -105,6 +105,9 @@ def main():
         y -= 1
 
         all_routes = []
+
+        get_all_routes()
+        # print(all_routes)
 
         selected = [False] * n
         res = permutation(selected, 0, meet_constraint)
