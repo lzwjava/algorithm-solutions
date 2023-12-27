@@ -26,7 +26,7 @@ def dfs(cur, vj, visited, routes):
         for rv in routes:
             if rv == vj:
                 on_path = True
-                print(routes)
+                # print(routes)
                 break
 
         return on_path
@@ -71,7 +71,7 @@ def meet_constraint(selected):
             for i in range(n):
                 if selected[i]:
                     ans.append(i)
-            print(ans)
+            # print(ans)
             return True
 
     return False
