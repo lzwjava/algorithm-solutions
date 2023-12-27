@@ -1,9 +1,10 @@
 import sys
 from os import path
 
-g = None
-x, y, k = None, None, None
-n = None
+g = []
+x, y, k = 0, 0, 0
+n = 0
+a = list()
 
 
 def permutation(selected, i, func):
@@ -40,9 +41,21 @@ def in_simple_path(vj):
 
 
 def meet_constraint(selected):
+    ok = True
     for i in range(n):
-        if selected[i]:
-            in_simple_path(selected[i])
+        if selected[i] and not in_simple_path(selected[i]):
+            ok = False
+            break
+
+    if ok:
+        av = None
+
+        for i in range(n):
+            if selected[i]:
+                if not av:
+                    av = a[i]
+                else:
+                    av = av ^ a[i]
 
 
 def main():
@@ -51,9 +64,10 @@ def main():
 
     input = sys.stdin.readline
 
+    global n, a, g, x, y, k
+
     n = int(input())
     a = list(map(int, input().split()))
-    print(a)
 
     g = [list()] * n
     for i in range(n - 1):
