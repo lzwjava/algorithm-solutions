@@ -11,61 +11,61 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 
-const int LIM = 2e5 + 7, LG = 20;
+const int LIMIT = 2e5 + 7, LOG_SIZE = 20;
 
-vector<int> V[LIM];
-pair<int, int> baza[LIM][LG];
-int nxt[LIM][LG], pre[LIM], post[LIM], lpre, lpost;
-int odl[LIM], T[LIM], pyt[LG];
+vector<int> graph[LIMIT];
+pair<int, int> base[LIMIT][LOG_SIZE];
+int nextNode[LIMIT][LOG_SIZE], preOrder[LIMIT], postOrder[LIMIT], preOrderCount, postOrderCount;
+int distanceFromRoot[LIMIT], nodeValue[LIMIT], linearBasis[LOG_SIZE];
 
-void dodaj(int x) {
-    for (int i = LG - 1; i >= 0; --i) {
+void addLinearBasis(int x) {
+    for (int i = LOG_SIZE - 1; i >= 0; --i) {
         if (x & (1 << i)) {
-            if (!pyt[i]) {
-                pyt[i] = x;
+            if (!linearBasis[i]) {
+                linearBasis[i] = x;
                 break;
             } else
-                x ^= pyt[i];
+                x ^= linearBasis[i];
         }
     }
 }
 
-void DFS(int x, int o) {
-    pair<int, int> akt = {T[x], odl[x]};
-    for (int i = LG - 1; i >= 0; --i) {
-        if (akt.first & (1 << i)) {
-            if (akt.second > baza[x][i].second)
-                swap(akt, baza[x][i]);
-            if (akt.second == -1)
+void depthFirstSearch(int currentNode, int parent) {
+    pair<int, int> currentBase = {nodeValue[currentNode], distanceFromRoot[currentNode]};
+    for (int i = LOG_SIZE - 1; i >= 0; --i) {
+        if (currentBase.first & (1 << i)) {
+            if (currentBase.second > base[currentNode][i].second)
+                swap(currentBase, base[currentNode][i]);
+            if (currentBase.second == -1)
                 break;
-            akt.first ^= baza[x][i].first;
+            currentBase.first ^= base[currentNode][i].first;
         }
     }
-    pre[x] = ++lpre;
-    for (auto i : V[x])
-        if (i != o) {
-            odl[i] = odl[x] + 1;
-            nxt[i][0] = x;
-            for (int j = 1; j < LG; ++j)
-                nxt[i][j] = nxt[nxt[i][j - 1]][j - 1];
-            for (int j = 0; j < LG; ++j)
-                baza[i][j] = baza[x][j];
-            DFS(i, x);
+    preOrder[currentNode] = ++preOrderCount;
+    for (auto neighbor : graph[currentNode])
+        if (neighbor != parent) {
+            distanceFromRoot[neighbor] = distanceFromRoot[currentNode] + 1;
+            nextNode[neighbor][0] = currentNode;
+            for (int j = 1; j < LOG_SIZE; ++j)
+                nextNode[neighbor][j] = nextNode[nextNode[neighbor][j - 1]][j - 1];
+            for (int j = 0; j < LOG_SIZE; ++j)
+                base[neighbor][j] = base[currentNode][j];
+            depthFirstSearch(neighbor, currentNode);
         }
-    post[x] = ++lpost;
+    postOrder[currentNode] = ++postOrderCount;
 }
 
-bool oc(int a, int b) {
-    return pre[a] <= pre[b] && post[a] >= post[b];
+bool isAncestor(int a, int b) {
+    return preOrder[a] <= preOrder[b] && postOrder[a] >= postOrder[b];
 }
 
-int lca(int a, int b) {
-    if (oc(a, b))
+int lowestCommonAncestor(int a, int b) {
+    if (isAncestor(a, b))
         return a;
-    for (int i = LG - 1; i >= 0; --i)
-        if (!oc(nxt[a][i], b))
-            a = nxt[a][i];
-    return nxt[a][0];
+    for (int i = LOG_SIZE - 1; i >= 0; --i)
+        if (!isAncestor(nextNode[a][i], b))
+            a = nextNode[a][i];
+    return nextNode[a][0];
 }
 
 int main() {
@@ -76,39 +76,39 @@ int main() {
 
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; ++i) {
-        cin >> T[i];
-        for (int j = 0; j < LG; ++j)
-            baza[i][j].second = -1;
+    int numNodes;
+    cin >> numNodes;
+    for (int i = 0; i < numNodes; ++i) {
+        cin >> nodeValue[i];
+        for (int j = 0; j < LOG_SIZE; ++j)
+            base[i][j].second = -1;
     }
-    for (int i = 0; i < n - 1; ++i) {
-        int a, b;
-        cin >> a >> b;
-        --a;
-        --b;
-        V[a].push_back(b);
-        V[b].push_back(a);
+    for (int i = 0; i < numNodes - 1; ++i) {
+        int nodeA, nodeB;
+        cin >> nodeA >> nodeB;
+        --nodeA;
+        --nodeB;
+        graph[nodeA].push_back(nodeB);
+        graph[nodeB].push_back(nodeA);
     }
-    DFS(0, 0);
-    int q;
-    cin >> q;
-    while (q--) {
-        int a, b, x;
-        cin >> a >> b >> x;
-        --a;
-        --b;
-        int c = lca(a, b);
-        for (int i = 0; i < LG; ++i)
-            pyt[i] = 0;
-        for (int i = 0; i < LG; ++i)
-            if (baza[a][i].second >= odl[c]) dodaj(baza[a][i].first);
-        for (int i = 0; i < LG; ++i)
-            if (baza[b][i].second >= odl[c]) dodaj(baza[b][i].first);
-        for (int i = LG - 1; i >= 0; --i)
-            if (x & (1 << i))
-                x ^= pyt[i];
-        cout << (x ? "NO" : "YES") << '\n';
+    depthFirstSearch(0, 0);
+    int numQueries;
+    cin >> numQueries;
+    while (numQueries--) {
+        int nodeA, nodeB, xorValue;
+        cin >> nodeA >> nodeB >> xorValue;
+        --nodeA;
+        --nodeB;
+        int commonAncestor = lowestCommonAncestor(nodeA, nodeB);
+        for (int i = 0; i < LOG_SIZE; ++i)
+            linearBasis[i] = 0;
+        for (int i = 0; i < LOG_SIZE; ++i)
+            if (base[nodeA][i].second >= distanceFromRoot[commonAncestor]) addLinearBasis(base[nodeA][i].first);
+        for (int i = 0; i < LOG_SIZE; ++i)
+            if (base[nodeB][i].second >= distanceFromRoot[commonAncestor]) addLinearBasis(base[nodeB][i].first);
+        for (int i = LOG_SIZE - 1; i >= 0; --i)
+            if (xorValue & (1 << i))
+                xorValue ^= linearBasis[i];
+        cout << (xorValue ? "NO" : "YES") << '\n';
     }
 }
