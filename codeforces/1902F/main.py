@@ -2,13 +2,21 @@ import sys
 from os import path
 
 
-def permutation(selected, i, n):
+def permutation(selected, i, n, func):
     if i == n:
-        pass
-    selected[i] = 0
-    permutation(selected, i + 1, n)
-    selected[i] = 1
-    permutation(selected, i + 1, n)
+        ok = func(selected)
+        return ok
+    selected[i] = False
+    if permutation(selected, i + 1, n, func):
+        return True
+    selected[i] = True
+    if permutation(selected, i + 1, n, func):
+        return True
+    return False
+
+
+def meet_constraint(selected):
+    pass
 
 
 def main():
@@ -32,7 +40,8 @@ def main():
     q = int(input())
     for i in range(q):
         x, y, k = map(int, input().split())
-
+        selected = [False] * n
+        permutation(selected, 0, n, )
         print(x, y, k)
 
 
