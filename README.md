@@ -1,6 +1,6 @@
-# UVa
+# Algorithm Solutions
 
-Some Online Judge Solutions, mainly UVa and Codeforces.
+Problem solutions of some algorithm problems from online judge platforms.
 
 | platform | problems solved | 
 | ------------- | ------------- |
