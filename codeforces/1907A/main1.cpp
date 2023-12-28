@@ -19,28 +19,22 @@ int main()
         string s;
         cin >> s;
 
-        char c1 = s[0];
-        char c2 = s[1];
+        string ch = "abcdefgh";
 
-        string sa = "abcdefgh";
-        string sb = "12345678";
+        int it = ch.find(s[0]);
 
-        set<string> ans;
+        for (int i = 0; i < (int)ch.size(); i++) {
 
-        for (char c : sa) {
-            string cs = string(1, c) + string(1, c2);
-            ans.insert(cs);
+            if (i != it) {
+                cout << ch[i] << s[1] << endl;
+            }
         }
 
-        for (char c : sb) {
-            string cs = string(1, c1) + string(1, c);
-            ans.insert(cs);
-        }
+        for (int i = 1; i <= 8; i++) {
 
-        ans.erase(s);
-
-        for (string as : ans) {
-            cout << as << endl;
+            if (i != s[1] - '0') {
+                cout << s[0] << i << endl;
+            }
         }
 
         return 0;
