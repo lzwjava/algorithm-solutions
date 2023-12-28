@@ -21,28 +21,50 @@ int main()
 
         cin >> s;
 
-        string ans;
-
-        list<char> chs;
+        list<pair<char, int>> ls;
+        list<pair<char, int>> us;
 
         for (int i = 0; i < s.size(); i++) {
             char ch = s[i];
             if (ch == 'b') {
-                auto rit = find_if(chs.rbegin(), chs.rend(), ::islower);
-                if (rit != chs.rend()) {
-                    chs.erase(next(rit).base());
+                if (!ls.empty()) {
+                    ls.pop_back();
                 }
             } else if (ch == 'B') {
-                auto rit = find_if(chs.rbegin(), chs.rend(), ::isupper);
-                if (rit != chs.rend()) {
-                    chs.erase(next(rit).base());
+                if (!us.empty()) {
+                    us.pop_back();
                 }
             } else {
-                chs.push_back(ch);
+                if (islower(ch)) {
+                    ls.push_back({ ch, i });
+                } else {
+                    us.push_back({ ch, i });
+                }
             }
         }
 
-        ans = string(chs.begin(), chs.end());
+        string ans;
+
+        list<pair<char, int>>::iterator ils = ls.begin();
+        list<pair<char, int>>::iterator ius = us.begin();
+
+        while (ils != ls.end() || ius != us.end()) {
+            if (ils != ls.end() && ius != us.end()) {
+                if ((*ils).second < (*ius).second) {
+                    ans += (*ils).first;
+                    ++ils;
+                } else {
+                    ans += (*ius).first;
+                    ++ius;
+                }
+            } else if (ils != ls.end()) {
+                ans += (*ils).first;
+                ++ils;
+            } else {
+                ans += (*ius).first;
+                ++ius;
+            }
+        }
 
         cout << ans << endl;
     }
