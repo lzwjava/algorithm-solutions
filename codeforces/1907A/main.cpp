@@ -29,9 +29,20 @@ int main()
 
         for (char c : sa) {
             string cs = string(1, c) + string(1, c2);
-            ans.insert(cs)
+            ans.insert(cs);
         }
-    }
 
-    return 0;
+        for (char c : sb) {
+            string cs = string(1, c1) + string(1, c);
+            ans.insert(cs);
+        }
+
+        ans.erase(s);
+
+        for (string as : ans) {
+            cout << as << endl;
+        }
+
+        return 0;
+    }
 }
