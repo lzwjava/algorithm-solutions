@@ -42,7 +42,7 @@ int main()
         for (string as : ans) {
             cout << as << endl;
         }
-
-        return 0;
     }
+
+    return 0;
 }
