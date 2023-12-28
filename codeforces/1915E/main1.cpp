@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <list>
-#include <map>
+#include <set>
 #include <string>
 
 using namespace std;
@@ -28,18 +28,19 @@ int main()
             }
         }
 
-        map<long long, int> pos;
-        pos[0] = 0;
+        set<long long> pos;
+
+        pos.insert(0);
 
         long long s = 0;
         bool found = false;
         for (int i = 0; i < n; i++) {
             s += a[i];
-            if (pos.count(s)) {
+            if (pos.find(s) != pos.end()) {
                 found = true;
                 break;
             }
-            pos.insert(make_pair(s, i));
+            pos.insert(s);
         }
         if (found) {
             cout << "YES" << endl;
