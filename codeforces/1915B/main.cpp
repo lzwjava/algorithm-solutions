@@ -4,8 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <list>
-#include <string>
 #include <set>
+#include <string>
 
 using namespace std;
 
@@ -35,11 +35,11 @@ int main()
                 set<char> all = { 'A',
                     'B',
                     'C' };
-                for (const char& ch : sc) {
-                    all.erase(sc)
+                for (char ch : sc) {
+                    all.erase(ch);
                 }
                 if (!all.empty()) {
-                    ans = *all.begin()
+                    ans = *all.begin();
                 }
             }
         }
