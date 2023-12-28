@@ -24,11 +24,20 @@ int main()
             cin >> a[i];
         }
         long long s[n];
-        s[0] = a[i];
+        s[0] = a[0];
         for (int i = 1; i < n; i++) {
             s[i] = s[i - 1] + a[i];
         }
-        
+        for (int l = 0; l < n; l++) {
+            for (int r = l + 1; r < n; r++) {
+                long long sl = l == 0 ? 0 : s[l - 1];
+                long long slr = s[r] - sl;
+
+                if (slr % 2 == 0) {
+                    cout << l << " " << r << endl;
+                }
+            }
+        }
     }
 
     return 0;
