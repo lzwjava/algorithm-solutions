@@ -21,13 +21,13 @@ int main()
     while (t--) {
         int n;
         cin >> n;
-        int as[n];
-        int s = 0;
+        long long s = 0;
         for (int i = 0; i < n; i++) {
-            cin >> as[i];
-            s += as[i];
+            long long ai;
+            cin >> ai;
+            s += ai;
         }
-        int sn = sqrt(s);
+        long long sn = sqrt(s);
         if (sn * sn == s) {
             cout << "YES" << endl;
         } else {
