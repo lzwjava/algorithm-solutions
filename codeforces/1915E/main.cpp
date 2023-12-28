@@ -44,7 +44,7 @@ int main()
         for (int l = 0; l < n; l++) {
             for (int r = l + 1; r < n; r++) {
                 long sl = l == 0 ? 0 : s[l - 1];
-                long slr = s[r] - sl;
+                long slr = s[r] - sl;            
 
                 if (slr % 2 == 0) {
                     long left, right;
