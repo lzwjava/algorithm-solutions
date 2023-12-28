@@ -28,10 +28,10 @@ int main()
             }
         }
 
-        map<int, int> pos;
+        map<long, int> pos;
         pos[0] = 0;
 
-        long long s = 0;
+        long s = 0;
         bool found = false;
         for (int i = 0; i < n; i++) {
             s += a[i];
