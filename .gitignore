@@ -14,3 +14,4 @@ out
 main
 target
 Cargo.lock
+*.dat

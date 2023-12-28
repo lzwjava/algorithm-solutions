@@ -48,7 +48,7 @@ def diff() -> bool:
 while True:
     gen()
 
-    run(["python", "main.py"], "out/1.txt")
+    run(["python", "simple.py"], "out/1.txt")
     run(["./a.out"], "out/2.txt")
 
     has_diff = diff()
