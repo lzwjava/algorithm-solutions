@@ -46,10 +46,6 @@ int main()
                 long sl = l == 0 ? 0 : s[l - 1];
                 long slr = s[r] - sl;
 
-                if (l == 0 && r == n - 1) {
-                    cout << endl;
-                }
-
                 if (slr % 2 == 0) {
                     long left, right;
                     if (l % 2 == 0 && r % 2 == 0) {
