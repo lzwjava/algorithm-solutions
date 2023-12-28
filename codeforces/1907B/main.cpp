@@ -27,9 +27,7 @@ int main()
 
         for (int i = 0; i < s.size(); i++) {
             char ch = s[i];
-
             if (ch == 'b') {
-
                 auto rit = find_if(chs.rbegin(), chs.rend(), ::islower);
                 if (rit != chs.rend()) {
                     chs.erase(next(rit).base());
