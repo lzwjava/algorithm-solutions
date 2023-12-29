@@ -19,9 +19,13 @@ void dfs(string s)
     }
 
     string s1 = s.substr(1);
-    dfs(s1);
+    if (all.find(s1) == all.end()) {
+        dfs(s1);
+    }
     string s2 = s[0] + s.substr(2);
-    dfs(s2);
+    if (all.find(s2) == all.end()) {
+        dfs(s2);
+    }
 }
 
 void solve()
