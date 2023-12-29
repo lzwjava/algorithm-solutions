@@ -6,6 +6,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -20,8 +21,8 @@ istream& operator>>(istream& input, pair<T, U>& v)
 template <typename T>
 istream& operator>>(istream& input, vector<T>& v)
 {
-    for (T& a : v)
-        input >> a;
+    for (T& item : v)
+        input >> item;
 
     return input;
 }
@@ -47,68 +48,65 @@ public:
 
     unsigned prefix_sum(size_t index) const
     {
-        unsigned s = 0;
+        unsigned sum = 0;
         for (size_t i = 1 + index; i > 0; i &= i - 1)
-            s += data_[i];
+            sum += data_[i];
 
-        return s;
+        return sum;
     }
 
 private:
     vector<unsigned> data_;
-
-}; // class BinaryIndexedTree
+};
 
 struct Event {
-    size_t who;
-    int when;
-    int what;
+    size_t id;
+    int time;
+    int type;
 };
 
 bool operator<(const Event& lhs, const Event& rhs)
 {
-    return lhs.when < rhs.when;
+    return lhs.time < rhs.time;
 }
 
-void solve(const vector<pair<int, int>>& s)
+void solve(const vector<pair<int, int>>& segments)
 {
-    const size_t n = s.size();
+    const size_t n = segments.size();
 
-    vector<int> x(2 * n);
+    vector<int> endpoints(2 * n);
     for (size_t i = 0; i < n; ++i) {
-        x[i * 2 + 0] = s[i].first;
-        x[i * 2 + 1] = s[i].second;
+        endpoints[i * 2 + 0] = segments[i].first;
+        endpoints[i * 2 + 1] = segments[i].second;
     }
 
-    sort(x.begin(), x.end());
+    sort(endpoints.begin(), endpoints.end());
 
-    const auto index = [&](int p) {
-        const auto it = lower_bound(x.begin(), x.end(), p);
-        return it - x.begin();
+    const auto index = [&](int point) {
+        return lower_bound(endpoints.begin(), endpoints.end(), point) - endpoints.begin();
     };
 
-    vector<Event> es(2 * n);
+    vector<Event> events(2 * n);
     for (size_t i = 0; i < n; ++i) {
-        es[2 * i + 0] = { i, s[i].first, 1 };
-        es[2 * i + 1] = { i, s[i].second, -1 };
+        events[2 * i + 0] = { i, segments[i].first, 1 };
+        events[2 * i + 1] = { i, segments[i].second, -1 };
     }
 
-    sort(es.begin(), es.end());
+    sort(events.begin(), events.end());
 
-    integer k = 0;
-
+    integer count = 0;
     BinaryIndexedTree bit(2 * n);
-    for (const Event& e : es) {
-        if (e.what == 1) {
-            bit.update(index(e.when), 1);
+    for (const Event& e : events) {
+        if (e.type == 1) {
+            bit.update(index(e.time), 1);
         } else {
-            const size_t p = index(s[e.who].first);
+            const size_t p = index(segments[e.id].first);
             bit.update(p, -1);
-            k += bit.prefix_sum(p);
+            count += bit.prefix_sum(p);
         }
     }
 
-    answer(k);
+    answer(count);
 }
 
 void test_case()
@@ -116,10 +114,10 @@ void test_case()
     size_t n;
     cin >> n;
 
-    vector<pair<int, int>> s(n);
-    cin >> s;
+    vector<pair<int, int>> segments(n);
+    cin >> segments;
 
-    solve(s);
+    solve(segments);
 }
 
 int main()
