@@ -5,7 +5,7 @@ Problem solutions of some algorithm problems from online judge platforms.
 | platform | problems solved | 
 | ------------- | ------------- |
 |[UVa](https://uhunt.onlinejudge.org/id/113519)|568 |
-|[Codeforces](https://codeforces.com/profile/lzwjava)|408|
+|[Codeforces](https://codeforces.com/profile/lzwjava)|414|
 |[LeetCode](https://leetcode.com/lzwjava/)|20|
 |[Hacker Rank](https://www.hackerrank.com/profile/lzwjava)|20(SQL)|
 
