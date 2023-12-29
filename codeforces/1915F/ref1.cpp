@@ -8,22 +8,22 @@ public:
     {
     }
 
-    void update(int index, int delta)
+    void update(int idx, int delta)
     {
-        index++;
-        while (index < data_.size()) {
-            data_[index] += delta;
-            index += index & -index;
+        idx++;
+        while (idx < data_.size()) {
+            data_[idx] += delta;
+            idx += idx & -idx;
         }
     }
 
-    int prefixSum(int index)
+    int prefixSum(int idx)
     {
-        index++;
+        idx++;
         int sum = 0;
-        while (index > 0) {
-            sum += data_[index];
-            index -= index & -index;
+        while (idx > 0) {
+            sum += data_[idx];
+            idx -= idx & -idx;
         }
         return sum;
     }
@@ -44,8 +44,8 @@ int main()
     }
 
     for (int i = 0; i < n; i++) {
-        int prefix_sum = bit.prefixSum(i);
-        std::cout << prefix_sum << std::endl;
+        int ps = bit.prefixSum(i);
+        std::cout << ps << std::endl;
     }
 
     return 0;
