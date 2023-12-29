@@ -8,27 +8,37 @@
 
 using namespace std;
 
-bool greet(int a1, int b1, int a2, int b2)
-{
-    if (a1 > a2) {
-        return greet(a2, b2, a1, b1);
-    } else {
-        return b1 > b2;
+struct P {
+    int a, b;
+    P(int av, int bv)
+        : a(av)
+        , b(bv)
+    {
     }
+};
+
+bool compareByA(P& o1, P& o2)
+{
+    return o1.a < o2.a;
 }
 
 void solve()
 {
     int n;
     cin >> n;
-    int a[n], b[n];
+    vector<P> ps;
     for (int i = 0; i < n; i++) {
-        cin >> a[i] >> b[i];
+        int ai, bi;
+        cin >> ai >> bi;
+        ps.emplace_back(ai, bi);
     }
+
+    sort(ps.begin(), ps.end(), compareByA);
+
     long sum = 0;
     for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
-            if (greet(a[i], b[i], a[j], b[j])) {
+            if (ps[i].b > ps[j].b) {
                 sum += 1;
             }
         }
