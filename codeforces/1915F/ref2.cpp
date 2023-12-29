@@ -43,6 +43,7 @@ int countIntersections(vector<pair<int, int>>& segments)
 int main()
 {
     freopen("in1.txt", "r", stdin);
+
     int n;
     cin >> n;
 
