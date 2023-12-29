@@ -35,14 +35,26 @@ void solve()
 
     sort(ps.begin(), ps.end(), compareByA);
 
+    int b[n];
+    for (int i = 0; i < n; i++) {
+        b[i] = ps[i].b;
+    }
+
     long sum = 0;
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = i + 1; j < n; j++) {
-            if (ps[i].b > ps[j].b) {
-                sum += 1;
+
+    for (int i = 1; i < n; i++) {
+        for (int j = i; j > 0; j--) {
+            if (b[j] < b[j - 1]) {
+                int t = b[j];
+                b[j] = b[j - 1];
+                b[j - 1] = t;
+                sum++;
+            } else {
+                break;
             }
         }
     }
+
     cout << sum << endl;
 }
 
