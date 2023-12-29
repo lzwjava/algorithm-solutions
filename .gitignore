@@ -11,9 +11,8 @@ out
 *.spj
 *.stderr
 *.stdout
-main
-main1
-main2
+main*
+!main*.cpp
 target
 Cargo.lock
 *.dat
