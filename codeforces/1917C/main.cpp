@@ -10,6 +10,8 @@ using namespace std;
 
 void solve()
 {
+    int n, k, d;
+    cin >> n >> k >> d;
     
 }
 
