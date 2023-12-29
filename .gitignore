@@ -17,3 +17,4 @@ main2
 target
 Cargo.lock
 *.dat
+gen
