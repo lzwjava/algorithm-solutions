@@ -1,35 +1,63 @@
+#include <algorithm>
 #include <ctime>
+#include <fstream>
 #include <iostream>
 #include <random>
+#include <set>
 #include <vector>
 
+using namespace std; // Use this directive to avoid
+
 // Function to generate random test data for one test case
-void generateRandomTestCase(int n)
+void generateRandomTestCa;
+
+    uniform_int_distribution<int> dist(-max, maxse(int n)
 {
-    std::cout << n << std::endl;
+    cout << n << endl;
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(-1e9, 1e9);
+    random_device rd;
+    mt19937 gen(rd());
+    // int max = 100000000;
+    int max = 1000000;
 
-    for (int i = 0; i < n; ++i) {
-        int ai = dist(gen);
-        int bi;
-        do {
-            bi = dist(gen);
-        } while (bi <= ai);
+    uniform_int_distribution<int> dist(-max, max);
 
-        std::cout << ai << " " << bi << std::endl;
+    set<int> distinctNumbers;
+    while (distinctNumbers.size() < 2 * n) {
+        int randomNumber = dist(gen);
+        distinctNumbers.insert(randomNumber);
+    }
+
+    vector<int> nums(distinctNumbers.begin(), distinctNumbers.end());
+    random_shuffle(nums.begin(), nums.end());
+
+    int count = 0;
+    for (int number : nums) {
+        cout << number << " ";
+        count++;
+        if (count % 2 == 0) {
+            cout << endl;
+        }
+    }
+
+    if (count % 2 != 0) {
+        cout << endl;
     }
 }
 
 int main()
 {
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int t = 5; // Number of test cases
+    if (ifstream("in.txt")) {
+        freopen("in.txt", "w", stdout);
+    }
+    srand(static_cast<unsigned int>(time(nullptr)));
+    int t = 1; // Number of test cases
+
+    cout << t << endl;
 
     for (int i = 0; i < t; ++i) {
-        int n = std::rand() % 10 + 1; // Random number of people (1 to 10)
+        int pm = 20000;
+        int n = rand() % pm + 1;
         generateRandomTestCase(n);
     }
 
