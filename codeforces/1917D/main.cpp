@@ -32,6 +32,14 @@ struct A {
     }
 };
 
+void print(A a[], int i, int j)
+{
+    for (int h = i; h <= j; h++) {
+        cout << a[h].getValue() << ' ';
+    }
+    cout << endl;
+}
+
 int inver(A a[], int i, int j)
 {
     if (i == j) {
@@ -45,11 +53,15 @@ int inver(A a[], int i, int j)
     A b[bn];
     int bi = 0;
     int in = 0;
+    if (i == 0 && j == 4) {
+        print(a, i, j);
+    }
+
     while (il <= m || ir <= j) {
         if (il <= m && ir <= j) {
             if (a[il] < a[ir]) {
-                b[bi++] = a[il++];
                 in += ir - (m + 1);
+                b[bi++] = a[il++];
             } else {
                 in += il - i;
                 b[bi++] = a[ir++];
@@ -58,6 +70,7 @@ int inver(A a[], int i, int j)
             in += ir - (m + 1);
             b[bi++] = a[il++];
         } else {
+            in += il - i;
             b[bi++] = a[ir++];
         }
     }
@@ -87,12 +100,9 @@ void solve()
         a[h].p = p[i];
         a[h].q = q[j];
     }
-    // 3, 6, 1, 2
+    print(a, 0, nk - 1);
     int iv = inver(a, 0, nk - 1);
-    // for (int i = 0; i < nk; i++) {
-    //     cout << a[i].getValue() << ' ';
-    // }
-    // cout << endl;
+    print(a, 0, nk - 1);
     cout << iv % MOD << endl;
 }
 
