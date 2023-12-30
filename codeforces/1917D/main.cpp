@@ -44,20 +44,18 @@ int inver(A a[], int i, int j)
     int bn = j - i + 1;
     A b[bn];
     int bi = 0;
-    int ln = m - i + 1;
-    int rn = j - (m + 1) + 1;
     int in = 0;
     while (il <= m || ir <= j) {
         if (il <= m && ir <= j) {
             if (a[il] < a[ir]) {
                 b[bi++] = a[il++];
-                in += ir;
+                in += ir - (m + 1);
             } else {
-                in += (ln - il);
+                in += il - i;
                 b[bi++] = a[ir++];
             }
         } else if (il <= m) {
-            in += ir;
+            in += ir - (m + 1);
             b[bi++] = a[il++];
         } else {
             b[bi++] = a[ir++];
@@ -66,7 +64,6 @@ int inver(A a[], int i, int j)
     for (int h = 0; h < bn; h++) {
         a[i + h] = b[h];
     }
-    cout << i << ',' << j << '=' << in << endl;
     return in;
 }
 
@@ -91,16 +88,11 @@ void solve()
         a[h].q = q[j];
     }
     // 3, 6, 1, 2
-    for (int i = 0; i < nk; i++) {
-        cout << a[i].getValue() << ' ';
-    }
-    cout << endl;
     int iv = inver(a, 0, nk - 1);
-    for (int i = 0; i < nk; i++) {
-        cout << a[i].getValue() << ' ';
-    }
-    cout << endl;
-
+    // for (int i = 0; i < nk; i++) {
+    //     cout << a[i].getValue() << ' ';
+    // }
+    // cout << endl;
     cout << iv % MOD << endl;
 }
 
