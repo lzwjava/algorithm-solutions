@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int gcd(int a, int b)
+long gcd(long a, long b)
 {
     if (b == 0) {
         return a;
@@ -16,24 +16,24 @@ int gcd(int a, int b)
     return gcd(b, a % b);
 }
 
-long cal(int a, int b)
+long cal(long a, long b)
 {
-    int c = gcd(a, b);
+    long c = gcd(a, b);
     if (c == 1) {
         long ans;
         if (b % a == 0) {
             if (a == 1) {
-                ans = (long)b * b;
+                ans = b * b;
             } else {
-                int d = b / a;
+                long d = b / a;
                 if (d < a) {
-                    ans = (long)b * d;
+                    ans = b * d;
                 } else {
-                    ans = (long)b * a;
+                    ans = b * a;
                 }
             }
         } else {
-            ans = (long long)b * a;
+            ans = b * a;
         }
         return ans;
     } else {
@@ -43,19 +43,19 @@ long cal(int a, int b)
 
 void solve()
 {
-    int a, b;
+    long a, b;
     cin >> a >> b;
     long ans = cal(a, b);
     cout << ans << endl;
 }
 
-int main()
+long main()
 {
     if (ifstream("in.txt")) {
         freopen("in.txt", "r", stdin);
     }
 
-    int t;
+    long t;
     cin >> t;
     while (t--) {
         solve();
