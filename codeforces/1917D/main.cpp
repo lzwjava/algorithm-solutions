@@ -53,31 +53,30 @@ int inver(A a[], int i, int j)
     A b[bn];
     int bi = 0;
     int in = 0;
-    if (i == 0 && j == 4) {
-        print(a, i, j);
-    }
+    // if (i == 0 && j == 5) {
+    //     print(a, i, j);
+    // }
 
     while (il <= m || ir <= j) {
         if (il <= m && ir <= j) {
             if (a[il] < a[ir]) {
-                in += ir - (m + 1);
+                // in += ir - (m + 1);
                 b[bi++] = a[il++];
             } else {
-                in += il - i;
+                in += (m - i + 1) - (il - i);
                 b[bi++] = a[ir++];
             }
         } else if (il <= m) {
-            in += ir - (m + 1);
+            // in += ir - (m + 1);
             b[bi++] = a[il++];
         } else {
-            // in += il - i;
             b[bi++] = a[ir++];
         }
     }
     for (int h = 0; h < bn; h++) {
         a[i + h] = b[h];
     }
-    return in;
+    return left + right + in;
 }
 
 void solve()
@@ -100,9 +99,9 @@ void solve()
         a[h].p = p[i];
         a[h].q = q[j];
     }
-    print(a, 0, nk - 1);
+    // print(a, 0, nk - 1);
     int iv = inver(a, 0, nk - 1);
-    print(a, 0, nk - 1);
+    // print(a, 0, nk - 1);
     cout << iv % MOD << endl;
 }
 
