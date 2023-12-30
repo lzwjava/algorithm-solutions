@@ -70,7 +70,7 @@ int inver(A a[], int i, int j)
             in += ir - (m + 1);
             b[bi++] = a[il++];
         } else {
-            in += il - i;
+            // in += il - i;
             b[bi++] = a[ir++];
         }
     }
