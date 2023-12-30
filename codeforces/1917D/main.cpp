@@ -25,6 +25,11 @@ struct A {
             return res < 1;
         }
     }
+
+    long getValue()
+    {
+        return p * (long)pow(2.0, q);
+    }
 };
 
 int inver(A a[], int i, int j)
@@ -32,7 +37,6 @@ int inver(A a[], int i, int j)
     if (i == j) {
         return 0;
     }
-
     int m = (i + j) / 2;
     int left = inver(a, i, m);
     int right = inver(a, m + 1, j);
@@ -62,6 +66,7 @@ int inver(A a[], int i, int j)
     for (int h = 0; h < bn; h++) {
         a[i + h] = b[h];
     }
+    cout << i << ',' << j << '=' << in << endl;
     return in;
 }
 
@@ -85,7 +90,17 @@ void solve()
         a[h].p = p[i];
         a[h].q = q[j];
     }
+    // 3, 6, 1, 2
+    for (int i = 0; i < nk; i++) {
+        cout << a[i].getValue() << ' ';
+    }
+    cout << endl;
     int iv = inver(a, 0, nk - 1);
+    for (int i = 0; i < nk; i++) {
+        cout << a[i].getValue() << ' ';
+    }
+    cout << endl;
+
     cout << iv % MOD << endl;
 }
 
