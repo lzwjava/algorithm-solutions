@@ -49,7 +49,7 @@ void solve()
     cout << ans << endl;
 }
 
-long main()
+int main()
 {
     if (ifstream("in.txt")) {
         freopen("in.txt", "r", stdin);
