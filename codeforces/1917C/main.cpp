@@ -12,7 +12,15 @@ void solve()
 {
     int n, k, d;
     cin >> n >> k >> d;
-    
+    int a[n];
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    int v[k];
+    for (int i = 0; i < k; i++) {
+        cin >> v[i];
+    }
+    cout << d << endl;
 }
 
 int main()
