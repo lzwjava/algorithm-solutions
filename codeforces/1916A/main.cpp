@@ -13,7 +13,7 @@ void solve()
     int n, k;
     cin >> n >> k;
     int b[n];
-    int p = 1;
+    long p = 1;
     for (int i = 0; i < n; i++) {
         cin >> b[i];
         p *= b[i];
