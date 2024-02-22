@@ -10,6 +10,7 @@ Problem solutions of some algorithm problems from online judge platforms.
 |[Hacker Rank](https://www.hackerrank.com/profile/lzwjava)|20(SQL)|
 
 |language|lines of code|
+|----|----|
 |Java|70851|
 |C++|3214|
 |Python|1193|
