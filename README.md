@@ -64,6 +64,7 @@ Each subdirectory within the `nowcoder` directory is named after a problem and i
 ### UVa
 
 Solved: 568, Submissions: 1776
+
 | Q1 | Q2 | Q3|
 | ------------- | ------------- |-------------|
 | 100: The 3n + 1 Problem | 101: The Blocks Problem | 102: Ecological Bin Packing |
@@ -128,9 +129,7 @@ Solved: 568, Submissions: 1776
 | 674: Coin Change | 679: Dropping Balls | 686: Goldbach's Conjecture (II) |
 | 694: The Collatz Sequence | 696: How Many Knights | 699: The Falling Leaves |
 | 705: Slash Maze | 706: LC-Display | 712: S-Trees |
-| 713: Adding Reversed Numbers | 714: Copying Books |
-
- 725: Division |
+| 713: Adding Reversed Numbers | 714: Copying Books | 725: Division |
 | 727: Equation | 729: The Hamming Distance Problem | 748: Exponentiation |
 | 750: 8 Queens Chess Problem | 755: 487--3279 | 784: Maze Exploration |
 | 793: Network Connections | 796: Critical Links | 815: Flooded! |
@@ -210,9 +209,7 @@ Solved: 568, Submissions: 1776
 | 10812: Beat the Spread! | 10815: Andy's First Dictionary | 10878: Decode the tape |
 | 10879: Maximum Sum (II) | 10905: Children's Game | 10911: Forming Quiz Teams |
 | 10916: Factstone Benchmark | 10921: Find the Telephone | 10922: 2520 |
-| 10924: Simple Minded Hashing | 10929: You
-
- can say 11 | 10931: Parity |
+| 10924: Simple Minded Hashing | 10929: You can say 11 | 10931: Parity |
 | 10935: Throwing cards away I | 10940: Throwing cards away II | 10943: How do you add? |
 | 10945: Mother bear | 10948: The primary problem | 10954: Add All |
 | 10963: The Swallowing Ground | 10970: Big Chocolate | 10976: Fractions Again?! |
@@ -263,6 +260,8 @@ Solved: 568, Submissions: 1776
 
 ### Codeforces
 
+| Q1 | Q2 | Q3|
+| ------------- | ------------- |-------------|
 | 1003A: Polycarp's Pockets | 1030A: In Search of an Easy Problem | 1077A: Frog Jumping |
 | 1092B: Teams Forming | 1095A: Repeating Cipher | 1097A: Gennady and a Card Game |
 | 110A: Nearly Lucky Number | 112A: Petya and Strings | 1154A: Restoring Three Numbers |
@@ -291,9 +290,7 @@ Solved: 568, Submissions: 1776
 | 1358A: Park Lighting | 1358B: Maria Breaks the Self-isolation | 1359A: Berland Poker |
 | 1359B: New Theatre Square | 1360A: Minimal Square | 1360B: Honest Coach |
 | 1360C: Similar Pairs | 1360D: Buying Shovels | 1363A: Odd Selection |
-| 
-
-1365A: Matrix Game | 1365B: Trouble Sort | 1366A: Shovels and Swords |
+| 1365A: Matrix Game | 1365B: Trouble Sort | 1366A: Shovels and Swords |
 | 1367A: Short Substrings | 1367B: Even Array | 1368A: C+= |
 | 1369A: FashionabLee | 1369B: AccurateLee | 136A: Presents |
 | 1370A: Maximum GCD | 1371A: Magical Sticks | 1372A: Omkar and Password |
@@ -362,9 +359,7 @@ Solved: 568, Submissions: 1776
 | 1915D: Infinity Table | 1915E: The Great Hero | 1915F: Luntik and Subsequences |
 | 1916A: Pretty Permutations | 1916B: Find The Array | 1916C: Wonderful Coloring - 1 |
 | 1917A: Next Round | 1917B: Taxi | 1917C: Casimir's String Solitaire |
-| 1917D: Dislike of Threes |
-
- 1A: Theatre Square | 200B: Drinks |
+| 1917D: Dislike of Threes |1A: Theatre Square | 200B: Drinks |
 | 208A: Dubstep | 214A: System of Equations | 228A: Is your horseshoe on the other hoof? |
 | 230A: Dragons | 230B: T-primes | 231A: Team |
 | 233A: Perfect Permutation | 236A: Boy or Girl | 255A: Greg's Workout |
