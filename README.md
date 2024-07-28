@@ -1,5 +1,3 @@
-Sure! Here's the condensed version of the README with tables for the problem lists:
-
 # Algorithm Problem Solutions
 
 Problem solutions of some algorithm problems from online judge platforms.
