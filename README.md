@@ -64,7 +64,8 @@ Each subdirectory within the `nowcoder` directory is named after a problem and i
 ### UVa
 
 Solved: 568, Submissions: 1776
-
+| Q1 | Q2 | Q3|
+| ------------- | ------------- |-------------|
 | 100: The 3n + 1 Problem | 101: The Blocks Problem | 102: Ecological Bin Packing |
 | 103: Stacking Boxes | 104: Arbitrage | 105: The Skyline Problem |
 | 106: Fermat's Last Theorem | 107: The Cat in the Hat | 108: Maximum Sum |
