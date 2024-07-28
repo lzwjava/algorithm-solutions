@@ -236,9 +236,7 @@ Solved: 568, Submissions: 1776
 - 637: Booklet Printing
 - 639: Don't Get Rooked
 - 640: Self Numbers
--
-
- 644: Immediate Decodability
+- 644: Immediate Decodability
 - 657: The die is cast
 - 661: Blowing Fuses
 - 673: Parentheses Balance
