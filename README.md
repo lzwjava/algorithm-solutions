@@ -462,9 +462,7 @@ Solved: 568, Submissions: 1776
 - 10608: Friends
 - 10611: The Playboy Chimp
 - 10616: Divisible Group Sums
-- 10653: Bombs!
-
- NO they are Mines!!
+- 10653: Bombs! NO they are Mines!!
 - 10656: Maximum Sum (II)
 - 10664: Luggage
 - 10673: Play with Floor and Ceil
