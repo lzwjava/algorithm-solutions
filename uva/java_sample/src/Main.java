@@ -5,27 +5,25 @@ import java.io.PrintWriter;
 
 public class Main {
 
-    BufferedReader in;
-    PrintWriter out;
+    private final BufferedReader in;
+    private final PrintWriter out;
 
-    Main() {
+    public Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
-    void close() throws IOException {
+    private void close() throws IOException {
         in.close();
-        out.flush();
         out.close();
     }
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-        m.close();
     }
 
-    void solve() {
+    private void solve() {
 
     }
 }
