@@ -69,11 +69,12 @@ public class Main {
                             pq.add(np);
                         } else {
                             for (int v = 1; v <= k; v++) {
-                                int vdx = p.x + dx[d] * v;
-                                int vdy = p.y + dy[d] * v;
-                                if (vdx >= 0 && vdx < m && vdy >= 0 && vdy < n && dists[vdx][vdy] >= p.dist + v) {
-                                    dists[vdx][vdy] = p.dist + v;
-                                    Pos vp = new Pos(vdx, vdy, p.dist + v);
+                                int dv = v + 1;
+                                int vdx = p.x + dx[d] * dv;
+                                int vdy = p.y + dy[d] * dv;
+                                if (vdx >= 0 && vdx < m && vdy >= 0 && vdy < n && grid[vdx][vdy] == 0 && dists[vdx][vdy] >= p.dist + v) {
+                                    dists[vdx][vdy] = p.dist + dv;
+                                    Pos vp = new Pos(vdx, vdy, p.dist + dv);
                                     pq.add(vp);
                                 }
                             }
