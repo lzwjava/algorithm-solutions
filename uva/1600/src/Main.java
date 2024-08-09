@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 import java.util.stream.IntStream;
@@ -38,20 +39,17 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(in.readLine());
         int[][] grid = new int[m][n];
-        int[][][] dists = new int[m][n][k + 1];
+        ArrayList<State>[][] ss = new ArrayList[m][n];
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(in.readLine());
             for (int j = 0; j < n; j++) {
                 grid[i][j] = Integer.parseInt(st.nextToken());
-                for (int v = 0; v < k + 1; v++) {
-                    dists[i][j][v] = Integer.MAX_VALUE;
-                }
+                ss[i][j] = new ArrayList<>();
             }
         }
 
-
         Pos p1 = new Pos(0, 0, 0, k);
-        dists[0][0][k] = k;
+        ss[0][0].add(new State(0, k));
 
         PriorityQueue<Pos> pq = new PriorityQueue<>();
         pq.add(p1);
@@ -66,21 +64,23 @@ public class Main {
                     int ndx = p.x + dx[d];
                     int ndy = p.y + dy[d];
                     if (ndx >= 0 && ndx < m && ndy >= 0 && ndy < n) {
-                        if (dists[ndx][ndy].dist > p.dist + 1 || dists[ndx][ndy].k)
+                        int newDist = p.dist + 1;
+                        int newK = grid[ndx][ndy] == 1 ? p.k - 1 : k;
 
-                            if (grid[ndx][ndy] == 0) {
-                                if (dists[ndx][ndy].dist > p.dist + 1 || dists[ndx][ndy].k < k) {
-
+                        if (newK >= 0) {
+                            boolean shouldUpdate = true;
+                            for (State state : ss[ndx][ndy]) {
+                                if (state.dist <= newDist && state.k >= newK) {
+                                    shouldUpdate = false;
+                                    break;
                                 }
-
-                                dists[ndx][ndy] = p.dist + 1;
-                                Pos np = new Pos(ndx, ndy, p.dist + 1, k);
-                                pq.add(np);
-                            } else if (p.k > 0) {
-                                dists[ndx][ndy] = p.dist + 1;
-                                Pos np = new Pos(ndx, ndy, p.dist + 1, p.k - 1);
-                                pq.add(np);
                             }
+
+                            if (shouldUpdate) {
+                                ss[ndx][ndy].add(new State(newDist, newK));
+                                pq.add(new Pos(ndx, ndy, newDist, newK));
+                            }
+                        }
                     }
                 }
             }
@@ -88,6 +88,7 @@ public class Main {
 
         out.println(ans);
     }
+
 
     private void solve() throws IOException {
         int c = Integer.parseInt(in.readLine());
