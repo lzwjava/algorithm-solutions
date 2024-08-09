@@ -48,43 +48,36 @@ public class Main {
         }
 
 
-        Pos p1 = new Pos(0, 0, 0);
+        Pos p1 = new Pos(0, 0, 0, k);
         dists[0][0] = 0;
 
         PriorityQueue<Pos> pq = new PriorityQueue<>();
         pq.add(p1);
-        int ans = Integer.MAX_VALUE;
+        int ans = -1;
         while (!pq.isEmpty()) {
             Pos p = pq.poll();
             if (p.x == m - 1 && p.y == n - 1) {
-                ans = Integer.min(ans, p.dist);
+                ans = p.dist;
+                break;
             } else {
                 for (int d = 0; d < 4; d++) {
                     int ndx = p.x + dx[d];
                     int ndy = p.y + dy[d];
-                    if (ndx >= 0 && ndx < m && ndy >= 0 && ndy < n && grid[ndx][ndy] == 0 && dists[ndx][ndy] > p.dist + 1) {
-                        dists[ndx][ndy] = p.dist + 1;
-                        Pos np = new Pos(ndx, ndy, p.dist + 1);
-                        pq.add(np);
-                    }
-                }
-                for (int v = 1; v <= k; v++) {
-                    for (int d = 0; d < 4; d++) {
-                        int dv = v + 1;
-                        int vdx = p.x + dx[d] * dv;
-                        int vdy = p.y + dy[d] * dv;
-                        if (vdx >= 0 && vdx < m && vdy >= 0 && vdy < n && grid[vdx][vdy] == 0 && dists[vdx][vdy] > p.dist + dv) {
-                            dists[vdx][vdy] = p.dist + dv;
-                            Pos vp = new Pos(vdx, vdy, p.dist + dv);
-                            pq.add(vp);
+                    if (ndx >= 0 && ndx < m && ndy >= 0 && ndy < n && dists[ndx][ndy] > p.dist + 1) {
+                        if (grid[ndx][ndy] == 0) {
+                            dists[ndx][ndy] = p.dist + 1;
+                            Pos np = new Pos(ndx, ndy, p.dist + 1, k);
+                            pq.add(np);
+                        } else if (p.k > 0) {
+                            dists[ndx][ndy] = p.dist + 1;
+                            Pos np = new Pos(ndx, ndy, p.dist + 1, p.k - 1);
+                            pq.add(np);
                         }
                     }
                 }
             }
         }
-        if (ans == Integer.MAX_VALUE) {
-            ans = -1;
-        }
+
         out.println(ans);
     }
 
@@ -100,11 +93,13 @@ class Pos implements Comparable<Pos> {
     int x;
     int y;
     int dist;
+    int k;
 
-    public Pos(int x, int y, int dist) {
+    public Pos(int x, int y, int dist, int k) {
         this.x = x;
         this.y = y;
         this.dist = dist;
+        this.k = k;
     }
 
     @Override
