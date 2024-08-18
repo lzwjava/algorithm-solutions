@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -24,6 +25,15 @@ public class Main {
         m.close();
     }
 
-    private void solve() {
+    private void solve() throws IOException {
+        while (true) {
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            int h = Integer.parseInt(st.nextToken());
+            int k = Integer.parseInt(st.nextToken());
+            if (h == 0 && k == 0) {
+                break;
+            }
+            
+        }
     }
 }
