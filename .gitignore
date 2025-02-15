@@ -18,3 +18,4 @@ Cargo.lock
 gen
 ref*
 !ref*.cpp
+*.class
