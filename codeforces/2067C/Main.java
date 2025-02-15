@@ -8,7 +8,6 @@ public class Main {
     int t = cin.nextInt();
     while (t-- > 0) {
       int n = cin.nextInt();
-      int ans = 0;
       String s = Integer.toString(n);
       boolean hasSeven = false;
       for (int i = 0; i < s.length(); i++) {
@@ -21,9 +20,15 @@ public class Main {
         System.out.println(0);
         continue;
       }
-
-      ans = 1;
-      System.out.println(1);
+      int ans = 0;
+      if (n % 9 == 0) {
+        System.out.println(1);
+      } else if ((n + (9 - (n % 9))) % 10 == 7) {
+        System.out.println(1);
+      }
+       else {
+        System.out.println(1);
+      }
     }
   }
 }
