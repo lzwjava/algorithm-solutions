@@ -43,15 +43,16 @@ public class Main {
         if (cur == n) {
             int[] b = a.clone();
             for (int i = 0; i < n; i++) {
-                int pi = b[p[i]];
-                for (int j = 0; j < pi; j++) {
-                    if (i + j + 1 < n) {
-                        b[i + j + 1] += 1;
+                int pos = p[i];
+                int bpi = b[pos];
+                for (int j = 0; j < bpi; j++) {
+                    if (pos + j + 1 < n) {
+                        b[pos + j + 1] += 1;
                     } else {
                         break;
                     }
                 }
-                b[p[i]] = 0;
+                b[pos] = 0;
             }
             boolean nonDecreasing = true;
             for (int i = 0; i < n - 1; i++) {
@@ -60,6 +61,7 @@ public class Main {
                     break;
                 }
             }
+
             if (nonDecreasing) {
                 int sum = 0;
                 for (int i = 0; i < n; i++) {
