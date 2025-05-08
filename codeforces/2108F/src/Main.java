@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -11,6 +12,7 @@ public class Main {
     long[] a;
     int n;
     long maxMEX;
+    int[] maxP;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
@@ -25,12 +27,22 @@ public class Main {
             StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
+                if (a[i] > n) {
+                    a[i] = n;
+                }
             }
             int[] p = new int[n];
             boolean[] used = new boolean[n];
             maxMEX = 0;
+            for (int i = 0; i < n; i++) {
+                p[i] = n - 1 - i;
+            }
+            maxP = new int[n];
+
+            //maxMEX = getMex(p);
             permutation(p, used, 0);
             out.println(maxMEX);
+            // printArray(maxP);
         }
     }
 
@@ -41,43 +53,14 @@ public class Main {
         out.println();
     }
 
+
     void permutation(int[] p, boolean[] used, int cur) {
         if (cur == n) {
-            long[] b = a.clone();
-            for (int i = 0; i < n; i++) {
-                int pos = p[i];
-                long bpi = b[pos];
-                for (int j = 0; j < bpi; j++) {
-                    if (pos + j + 1 < n) {
-                        b[pos + j + 1] += 1;
-                    } else {
-                        break;
-                    }
-                }
-                b[pos] = 0;
-            }
-            boolean nonDecreasing = true;
-            for (int i = 0; i < n - 1; i++) {
-                if (b[i] > b[i + 1]) {
-                    nonDecreasing = false;
-                    break;
-                }
-            }
-
-            if (nonDecreasing) {
-                Set<Long> set = new HashSet<>();
-                for (int i = 0; i < n; i++) {
-                    set.add(b[i]);
-                }
-                long mex;
-                for (mex = 1; ; mex++) {
-                    if (!set.contains(mex)) {
-                        break;
-                    }
-                }
-                if (mex > maxMEX) {
-                    maxMEX = mex;
-                }
+            long mex;
+            mex = getMex(p);
+            if (mex > maxMEX) {
+                maxMEX = mex;
+                maxP = p.clone();
             }
         } else {
             for (int i = 0; i < n; i++) {
@@ -89,6 +72,45 @@ public class Main {
                 }
             }
         }
+    }
+
+    private long getMex(int[] p) {
+        long mex;
+        long[] b = a.clone();
+        for (int i = 0; i < n; i++) {
+            int pos = p[i];
+            long bpi = b[pos];
+            for (int j = 0; j < bpi; j++) {
+                if (pos + j + 1 < n) {
+                    b[pos + j + 1] += 1;
+                } else {
+                    break;
+                }
+            }
+            b[pos] = 0;
+        }
+        boolean nonDecreasing = true;
+        for (int i = 0; i < n - 1; i++) {
+            if (b[i] > b[i + 1]) {
+                nonDecreasing = false;
+                break;
+            }
+        }
+
+        if (nonDecreasing) {
+            Set<Long> set = new HashSet<>();
+            for (int i = 0; i < n; i++) {
+                set.add(b[i]);
+            }
+            for (mex = 1; ; mex++) {
+                if (!set.contains(mex)) {
+                    break;
+                }
+            }
+        } else {
+            mex = -1;
+        }
+        return mex;
     }
 
     void close() throws IOException {
