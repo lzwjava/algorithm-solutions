@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -8,7 +10,7 @@ public class Main {
 
     int[] a;
     int n;
-    int mex;
+    int maxMEX;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
@@ -26,9 +28,9 @@ public class Main {
             }
             int[] p = new int[n];
             boolean[] used = new boolean[n];
-            mex = 0;
+            maxMEX = 0;
             permutation(p, used, 0);
-            out.println(mex);
+            out.println(maxMEX);
         }
     }
 
@@ -63,12 +65,18 @@ public class Main {
             }
 
             if (nonDecreasing) {
-                int sum = 0;
+                Set<Integer> set = new HashSet<>();
                 for (int i = 0; i < n; i++) {
-                    sum += b[i];
+                    set.add(b[i]);
                 }
-                if (sum > mex) {
-                    mex = sum;
+                int mex;
+                for (mex = 1; ; mex++) {
+                    if (!set.contains(mex)) {
+                        break;
+                    }
+                }
+                if (mex > maxMEX) {
+                    maxMEX = mex;
                 }
             }
         } else {
