@@ -1,16 +1,14 @@
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Main {
 
     BufferedReader in;
     PrintWriter out;
+
+    int[] a;
+    int n;
+    int mex;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
@@ -20,25 +18,63 @@ public class Main {
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t-- > 0) {
-            int n = Integer.parseInt(in.readLine());
-            int[] a = new int[n];
+            n = Integer.parseInt(in.readLine());
+            a = new int[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
             }
             int[] p = new int[n];
+            boolean[] used = new boolean[n];
+            mex = 0;
+            permutation(p, used, 0);
+            out.println(mex);
         }
     }
 
-    void permutation(int[] p, boolean[] used, int cur, int n) {
+    void printArray(int[] p) {
+        for (int i = 0; i < p.length; i++) {
+            out.print(p[i] + " ");
+        }
+        out.println();
+    }
+
+    void permutation(int[] p, boolean[] used, int cur) {
         if (cur == n) {
-            
+            int[] b = a.clone();
+            for (int i = 0; i < n; i++) {
+                int pi = b[p[i]];
+                for (int j = 0; j < pi; j++) {
+                    if (i + j + 1 < n) {
+                        b[i + j + 1] += 1;
+                    } else {
+                        break;
+                    }
+                }
+                b[p[i]] = 0;
+            }
+            boolean nonDecreasing = true;
+            for (int i = 0; i < n - 1; i++) {
+                if (b[i] > b[i + 1]) {
+                    nonDecreasing = false;
+                    break;
+                }
+            }
+            if (nonDecreasing) {
+                int sum = 0;
+                for (int i = 0; i < n; i++) {
+                    sum += b[i];
+                }
+                if (sum > mex) {
+                    mex = sum;
+                }
+            }
         } else {
             for (int i = 0; i < n; i++) {
                 if (!used[i]) {
                     used[i] = true;
                     p[cur] = i;
-                    permutation(p, used, cur + 1, n);
+                    permutation(p, used, cur + 1);
                     used[i] = false;
                 }
             }
