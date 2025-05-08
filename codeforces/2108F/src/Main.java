@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -20,10 +21,26 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t-- > 0) {
             int n = Integer.parseInt(in.readLine());
-            int a[] = new int[n];
+            int[] a = new int[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
+            }
+            int[] p = new int[n];
+        }
+    }
+
+    void permutation(int[] p, boolean[] used, int cur, int n) {
+        if (cur == n) {
+            
+        } else {
+            for (int i = 0; i < n; i++) {
+                if (!used[i]) {
+                    used[i] = true;
+                    p[cur] = i;
+                    permutation(p, used, cur + 1, n);
+                    used[i] = false;
+                }
             }
         }
     }
