@@ -8,9 +8,9 @@ public class Main {
     BufferedReader in;
     PrintWriter out;
 
-    int[] a;
+    long[] a;
     int n;
-    int maxMEX;
+    long maxMEX;
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
@@ -18,10 +18,10 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int t = Integer.parseInt(in.readLine());
+        long t = Integer.parseInt(in.readLine());
         while (t-- > 0) {
             n = Integer.parseInt(in.readLine());
-            a = new int[n];
+            a = new long[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
@@ -43,10 +43,10 @@ public class Main {
 
     void permutation(int[] p, boolean[] used, int cur) {
         if (cur == n) {
-            int[] b = a.clone();
+            long[] b = a.clone();
             for (int i = 0; i < n; i++) {
                 int pos = p[i];
-                int bpi = b[pos];
+                long bpi = b[pos];
                 for (int j = 0; j < bpi; j++) {
                     if (pos + j + 1 < n) {
                         b[pos + j + 1] += 1;
@@ -65,11 +65,11 @@ public class Main {
             }
 
             if (nonDecreasing) {
-                Set<Integer> set = new HashSet<>();
+                Set<Long> set = new HashSet<>();
                 for (int i = 0; i < n; i++) {
                     set.add(b[i]);
                 }
-                int mex;
+                long mex;
                 for (mex = 1; ; mex++) {
                     if (!set.contains(mex)) {
                         break;
@@ -102,16 +102,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        FileInputStream inStream = null;
-        PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
-        if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
-            System.setIn(inStream);
-            // System.setOut(outStream);
-        }
-
         Main main = new Main();
         main.solve();
         main.close();
