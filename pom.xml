@@ -93,7 +93,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <configLocation>${project.basedir}/checks.xml</configLocation>
+                    <configLocation>checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                 </configuration>
                 <executions>
