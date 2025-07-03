@@ -10,13 +10,13 @@ public class Main {
     private static int i = 0;
 
     public static int increase(int number) throws Exception{
-        com.lzw.solutions.lintcode.p2416.Main.i = ++number;
-        return com.lzw.solutions.lintcode.p2416.Main.i;
+        Main.i = ++number;
+        return Main.i;
     }
 
     public static int decrease(int number) throws Exception{
-        com.lzw.solutions.lintcode.p2416.Main.i = --number;
-        return com.lzw.solutions.lintcode.p2416.Main.i;
+        Main.i = --number;
+        return Main.i;
     }
 
     public static void main(String[] args) {
@@ -93,11 +93,11 @@ public class Main {
             for (int i = 0; i < 4; i++) {
                 threads[i].join();
             }
-            if (com.lzw.solutions.lintcode.p2416.Main.i != instance.checkI()){
+            if (Main.i != instance.checkI()){
                 Exception exception = new Exception("Don't cheat!");
                 throw exception;
             } else {
-                printStream.write(String.valueOf(com.lzw.solutions.lintcode.p2416.Main.i).getBytes("Utf-8"));
+                printStream.write(String.valueOf(Main.i).getBytes("Utf-8"));
             }
             printStream.close();
         } catch (Exception e) {

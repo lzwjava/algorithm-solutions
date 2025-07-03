@@ -1,7 +1,5 @@
 package com.lzw.solutions.nowcoder;
 
-import nowcoder.nc45.Test;
-
 import java.io.IOException;
 
 public class Main {
@@ -10,7 +8,7 @@ public class Main {
     }
 
     void solve() throws IOException {
-        Test.run();
+
     }
 
     public static void main(String[] args) throws Exception {
