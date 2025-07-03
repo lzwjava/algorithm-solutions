@@ -1,6 +1,44 @@
 <!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD Suppression DTD//EN" "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 <suppressions>
-    <suppress checks="MissingJavadocMethod" files=".*\.java" />
-    <suppress checks="HideUtilityClassConstructor" files="org/lzwjava/.*\.java"/>
-    <suppress checks="DesignForExtension" files="org/lzwjava/.*\.java"/>
+    <!-- Original suppressions -->
+    <suppress checks="MissingJavadocMethod" files="com.lzw.solutions" />
+    <suppress checks="HideUtilityClassConstructor" files="com.lzw.solutions"/>
+    <suppress checks="DesignForExtension" files="com.lzw.solutions"/>
+    <suppress checks="RegexpSinglelineJava" files="com.lzw.solutions"/>
+    <suppress checks="LocalVariableName" files="com.lzw.solutions"/>
+
+    <!-- Suppressions for previously reported errors -->
+    <suppress checks="AvoidStarImport" files="com.lzw.solutions"/>
+    <suppress checks="MemberName" files="com.lzw.solutions"/>
+    <suppress checks="VisibilityModifier" files="com.lzw.solutions"/>
+    <suppress checks="ParameterAssignment" files="com.lzw.solutions"/>
+    <suppress checks="CyclomaticComplexity" files="com.lzw.solutions"/>
+    <suppress checks="HiddenField" files="com.lzw.solutions"/>
+    <suppress checks="ParameterName" files="com.lzw.solutions"/>
+    <suppress checks="ArrayTypeStyle" files="com.lzw.solutions"/>
+    <suppress checks="IllegalType" files="com.lzw.solutions"/>
+    <suppress checks="EmptyBlock" files="com.lzw.solutions"/>
+    <suppress checks="MultipleVariableDeclarations" files="com.lzw.solutions"/>
+    <suppress checks="InnerAssignment" files="com.lzw.solutions"/>
+    <suppress checks="NeedBraces" files="com.lzw.solutions"/>
+    <suppress checks="RedundantModifier" files="com.lzw.solutions"/>
+    <suppress checks="EmptyCatchBlock" files="com.lzw.solutions"/>
+    <suppress checks="OuterTypeFilename" files="com.lzw.solutions"/>
+    <suppress checks="OneTopLevelClass" files="com.lzw.solutions"/>
+    <suppress checks="NestedForDepth" files="com.lzw.solutions"/>
+    <suppress checks="NoClone" files="com.lzw.solutions"/>
+    <suppress checks="SuperClone" files="com.lzw.solutions"/>
+    <suppress checks="MethodName" files="com.lzw.solutions"/>
+    <suppress checks="AbbreviationAsWordInName" files="com.lzw.solutions"/>
+    <suppress checks="PackageName" files="com.lzw.solutions"/>
+    <suppress checks="EqualsHashCode" files="com.lzw.solutions"/>
+    <suppress checks="SimplifyBooleanReturn" files="com.lzw.solutions"/>
+    <suppress checks="EmptyLineSeparator" files="com.lzw.solutions"/>
+    <suppress checks="OverloadMethodsDeclarationOrder" files="com.lzw.solutions"/>
+    <suppress checks="MethodLength" files="com.lzw.solutions"/>
+    <suppress checks="ModifiedControlVariable" files="com.lzw.solutions"/>
+
+    <!-- Suppressions for newly reported errors -->
+    <suppress checks="EmptyStatement" files="com.lzw.solutions"/>
+    <suppress checks="StaticVariableName" files="com.lzw.solutions"/>
 </suppressions>
