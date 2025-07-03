@@ -6,15 +6,10 @@
     <groupId>com.algorithm.solutions</groupId>
     <artifactId>algorithm-solutions</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
-    <name>Algorithm Solutions Parent</name>
-    <description>Parent project for algorithm solutions</description>
-
-    <modules>
-        <module>nowcoder</module>
-        <module>uva</module>
-    </modules>
+    <name>Algorithm Solutions</name>
+    <description>Consolidated project for algorithm solutions from multiple platforms</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -23,6 +18,14 @@
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.in</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -33,7 +36,18 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.algorithm.solutions.nowcoder.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
-
