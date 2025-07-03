@@ -71,7 +71,7 @@ public class Main {
 
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
-//        boolean ok = dp(true, n);
+        //        boolean ok = dp(true, n);
         boolean ok;
         if (n == 1) {
             ok = false;
@@ -96,5 +96,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

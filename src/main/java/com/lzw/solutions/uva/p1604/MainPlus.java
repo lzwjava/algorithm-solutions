@@ -35,7 +35,7 @@ public class MainPlus {
 
         char left() {
             String s = "BWR";
-            char[] chs = new char[]{top, front};
+            char[] chs = new char[] {top, front};
             for (char c : s.toCharArray()) {
                 if (!Arrays.asList(chs).contains(c)) {
                     return c;
@@ -128,8 +128,8 @@ public class MainPlus {
     }
 
     // top, bottom, left, right
-    int[] dx = new int[]{-1, 1, 0, 0};
-    int[] dy = new int[]{0, 0, -1, 1};
+    int[] dx = new int[] {-1, 1, 0, 0};
+    int[] dy = new int[] {0, 0, -1, 1};
 
     void solve() throws IOException {
         while (true) {

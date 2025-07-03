@@ -12,8 +12,7 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    void solve() throws IOException {
-    }
+    void solve() throws IOException {}
 
     void close() throws IOException {
         if (in != null) {

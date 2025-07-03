@@ -15,9 +15,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -30,7 +30,7 @@ public class Main {
             }
             int n = Integer.parseInt(line);
             String numsLine = in.readLine();
-            StringTokenizer st= new StringTokenizer(numsLine);
+            StringTokenizer st = new StringTokenizer(numsLine);
             int nums[] = new int[n];
             for (int i = 0; i < n; i++) {
                 nums[i] = Integer.parseInt(st.nextToken());
@@ -44,10 +44,10 @@ public class Main {
                         d[i][i] = nums[i];
                     } else {
                         d[i][j] = d[i][j - 1] * nums[j];
-                    }                    
+                    }
                     if (d[i][j] > max) {
                         max = d[i][j];
-                    }                    
+                    }
                 }
             }
             if (max < 0) {
@@ -64,14 +64,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

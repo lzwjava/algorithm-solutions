@@ -28,7 +28,7 @@ public class Main {
         int a = Integer.parseInt(rs);
         return (char) a;
     }
-   
+
     void solve() throws IOException {
         HashSet<String> codes = new HashSet<>();
         for (int i = 65; i <= 90; i++) {
@@ -59,10 +59,10 @@ public class Main {
                     String ra = new StringBuilder(a).reverse().toString();
                     sb.append(ra);
                 }
-                out.append(String.format("%s\n", sb.toString()));                
+                out.append(String.format("%s\n", sb.toString()));
             } else {
                 StringBuilder sb = new StringBuilder();
-                StringBuilder fsb = new StringBuilder();                
+                StringBuilder fsb = new StringBuilder();
                 for (int i = 0; i < s.length(); i++) {
                     sb.append(s.charAt(i));
                     String str = sb.toString();
@@ -71,7 +71,7 @@ public class Main {
                         sb.setLength(0);
                     }
                 }
-                out.append(String.format("%s\n", fsb.reverse().toString()));                                
+                out.append(String.format("%s\n", fsb.reverse().toString()));
             }
         }
     }
@@ -82,14 +82,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

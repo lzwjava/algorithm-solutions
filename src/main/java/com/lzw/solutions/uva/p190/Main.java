@@ -88,8 +88,10 @@ public class Main {
                 int p = 0;
                 double t;
                 while (true) {
-                    if (Double.compare(ax, bx) != 0 && Double.compare(ax, cx) != 0
-                        && Double.compare(ay, by) != 0 && Double.compare(ay, cy) != 0) {
+                    if (Double.compare(ax, bx) != 0
+                            && Double.compare(ax, cx) != 0
+                            && Double.compare(ay, by) != 0
+                            && Double.compare(ay, cy) != 0) {
                         break;
                     }
                     if (p % 2 == 0) {
@@ -178,9 +180,9 @@ public class Main {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-//            outStream = new PrintStream("1.out");
+            //            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-//            System.setOut(outStream);
+            //            System.setOut(outStream);
         }
 
         Main main = new Main();

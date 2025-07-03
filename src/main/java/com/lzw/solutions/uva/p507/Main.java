@@ -49,8 +49,8 @@ public class Main {
                 }
             }
             if (max > 0) {
-                out.append(String.format("The nicest part of route %d is between stops %d and %d\n", caseNum, maxSt + 1,
-                        maxEnd + 2));
+                out.append(String.format(
+                        "The nicest part of route %d is between stops %d and %d\n", caseNum, maxSt + 1, maxEnd + 2));
             } else {
                 out.append(String.format("Route %d has no nice parts\n", caseNum));
             }

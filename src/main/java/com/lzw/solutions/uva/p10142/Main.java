@@ -14,7 +14,6 @@ public class Main {
 
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
-        
     }
 
     void close() throws IOException {

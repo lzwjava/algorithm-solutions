@@ -10,9 +10,7 @@ public class Main {
         int p;
         int ws[];
 
-        Hotel() {
-            
-        }
+        Hotel() {}
     }
 
     void solve() {
@@ -40,7 +38,7 @@ public class Main {
                 for (int j = 0; j < h; j++) {
                     // week i, hotel j
                     if (hs[j].ws[i] >= n) {
-                        // enought bed 
+                        // enought bed
                         int cost = n * hs[j].p;
                         if (cost < minCost) {
                             minCost = cost;
@@ -48,26 +46,27 @@ public class Main {
                     }
                 }
             }
-            if (minCost == Integer.MAX_VALUE || minCost >b) {
+            if (minCost == Integer.MAX_VALUE || minCost > b) {
                 System.out.println("stay home");
             } else {
                 System.out.println(minCost);
             }
         }
-        sc.close();;
+        sc.close();
+        ;
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");
             System.setIn(inStream);
             // System.setOut(outStream);
         }
-        new Main().solve();  
+        new Main().solve();
         if (isLocal) {
             inStream.close();
             // outStream.close();

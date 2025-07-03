@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    
     void work() {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> keyStrings = new ArrayList<>();
@@ -20,7 +19,7 @@ public class Main {
             }
         }
         String header = sc.nextLine();
-        for (;;) {
+        for (; ; ) {
             HashMap<String, String> map = new HashMap<>();
             for (int i = 0; i < header.length(); i++) {
                 String headerChar = header.substring(i, i + 1);
@@ -28,8 +27,8 @@ public class Main {
                 map.put(key, headerChar);
             }
             String message = "";
-            boolean noCase = false;  
-            for (;;) {
+            boolean noCase = false;
+            for (; ; ) {
                 if (sc.hasNext()) {
                     String line = sc.next();
                     boolean allDigit = line.chars().allMatch(Character::isDigit);
@@ -46,14 +45,14 @@ public class Main {
             }
             String decoded = "";
             int p = 0;
-            while (p+3 <= message.length()) {
+            while (p + 3 <= message.length()) {
                 String first3Digits = message.substring(p, p + 3);
                 if (first3Digits.equals("000")) {
                     break;
                 }
                 p += 3;
                 int len = Integer.parseInt(first3Digits, 2);
-                for (;;) {
+                for (; ; ) {
                     if (p + len >= message.length()) {
                         break;
                     }
@@ -75,12 +74,11 @@ public class Main {
         }
         sc.close();
     }
-    
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

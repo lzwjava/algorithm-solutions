@@ -3,11 +3,10 @@ package com.lzw.solutions.uva.p12657;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import java.io.InputStreamReader;
 
 public class Main {
 
@@ -15,10 +14,10 @@ public class Main {
 
         class Node {
             Integer item;
-    
+
             Node prev;
             Node next;
-            
+
             Node(Integer item) {
                 this.item = item;
             }
@@ -90,12 +89,12 @@ public class Main {
             xNode.next = yNode;
             xNode.prev = yPrevNode;
         }
-        
+
         void moveRight(Integer x, Integer y) {
             Node xNode = getNode(x);
             Node yNode = getNode(y);
 
-            if (xNode== yNode.next) {
+            if (xNode == yNode.next) {
                 return;
             }
 
@@ -107,7 +106,7 @@ public class Main {
             } else {
                 // first Node
                 this.first = xNextNode;
-            }            
+            }
             if (xNextNode != null) {
                 xNextNode.prev = xPrevNode;
             }
@@ -123,11 +122,11 @@ public class Main {
                 last = xNode;
             }
             yNode.next = xNode;
-            
+
             xNode.next = yNextNode;
             xNode.prev = yNode;
         }
-        
+
         void swap(Integer x, Integer y) {
             Node xNode = getNode(x);
             Node yNode = getNode(y);
@@ -145,14 +144,14 @@ public class Main {
             if (node.prev != null) {
                 System.out.print(node.prev.item);
             }
-            System.out.print(" next: ");            
+            System.out.print(" next: ");
             if (node.next != null) {
                 System.out.print(node.next.item);
             }
             System.out.println();
         }
 
-        void reverse() {           
+        void reverse() {
             for (Node node : nodes) {
                 // printNode(node);
                 Node tmp = node.next;
@@ -192,7 +191,7 @@ public class Main {
                     i++;
                 }
                 return sum;
-            }            
+            }
         }
 
         void print(boolean reversed) {
@@ -209,9 +208,8 @@ public class Main {
                     System.out.print(node.item + " ");
                     node = node.prev;
                 }
-                System.out.println();                
+                System.out.println();
             }
-           
         }
 
         void check() {
@@ -230,20 +228,20 @@ public class Main {
             assert (reversed.size() == list.size());
             Collections.reverse(reversed);
             for (int i = 0; i < list.size(); i++) {
-                assert(list.get(i) == reversed.get(i));              
+                assert (list.get(i) == reversed.get(i));
             }
         }
     }
-    
+
     interface Callback {
         void run(Integer item);
     }
-   
+
     void work() {
         int caseNum = 1;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        for (;;) {
-            String str ="";
+        for (; ; ) {
+            String str = "";
             try {
                 str = reader.readLine();
             } catch (IOException e) {
@@ -307,7 +305,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

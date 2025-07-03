@@ -53,7 +53,7 @@ public class Main {
                     digits[j][d]++;
                 }
             }
-            
+
             System.out.println(digits);
         }
     }

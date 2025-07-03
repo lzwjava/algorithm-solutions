@@ -20,7 +20,7 @@ public class Main1 {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     boolean dfs(int x, int t) {
         if (x == t) {
             return true;
@@ -35,7 +35,7 @@ public class Main1 {
         }
         return false;
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         in.readLine();
@@ -65,7 +65,7 @@ public class Main1 {
                     }
                 } else {
                     assert (false);
-                }                
+                }
             }
             out.append(String.format("%d,%d\n", s, us));
             t--;
@@ -81,14 +81,14 @@ public class Main1 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

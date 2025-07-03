@@ -46,7 +46,7 @@ public class Main {
                 continue;
             }
             String[] lines = s.split("/");
-            int[] nums = new int[]{5, 7, 5};
+            int[] nums = new int[] {5, 7, 5};
             boolean ok = true;
             for (int i = 0; i < lines.length; i++) {
                 String line = lines[i];

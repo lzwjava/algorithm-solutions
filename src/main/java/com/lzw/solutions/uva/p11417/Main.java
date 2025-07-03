@@ -26,7 +26,7 @@ public class Main {
         }
         return gcd;
     }
-   
+
     void solve() {
         for (int i = 2; i <= 500; i++) {
             boolean ok = true;
@@ -47,14 +47,13 @@ public class Main {
             if (n == 0) {
                 break;
             }
-            int G=0;
+            int G = 0;
             for (int i = 1; i < n; i++) {
-                for (int j = i + 1; j <= n; j++)
-                {
+                for (int j = i + 1; j <= n; j++) {
                     G += GCD(i, j);
                 }
             }
-            System.out.println(G);      
+            System.out.println(G);
         }
         sc.close();
     }
@@ -62,7 +61,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -34,8 +34,7 @@ public class Main1 {
         for (int i = 0; i < dx.length; i++) {
             int rn = rs + dx[i];
             int cn = cs + dy[i];
-            if (rn >= 0 && rn < r && cn >= 0 && cn < c && !vis[rn][cn] && !grid[rn][cn]
-                && dists[rn][cn] > dist + 1) {
+            if (rn >= 0 && rn < r && cn >= 0 && cn < c && !vis[rn][cn] && !grid[rn][cn] && dists[rn][cn] > dist + 1) {
                 vis[rn][cn] = true;
                 dists[rn][cn] = dist + 1;
                 dfs(rn, cn, re, ce, dist + 1);

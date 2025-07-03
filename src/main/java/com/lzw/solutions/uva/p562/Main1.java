@@ -30,9 +30,9 @@ public class Main1 {
         selected[i] = false;
         permutation(nums, selected, i + 1);
         selected[i] = true;
-        permutation(nums, selected, i+1);
+        permutation(nums, selected, i + 1);
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -43,9 +43,9 @@ public class Main1 {
                 nums[i] = sc.nextInt();
             }
             minDiff = Integer.MAX_VALUE;
-            boolean selected[] = new boolean[m];            
+            boolean selected[] = new boolean[m];
             permutation(nums, selected, 0);
-            
+
             System.out.println(minDiff);
             n--;
         }
@@ -55,7 +55,7 @@ public class Main1 {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

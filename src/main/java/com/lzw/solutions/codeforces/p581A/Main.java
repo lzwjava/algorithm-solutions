@@ -36,5 +36,4 @@ public class Main {
         int m2 = a + b - 2 * m1;
         out.append(String.format("%d %d\n", m1, m2 / 2));
     }
-
 }

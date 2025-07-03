@@ -16,36 +16,36 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
-        while(true){
+        while (true) {
             String s = in.readLine();
-            if (s == null){
+            if (s == null) {
                 break;
             }
             StringTokenizer st = new StringTokenizer(s);
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             ArrayList<Integer> nums = new ArrayList<>();
-            while(a %b != 0){
+            while (a % b != 0) {
                 int c = a / b;
                 nums.add(c);
                 a -= c * b;
                 int t = a;
                 a = b;
-                b =t;    
+                b = t;
             }
-            int c = a /b;
+            int c = a / b;
             nums.add(c);
-            
+
             out.append("[");
-            for(int i =0;i<nums.size();i++) {
+            for (int i = 0; i < nums.size(); i++) {
                 out.append(String.valueOf(nums.get(i)));
-                if (i==0){
+                if (i == 0) {
                     out.append(";");
-                } else if (i==nums.size()-1) {
+                } else if (i == nums.size() - 1) {
                     continue;
                 } else {
                     out.append(",");
@@ -61,14 +61,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

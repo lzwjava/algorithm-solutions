@@ -200,12 +200,12 @@ public class Main {
 
     void test() {
         for (int i = 2; i < 50; i++) {
-//            out.append(String.format("%d: ", i));
+            //            out.append(String.format("%d: ", i));
             i = 25;
             Pair pair = cal(i);
             Pair pair1 = cal1(i);
             assert pair.equals(pair1);
-//            out.append(String.format("%d %d\n", pair.a, pair.b));
+            //            out.append(String.format("%d %d\n", pair.a, pair.b));
         }
     }
 
@@ -218,6 +218,5 @@ public class Main {
             Pair pair = cal1(n);
             out.append(String.format("%d %d\n", pair.a, pair.b));
         }
-
     }
 }

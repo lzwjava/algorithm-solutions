@@ -51,12 +51,12 @@ public class Main {
             Arrays.sort(a);
             ;
             int s = a[0] + a[1] + a[2];
-            if (s % 2 == 0 && (a[0] + a[1] == a[2] || (a[0] == a[1] && a[2] % 2 == 0) || (a[1] == a[2] && a[0] % 2 == 0))) {
+            if (s % 2 == 0
+                    && (a[0] + a[1] == a[2] || (a[0] == a[1] && a[2] % 2 == 0) || (a[1] == a[2] && a[0] % 2 == 0))) {
                 out.append("YES\n");
             } else {
                 out.append("NO\n");
             }
         }
     }
-
 }

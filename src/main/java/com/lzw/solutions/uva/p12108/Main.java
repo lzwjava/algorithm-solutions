@@ -9,21 +9,21 @@ public class Main {
 
     enum State {
         AWAKE,
-        SLEEP       
+        SLEEP
     };
 
     class Student {
         int awakeDuration;
         int sleepDuration;
         int initialPosition;
-        State state; 
-        int timeIntoState;  // at this time, into the state
+        State state;
+        int timeIntoState; // at this time, into the state
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         int num = 1;
-        for (;;) {
+        for (; ; ) {
             int n = sc.nextInt();
             if (n == 0) {
                 break;
@@ -37,7 +37,7 @@ public class Main {
                 s.initialPosition = sc.nextInt();
                 if (s.initialPosition <= s.awakeDuration) {
                     s.state = State.AWAKE;
-                    s.timeIntoState = 1- s.initialPosition+1;
+                    s.timeIntoState = 1 - s.initialPosition + 1;
                 } else {
                     s.state = State.SLEEP;
                     int b = s.initialPosition - s.awakeDuration;
@@ -47,7 +47,7 @@ public class Main {
                 students.add(s);
             }
             int t = 1;
-            int maxTime = maxState*10;
+            int maxTime = maxState * 10;
             for (; t < maxTime; t++) {
                 // for (int i = 0; i < n; i++) {
                 //     System.out.print(String.format("%s ", students.get(i).state.toString()));
@@ -87,7 +87,7 @@ public class Main {
                                 s.state = State.AWAKE;
                                 s.timeIntoState = t + 1;
                             }
-                        } else {                            
+                        } else {
                             // sleep, should wake up
                             s.state = State.AWAKE;
                             s.timeIntoState = t + 1;
@@ -109,7 +109,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

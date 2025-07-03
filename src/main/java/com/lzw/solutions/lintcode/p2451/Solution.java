@@ -18,7 +18,7 @@ public class Solution {
             }
             int finalEnd = end;
             executor.submit(() -> {
-                calculateRangeSum.accept(new Long[]{(long) start, (long) finalEnd});
+                calculateRangeSum.accept(new Long[] {(long) start, (long) finalEnd});
             });
         }
         try {
@@ -28,5 +28,4 @@ public class Solution {
             e.printStackTrace();
         }
     }
-
 }

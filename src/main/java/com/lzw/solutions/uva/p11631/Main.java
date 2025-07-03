@@ -18,12 +18,11 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Edge implements Comparable<Edge> {
         int x, y, z;
 
-        Edge() {
-        }
+        Edge() {}
 
         Edge(int x, int y, int z) {
             this.x = x;
@@ -38,8 +37,8 @@ public class Main {
     }
 
     int[] parents;
-    int[] rank;    
-    
+    int[] rank;
+
     int find(int x) {
         if (parents[x] == x) {
             return x;
@@ -47,7 +46,7 @@ public class Main {
             return find(parents[x]);
         }
     }
-    
+
     void union(int x, int y) {
         int px = find(x);
         int py = find(y);
@@ -55,15 +54,15 @@ public class Main {
             return;
         }
         if (rank[px] > rank[py]) {
-            parents[py] = px;            
+            parents[py] = px;
         } else {
             parents[px] = py;
             if (rank[px] == rank[py]) {
                 rank[py]++;
-            }            
+            }
         }
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -85,13 +84,13 @@ public class Main {
                 edges[i] = edge;
                 total += z;
             }
-        
+
             // int[][] grid = new int[m][m];
             // for (int i = 0; i < n; i++) {
             //     Triple triple = tripes[i];
             //     grid[triple.x][triple.y] = grid[triple.y][triple.x] = triple.z;
             // }
-            
+
             parents = new int[m];
             rank = new int[m];
             for (int i = 0; i < m; i++) {
@@ -125,7 +124,7 @@ public class Main {
             }
 
             out.append(String.format("%d\n", total - meters));
-        }    
+        }
     }
 
     void close() throws IOException {
@@ -134,14 +133,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

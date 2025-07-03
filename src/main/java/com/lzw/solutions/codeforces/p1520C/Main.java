@@ -20,7 +20,7 @@ public class Main {
         out.flush();
         out.close();
     }
-    
+
     void print(int[][] grid) {
         for (int u = 0; u < n; u++) {
             for (int v = 0; v < n; v++) {
@@ -107,5 +107,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

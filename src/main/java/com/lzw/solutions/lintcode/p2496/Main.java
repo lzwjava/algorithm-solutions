@@ -1,20 +1,19 @@
 package com.lzw.solutions.lintcode.p2496;
 
-import java.util.*;
-import java.lang.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
     private static PrintStream printStream;
     private static String mainThreadName;
     private static int i = 0;
 
-    public static int increase(int number) throws Exception{
+    public static int increase(int number) throws Exception {
         Main.i = ++number;
         return Main.i;
     }
 
-    public static int decrease(int number) throws Exception{
+    public static int decrease(int number) throws Exception {
         Main.i = --number;
         return Main.i;
     }
@@ -30,7 +29,7 @@ public class Main {
             int add2Count = 0;
             int sub1Count = 0;
             int sub2Count = 0;
-            while(in.hasNext()) {
+            while (in.hasNext()) {
                 String operation = in.nextLine();
                 operation = operation.substring(0, operation.length() - 2);
                 if (operation.equals("add_1")) {
@@ -51,39 +50,39 @@ public class Main {
             List<Integer[]> getResultList = new LinkedList<Integer[]>();
             Thread[] threads = new Thread[4];
             threads[0] = new Thread(() -> {
-                try{
-                    for(int i = 0; i < add1Countfinal; i++){
+                try {
+                    for (int i = 0; i < add1Countfinal; i++) {
                         instance.add1();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
             threads[1] = new Thread(() -> {
-                try{
-                    for(int i = 0; i < add2Countfinal; i++){
+                try {
+                    for (int i = 0; i < add2Countfinal; i++) {
                         instance.add2();
                     }
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
             threads[2] = new Thread(() -> {
-                try{
-                    for(int i = 0; i < sub1Countfinal; i++){
+                try {
+                    for (int i = 0; i < sub1Countfinal; i++) {
                         instance.sub1();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
             threads[3] = new Thread(() -> {
-                try{
-                    for(int i = 0; i < sub2Countfinal; i++){
+                try {
+                    for (int i = 0; i < sub2Countfinal; i++) {
                         instance.sub2();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
@@ -93,7 +92,7 @@ public class Main {
             for (int i = 0; i < 4; i++) {
                 threads[i].join();
             }
-            if (Main.i != instance.checkI()){
+            if (Main.i != instance.checkI()) {
                 Exception exception = new Exception("Don't cheat!");
                 throw exception;
             } else {

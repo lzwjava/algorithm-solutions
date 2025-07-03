@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-    
+
     boolean subsequence(String s, String t) {
         if (s.isEmpty() || t.isEmpty()) {
             if (s.isEmpty() && t.isEmpty()) {
@@ -24,11 +24,11 @@ public class Main {
             return subsequence(s, t.substring(1));
         }
     }
-    
+
     boolean subsequence1(String s, String t) {
         int sp = 0, tp = 0;
         boolean is = false;
-        for (;;) {
+        for (; ; ) {
             if (sp == s.length()) {
                 is = true;
                 break;
@@ -53,22 +53,21 @@ public class Main {
         while (sc.hasNext()) {
             String s = sc.next();
             String t = sc.next();
-            
+
             boolean is = subsequence1(s, t);
             if (is) {
                 System.out.println("Yes");
             } else {
                 System.out.println("No");
-            }     
+            }
         }
         sc.close();
     }
-    
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

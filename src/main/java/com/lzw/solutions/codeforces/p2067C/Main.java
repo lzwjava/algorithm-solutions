@@ -1,8 +1,7 @@
 package com.lzw.solutions.codeforces.p2067C;
 
-import java.util.*;
-import java.lang.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws java.lang.Exception {
@@ -27,8 +26,7 @@ public class Main {
                 System.out.println(1);
             } else if ((n + (9 - (n % 9))) % 10 == 7) {
                 System.out.println(1);
-            }
-            else {
+            } else {
                 System.out.println(1);
             }
         }

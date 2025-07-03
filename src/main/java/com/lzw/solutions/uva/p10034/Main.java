@@ -33,15 +33,14 @@ public class Main {
         float x;
         float y;
 
-        Point() {
-        }
+        Point() {}
 
         Point(float x, float y) {
             this.x = x;
             this.y = y;
         }
     }
-    
+
     float distOfPoints(Point a, Point b) {
         float dx = Math.abs(a.x - b.x);
         float dy = Math.abs(a.y - b.y);
@@ -55,13 +54,13 @@ public class Main {
         }
         return d;
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
         boolean first = true;
         while (t > 0) {
-            int n = sc.nextInt();        
+            int n = sc.nextInt();
             Point[] pts = new Point[n];
             for (int i = 0; i < n; i++) {
                 float x = sc.nextFloat();
@@ -118,7 +117,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -15,15 +15,14 @@ public class Main1 {
         float x;
         float y;
 
-        Point() {
-        }
+        Point() {}
 
         Point(float x, float y) {
             this.x = x;
             this.y = y;
         }
     }
-    
+
     float distOfPoints(Point a, Point b) {
         float dx = Math.abs(a.x - b.x);
         float dy = Math.abs(a.y - b.y);
@@ -37,8 +36,8 @@ public class Main1 {
         }
         return d;
     }
-    
-    // 先把所有连的找到，然后删掉最长的    
+
+    // 先把所有连的找到，然后删掉最长的
     void dfs(int ids[], boolean vis[], float d, int i, int n) {
         if (d > minDist) {
             return;
@@ -61,7 +60,7 @@ public class Main1 {
             }
         }
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -72,7 +71,7 @@ public class Main1 {
                 float x = sc.nextFloat();
                 float y = sc.nextFloat();
                 pts[i] = new Point(x, y);
-            }      
+            }
             dist = new float[n][n];
             for (int i = 0; i < n - 1; i++) {
                 for (int j = i + 1; j < n; j++) {
@@ -94,10 +93,10 @@ public class Main1 {
                     ni = 0;
                 }
                 if (dist[minIds[i]][minIds[ni]] > maxDist) {
-                    maxDist = dist[minIds[i]][minIds[ni]];                    
+                    maxDist = dist[minIds[i]][minIds[ni]];
                 }
             }
-            System.out.println(String.format("%.2f", minDist-maxDist));
+            System.out.println(String.format("%.2f", minDist - maxDist));
             t--;
         }
         sc.close();
@@ -106,7 +105,7 @@ public class Main1 {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

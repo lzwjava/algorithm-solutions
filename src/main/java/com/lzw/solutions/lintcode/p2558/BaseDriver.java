@@ -1,6 +1,5 @@
 package com.lzw.solutions.lintcode.p2558;
 
-import java.io.File;
 import java.io.*;
 import java.util.*;
 

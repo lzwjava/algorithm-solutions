@@ -23,11 +23,21 @@ public class Main {
 
         @Override
         public String toString() {
-            return String.format("%d %s %d %s %d %d %d %d %d %.2f", this.rank, this.sid, this.cid, this.name,
-                    this.scores[0], this.scores[1], this.scores[2], this.scores[3], this.total, this.average);
+            return String.format(
+                    "%d %s %d %s %d %d %d %d %d %.2f",
+                    this.rank,
+                    this.sid,
+                    this.cid,
+                    this.name,
+                    this.scores[0],
+                    this.scores[1],
+                    this.scores[2],
+                    this.scores[3],
+                    this.total,
+                    this.average);
         }
     }
-    
+
     class Course {
         int courseId;
         double average = 0;
@@ -49,8 +59,8 @@ public class Main {
             return "";
         }
     }
-    
-    boolean isNameNotSid(String input){
+
+    boolean isNameNotSid(String input) {
         return input.length() > 1 && Character.isUpperCase(input.charAt(0));
     }
 
@@ -68,18 +78,18 @@ public class Main {
         sb.append("5 - Show Statistics\n");
         sb.append("0 - Exit\n");
         String prompt = sb.toString();
-        
+
         HashMap<String, Student> students = new HashMap<>();
 
-        int order = 0;        
+        int order = 0;
 
-        for (;;) {
+        for (; ; ) {
             System.out.println(prompt);
             int code = sc.nextInt();
             if (code == 0) {
                 break;
             } else if (code == 1) {
-                for (;;) {
+                for (; ; ) {
                     System.out.println("Please enter the SID, CID, name and four scores. Enter 0 to finish.");
                     String sid = sc.next();
                     if (sid.equals("0")) {
@@ -92,7 +102,7 @@ public class Main {
                         s.scores[0] = sc.nextInt();
                         s.scores[1] = sc.nextInt();
                         s.scores[2] = sc.nextInt();
-                        s.scores[3] = sc.nextInt();                        
+                        s.scores[3] = sc.nextInt();
 
                         if (students.get(s.sid) != null) {
                             System.out.println("Duplicated SID.");
@@ -102,20 +112,20 @@ public class Main {
                                 s.total += s.scores[i];
                             }
                             s.average = s.total * 1.0 / 4;
-                            s.order = order;                        
+                            s.order = order;
                             order++;
                             students.put(s.sid, s);
                         }
                     }
-                }                
+                }
             } else if (code == 2) {
-                for (;;) {
+                for (; ; ) {
                     System.out.println("Please enter SID or name. Enter 0 to finish.");
                     String input = sc.next();
                     if (input.equals("0")) {
                         break;
                     } else {
-                        int removeCount = 0;                        
+                        int removeCount = 0;
                         if (isNameNotSid(input)) {
                             ArrayList<Student> values = new ArrayList<>();
                             values.addAll(students.values());
@@ -123,7 +133,7 @@ public class Main {
                                 if (s.name.equals(input)) {
                                     Student v = students.remove(s.sid);
                                     if (v != null) {
-                                        removeCount++;                                        
+                                        removeCount++;
                                     }
                                 }
                             }
@@ -141,17 +151,17 @@ public class Main {
                 Collection<Student> values = students.values();
                 ArrayList<Student> studentList = new ArrayList<>();
                 studentList.addAll(values);
-                studentList.sort(new Comparator<Student>(){
+                studentList.sort(new Comparator<Student>() {
 
                     @Override
-                    public int compare(Student o1, Student o2) {                                
+                    public int compare(Student o1, Student o2) {
                         return o2.total - o1.total;
-                    }                            
+                    }
                 });
 
                 int lastRank = 0;
                 int lastTotal = -1;
-                int pos = 0;        
+                int pos = 0;
                 for (Student s : studentList) {
                     if (s.total != lastTotal) {
                         s.rank = pos + 1;
@@ -163,14 +173,14 @@ public class Main {
                     pos++;
                 }
 
-                studentList.sort(new Comparator<Student>(){
+                studentList.sort(new Comparator<Student>() {
                     @Override
                     public int compare(Main.Student o1, Main.Student o2) {
                         return o1.order - o2.order;
                     }
                 });
 
-                for (;;) {
+                for (; ; ) {
                     System.out.println("Please enter SID or name. Enter 0 to finish.");
                     String input = sc.next();
                     if (input.equals("0")) {
@@ -190,10 +200,10 @@ public class Main {
                         } else {
                             Student s = students.get(input);
                             if (s != null) {
-                                System.out.println(s.toString());                                
+                                System.out.println(s.toString());
                             }
                         }
-                    }                   
+                    }
                 }
             } else if (code == 4) {
                 System.out.println("Showing the ranklist hurts students' self-esteem. Don't do that.");
@@ -227,7 +237,7 @@ public class Main {
                     }
                 }
                 int totalPassed[] = Arrays.copyOf(passed, passed.length);
-                int total =0;
+                int total = 0;
                 for (int i = 4; i >= 1; i--) {
                     total += passed[i];
                     totalPassed[i] = total;
@@ -250,21 +260,23 @@ public class Main {
                 }
                 System.out.println("Overall:");
                 System.out.println(String.format("Number of students who passed all subjects: %d", totalPassed[4]));
-                System.out.println(String.format("Number of students who passed 3 or more subjects: %d", totalPassed[3]));
-                System.out.println(String.format("Number of students who passed 2 or more subjects: %d", totalPassed[2]));
-                System.out.println(String.format("Number of students who passed 1 or more subjects: %d", totalPassed[1]));
+                System.out.println(
+                        String.format("Number of students who passed 3 or more subjects: %d", totalPassed[3]));
+                System.out.println(
+                        String.format("Number of students who passed 2 or more subjects: %d", totalPassed[2]));
+                System.out.println(
+                        String.format("Number of students who passed 1 or more subjects: %d", totalPassed[1]));
                 System.out.println(String.format("Number of students who failed all subjects: %d", totalPassed[0]));
                 System.out.println();
             }
         }
         sc.close();
     }
-    
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             outStream = new PrintStream("2.out");

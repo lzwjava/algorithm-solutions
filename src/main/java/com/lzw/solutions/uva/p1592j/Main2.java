@@ -7,10 +7,9 @@ import java.util.Scanner;
 
 public class Main2 {
 
-   
     void work() {
         Scanner sc = new Scanner(System.in);
-        while(sc.hasNextInt()) {
+        while (sc.hasNextInt()) {
             int n = sc.nextInt();
             int m = sc.nextInt();
             String table[][] = new String[n][m];
@@ -25,7 +24,7 @@ public class Main2 {
             }
             boolean found = false;
             int c1 = 0, c2 = 0;
-            for (c1 = 0; c1 < m - 1; c1++) {            
+            for (c1 = 0; c1 < m - 1; c1++) {
                 for (c2 = c1 + 1; c2 < m; c2++) {
                     HashMap<String, Integer> map = new HashMap<>();
                     for (int r = 0; r < n; r++) {
@@ -48,9 +47,9 @@ public class Main2 {
                 if (found) {
                     break;
                 }
-            }       
+            }
             if (!found) {
-                System.out.println("YES");                             
+                System.out.println("YES");
             }
         }
         sc.close();
@@ -59,7 +58,7 @@ public class Main2 {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -22,7 +22,7 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int[] nums = new int[]{8, 4, 2, 6};
+        int[] nums = new int[] {8, 4, 2, 6};
         int n = Integer.parseInt(in.readLine());
         int ans;
         if (n == 0) {
@@ -38,5 +38,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

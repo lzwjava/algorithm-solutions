@@ -49,7 +49,6 @@ public class Main {
         }
     }
 
-
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {

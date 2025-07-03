@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    ArrayList<Integer> primes;    
+    ArrayList<Integer> primes;
 
     Main() {
         primes = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Main {
     }
 
     int calDivisor(int x) {
-        ArrayList<Divisor> list = new ArrayList<>();        
+        ArrayList<Divisor> list = new ArrayList<>();
         for (int i = 0; i < primes.size(); i++) {
             int pi = primes.get(i);
             if (x % pi == 0) {
@@ -55,13 +55,13 @@ public class Main {
         }
         int sum = 1;
         for (Divisor d : list) {
-            sum *= (d.count+1);
+            sum *= (d.count + 1);
         }
         return sum;
     }
-   
-    void solve() {              
-        Scanner sc = new Scanner(System.in);    
+
+    void solve() {
+        Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         while (n > 0) {
             int l = sc.nextInt();
@@ -75,8 +75,8 @@ public class Main {
                     maxDivisor = d;
                 }
             }
-            System.out.println(String.format("Between %d and %d, %d has a maximum of %d divisors.",
-              l, u, maxNum, maxDivisor));
+            System.out.println(
+                    String.format("Between %d and %d, %d has a maximum of %d divisors.", l, u, maxNum, maxDivisor));
             n--;
         }
         sc.close();
@@ -85,7 +85,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

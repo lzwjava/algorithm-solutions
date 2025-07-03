@@ -79,10 +79,10 @@ public class Main {
             for (int i = 0; i < 52; i++) {
                 int a = (nums[i] - 1) / 13;
                 int b = (nums[i] - 1) % 13;
-                String[] values = new String[]{"2", "3", "4", "5", "6", "7", "8", "9",
-                    "10", "Jack", "Queen", "King", "Ace"};
+                String[] values =
+                        new String[] {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
                 String value = values[b];
-                String[] suits = new String[]{"Clubs", "Diamonds", "Hearts", "Spades"};
+                String[] suits = new String[] {"Clubs", "Diamonds", "Hearts", "Spades"};
                 String suit = suits[a];
                 out.append(String.format("%s of %s\n", value, suit));
             }

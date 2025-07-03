@@ -21,7 +21,7 @@ public class Main1 {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     static class State {
         String str;
         int dist;
@@ -38,7 +38,7 @@ public class Main1 {
             this.dist = 0;
             this.subtracCount = 0;
         }
-    
+
         static String numsToString(int nums[]) {
             Arrays.sort(nums);
             StringBuilder sb = new StringBuilder();
@@ -48,11 +48,11 @@ public class Main1 {
                 }
                 sb.append(String.valueOf(nums[i]));
             }
-            return sb.toString();            
-        }       
+            return sb.toString();
+        }
 
         static Main1.State fromNums(int nums[]) {
-            String s =numsToString(nums);
+            String s = numsToString(nums);
             return new State(s);
         }
 
@@ -72,7 +72,7 @@ public class Main1 {
     HashMap<Integer, Integer> map;
 
     void tryAddToQueue(State cur, int nums[], int newNum, int n, boolean isSubtract) {
-        recordAns(newNum, cur.dist + 1); 
+        recordAns(newNum, cur.dist + 1);
         int newNumIndex = Arrays.binarySearch(nums, newNum);
         if (newNumIndex >= 0) {
             return;
@@ -91,7 +91,7 @@ public class Main1 {
             return;
         }
         int surpassN = 0;
-        for (int i = newNums.length-1; i >=0; i--) {
+        for (int i = newNums.length - 1; i >= 0; i--) {
             if (newNums[i] > n) {
                 surpassN++;
             } else {
@@ -101,7 +101,7 @@ public class Main1 {
         if (surpassN > 1) {
             return;
         }
-        if (isSubtract && cur.subtracCount + 1 >= maxDepth/5) {
+        if (isSubtract && cur.subtracCount + 1 >= maxDepth / 5) {
             return;
         }
         set.add(str);
@@ -110,20 +110,20 @@ public class Main1 {
         if (isSubtract) {
             newState.subtracCount = cur.subtracCount + 1;
         } else {
-            newState.subtracCount = cur.subtracCount;            
+            newState.subtracCount = cur.subtracCount;
         }
         queue.add(newState);
     }
-    
+
     int cal(int n) {
         Integer ans = map.get(n);
         if (ans != null) {
             return ans;
         }
         if (n >= 512) {
-            maxDepth = (int)Math.ceil((Math.log(n) / Math.log(2)) * 8 / 7);
+            maxDepth = (int) Math.ceil((Math.log(n) / Math.log(2)) * 8 / 7);
         } else {
-            maxDepth = (int)Math.ceil((Math.log(n) / Math.log(2)) * 8 / 7);              
+            maxDepth = (int) Math.ceil((Math.log(n) / Math.log(2)) * 8 / 7);
         }
         queue = new ArrayBlockingQueue<>(1000000);
         set = new HashSet<>();
@@ -132,7 +132,7 @@ public class Main1 {
         queue.add(startState);
         while (!queue.isEmpty()) {
             State st = queue.poll();
-            int[] nums = st.nums();            
+            int[] nums = st.nums();
             int i = nums.length - 1;
             for (int j = nums.length - 1; j >= 0; j--) {
                 int sum = nums[i] + nums[j];
@@ -148,11 +148,11 @@ public class Main1 {
                 if (subtract == n) {
                     return st.dist + 1;
                 }
-            }   
+            }
         }
         return 0;
     }
-   
+
     private void recordAns(int newNum, int depth) {
         Integer ans = map.get(newNum);
         if (ans == null) {
@@ -164,9 +164,9 @@ public class Main1 {
         map = new HashMap<>();
         ArrayList<Integer> inputs = new ArrayList<>();
         int maxN = 0;
-        int i =1;
+        int i = 1;
         while (true) {
-            // int n = Integer.parseInt(in.readLine());            
+            // int n = Integer.parseInt(in.readLine());
             int n = i;
             if (n == 0) {
                 break;
@@ -175,7 +175,7 @@ public class Main1 {
             if (n > maxN) {
                 maxN = n;
             }
-            i++;  
+            i++;
             if (i == 1001) {
                 break;
             }
@@ -185,10 +185,10 @@ public class Main1 {
         for (Integer input : inputs) {
             int ans = cal(input);
             if (input > 1) {
-                assert (ans != 0);                
+                assert (ans != 0);
             }
-            out.append(String.valueOf(ans)).append(',');                    
-        } 
+            out.append(String.valueOf(ans)).append(',');
+        }
     }
 
     void close() throws IOException {
@@ -197,14 +197,14 @@ public class Main1 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

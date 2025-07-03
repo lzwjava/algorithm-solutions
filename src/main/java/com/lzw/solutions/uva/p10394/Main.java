@@ -18,7 +18,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void calPrimes() {
         primes = new ArrayList<>();
         for (int i = 2; i <= 18409550; i++) {
@@ -47,15 +47,14 @@ public class Main {
         int a;
         int b;
 
-        Twin() {
-        }
-        
+        Twin() {}
+
         Twin(int a, int b) {
             this.a = a;
             this.b = b;
         }
     }
-   
+
     void solve() throws IOException {
         calPrimes();
         ArrayList<Twin> twins = new ArrayList<>();
@@ -73,7 +72,7 @@ public class Main {
                 break;
             }
             int n = Integer.parseInt(s);
-            Twin t = twins.get(n-1);
+            Twin t = twins.get(n - 1);
             out.append(String.format("(%d, %d)\n", t.a, t.b));
         }
     }
@@ -84,14 +83,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

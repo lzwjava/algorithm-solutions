@@ -36,5 +36,4 @@ public class QuickSort {
         sortRange(arr, start, left - 1);
         sortRange(arr, left + 1, end);
     }
-
 }

@@ -46,21 +46,21 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
-            String s = in.readLine();            
+            String s = in.readLine();
             StringTokenizer st = new StringTokenizer(s);
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
             int d = Integer.parseInt(st.nextToken());
-            int vols[] = new int[] { a, b, c };
+            int vols[] = new int[] {a, b, c};
             PriorityQueue<Node> pq = new PriorityQueue<>();
             Node node = new Node(0, 0, c);
             pq.add(node);
-            int amount = c;            
+            int amount = c;
             boolean vis[][] = new boolean[amount + 1][amount + 1];
             vis[0][0] = true;
             int gap = Integer.MAX_VALUE;
@@ -109,14 +109,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -27,7 +27,5 @@ public class Main {
         m.close();
     }
 
-    void solve() {
-
-    }
+    void solve() {}
 }

@@ -18,7 +18,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Garment {
         int k;
         int prices[];
@@ -28,8 +28,8 @@ public class Main {
     static int maxM = 205;
     static int maxC = 25;
 
-    int[][] map;    
-    
+    int[][] map;
+
     int dp(int m, int cur, int c) {
         if (cur == c) {
             return 0;
@@ -52,11 +52,10 @@ public class Main {
                 }
             }
         }
-        map[cur][m] = ans;        
+        map[cur][m] = ans;
         return ans;
     }
 
-   
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         while (n > 0) {
@@ -84,7 +83,7 @@ public class Main {
             }
             int ans = dp(m, 0, c);
             if (ans >= 0) {
-                out.append(String.format("%d\n", ans));                
+                out.append(String.format("%d\n", ans));
             } else {
                 out.append(String.format("no solution\n"));
             }
@@ -98,14 +97,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

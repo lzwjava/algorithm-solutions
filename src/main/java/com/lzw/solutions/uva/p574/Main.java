@@ -27,7 +27,7 @@ public class Main {
 
         @Override
         public int compareTo(Main.Ans o) {
-            int min = Math.min(nums.length, o.nums.length);         
+            int min = Math.min(nums.length, o.nums.length);
             for (int i = 0; i < min; i++) {
                 if (nums[i] != o.nums[i]) {
                     return Integer.compare(o.nums[i], nums[i]);
@@ -35,10 +35,10 @@ public class Main {
             }
             if (nums.length == o.nums.length) {
                 return 0;
-            }                        
+            }
             return Integer.compare(nums.length, o.nums.length);
         }
-        
+
         @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof Ans)) {
@@ -53,7 +53,7 @@ public class Main {
             return Arrays.hashCode(nums);
         }
     }
-    
+
     void permutation(int[] nums, boolean[] selected, int cur, int n, int sum, int total) {
         if (sum > total) {
             return;
@@ -91,9 +91,9 @@ public class Main {
         selected[cur] = true;
         permutation(nums, selected, cur + 1, n, sum + nums[cur], total);
     }
-    
+
     HashSet<Ans> set;
-   
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -109,7 +109,7 @@ public class Main {
             }
             out.append(String.format("Sums of %d:\n", t));
             set = new HashSet<>();
-            boolean[] selected = new boolean[n];            
+            boolean[] selected = new boolean[n];
             permutation(nums, selected, 0, n, 0, t);
             if (set.size() == 0) {
                 out.append("NONE\n");
@@ -126,7 +126,7 @@ public class Main {
                     }
                     out.append('\n');
                 }
-            }       
+            }
         }
     }
 
@@ -136,14 +136,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

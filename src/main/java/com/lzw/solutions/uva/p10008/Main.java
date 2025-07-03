@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    class Letter implements Comparable<Letter>{
+    class Letter implements Comparable<Letter> {
         int index;
         int count;
 
@@ -35,7 +35,7 @@ public class Main {
             return sb.toString();
         }
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -63,7 +63,7 @@ public class Main {
         Collections.sort(letters);
         for (Letter l : letters) {
             if (l.count > 0) {
-                System.out.println(l.toString());                
+                System.out.println(l.toString());
             }
         }
         sc.close();
@@ -72,7 +72,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

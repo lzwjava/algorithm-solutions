@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextInt()) {
@@ -18,12 +18,12 @@ public class Main {
             for (int i = 0; i < maxLen; i++) {
                 int pa = sa.length() - 1 - i;
                 int va = 0;
-                if (pa >=0) {
+                if (pa >= 0) {
                     va = sa.charAt(pa) - '0';
                 }
                 int pb = sb.length() - 1 - i;
                 int vb = 0;
-                if (pb >=0) {
+                if (pb >= 0) {
                     vb = sb.charAt(pb) - '0';
                 }
                 int v = va ^ vb;
@@ -39,7 +39,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

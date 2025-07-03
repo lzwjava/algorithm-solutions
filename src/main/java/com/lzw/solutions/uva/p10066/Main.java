@@ -21,8 +21,8 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
-    int dp(int n1, int n2) {        
+
+    int dp(int n1, int n2) {
         if (n1 == 0 && n2 == 0) {
             return 0;
         }
@@ -37,16 +37,16 @@ public class Main {
         int ans;
         if (nums1[n1] == nums2[n2]) {
             int v = dp(n1 - 1, n2 - 1);
-            ans = v + 1;            
+            ans = v + 1;
         } else {
             int v1 = dp(n1 - 1, n2);
             int v2 = dp(n1, n2 - 1);
             ans = Math.max(v1, v2);
         }
         map[n1][n2] = ans;
-        return ans;        
+        return ans;
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -62,7 +62,7 @@ public class Main {
             nums1 = new int[n1 + 1];
             for (int i = 0; i < n1; i++) {
                 int num = Integer.parseInt(st.nextToken());
-                nums1[n1-i] = num;
+                nums1[n1 - i] = num;
             }
             s = in.readLine();
             st = new StringTokenizer(s);
@@ -89,14 +89,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

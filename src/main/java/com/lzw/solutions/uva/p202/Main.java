@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static void work(){
+    private static void work() {
         Scanner sc = new Scanner(System.in);
 
-        for (;;) {
+        for (; ; ) {
             if (!sc.hasNextInt()) {
                 break;
             }
@@ -27,10 +27,10 @@ public class Main {
                 }
                 nums[i] = (int) (res * 10 / denominator);
                 res = (res * 10) % denominator;
-            }         
+            }
 
             if (i < size) {
-                System.out.print(String.format("%d/%d = %d.", numerator, denominator, positive));                
+                System.out.print(String.format("%d/%d = %d.", numerator, denominator, positive));
                 for (int j = 0; j < i; j++) {
                     System.out.print(nums[j]);
                 }
@@ -42,7 +42,7 @@ public class Main {
 
                 for (end = 1; end < size; end++) {
                     for (start = 0; start < end; start++) {
-                        // System.out.println("start " + start +" end " + end);                        
+                        // System.out.println("start " + start +" end " + end);
                         boolean ok = true;
                         int len = end - start;
                         for (int j = start + len; j < size; j++) {
@@ -92,7 +92,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

@@ -43,7 +43,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     boolean check(int a, int b) {
         if (a > b) {
             int tmp = a;
@@ -57,14 +57,14 @@ public class Main {
             return false;
         }
         for (int i = 0; i < primes.size(); i++) {
-            int pi = primes.get(i);           
-            if (a % pi == 0 && b % pi == 0) {              
+            int pi = primes.get(i);
+            if (a % pi == 0 && b % pi == 0) {
                 return false;
             }
-        }     
+        }
         return true;
     }
-   
+
     void solve() throws IOException {
         calPrimes();
         while (true) {
@@ -77,7 +77,7 @@ public class Main {
                 break;
             }
             int nums[] = new int[n];
-            ArrayList<ArrayList<Integer>> factors = new ArrayList<>();            
+            ArrayList<ArrayList<Integer>> factors = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 int a = Integer.parseInt(in.readLine());
                 nums[i] = a;
@@ -107,8 +107,8 @@ public class Main {
             if (count == 0) {
                 out.append("No estimate for this data set.");
             } else {
-                double v =  count * 1.0 / total;
-                out.append(String.format("%.6f", Math.sqrt(6/v)));
+                double v = count * 1.0 / total;
+                out.append(String.format("%.6f", Math.sqrt(6 / v)));
             }
             out.append('\n');
         }
@@ -116,7 +116,7 @@ public class Main {
 
     private ArrayList<Integer> calFactor(int a) {
         ArrayList<Integer> factors = new ArrayList<>();
-        int si = (int)Math.sqrt(a);
+        int si = (int) Math.sqrt(a);
         for (int i = 0; i < primes.size(); i++) {
             int pi = primes.get(i);
             if (pi > si) {
@@ -141,14 +141,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

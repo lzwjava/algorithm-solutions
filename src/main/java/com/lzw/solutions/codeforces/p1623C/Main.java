@@ -91,8 +91,6 @@ public class Main {
             } else {
                 out.append(String.format("%d\n", left));
             }
-
         }
     }
-
 }

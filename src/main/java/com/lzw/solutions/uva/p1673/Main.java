@@ -30,20 +30,17 @@ public class Main {
 
         to = new ArrayList<>();
 
-        for (int i = 0; i < MAXN; i++)
-            to.add(new HashMap<>());
+        for (int i = 0; i < MAXN; i++) to.add(new HashMap<>());
     }
 
     private void addCharacter(char c, boolean mark) {
         int prev = last;
         int curr = (last = sz++);
 
-        if (mark)
-            finalState[curr] = true;
+        if (mark) finalState[curr] = true;
 
         len[curr] = len[prev] + 1;
-        for (; to.get(prev).get(c) == null; prev = link[prev])
-            to.get(prev).put(c, curr);
+        for (; to.get(prev).get(c) == null; prev = link[prev]) to.get(prev).put(c, curr);
 
         if (to.get(prev).get(c) == curr) {
             link[curr] = 0;
@@ -58,8 +55,7 @@ public class Main {
 
         int next2 = sz++;
 
-        if (mark)
-            finalState[next2] = true;
+        if (mark) finalState[next2] = true;
 
         to.get(next2).putAll(to.get(next));
 
@@ -68,8 +64,7 @@ public class Main {
 
         link[curr] = link[next] = next2;
 
-        for (; to.get(prev).get(c) == next; prev = link[prev])
-            to.get(prev).put(c, next2);
+        for (; to.get(prev).get(c) == next; prev = link[prev]) to.get(prev).put(c, next2);
     }
 
     Main() {

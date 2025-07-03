@@ -16,8 +16,7 @@ public class Main {
             this.w = w;
         }
     }
-    
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -36,19 +35,19 @@ public class Main {
             for (int i = 0; i < g; i++) {
                 int mw = sc.nextInt();
                 mws.add(mw);
-                if (mw > max){
+                if (mw > max) {
                     max = mw;
                 }
             }
 
-            int d[][] = new int[n+1][max+1];
+            int d[][] = new int[n + 1][max + 1];
             for (int i = 0; i <= max; i++) {
                 d[0][i] = 0;
             }
             for (int i = 1; i <= n; i++) {
                 for (int w = 0; w <= max; w++) {
                     int v = d[i - 1][w];
-                    Obj obj = objs.get(i-1);
+                    Obj obj = objs.get(i - 1);
                     if (w >= obj.w) {
                         int nv = d[i - 1][w - obj.w] + obj.p;
                         if (v < nv) {
@@ -60,7 +59,7 @@ public class Main {
             }
 
             int maxValue = 0;
-            for (int i = 0; i < mws.size(); i++) {         
+            for (int i = 0; i < mws.size(); i++) {
                 int mw = mws.get(i);
                 maxValue += d[n][mw];
             }
@@ -75,7 +74,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

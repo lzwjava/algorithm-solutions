@@ -23,21 +23,20 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class State {
         String s;
         int dist;
         State parent;
 
-        State() {
-        }
+        State() {}
 
         State(String s, int dist) {
             this.s = s;
             this.dist = dist;
         }
     }
-    
+
     boolean isContinuous(String s) {
         if (s.length() <= 1) {
             return true;
@@ -57,11 +56,11 @@ public class Main {
         }
         return true;
     }
-    
+
     boolean isCutAlreadyContinuous(String cut, String s) {
         int start = s.indexOf(cut);
         int end = start + cut.length();
-        assert(!(start == 0 && end == s.length()));
+        assert (!(start == 0 && end == s.length()));
         if (start == 0) {
             char ch = s.charAt(end - 1);
             char nch = s.charAt(end);
@@ -77,7 +76,7 @@ public class Main {
         }
         return false;
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         // out.append(isContinuous("5")+"");
@@ -90,12 +89,12 @@ public class Main {
             int nums[] = new int[n];
             StringBuilder sb = new StringBuilder();
             StringBuilder finalSb = new StringBuilder();
-            StringTokenizer tokenizer = new StringTokenizer(in.readLine());            
+            StringTokenizer tokenizer = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
                 nums[i] = Integer.parseInt(tokenizer.nextToken());
                 sb.append(nums[i]);
                 finalSb.append(i + 1);
-            }            
+            }
             String str = sb.toString();
             finalStr = finalSb.toString();
             State st = new State(str, 0);
@@ -105,7 +104,7 @@ public class Main {
             visited.add(str);
             int len = str.length();
             State cur = st;
-            finalSt = st;         
+            finalSt = st;
             while (!queue.isEmpty()) {
                 cur = queue.poll();
                 // 4 , 5
@@ -113,32 +112,32 @@ public class Main {
                 for (int l = 1; l < len; l++) {
                     // cut to right
                     // l = 4, len = 5, i = 0, i < 1
-                    // start from i, l length str cut to right                    
+                    // start from i, l length str cut to right
                     for (int i = 0; i < len - l; i++) {
                         // 0, 4
-                        // l = 3, len = 5, i = 0,  
-                        // (0, 4) 
+                        // l = 3, len = 5, i = 0,
+                        // (0, 4)
                         // 2 4 1 5    3   6
                         // 0 1 2 3 4 5
                         // 2 4 1 5 3 6
                         String s0 = cur.s.substring(0, i);
-                        String s1 = cur.s.substring(i, i + l); // cut 
+                        String s1 = cur.s.substring(i, i + l); // cut
 
                         // if (!isContinuous(s1)) {
                         //     continue;
                         // }
 
-                        for (int j = i + l + 1; j <= len; j++) {                                                   
+                        for (int j = i + l + 1; j <= len; j++) {
                             String s2 = cur.s.substring(i + l, j);
                             // paste
-                            String s3 = cur.s.substring(j, len);                            
+                            String s3 = cur.s.substring(j, len);
                             String ns = s0 + s2 + s1 + s3;
                             if (isCutAlreadyContinuous(s1, cur.s)) {
                                 continue;
                             }
                             if (checkFound(cur, ns)) {
                                 found = true;
-                                break;                                
+                                break;
                             }
                         }
                         if (found) {
@@ -153,13 +152,13 @@ public class Main {
                     for (int i = 1; i < len - l; i++) {
                         String s2 = cur.s.substring(i, i + l); // cut
                         String s3 = cur.s.substring(i + l, len);
-                        
+
                         // if (!isContinuous(s2)) {
                         //     continue;
                         // }
                         for (int j = 0; j < i; j++) {
                             String s0 = cur.s.substring(0, j);
-                            String s1 = cur.s.substring(j, i);                        
+                            String s1 = cur.s.substring(j, i);
                             String ns = s0 + s2 + s1 + s3;
                             if (isCutAlreadyContinuous(s2, cur.s)) {
                                 continue;
@@ -167,7 +166,7 @@ public class Main {
                             if (checkFound(cur, ns)) {
                                 found = true;
                                 break;
-                            }                                                 
+                            }
                         }
                         if (found) {
                             break;
@@ -227,14 +226,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

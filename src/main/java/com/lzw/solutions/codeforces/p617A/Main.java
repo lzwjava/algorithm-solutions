@@ -10,5 +10,4 @@ public class Main {
         int ans = (int) Math.ceil(x * 1.0 / 5);
         System.out.println(ans);
     }
-
 }

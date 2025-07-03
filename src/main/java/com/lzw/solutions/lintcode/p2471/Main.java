@@ -1,8 +1,7 @@
 package com.lzw.solutions.lintcode.p2471;
 
-import java.util.*;
-import java.lang.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
     private static PrintStream printStream;
@@ -84,7 +83,7 @@ public class Main {
                 appendRightThreads[i].join();
             }
             listStr = ListNode.getListString(list.getLinkedList());
-            //test code
+            // test code
             Map<Integer, Integer> solutionLeftMap = new Hashtable<Integer, Integer>();
             Map<Integer, Integer> solutionRightMap = new Hashtable<Integer, Integer>();
             ListNode node = list.getLinkedList();

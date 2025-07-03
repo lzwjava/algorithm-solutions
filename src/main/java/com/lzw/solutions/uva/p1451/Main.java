@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
+        //        m.test();
         m.close();
     }
 
@@ -42,7 +42,7 @@ public class Main {
                 sb.append(String.format("%d", random.nextInt(2)));
             }
             String s = sb.toString();
-//            s = "0111111100";
+            //            s = "0111111100";
             int L = random.nextInt(n) + 1;
             Result r = cal(n, L, s);
             StringBuilder rsb = new StringBuilder();
@@ -131,7 +131,8 @@ public class Main {
             int j = i + d - 1;
             int si = sum(i, j);
             double avg = si * 1.0 / d;
-            if (Double.compare(avg, maxAvg) > 0 || (Double.compare(avg, maxAvg) == 0 && Double.compare(avg, 1.0) != 0 && ones(i, j) > maxOne)) {
+            if (Double.compare(avg, maxAvg) > 0
+                    || (Double.compare(avg, maxAvg) == 0 && Double.compare(avg, 1.0) != 0 && ones(i, j) > maxOne)) {
                 maxAvg = avg;
                 maxD = d;
                 maxI = i;
@@ -238,5 +239,4 @@ public class Main {
             return sums[j] - sums[i - 1];
         }
     }
-
 }

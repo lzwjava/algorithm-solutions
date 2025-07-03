@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextInt()) {
@@ -17,7 +17,7 @@ public class Main {
             int op = 0;
             while (true) {
                 boolean swap = false;
-                for (int i = 0; i < n-1; i++) {
+                for (int i = 0; i < n - 1; i++) {
                     if (nums[i] > nums[i + 1]) {
                         int tmp = nums[i];
                         nums[i] = nums[i + 1];
@@ -38,7 +38,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

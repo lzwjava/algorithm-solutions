@@ -16,12 +16,12 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Dice {
         int[] nums;
         // 0     1      2     3      4       5
         // top, north, west, bottom, south, east
-        
+
         Dice() {
             nums = new int[6];
             nums[0] = 1;
@@ -55,7 +55,7 @@ public class Main {
 
             nums = newNums;
         }
-        
+
         private void west() {
             int[] newNums = new int[6];
             newNums[2] = nums[0];
@@ -67,7 +67,7 @@ public class Main {
 
             nums = newNums;
         }
-        
+
         private void east() {
             int[] newNums = new int[6];
             newNums[5] = nums[0];
@@ -82,22 +82,22 @@ public class Main {
 
         private void move(String command) {
             switch (command) {
-            case "north":
-                north();
-                break;
-            case "east":
-                east();
-                break;
-            case "south":
-                south();
-                break;
-            case "west":
-                west();
-                break;
-            }                           
+                case "north":
+                    north();
+                    break;
+                case "east":
+                    east();
+                    break;
+                case "south":
+                    south();
+                    break;
+                case "west":
+                    west();
+                    break;
+            }
         }
     }
-   
+
     void solve() throws IOException {
         while (true) {
             Integer n = Integer.parseInt(in.readLine());
@@ -112,7 +112,7 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 dice.move(commands[i]);
             }
-            out.append(String.format("%d\n", dice.nums[0]));            
+            out.append(String.format("%d\n", dice.nums[0]));
         }
     }
 
@@ -122,7 +122,7 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 

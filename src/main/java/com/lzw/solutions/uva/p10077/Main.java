@@ -17,7 +17,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Node {
         Fraction f;
         Node left;
@@ -27,7 +27,7 @@ public class Main {
             this.f = f;
         }
     }
-    
+
     class Fraction {
         int numerator;
         int denominator;
@@ -42,7 +42,7 @@ public class Main {
             return String.format("%d/%d", numerator, denominator);
         }
     }
-    
+
     void solve() throws IOException {
         while (true) {
             StringTokenizer st = new StringTokenizer(in.readLine());
@@ -77,7 +77,7 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 

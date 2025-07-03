@@ -83,10 +83,10 @@ public class Main {
                 boolean[] vis = new boolean[n];
                 vis[ia] = true;
                 int ans = 0;
-//                int[] fa = new int[n];
-//                for (int i = 0; i < n; i++) {
-//                    fa[i] = i;
-//                }
+                //                int[] fa = new int[n];
+                //                for (int i = 0; i < n; i++) {
+                //                    fa[i] = i;
+                //                }
                 while (!queue.isEmpty()) {
                     State state = queue.poll();
                     for (Integer v : adjNodes[state.idx]) {
@@ -96,7 +96,7 @@ public class Main {
                                 break;
                             }
                             vis[v] = true;
-//                            fa[v] = state.idx;
+                            //                            fa[v] = state.idx;
                             queue.add(new State(v, state.dist + 1));
                         }
                     }

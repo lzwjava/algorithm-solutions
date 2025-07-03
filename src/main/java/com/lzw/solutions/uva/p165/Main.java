@@ -35,7 +35,6 @@ public class Main {
             if (h == 0 && k == 0) {
                 break;
             }
-            
         }
     }
 }

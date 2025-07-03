@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -25,7 +25,7 @@ public class Main {
         }
         sc.close();
     }
-    
+
     long factorial(int n) {
         long s = 1;
         for (int i = 1; i <= n; i++) {
@@ -42,7 +42,7 @@ public class Main {
         while (true) {
             if (i <= n) {
                 s *= i;
-                i++;                
+                i++;
             }
             if (j <= r) {
                 if (s % j != 0) {
@@ -69,7 +69,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

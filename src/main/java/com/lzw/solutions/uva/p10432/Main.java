@@ -15,9 +15,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String s = in.readLine();
@@ -28,7 +28,7 @@ public class Main {
             double r = Double.parseDouble(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
             double area = 1.0 * r * r * Math.sin(2 * Math.PI / n) / 2;
-            out.append(String.format("%.3f\n", n*area));
+            out.append(String.format("%.3f\n", n * area));
         }
     }
 
@@ -38,14 +38,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

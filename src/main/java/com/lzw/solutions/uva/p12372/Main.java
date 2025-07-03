@@ -5,11 +5,11 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
-        int caseNum =1;
+        int caseNum = 1;
         while (t > 0) {
             int l = sc.nextInt();
             int w = sc.nextInt();
@@ -18,7 +18,7 @@ public class Main {
             if (l <= 20 && w <= 20 && h <= 20) {
                 System.out.println("good");
             } else {
-                System.out.println("bad");                
+                System.out.println("bad");
             }
             t--;
             caseNum++;
@@ -29,7 +29,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

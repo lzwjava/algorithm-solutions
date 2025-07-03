@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 public class Main {
 
     BufferedReader in;
-    PrintWriter out; 
+    PrintWriter out;
 
     class Job implements Comparable<Job> {
         int id;
@@ -42,11 +42,11 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-       
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
-            in.readLine();            
+            in.readLine();
             String s = in.readLine();
             int n = Integer.parseInt(s);
             ArrayList<Job> jobs = new ArrayList<>();
@@ -55,7 +55,7 @@ public class Main {
                 StringTokenizer st = new StringTokenizer(line);
                 int time = Integer.parseInt(st.nextToken());
                 int fine = Integer.parseInt(st.nextToken());
-                Job j = new Job(i+1, time, fine);
+                Job j = new Job(i + 1, time, fine);
                 jobs.add(j);
             }
             Collections.sort(jobs);
@@ -66,7 +66,7 @@ public class Main {
                 Job j = jobs.get(i);
                 out.append(String.format("%d", j.id));
             }
-            out.append('\n');        
+            out.append('\n');
             t--;
             if (t != 0) {
                 out.append('\n');
@@ -80,14 +80,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

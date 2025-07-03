@@ -1,9 +1,8 @@
 package com.lzw.solutions.lintcode.p2504;
 
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.lang.*;
-import java.io.*;
 
 public class Main {
     private static String mainThreadName;
@@ -18,7 +17,7 @@ public class Main {
                 throw exception;
             }
             results.put(x, "Log " + String.valueOf(x) + " has been recorded.\n");
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -29,11 +28,11 @@ public class Main {
             printStream = new PrintStream(outputPath);
             mainThreadName = Thread.currentThread().getName();
             Solution.createLog();
-            for(Integer i= 1; i < 17; i++) {
-                System.out.print((String)results.get(i));
+            for (Integer i = 1; i < 17; i++) {
+                System.out.print((String) results.get(i));
             }
-            for(Integer i= 1; i < 17; i++) {
-                printStream.write(((String)results.get(i)).getBytes("Utf-8"));
+            for (Integer i = 1; i < 17; i++) {
+                printStream.write(((String) results.get(i)).getBytes("Utf-8"));
             }
             printStream.close();
         } catch (Exception e) {

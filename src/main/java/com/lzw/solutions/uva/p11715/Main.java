@@ -15,9 +15,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -28,29 +28,29 @@ public class Main {
                 break;
             }
             double d1 = Double.parseDouble(st.nextToken());
-            double d2 = Double.parseDouble(st.nextToken());            
+            double d2 = Double.parseDouble(st.nextToken());
             double d3 = Double.parseDouble(st.nextToken());
             out.append(String.format("Case %d: ", caseNum));
             if (type == 1) {
                 double u = d1, v = d2, t = d3;
                 double a = (v - u) / t;
                 double s = (u + v) / 2 * t;
-                out.append(String.format("%.3f %.3f\n", s, a));                
+                out.append(String.format("%.3f %.3f\n", s, a));
             } else if (type == 2) {
                 double u = d1, v = d2, a = d3;
                 double t = (v - u) / a;
                 double s = (u + v) / 2 * t;
-                out.append(String.format("%.3f %.3f\n", s, t));                                
+                out.append(String.format("%.3f %.3f\n", s, t));
             } else if (type == 3) {
                 double u = d1, a = d2, s = d3;
                 double v = Math.sqrt(u * u + 2 * a * s);
-                double t = (v - u) / a;                
-                out.append(String.format("%.3f %.3f\n", v, t));                                                
-            } else {                
+                double t = (v - u) / a;
+                out.append(String.format("%.3f %.3f\n", v, t));
+            } else {
                 double v = d1, a = d2, s = d3;
                 double u = Math.sqrt(v * v - 2 * a * s);
                 double t = (v - u) / a;
-                out.append(String.format("%.3f %.3f\n", u, t));                                
+                out.append(String.format("%.3f %.3f\n", u, t));
             }
             caseNum++;
         }
@@ -62,14 +62,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

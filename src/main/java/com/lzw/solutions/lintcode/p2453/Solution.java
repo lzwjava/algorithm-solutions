@@ -1,7 +1,6 @@
 package com.lzw.solutions.lintcode.p2453;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -25,7 +24,7 @@ public class Solution {
                 for (int j = start; j < finalEnd; j++) {
                     sum += arr.get(j);
                 }
-                appendTheRangeAnswer.accept(new int[]{start, finalEnd, sum});
+                appendTheRangeAnswer.accept(new int[] {start, finalEnd, sum});
             });
             futures.add(future);
         }

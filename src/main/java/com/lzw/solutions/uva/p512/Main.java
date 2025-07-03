@@ -15,7 +15,7 @@ public class Main {
         }
         return false;
     }
-    
+
     void print(int curNums[][]) {
         for (int i = 0; i < curNums.length; i++) {
             for (int j = 0; j < curNums[i].length; j++) {
@@ -25,11 +25,11 @@ public class Main {
         }
         System.out.println();
     }
-    
+
     void work() {
         Scanner sc = new Scanner(System.in);
         int sn = 1;
-        for (;;) {
+        for (; ; ) {
             int r, c;
             r = sc.nextInt();
             c = sc.nextInt();
@@ -37,13 +37,13 @@ public class Main {
                 break;
             }
             int[][] nums = new int[r][c];
-            int p =0;
+            int p = 0;
             for (int i = 0; i < r; i++) {
                 for (int j = 0; j < c; j++) {
                     nums[i][j] = p;
                     p++;
                 }
-            }            
+            }
             int n = sc.nextInt();
 
             // print(nums);
@@ -181,12 +181,12 @@ public class Main {
                     default:
                         break;
                 } // switch
-                
+
                 curNums = nNums;
                 curR = nr;
                 curC = nc;
                 // print(curNums);
-            } // for            
+            } // for
 
             if (sn > 1) {
                 System.out.println();
@@ -196,8 +196,8 @@ public class Main {
             for (int i = 0; i < qn; i++) {
                 int qr = sc.nextInt();
                 int qc = sc.nextInt();
-                
-                int v = nums[qr-1][qc-1];
+
+                int v = nums[qr - 1][qc - 1];
                 boolean found = false;
                 int nr = 0, nc = 0;
                 // System.out.println(v);
@@ -212,22 +212,20 @@ public class Main {
                     }
                 }
                 if (found) {
-                    System.out.println(String.format("Cell data in (%d,%d) moved to (%d,%d)", 
-                    qr, qc, nr+1,nc+1));
+                    System.out.println(String.format("Cell data in (%d,%d) moved to (%d,%d)", qr, qc, nr + 1, nc + 1));
                 } else {
-                    System.out.println(String.format("Cell data in (%d,%d) GONE", qr,qc));
+                    System.out.println(String.format("Cell data in (%d,%d) GONE", qr, qc));
                 }
             }
             sn++;
         }
         sc.close();
     }
-    
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

@@ -5,15 +5,15 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
-        for (;;) {
+        for (; ; ) {
             int n = sc.nextInt();
             if (n == 0) {
                 break;
             }
-            for (;;) {
+            for (; ; ) {
                 int sum = 0;
                 while (n != 0) {
                     sum += n % 10;
@@ -22,7 +22,7 @@ public class Main {
                 n = sum;
                 if (n < 10) {
                     break;
-                }              
+                }
             }
             System.out.println(n);
         }
@@ -32,7 +32,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -21,7 +21,7 @@ public class Main {
                     if (k != 0) {
                         out.append(" ");
                     }
-                    out.append(nums[k]+"");
+                    out.append(nums[k] + "");
                 }
                 out.append("\n");
             }
@@ -38,7 +38,7 @@ public class Main {
             }
         }
     }
-   
+
     void solve() throws IOException {
         int size = 35;
         isp = new boolean[size];
@@ -62,7 +62,7 @@ public class Main {
         for (Integer p : primes) {
             isp[p] = true;
         }
-        
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int caseNum = 1;
         out = new PrintWriter(System.out);
@@ -93,7 +93,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

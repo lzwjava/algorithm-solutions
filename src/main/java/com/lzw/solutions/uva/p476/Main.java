@@ -18,28 +18,24 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Point {
         float x;
         float y;
 
-        Point() {
-
-        }
+        Point() {}
 
         Point(float x, float y) {
             this.x = x;
             this.y = y;
         }
     }
-    
+
     class Rect {
         Point upperLeft;
         Point lowerRight;
 
-        Rect(){
-
-        }
+        Rect() {}
 
         Rect(float x1, float y1, float x2, float y2) {
             Point u = new Point(x1, y1);
@@ -49,14 +45,13 @@ public class Main {
         }
 
         boolean contains(Point p) {
-            if (p.x > upperLeft.x && p.x < lowerRight.x && 
-                    p.y > lowerRight.y && p.y < upperLeft.y) {                
+            if (p.x > upperLeft.x && p.x < lowerRight.x && p.y > lowerRight.y && p.y < upperLeft.y) {
                 return true;
             }
             return false;
         }
     }
-   
+
     void solve() throws IOException {
         ArrayList<Rect> rects = new ArrayList<>();
         while (true) {
@@ -74,7 +69,7 @@ public class Main {
             Rect r = new Rect(x1, y1, x2, y2);
             rects.add(r);
         }
-        int pointNum =1;
+        int pointNum = 1;
         while (true) {
             String s = in.readLine();
             if (s == null) {
@@ -98,7 +93,7 @@ public class Main {
                 }
             }
             if (!contained) {
-                out.append(String.format("Point %d is not contained in any figure\n", pointNum));                
+                out.append(String.format("Point %d is not contained in any figure\n", pointNum));
             }
             pointNum++;
         }
@@ -110,14 +105,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

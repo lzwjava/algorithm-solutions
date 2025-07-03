@@ -8,8 +8,8 @@ import java.io.PrintStream;
 
 public class Main {
 
-    int currency[] = new int[] { 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000 };
-   
+    int currency[] = new int[] {5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000};
+
     void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int size = 30005;
@@ -18,8 +18,8 @@ public class Main {
 
         for (int i = 0; i < currency.length; i++) {
             int end = size - currency[i];
-            for (int j = 0; j < end; j+=5) {
-                ways[j + currency[i]] += ways[j];           
+            for (int j = 0; j < end; j += 5) {
+                ways[j + currency[i]] += ways[j];
             }
         }
         while (true) {
@@ -40,7 +40,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

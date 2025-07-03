@@ -17,7 +17,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int maxNum = 201;
         int[][] C = new int[maxNum][maxNum];
@@ -25,11 +25,11 @@ public class Main {
         for (int n = 1; n <= 200; n++) {
             C[n][0] = 1;
             for (int k = 1; k <= n; k++) {
-                C[n][k] = (C[n - 1][k - 1] + C[n - 1][k]) % 1000000;                
+                C[n][k] = (C[n - 1][k - 1] + C[n - 1][k]) % 1000000;
             }
         }
-        while(true){
-            String s = in.readLine();        
+        while (true) {
+            String s = in.readLine();
             StringTokenizer st = new StringTokenizer(s);
             int n = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
@@ -47,14 +47,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

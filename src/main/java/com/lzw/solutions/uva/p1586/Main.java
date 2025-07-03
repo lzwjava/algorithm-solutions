@@ -24,7 +24,7 @@ public class Main {
             inStream = new FileInputStream("1.in");
             System.setIn(inStream);
         }
-        double weight[] = new double[]{12.01, 1.008, 16.00, 14.01}; 
+        double weight[] = new double[] {12.01, 1.008, 16.00, 14.01};
 
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
@@ -60,7 +60,7 @@ public class Main {
                 } else {
                     int num = Integer.parseInt(lastNum);
                     cnts[indexOfAtom(lastCh)] += num;
-                }                
+                }
             }
             double mass = 0;
             for (int j = 0; j < 4; j++) {

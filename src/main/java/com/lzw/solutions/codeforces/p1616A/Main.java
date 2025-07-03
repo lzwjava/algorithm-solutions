@@ -39,7 +39,6 @@ public class Main {
         return a;
     }
 
-
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {

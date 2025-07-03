@@ -9,13 +9,13 @@ public class ThreadSafeArrayListPlus extends AbstractArrayList {
     }
 
     public void append(int element) {
-        synchronized (lock){
+        synchronized (lock) {
             super.append(element);
         }
     }
 
     public int get(int index) {
-        synchronized (lock){
+        synchronized (lock) {
             return super.get(index);
         }
     }

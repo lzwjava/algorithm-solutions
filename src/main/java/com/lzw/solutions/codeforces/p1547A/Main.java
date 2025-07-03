@@ -42,8 +42,7 @@ public class Main {
             int da = Math.abs(xa - xb);
             int db = Math.abs(ya - yb);
             int ans;
-            if ((between(xa, xf, xb) && (ya == yb && ya == yf)) ||
-                (between(ya, yf, yb) && (xa == xb && xa == xf))) {
+            if ((between(xa, xf, xb) && (ya == yb && ya == yf)) || (between(ya, yf, yb) && (xa == xb && xa == xf))) {
                 ans = da + db + 2;
             } else {
                 ans = da + db;
@@ -58,5 +57,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

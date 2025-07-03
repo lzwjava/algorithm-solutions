@@ -17,17 +17,17 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     long factorial(int n) {
         if (n == 1) {
             return 1;
         }
         return factorial(n - 1) * n;
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        for(int u=0;u<t;u++){
+        for (int u = 0; u < t; u++) {
             String word = in.readLine();
             HashMap<Character, Integer> map = new HashMap<>();
             for (int i = 0; i < word.length(); i++) {
@@ -47,7 +47,7 @@ public class Main {
                 }
             }
             out.append(String.format("Data set %d: %d\n", u + 1, ans));
-        }    
+        }
     }
 
     void close() throws IOException {
@@ -56,14 +56,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

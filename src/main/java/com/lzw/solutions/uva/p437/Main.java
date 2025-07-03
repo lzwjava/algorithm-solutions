@@ -62,9 +62,7 @@ public class Main {
     }
 
     ArrayList<Block> genBlocks(Block b) {
-        int[][] orders = new int[][]{
-            {0, 1, 2}, {0, 2, 1}, {1, 2, 0}
-        };
+        int[][] orders = new int[][] {{0, 1, 2}, {0, 2, 1}, {1, 2, 0}};
         Set<Block> set = new HashSet<Block>();
         for (int i = 0; i < orders.length; i++) {
             int[] dms = b.dms.clone();
@@ -101,7 +99,7 @@ public class Main {
             }
             ArrayList<Block> all = new ArrayList<>();
             all.addAll(set);
-            
+
             Collections.sort(all);
 
             int len = all.size();

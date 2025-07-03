@@ -28,7 +28,7 @@ public class Main {
         }
         long nx;
         if (x % 2 == 0) {
-            nx = x/2;
+            nx = x / 2;
         } else {
             nx = 3 * x + 1;
         }
@@ -39,23 +39,22 @@ public class Main {
             nv = 1 + calLen(nx);
         }
         lens.put(x, nv);
-        return nv;           
+        return nv;
     }
-    
+
     class Query {
         int l;
         int h;
-        
-        Query() {
-        }
-        
+
+        Query() {}
+
         Query(int l, int h) {
             this.l = l;
             this.h = h;
         }
     }
-   
-    void solve() throws IOException { 
+
+    void solve() throws IOException {
         lens = new HashMap<>();
         while (true) {
             String s = in.readLine();
@@ -79,8 +78,8 @@ public class Main {
                     maxI = i;
                 }
             }
-            out.append(String.format("Between %d and %d, %d generates the longest sequence of %d values.\n",
-             l, h, maxI , maxLen));
+            out.append(String.format(
+                    "Between %d and %d, %d generates the longest sequence of %d values.\n", l, h, maxI, maxLen));
         }
     }
 
@@ -90,14 +89,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

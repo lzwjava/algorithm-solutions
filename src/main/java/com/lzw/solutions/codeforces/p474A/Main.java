@@ -22,7 +22,7 @@ public class Main {
     }
 
     void solve() throws IOException {
-        String[] strs = new String[]{"qwertyuiop", "asdfghjkl;", "zxcvbnm,./"};
+        String[] strs = new String[] {"qwertyuiop", "asdfghjkl;", "zxcvbnm,./"};
         char ch = in.readLine().charAt(0);
         int d = 0;
         if (ch == 'R') {
@@ -58,5 +58,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

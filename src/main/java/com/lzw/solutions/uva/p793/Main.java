@@ -28,7 +28,7 @@ public class Main {
             return x;
         }
     }
-    
+
     void union(int x, int y) {
         int px = find(x);
         int py = find(y);
@@ -44,15 +44,15 @@ public class Main {
             }
         }
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         in.readLine();
         while (t > 0) {
             n = Integer.parseInt(in.readLine());
             int s = 0, us = 0;
-            parent = new int[n+1];
-            rank = new int[n+1];
+            parent = new int[n + 1];
+            rank = new int[n + 1];
             for (int i = 0; i < n; i++) {
                 parent[i + 1] = i + 1;
                 rank[i + 1] = 0;
@@ -79,7 +79,7 @@ public class Main {
                     }
                 } else {
                     assert (false);
-                }                
+                }
             }
             out.append(String.format("%d,%d\n", s, us));
             t--;
@@ -95,14 +95,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

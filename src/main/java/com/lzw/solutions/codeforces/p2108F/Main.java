@@ -40,7 +40,7 @@ public class Main {
             }
             maxP = new int[n];
 
-            //maxMEX = getMex(p);
+            // maxMEX = getMex(p);
             permutation(p, used, 0);
             out.println(maxMEX);
             // printArray(maxP);
@@ -53,7 +53,6 @@ public class Main {
         }
         out.println();
     }
-
 
     void permutation(int[] p, boolean[] used, int cur) {
         if (cur == n) {

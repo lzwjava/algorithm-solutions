@@ -9,7 +9,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
             String str = sc.nextLine();
-            int n = str.length();        
+            int n = str.length();
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < n; i++) {
                 char ch = str.charAt(i);
@@ -22,7 +22,7 @@ public class Main {
                     }
                 }
             }
-            System.out.println(sb.toString());   
+            System.out.println(sb.toString());
         }
         sc.close();
     }

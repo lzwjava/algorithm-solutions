@@ -25,7 +25,6 @@ public class Main {
             for (int i = 0; i < k; i++) {
                 nums[i] = Integer.parseInt(st.nextToken());
             }
-            
         }
     }
 

@@ -14,9 +14,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         while (true) {
             int n = Integer.parseInt(in.readLine().trim());
@@ -51,10 +51,10 @@ public class Main {
                         ans += avg - num;
                         equalAvg++;
                     } else {
-                        // num > avg                      
+                        // num > avg
                         if (aboveAvg < remain) {
                             ans += num - (avg + 1);
-                            aboveAvg++;                           
+                            aboveAvg++;
                         } else {
                             ans += num - avg;
                             equalAvg++;
@@ -64,8 +64,8 @@ public class Main {
             }
             if (aboveAvg < remain) {
                 ans += remain - aboveAvg;
-            }       
-            double ansNum = ans*1.0/2/100;
+            }
+            double ansNum = ans * 1.0 / 2 / 100;
             out.append(String.format("$%.2f\n", ansNum));
         }
     }
@@ -76,14 +76,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

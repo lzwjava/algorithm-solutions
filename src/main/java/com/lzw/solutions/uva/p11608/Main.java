@@ -32,9 +32,9 @@ public class Main {
             }
             out.append(String.format("Case %d:\n", caseNum));
             for (int i = 0; i < 12; i++) {
-//                if (i == 7) {
-//                    System.out.println();
-//                }
+                //                if (i == 7) {
+                //                    System.out.println();
+                //                }
                 if (s >= rs[i]) {
                     s -= rs[i];
                     out.append("No problem! :D\n");

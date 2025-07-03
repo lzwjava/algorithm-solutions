@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
+        //        m.test();
         m.close();
     }
 
@@ -136,7 +136,7 @@ public class Main {
         if (all0 == all1) {
             int[] inputs = new int[n];
             Arrays.fill(inputs, 0);
-//            inputs[0] = -1;
+            //            inputs[0] = -1;
             return inputs;
         } else {
             int left = 0, right = n;
@@ -166,7 +166,7 @@ public class Main {
             } else {
                 inputs[0] = -1;
             }
-//            assert check(inputs);
+            //            assert check(inputs);
             return inputs;
         }
     }
@@ -213,7 +213,7 @@ public class Main {
                 continue;
             }
             int[] inputs = solve(n, m, a);
-//            String ans = build(inputs);
+            //            String ans = build(inputs);
             assert check(inputs);
         }
     }

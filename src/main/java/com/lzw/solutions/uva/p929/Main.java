@@ -63,8 +63,11 @@ public class Main {
                 for (int d = 0; d < dx.length; d++) {
                     int nx = st.x + dx[d];
                     int ny = st.y + dy[d];
-                    if (nx >= 0 && nx < n && ny >= 0 && ny < m &&
-                        (costs[nx][ny] == -1 || costs[nx][ny] > costs[st.x][st.y] + grid[nx][ny])) {
+                    if (nx >= 0
+                            && nx < n
+                            && ny >= 0
+                            && ny < m
+                            && (costs[nx][ny] == -1 || costs[nx][ny] > costs[st.x][st.y] + grid[nx][ny])) {
                         int c = st.cost + grid[nx][ny];
                         costs[nx][ny] = c;
                         queue.add(new State(nx, ny, c));

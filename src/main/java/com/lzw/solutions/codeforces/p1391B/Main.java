@@ -56,5 +56,4 @@ public class Main {
             out.append(String.format("%d\n", c));
         }
     }
-
 }

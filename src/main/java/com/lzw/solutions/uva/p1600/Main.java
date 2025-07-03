@@ -12,8 +12,8 @@ public class Main {
 
     private final BufferedReader in;
     private final PrintWriter out;
-    private final int[] dx = new int[]{1, 0, -1, 0};
-    private final int[] dy = new int[]{0, 1, 0, -1};
+    private final int[] dx = new int[] {1, 0, -1, 0};
+    private final int[] dy = new int[] {0, 1, 0, -1};
 
     public Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
@@ -89,7 +89,6 @@ public class Main {
 
         out.println(ans);
     }
-
 
     private void solve() throws IOException {
         int c = Integer.parseInt(in.readLine());

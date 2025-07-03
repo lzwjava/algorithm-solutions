@@ -30,8 +30,7 @@ public class Main {
     class Point {
         int x, y;
 
-        Point() {
-        }
+        Point() {}
 
         Point(int x, int y) {
             this.x = x;

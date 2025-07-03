@@ -19,7 +19,7 @@ public class Main {
     }
 
     ArrayList<String> words;
-    
+
     void permutation(int nums[], int i, int n) {
         if (i == n) {
             StringBuilder sb = new StringBuilder();
@@ -37,13 +37,13 @@ public class Main {
             start = nums[i - 1] + 1;
         }
         int end = 25;
-        end -= (n - i-1);        
+        end -= (n - i - 1);
         for (int j = start; j <= end; j++) {
             nums[i] = j;
-            permutation(nums, i+1, n);
+            permutation(nums, i + 1, n);
         }
     }
-   
+
     void solve() throws IOException {
         words = new ArrayList<>();
         for (int len = 1; len <= 5; len++) {
@@ -60,7 +60,7 @@ public class Main {
             if (index < 0) {
                 out.append("0\n");
             } else {
-                out.append(String.format("%d\n", index+1));
+                out.append(String.format("%d\n", index + 1));
             }
         }
     }
@@ -71,14 +71,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

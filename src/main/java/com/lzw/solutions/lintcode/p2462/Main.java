@@ -2,8 +2,6 @@ package com.lzw.solutions.lintcode.p2462;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 class Main {
 
@@ -31,9 +29,10 @@ class Main {
 
             for (String in_file_path : in_file_paths) {
                 Scanner in = new Scanner(new FileReader(in_file_path));
-                PrintWriter writer = new PrintWriter(out_file_dir + "/" + new File(in_file_path).getName().replace(".in", ".out"), "UTF-8");
+                PrintWriter writer = new PrintWriter(
+                        out_file_dir + "/" + new File(in_file_path).getName().replace(".in", ".out"), "UTF-8");
 
-                //Editable
+                // Editable
                 int out = 0;
 
                 List<Integer> list = new ArrayList<>();
@@ -77,8 +76,7 @@ class Main {
                 int size = bd.size();
                 writer.println(size);
 
-
-                //Editable end
+                // Editable end
                 // stdout.close();
                 writer.close();
             }
@@ -86,7 +84,5 @@ class Main {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
-
 }

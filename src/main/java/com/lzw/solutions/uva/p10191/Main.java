@@ -58,7 +58,6 @@ public class Main {
             this.start = start;
             this.end = end;
         }
-
     }
 
     String minToStr(int m) {
@@ -132,8 +131,9 @@ public class Main {
                     }
                 }
             }
-            out.append(String.format("Day #%d: the longest nap starts at %s and will last for %s.\n", caseNum,
-                maxStart.toString(), minToStr(maxGap)));
+            out.append(String.format(
+                    "Day #%d: the longest nap starts at %s and will last for %s.\n",
+                    caseNum, maxStart.toString(), minToStr(maxGap)));
             caseNum++;
         }
     }

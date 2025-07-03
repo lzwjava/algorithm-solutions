@@ -81,7 +81,7 @@ public class MainPlus {
             for (int i = 0; i < n; i++) {
                 beverages.add(in.readLine());
             }
-//            Collections.sort(beverages);
+            //            Collections.sort(beverages);
             m = Integer.parseInt(in.readLine());
             list = new ArrayList[n];
             for (int i = 0; i < n; i++) {
@@ -125,35 +125,35 @@ public class MainPlus {
                     group++;
                 }
             }
-//            for (ArrayList<Integer> list : map) {
-//                for (Integer v : list) {
-//                    out.append(String.format("%s\n", beverages.get(v)));
-//                }
-//                out.append('\n');
-//            }
+            //            for (ArrayList<Integer> list : map) {
+            //                for (Integer v : list) {
+            //                    out.append(String.format("%s\n", beverages.get(v)));
+            //                }
+            //                out.append('\n');
+            //            }
 
             Collections.sort(ansList);
 
-//            ArrayList<Integer> ans = new ArrayList<Integer>();
+            //            ArrayList<Integer> ans = new ArrayList<Integer>();
 
-//            int mapn = map.size();
-//            int[] indexes = new int[mapn];
-//
-//            for (int i = 0; i < n; i++) {
-//                int minIndex = 0;
-//                int minValue = Integer.MAX_VALUE;
-//                for (int j = 0; j < mapn; j++) {
-//                    if (indexes[j] < map.get(j).size()) {
-//                        int v = map.get(j).get(indexes[j]);
-//                        if (v < minValue) {
-//                            minValue = v;
-//                            minIndex = j;
-//                        }
-//                    }
-//                }
-//                ans.add(minValue);
-//                indexes[minIndex]++;
-//            }
+            //            int mapn = map.size();
+            //            int[] indexes = new int[mapn];
+            //
+            //            for (int i = 0; i < n; i++) {
+            //                int minIndex = 0;
+            //                int minValue = Integer.MAX_VALUE;
+            //                for (int j = 0; j < mapn; j++) {
+            //                    if (indexes[j] < map.get(j).size()) {
+            //                        int v = map.get(j).get(indexes[j]);
+            //                        if (v < minValue) {
+            //                            minValue = v;
+            //                            minIndex = j;
+            //                        }
+            //                    }
+            //                }
+            //                ans.add(minValue);
+            //                indexes[minIndex]++;
+            //            }
             out.append(String.format("Case #%d: Dilbert should drink beverages in this order:", caseNum));
             for (int i = 0; i < ansList.size(); i++) {
                 out.append(String.format(" %s", ansList.get(i).name));

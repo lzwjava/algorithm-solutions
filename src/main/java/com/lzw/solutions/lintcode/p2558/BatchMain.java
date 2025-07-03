@@ -1,7 +1,7 @@
 package com.lzw.solutions.lintcode.p2558;
 
-import java.io.File;
 import java.io.*;
+import java.io.File;
 import java.util.*;
 
 class BatchMain {
@@ -9,7 +9,7 @@ class BatchMain {
         File[] inputFiles = new File(inputDir).listFiles();
         List<Integer> dataIds = new ArrayList<>();
 
-        for (File file : inputFiles){
+        for (File file : inputFiles) {
             if (!file.getPath().endsWith(".in")) {
                 continue;
             }

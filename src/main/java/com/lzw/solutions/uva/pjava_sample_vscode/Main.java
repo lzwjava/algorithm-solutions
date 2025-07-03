@@ -14,11 +14,10 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
-    void solve() throws IOException {
-    }
+
+    void solve() throws IOException {}
 
     void close() throws IOException {
         if (in != null) {
@@ -26,7 +25,7 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 

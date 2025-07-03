@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -18,7 +18,7 @@ public class Main {
             }
             Arrays.sort(nums);
             int p = nums[n - 1] - nums[0];
-            System.out.println(p*2);
+            System.out.println(p * 2);
             t--;
         }
         sc.close();
@@ -27,7 +27,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

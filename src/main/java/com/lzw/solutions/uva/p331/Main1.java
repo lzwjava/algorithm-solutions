@@ -119,9 +119,9 @@ public class Main1 {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("2.in");
-//            outStream = new PrintStream("2.out");
+            //            outStream = new PrintStream("2.out");
             System.setIn(inStream);
-//            System.setOut(outStream);
+            //            System.setOut(outStream);
         }
 
         Main1 main = new Main1();

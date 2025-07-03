@@ -17,7 +17,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     BigInteger f(int x) {
         BigInteger cache = nums[x];
         if (cache != null) {
@@ -37,15 +37,15 @@ public class Main {
     }
 
     BigInteger[] nums;
-   
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
             if (line == null) {
                 break;
-            }            
+            }
             int n = Integer.parseInt(line);
-            nums = new BigInteger[10000];            
+            nums = new BigInteger[10000];
             BigInteger ans = f(n);
             out.append(String.format("%s\n", ans.toString()));
         }
@@ -57,14 +57,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

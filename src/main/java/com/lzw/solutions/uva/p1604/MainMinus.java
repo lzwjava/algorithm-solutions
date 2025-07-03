@@ -40,7 +40,7 @@ public class MainMinus {
 
         char left() {
             String s = "BWR";
-            Character[] chs = new Character[]{top, front};
+            Character[] chs = new Character[] {top, front};
             for (char c : s.toCharArray()) {
                 if (!Arrays.asList(chs).contains(c)) {
                     return c;
@@ -74,8 +74,8 @@ public class MainMinus {
     }
 
     // top, bottom, left, right
-    int[] dx = new int[]{-1, 1, 0, 0};
-    int[] dy = new int[]{0, 0, -1, 1};
+    int[] dx = new int[] {-1, 1, 0, 0};
+    int[] dy = new int[] {0, 0, -1, 1};
 
     char[][] grid;
     int ans;

@@ -18,14 +18,13 @@ public class Main {
         // in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Edge implements Comparable<Edge> {
         int c1;
         int c2;
         int p;
 
-        Edge() {
-        }
+        Edge() {}
 
         Edge(int c1, int c2, int p) {
             this.c1 = c1;
@@ -38,7 +37,7 @@ public class Main {
             return o.p - p;
         }
     }
-    
+
     int getGroup(int[] groups, int x) {
         if (groups[x] == x) {
             return x;
@@ -46,7 +45,7 @@ public class Main {
             return getGroup(groups, groups[x]);
         }
     }
-   
+
     void solve() throws IOException {
         Scanner sc = new Scanner(System.in);
         int caseNum = 1;
@@ -83,8 +82,8 @@ public class Main {
                 if (g1 != g2) {
                     groups[g2] = g1;
                     if (getGroup(groups, s) == getGroup(groups, d)) {
-                        double x = t * 1.0 / (e.p - 1);                        
-                        int trip = (int)Math.ceil(x);
+                        double x = t * 1.0 / (e.p - 1);
+                        int trip = (int) Math.ceil(x);
                         // int trip = (t + e.p - 1) / e.p;
                         out.append(String.format("Minimum Number of Trips = %d\n", trip));
                         out.append('\n');
@@ -103,14 +102,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

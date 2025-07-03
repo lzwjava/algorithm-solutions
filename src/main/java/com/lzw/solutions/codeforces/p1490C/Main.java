@@ -41,7 +41,6 @@ public class Main {
                         break;
                     }
                 }
-
             }
             if (ok) {
                 out.append("YES\n");
@@ -56,5 +55,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

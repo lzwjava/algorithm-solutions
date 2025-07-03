@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        FileInputStream inStream = null;        
+        FileInputStream inStream = null;
         if (System.getProperty("os.name").equals("Mac OS X")) {
             inStream = new FileInputStream("1.in");
             System.setIn(inStream);

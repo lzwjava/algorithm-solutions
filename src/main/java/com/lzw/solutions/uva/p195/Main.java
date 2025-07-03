@@ -26,7 +26,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void permutation(int i) {
         if (i == s.length()) {
             StringBuilder sb = new StringBuilder();
@@ -56,7 +56,7 @@ public class Main {
             }
         }
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -80,12 +80,12 @@ public class Main {
             permutation(0);
             ArrayList<String> list = new ArrayList<>();
             list.addAll(words);
-            Collections.sort(list,new Comparator<String>(){
+            Collections.sort(list, new Comparator<String>() {
                 @Override
                 public int compare(String o1, String o2) {
                     for (int i = 0; i < o1.length(); i++) {
                         char c1 = o1.charAt(i);
-                        char c2 = o2.charAt(i);                
+                        char c2 = o2.charAt(i);
                         if (c1 == c2) {
                             continue;
                         } else {
@@ -99,8 +99,8 @@ public class Main {
                         }
                     }
                     return 0;
-                }                
-            } );
+                }
+            });
             for (String w : list) {
                 out.append(w).append('\n');
             }
@@ -114,14 +114,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

@@ -34,7 +34,7 @@ public class Main {
                     grid[i][j] = v;
                 }
             }
-            int[] cols = new int[]{0, 3, 6, 1, 4, 7, 2, 5, 8};
+            int[] cols = new int[] {0, 3, 6, 1, 4, 7, 2, 5, 8};
 
             for (int i = 0; i < cols.length; i++) {
                 int v = grid[i][cols[i]];
@@ -54,5 +54,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

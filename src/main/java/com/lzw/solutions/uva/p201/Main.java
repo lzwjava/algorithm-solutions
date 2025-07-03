@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Main {
 
-   
     void work() {
         Scanner sc = new Scanner(System.in);
         int problemNum = 1;
@@ -19,7 +18,7 @@ public class Main {
             System.out.println(String.format("Problem #%d", problemNum));
             System.out.println();
             problemNum++;
-            
+
             int n = sc.nextInt();
             int m = sc.nextInt();
             int hls[][] = new int[n][n];
@@ -42,7 +41,7 @@ public class Main {
                 int squares = 0;
                 for (int i = 0; i < n - size; i++) {
                     for (int j = 0; j < n - size; j++) {
-                        // start at (i, j), size 
+                        // start at (i, j), size
                         // h i j, h i+1 j, v j i, v j+1, i
 
                         boolean ok = true;
@@ -88,7 +87,7 @@ public class Main {
                         squares++;
                     }
                 }
-                if (squares > 0){
+                if (squares > 0) {
                     System.out.println(String.format("%d square (s) of size %d", squares, size));
                     found = true;
                 }
@@ -103,7 +102,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             outStream = new PrintStream("2.out");

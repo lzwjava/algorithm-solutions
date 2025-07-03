@@ -5,10 +5,10 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main1 {
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
-        while(sc.hasNextInt()) {
+        while (sc.hasNextInt()) {
             int n = sc.nextInt();
             int m = sc.nextInt();
             String table[][] = new String[n][m];
@@ -22,7 +22,7 @@ public class Main1 {
                 table[i] = strs;
             }
             boolean found = false;
-            int r1 = 0, r2 =0, c1=0, c2=0;
+            int r1 = 0, r2 = 0, c1 = 0, c2 = 0;
             for (r1 = 0; r1 < n - 1; r1++) {
                 for (r2 = r1 + 1; r2 < n; r2++) {
                     for (c1 = 0; c1 < m - 1; c1++) {
@@ -50,7 +50,7 @@ public class Main1 {
             if (found) {
                 System.out.println("NO");
                 System.out.println(String.format("%d %d", r1 + 1, r2 + 1));
-                System.out.println(String.format("%d %d", c1 + 1, c2 + 1));                
+                System.out.println(String.format("%d %d", c1 + 1, c2 + 1));
             } else {
                 System.out.println("YES");
             }
@@ -61,7 +61,7 @@ public class Main1 {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

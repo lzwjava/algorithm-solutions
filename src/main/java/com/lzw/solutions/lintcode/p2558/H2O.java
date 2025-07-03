@@ -11,7 +11,7 @@ class H2O {
         o = new Semaphore(0, true);
     }
 
-    public void hydrogen(Consumer releaseHydrogen)  {
+    public void hydrogen(Consumer releaseHydrogen) {
         try {
             h.acquire();
             releaseHydrogen.accept(0);
@@ -21,7 +21,7 @@ class H2O {
         }
     }
 
-    public void oxygen(Consumer releaseOxygen)  {
+    public void oxygen(Consumer releaseOxygen) {
         try {
             o.acquire(2);
             releaseOxygen.accept(0);

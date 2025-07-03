@@ -17,31 +17,31 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String s = in.readLine();
             if (s == null) {
                 break;
             }
-            StringTokenizer st = new StringTokenizer(s);            
+            StringTokenizer st = new StringTokenizer(s);
             double x1, y1, x2, y2, x3, y3;
             x1 = Double.parseDouble(st.nextToken());
             y1 = Double.parseDouble(st.nextToken());
             x2 = Double.parseDouble(st.nextToken());
             y2 = Double.parseDouble(st.nextToken());
             x3 = Double.parseDouble(st.nextToken());
-            y3 = Double.parseDouble(st.nextToken());        
-            
+            y3 = Double.parseDouble(st.nextToken());
+
             double mx1 = (x1 + x2) / 2;
             double my1 = (y1 + y2) / 2;
             double k1;
             int type1;
-            if (x1 != x2 && y1 != y2){
+            if (x1 != x2 && y1 != y2) {
                 k1 = (y2 - y1) / (x2 - x1);
                 k1 = -1 / k1;
                 type1 = 0;
-            } else if (x1==x2){
+            } else if (x1 == x2) {
                 // y = my1
                 k1 = 0;
                 type1 = 1;
@@ -73,21 +73,21 @@ public class Main {
                 type2 = 2;
             }
             // y - my1 = k1(x-mx1)
-            // y - my2 = k2(x-mx2)            
+            // y - my2 = k2(x-mx2)
             // -my1 + my2 = k1*x - k1*mx1 - k2*x +k2*mx2
             // -my1+my2+k1*mx1-k2*mx2 = (k1-k2) x
-            double x = 0, y =0;
+            double x = 0, y = 0;
             if (type1 == 0 && type2 == 0) {
                 x = (-my1 + my2 + k1 * mx1 - k2 * mx2) / (k1 - k2);
-                y = k1 * (x - mx1) + my1;                                      
+                y = k1 * (x - mx1) + my1;
             } else if (type1 == 1 && type2 == 0) {
                 y = my1;
-                // my1 - my2 = k2(x-mx2)                
+                // my1 - my2 = k2(x-mx2)
                 // (my1-my2)/k2
-                x = (y-my2) / k2 + mx2;
+                x = (y - my2) / k2 + mx2;
             } else if (type1 == 0 && type2 == 1) {
                 y = my2;
-                x = (y-my1) / k1 + mx1;
+                x = (y - my1) / k1 + mx1;
             } else if (type1 == 2 && type2 == 0) {
                 x = mx1;
                 y = k2 * (x - mx2) + my2;
@@ -108,7 +108,7 @@ public class Main {
             if (Double.isNaN(c)) {
                 System.out.println();
             }
-            out.append(String.format("%.2f\n", c));     
+            out.append(String.format("%.2f\n", c));
         }
     }
 
@@ -118,14 +118,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

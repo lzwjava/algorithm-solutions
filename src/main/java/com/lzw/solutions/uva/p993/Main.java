@@ -18,7 +18,7 @@ public class Main {
         if (x == 0 || x == 1) {
             return true;
         }
-        int[] primes = new int[]{2, 3, 5, 7};
+        int[] primes = new int[] {2, 3, 5, 7};
         for (int i = 0; i < primes.length; i++) {
             int pi = primes[i];
             if (x % pi == 0) {

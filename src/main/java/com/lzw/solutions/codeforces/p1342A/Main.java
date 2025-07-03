@@ -22,8 +22,8 @@ public class Main {
         out.close();
     }
 
-    int[] dx = new int[]{-1, 1, 0, 0, 1, -1};
-    int[] dy = new int[]{0, 0, -1, 1, 1, -1};
+    int[] dx = new int[] {-1, 1, 0, 0, 1, -1};
+    int[] dy = new int[] {0, 0, -1, 1, 1, -1};
 
     void solve() throws IOException {
         int tt = Integer.parseInt(in.readLine());
@@ -55,5 +55,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

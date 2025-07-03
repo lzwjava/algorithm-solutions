@@ -17,7 +17,7 @@ public class Main {
         }
         return sb.toString();
     }
-    
+
     boolean allZeros(int nums[]) {
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != 0) {
@@ -26,7 +26,7 @@ public class Main {
         }
         return true;
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -62,7 +62,7 @@ public class Main {
             }
             if (result == 0) {
                 System.out.println("ZERO");
-            } else if (result == 1){
+            } else if (result == 1) {
                 System.out.println("LOOP");
             } else {
                 assert (result != -1);
@@ -74,7 +74,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

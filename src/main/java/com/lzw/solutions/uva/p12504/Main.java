@@ -36,7 +36,7 @@ public class Main {
         }
         return map;
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -51,7 +51,7 @@ public class Main {
             Set<String> oldKeySet = new HashSet<>(oldMap.keySet());
             Set<String> newKeySet = new HashSet<>(newMap.keySet());
 
-            Set<String> newTmpKeySet = new HashSet<>(newKeySet);            
+            Set<String> newTmpKeySet = new HashSet<>(newKeySet);
             newTmpKeySet.removeAll(oldKeySet);
 
             newKeys.addAll(newTmpKeySet);
@@ -66,7 +66,7 @@ public class Main {
             ArrayList<String> changedKeys = new ArrayList<>();
             Set<String> changedTmpKeySet = new HashSet<>(oldKeySet);
             changedTmpKeySet.retainAll(newKeySet);
-            
+
             for (String key : changedTmpKeySet) {
                 if (!oldMap.get(key).equals(newMap.get(key))) {
                     changedKeys.add(key);
@@ -96,7 +96,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

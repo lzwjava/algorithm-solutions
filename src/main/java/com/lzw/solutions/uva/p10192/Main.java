@@ -21,7 +21,7 @@ public class Main {
     String a;
     String b;
     int map[][];
-    
+
     int dp(int i, int j) {
         if (i == a.length() || j == b.length()) {
             return 0;
@@ -33,7 +33,7 @@ public class Main {
         char chb = b.charAt(j);
         int ans;
         if (cha == chb) {
-            ans= 1 + dp(i+1, j+1);
+            ans = 1 + dp(i + 1, j + 1);
         } else {
             int c1 = dp(i + 1, j);
             int c2 = dp(i, j + 1);
@@ -42,20 +42,20 @@ public class Main {
         map[i][j] = ans;
         return ans;
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
             a = in.readLine();
             if (a.equals("#")) {
                 break;
-            }            
+            }
             b = in.readLine();
             map = new int[a.length()][b.length()];
             for (int i = 0; i < a.length(); i++) {
                 Arrays.fill(map[i], -1);
             }
-            int ans = dp(0, 0);            
+            int ans = dp(0, 0);
             out.append(String.format("Case #%d: you can visit at most %d cities.\n", caseNum, ans));
             caseNum++;
         }
@@ -67,14 +67,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

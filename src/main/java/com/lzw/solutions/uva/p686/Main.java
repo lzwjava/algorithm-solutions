@@ -7,12 +7,12 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         ArrayList<Integer> primes = new ArrayList<>();
         for (int i = 2; i <= 32768; i++) {
             boolean ok = true;
-            int si = (int)Math.sqrt(i);
+            int si = (int) Math.sqrt(i);
             for (int j = 0; j < primes.size(); j++) {
                 int pj = primes.get(j);
                 if (pj > si) {
@@ -53,7 +53,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

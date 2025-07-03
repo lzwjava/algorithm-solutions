@@ -18,22 +18,21 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Edge {
         int x;
         int y;
         int t;
 
-        Edge() {
-        }
-        
+        Edge() {}
+
         Edge(int x, int y, int t) {
             this.x = x;
             this.y = y;
             this.t = t;
         }
     }
-   
+
     void solve() throws IOException {
         int c = Integer.parseInt(in.readLine());
         while (c > 0) {
@@ -72,10 +71,10 @@ public class Main {
                 }
             }
             if (ok) {
-                out.append("possible\n");                
+                out.append("possible\n");
             } else {
                 out.append("not possible\n");
-            }         
+            }
             c--;
         }
     }
@@ -86,14 +85,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -27,7 +27,7 @@ public class Main {
         m.solve();
         m.close();
     }
-    
+
     int[] parseArray(String s) {
         StringTokenizer st = new StringTokenizer(s);
         int n = st.countTokens();

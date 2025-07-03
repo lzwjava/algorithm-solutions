@@ -11,7 +11,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         while (n > 0) {

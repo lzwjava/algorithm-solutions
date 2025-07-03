@@ -22,16 +22,14 @@ public class Main {
         int x;
         int y;
 
-        Pair() {
+        Pair() {}
 
-        }
-        
         Pair(int x, int y) {
             this.x = x;
             this.y = y;
         }
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -40,14 +38,14 @@ public class Main {
             }
             int k = Integer.parseInt(line);
             ArrayList<Pair> pairs = new ArrayList<>();
-            for (int y = k+1;y<=2*k; y++) {
+            for (int y = k + 1; y <= 2 * k; y++) {
                 double x = 1.0 / (1.0 / k - 1.0 / y);
                 int rx = (int) Math.round(x);
-                long left = (long)rx * y;
-                long right = (long)k * y + (long)k * rx;
+                long left = (long) rx * y;
+                long right = (long) k * y + (long) k * rx;
                 if (rx >= y && left == right) {
                     Pair p = new Pair(rx, y);
-                    pairs.add(p);               
+                    pairs.add(p);
                 }
             }
             out.append(String.format("%d\n", pairs.size()));
@@ -63,14 +61,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

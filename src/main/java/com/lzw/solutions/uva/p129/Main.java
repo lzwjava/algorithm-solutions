@@ -18,7 +18,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     boolean isHard(String s) {
         int len = s.length();
         int maxlen = len / 2;
@@ -31,7 +31,7 @@ public class Main {
         }
         return true;
     }
-   
+
     void solve() throws IOException {
         // boolean hard = isHard("ABCABC");
         // System.out.println(hard ? "hard":"easy");
@@ -67,7 +67,7 @@ public class Main {
             }
             String ans = pq.poll();
             int groupSize = 4;
-            int group = (ans.length()-1) / groupSize+1;
+            int group = (ans.length() - 1) / groupSize + 1;
             for (int i = 0; i < group; i++) {
                 int end = (i + 1) * groupSize;
                 if (end > ans.length()) {
@@ -81,7 +81,7 @@ public class Main {
                     out.append(' ');
                 }
                 out.append(sub);
-            }            
+            }
             out.append('\n');
             out.append(String.format("%d\n", ans.length()));
         }
@@ -93,14 +93,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

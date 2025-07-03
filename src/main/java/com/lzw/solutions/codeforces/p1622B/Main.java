@@ -31,7 +31,6 @@ public class Main {
         m.close();
     }
 
-
     int[] parseArray(String s) {
         StringTokenizer st = new StringTokenizer(s);
         int n = st.countTokens();
@@ -103,5 +102,4 @@ public class Main {
             out.append('\n');
         }
     }
-
 }

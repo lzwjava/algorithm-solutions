@@ -22,7 +22,9 @@ public class Main {
     int[][] grid;
     int[][] fa;
 
-    int[] dx = {-1, 0, 0, 1,};
+    int[] dx = {
+        -1, 0, 0, 1,
+    };
     int[] dy = {0, -1, 1, 0};
 
     int max;
@@ -39,8 +41,8 @@ public class Main {
     void dfs(boolean[][] vis, int x, int y, int len) {
         if (len > max) {
             max = len;
-//            print(x, y);
-//            out.append('\n');
+            //            print(x, y);
+            //            out.append('\n');
         }
         for (int d = 0; d < dx.length; d++) {
             int nx = x + dx[d];

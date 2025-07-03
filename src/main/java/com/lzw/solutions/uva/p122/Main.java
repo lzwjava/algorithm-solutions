@@ -17,7 +17,7 @@ public class Main {
             v = 0;
             left = null;
             right = null;
-        }        
+        }
     }
 
     class Pair {
@@ -56,7 +56,7 @@ public class Main {
             }
         }
     }
-    
+
     private boolean checkValid(Main.Node root) {
         if (root.v == 0) {
             return false;
@@ -71,9 +71,9 @@ public class Main {
                 return false;
             }
         }
-        return true;        
+        return true;
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
@@ -99,10 +99,10 @@ public class Main {
                 System.out.println("not complete");
                 continue;
             }
-            
+
             ArrayBlockingQueue<Node> queue = new ArrayBlockingQueue<>(pairs.size());
             queue.add(root);
-            boolean first = true;                        
+            boolean first = true;
             while (!queue.isEmpty()) {
                 Node node = queue.poll();
                 if (!first) {
@@ -126,7 +126,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

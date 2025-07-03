@@ -21,11 +21,10 @@ public class Main {
 
     class Point {
         double x, y;
-        
-        Point() {
-        }        
+
+        Point() {}
     }
-    
+
     class Figure {
         char type;
         Point upperLeft;
@@ -39,7 +38,7 @@ public class Main {
             center = new Point();
         }
     }
-   
+
     void solve() throws IOException {
         ArrayList<Figure> figures = new ArrayList<>();
         while (true) {
@@ -58,7 +57,7 @@ public class Main {
                 f.upperLeft.x = cords[0];
                 f.upperLeft.y = cords[1];
                 f.lowerRight.x = cords[2];
-                f.lowerRight.y = cords[3];                
+                f.lowerRight.y = cords[3];
             } else {
                 double x = Double.parseDouble(st.nextToken());
                 double y = Double.parseDouble(st.nextToken());
@@ -105,8 +104,7 @@ public class Main {
 
     boolean contain(Figure f, Point p) {
         if (f.type == 'r') {
-            if (p.x >= f.upperLeft.x && p.x <= f.lowerRight.x &&
-                    p.y >= f.lowerRight.y && p.y <= f.upperLeft.y) {
+            if (p.x >= f.upperLeft.x && p.x <= f.lowerRight.x && p.y >= f.lowerRight.y && p.y <= f.upperLeft.y) {
                 return true;
             } else {
                 return false;
@@ -127,14 +125,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

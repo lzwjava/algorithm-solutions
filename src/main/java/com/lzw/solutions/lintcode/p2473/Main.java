@@ -1,8 +1,7 @@
 package com.lzw.solutions.lintcode.p2473;
 
-import java.util.*;
-import java.lang.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
     private static PrintStream printStream;
@@ -44,7 +43,7 @@ public class Main {
                     String[] values = operations[1].split(", ");
                     int key = Integer.parseInt(values[0]);
                     int value = Integer.parseInt(values[1]);
-                    putOperationList.add(new Integer[]{key, value});
+                    putOperationList.add(new Integer[] {key, value});
                     addMapData(map, key);
                 } else if (operations[0].equals("get")) {
                     getOperationList.add(Integer.parseInt(operations[1]));
@@ -66,7 +65,9 @@ public class Main {
                     try {
                         for (int j = 0; j < putOperationList.size(); j++) {
                             if (j % threadSize == temp) {
-                                hashMap.put(putOperationList.get(j)[0], putOperationList.get(j)[1]);
+                                hashMap.put(
+                                        putOperationList.get(j)[0],
+                                        putOperationList.get(j)[1]);
                             }
                         }
                     } catch (Exception e) {
@@ -81,7 +82,8 @@ public class Main {
                     try {
                         for (int j = 0; j < getOperationList.size(); j++) {
                             if (j % threadSize == temp) {
-                                addMapData(getResultValueMap, (int) getOperationList.get(j), (int) hashMap.get(getOperationList.get(j)));
+                                addMapData(getResultValueMap, (int) getOperationList.get(j), (int)
+                                        hashMap.get(getOperationList.get(j)));
                             }
                         }
                     } catch (Exception e) {
@@ -94,7 +96,7 @@ public class Main {
                 putThreads[i].join();
                 getThreads[i].join();
             }
-            //test code
+            // test code
             Set<Integer> keySet = hashMap.keySet();
             if (keySet.equals(map.keySet())) {
                 printStream.write("accepted".getBytes("Utf-8"));

@@ -1,7 +1,5 @@
 package com.lzw.solutions.lintcode.p2497;
 
-import java.util.concurrent.Semaphore;
-
 public class Bank {
     private int account;
     private final Object lock;
@@ -12,23 +10,22 @@ public class Bank {
     }
 
     public void saveMoney(int amount) throws Exception {
-        synchronized (lock){
+        synchronized (lock) {
             this.account = Main.saveOperation(account, amount);
             lock.notifyAll();
         }
     }
 
     public void withdrawMoney(int amount) throws Exception {
-        synchronized (lock){
-            while (amount > this.account){
+        synchronized (lock) {
+            while (amount > this.account) {
                 lock.wait();
             }
             this.account = Main.withdrawOperation(account, amount);
         }
     }
 
-    public int checkAccount(){
+    public int checkAccount() {
         return account;
     }
-
 }

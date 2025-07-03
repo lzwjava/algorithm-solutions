@@ -3,11 +3,11 @@ package com.lzw.solutions.uva.p12657;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 public class Main1 {
-   
+
     int indexInNums(int nums[], int v) {
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] == v) {
@@ -23,12 +23,12 @@ public class Main1 {
         }
         System.out.println();
     }
-   
+
     void work() {
         int caseNum = 1;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        for (;;) {
-            String str ="";
+        for (; ; ) {
+            String str = "";
             try {
                 str = reader.readLine();
             } catch (IOException e) {
@@ -129,7 +129,7 @@ public class Main1 {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -61,8 +61,8 @@ public class Main {
                 }
                 int sheet = i / 2 + 1;
                 if (nums[i][0] != 0 || nums[i][1] != 0) {
-                    out.append(String.format("Sheet %d, %s: %s, %s\n", sheet, s,
-                        numToStr(nums[i][0]), numToStr(nums[i][1])));
+                    out.append(String.format(
+                            "Sheet %d, %s: %s, %s\n", sheet, s, numToStr(nums[i][0]), numToStr(nums[i][1])));
                 }
             }
         }

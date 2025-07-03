@@ -4,9 +4,7 @@ import java.util.function.IntConsumer;
 
 class Main {
     public static void main(String[] args) {
-        ZeroEvenOdd zeroEvenOdd = new ZeroEvenOdd(
-            Integer.parseInt(args[0])
-        );
+        ZeroEvenOdd zeroEvenOdd = new ZeroEvenOdd(Integer.parseInt(args[0]));
 
         IntConsumer printZero = (int x) -> {
             try {
@@ -43,25 +41,28 @@ class Main {
         };
 
         new Thread(() -> {
-            try {
-                zeroEvenOdd.zero(printZero);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
+                    try {
+                        zeroEvenOdd.zero(printZero);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .start();
         new Thread(() -> {
-            try {
-                zeroEvenOdd.even(printEven);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
+                    try {
+                        zeroEvenOdd.even(printEven);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .start();
         new Thread(() -> {
-            try {
-                zeroEvenOdd.odd(printOdd);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
+                    try {
+                        zeroEvenOdd.odd(printOdd);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .start();
     }
 }

@@ -8,12 +8,12 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         ArrayList<Integer> primes = new ArrayList<>();
         for (int i = 2; i <= 1000005; i++) {
             boolean ok = true;
-            int si = (int)Math.sqrt(i);
+            int si = (int) Math.sqrt(i);
             for (int j = 0; j < primes.size(); j++) {
                 int pj = primes.get(j);
                 if (pj > si) {
@@ -48,7 +48,7 @@ public class Main {
             if (!prime) {
                 System.out.println(" is not prime.");
             } else if (!emirp) {
-                System.out.println(" is prime.");                
+                System.out.println(" is prime.");
             } else {
                 System.out.println(" is emirp.");
             }
@@ -59,7 +59,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

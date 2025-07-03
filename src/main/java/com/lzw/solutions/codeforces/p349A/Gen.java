@@ -10,7 +10,7 @@ public class Gen {
         int n = 100000;
         out.append(String.format("%d\n", n));
         Random random = new Random();
-        int[] arr = new int[]{25, 50, 100};
+        int[] arr = new int[] {25, 50, 100};
         for (int i = 0; i < n; i++) {
             if (i < n / 2) {
                 out.append(String.format("%d ", 25));

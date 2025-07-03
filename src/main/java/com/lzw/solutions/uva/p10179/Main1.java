@@ -17,7 +17,7 @@ public class Main1 {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     int gcd(ArrayList<Integer> factors, int a) {
         for (Integer factor : factors) {
             if (a % factor == 0) {
@@ -27,7 +27,7 @@ public class Main1 {
         return 1;
     }
 
-    ArrayList<Integer> primes;    
+    ArrayList<Integer> primes;
 
     void calPrimes() {
         primes = new ArrayList<>();
@@ -52,7 +52,7 @@ public class Main1 {
             }
         }
     }
-    
+
     class Factor {
         int prime;
         int count;
@@ -65,7 +65,7 @@ public class Main1 {
 
     private ArrayList<Integer> calFactor(int a) {
         ArrayList<Integer> factors = new ArrayList<>();
-        int si = (int)Math.sqrt(a);
+        int si = (int) Math.sqrt(a);
         for (int i = 0; i < primes.size(); i++) {
             int pi = primes.get(i);
             if (pi > si) {
@@ -82,8 +82,8 @@ public class Main1 {
             factors.add(a);
         }
         return factors;
-    }    
-   
+    }
+
     void solve() throws IOException {
         calPrimes();
 
@@ -93,9 +93,9 @@ public class Main1 {
             if (n == 0) {
                 break;
             }
-            
+
             ArrayList<Integer> factors = calFactor(n);
-            boolean[] reducible = new boolean[n];            
+            boolean[] reducible = new boolean[n];
             for (Integer factor : factors) {
                 for (int i = factor; i < n; i += factor) {
                     reducible[i] = true;
@@ -118,14 +118,14 @@ public class Main1 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             // outStream = new PrintStream("1.out");

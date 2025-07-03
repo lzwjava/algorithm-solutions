@@ -3,12 +3,12 @@ package com.lzw.solutions.lintcode.p2558;
 import java.io.*;
 import java.util.function.Consumer;
 
-class ReleaseThread extends Thread{
+class ReleaseThread extends Thread {
     private int n;
     private boolean isOxygen;
     private H2O h2o;
     private PrintWriter writer;
-    
+
     public ReleaseThread(int n, boolean isOxygen, H2O h2o, PrintWriter writer) {
         super();
         this.n = n;
@@ -16,7 +16,7 @@ class ReleaseThread extends Thread{
         this.h2o = h2o;
         this.writer = writer;
     }
-    
+
     @Override
     public void run() {
         Consumer<Integer> releaseHydrogen = (x) -> {
@@ -36,17 +36,16 @@ class ReleaseThread extends Thread{
                 System.exit(1);
             }
         };
-        
+
         if (isOxygen) {
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; i++) {
                 h2o.oxygen(releaseOxygen);
             }
         } else {
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; i++) {
                 h2o.hydrogen(releaseHydrogen);
             }
         }
-    
     }
 }
 
@@ -66,7 +65,7 @@ class Driver extends BaseDriver {
             }
             counts++;
         }
-        if(counts != n)
+        if (counts != n)
             return "You only produced " + String.valueOf(counts) + " h2o.\nWe need " + String.valueOf(n) + " h2o";
         return "";
     }
@@ -78,10 +77,10 @@ class Driver extends BaseDriver {
         int o = Integer.parseInt(params[1]);
 
         H2O solution = new H2O();
-        
+
         ReleaseThread hThread = new ReleaseThread(h, false, solution, writer);
         ReleaseThread oThread = new ReleaseThread(o, true, solution, writer);
-        
+
         hThread.start();
         oThread.start();
         try {
@@ -90,7 +89,7 @@ class Driver extends BaseDriver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         writer.close();
 
         specialJudge(inputData);

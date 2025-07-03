@@ -1,9 +1,8 @@
 package com.lzw.solutions.lintcode.p2453;
 
+import java.io.*;
 import java.util.*;
 import java.util.function.Consumer;
-import java.lang.*;
-import java.io.*;
 
 public class Main {
     private static String mainThreadName;
@@ -40,7 +39,8 @@ public class Main {
                         total += arr.get(i);
                     }
                     if (total != x[2]) {
-                        Exception exception = new Exception("You got an incorrect result in calculating arr[" + String.valueOf(x[0]) + ": " + String.valueOf(x[1]) + "].");
+                        Exception exception = new Exception("You got an incorrect result in calculating arr["
+                                + String.valueOf(x[0]) + ": " + String.valueOf(x[1]) + "].");
                         throw exception;
                     }
                     nums.add(x[2]);
@@ -63,16 +63,15 @@ public class Main {
             int maxRangeLen = 0;
             int minRangeLen = arr.size();
             for (int i = 0; i < rangeLen.size(); i++) {
-                if (rangeLen.get(i) < minRangeLen)
-                    minRangeLen = rangeLen.get(i);
-                if (rangeLen.get(i) > maxRangeLen)
-                    maxRangeLen = rangeLen.get(i);
+                if (rangeLen.get(i) < minRangeLen) minRangeLen = rangeLen.get(i);
+                if (rangeLen.get(i) > maxRangeLen) maxRangeLen = rangeLen.get(i);
             }
             if (nums.size() != n) {
                 Exception exception = new Exception("You should use n threads to calculate the answer.");
                 throw exception;
             } else if (sumNums != sumArr && nums.size() != n) {
-                Exception exception = new Exception("You should use n threads to calculate the answer and wait until all threads are finished.");
+                Exception exception = new Exception(
+                        "You should use n threads to calculate the answer and wait until all threads are finished.");
                 throw exception;
             } else if ((maxRangeLen - minRangeLen) >= n) {
                 Exception exception = new Exception("You need to balance the amount of calculation for each thread.");

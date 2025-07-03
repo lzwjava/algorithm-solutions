@@ -8,11 +8,11 @@ import java.io.PrintStream;
 import java.util.StringTokenizer;
 
 public class Main {
-    
+
     double f2c(int df) {
         return df * 5.0 / 9;
     }
-   
+
     void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(br.readLine());
@@ -33,7 +33,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

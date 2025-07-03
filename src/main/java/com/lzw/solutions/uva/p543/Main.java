@@ -13,7 +13,7 @@ public class Main {
         ArrayList<Integer> primes = new ArrayList<>();
         for (int i = 2; i <= 1000000; i++) {
             boolean isPrime = true;
-            int square = (int)Math.sqrt(i);
+            int square = (int) Math.sqrt(i);
             for (int j = 0; j < primes.size(); j++) {
                 int pj = primes.get(j);
                 if (i % pj == 0) {
@@ -59,7 +59,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

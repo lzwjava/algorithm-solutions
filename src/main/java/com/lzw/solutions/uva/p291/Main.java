@@ -16,21 +16,21 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     int[][] map = {
-        { 0, 1, 1, 0, 1 },
-        { 1, 0, 1, 0, 1 },
-        { 1, 1, 0, 1, 1 },
-        { 0, 0, 1, 0, 1 },
-        { 1, 1, 1, 1, 0 } 
+        {0, 1, 1, 0, 1},
+        {1, 0, 1, 0, 1},
+        {1, 1, 0, 1, 1},
+        {0, 0, 1, 0, 1},
+        {1, 1, 1, 1, 0}
     };
 
     boolean[][] vis;
-    
+
     void dfs(int nums[], int idx, int cur) {
         if (cur == 9) {
             for (int i = 0; i < 9; i++) {
-                out.append(String.valueOf(nums[i]+1));
+                out.append(String.valueOf(nums[i] + 1));
             }
             out.append('\n');
             return;
@@ -40,16 +40,16 @@ public class Main {
                 vis[idx][i] = vis[i][idx] = true;
                 nums[cur] = i;
                 dfs(nums, i, cur + 1);
-                vis[idx][i] = vis[i][idx] = false;                
+                vis[idx][i] = vis[i][idx] = false;
             }
         }
     }
-   
+
     void solve() throws IOException {
         int[] nums = new int[9];
         vis = new boolean[5][5];
         nums[0] = 0;
-        dfs(nums, 0, 1);            
+        dfs(nums, 0, 1);
     }
 
     void close() throws IOException {
@@ -58,14 +58,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

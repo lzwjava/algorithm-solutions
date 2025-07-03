@@ -38,7 +38,7 @@ public class Main {
         m.solve();
         m.close();
     }
-    
+
     int cal(int[] a) {
         int n = a.length;
         int[] d = new int[n];

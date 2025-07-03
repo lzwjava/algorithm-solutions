@@ -24,8 +24,7 @@ public class Main {
     class Point {
         int i, j;
 
-        Point() {
-        }
+        Point() {}
 
         Point(int i, int j) {
             this.i = i;
@@ -95,5 +94,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

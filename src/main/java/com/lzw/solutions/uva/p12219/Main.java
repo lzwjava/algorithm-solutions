@@ -16,17 +16,15 @@ public class Main {
 
         int num;
 
-        TreeNode() {
-        }
-
+        TreeNode() {}
     }
-    
+
     private static int pos;
-    
+
     private static TreeNode buildTree(String str) {
         // System.out.println(pos);
         StringBuilder value = new StringBuilder();
-        for (;;) {
+        for (; ; ) {
             if (pos >= str.length()) {
                 break;
             }
@@ -40,7 +38,7 @@ public class Main {
         }
 
         if (pos < str.length()) {
-        
+
             char pch = str.charAt(pos);
 
             if (pch == '(') {
@@ -50,7 +48,7 @@ public class Main {
                 pos++;
                 TreeNode rightNode = buildTree(str);
                 pos++;
-    
+
                 TreeNode node = new TreeNode();
                 node.value = v;
                 node.left = leftNode;
@@ -59,7 +57,7 @@ public class Main {
             } else if (pch == ',' || pch == ')') {
                 TreeNode node = new TreeNode();
                 node.value = value.toString();
-                return node;            
+                return node;
             }
         } else {
             TreeNode node = new TreeNode();
@@ -68,7 +66,7 @@ public class Main {
         }
         return null;
     }
-    
+
     private static String traverse(TreeNode root) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%s", root.value));
@@ -90,7 +88,7 @@ public class Main {
         String expr = getExpression(node);
         Integer num = map.get(expr);
         if (num == null) {
-            int num1 = map.size()+1;
+            int num1 = map.size() + 1;
             map.put(expr, num1);
             node.num = num1;
         } else {
@@ -99,7 +97,7 @@ public class Main {
     }
 
     private static String getExpression(TreeNode node) {
-        int left = 0, right = 0;        
+        int left = 0, right = 0;
         if (node.left != null && node.right != null) {
             left = node.left.num;
             right = node.right.num;
@@ -127,14 +125,14 @@ public class Main {
                 printTree(node.left, map);
                 System.out.print(",");
                 printTree(node.right, map);
-                System.out.print(")");                
+                System.out.print(")");
             }
         } else {
             System.out.print(num);
         }
-    }    
-    
-    private static void work(){
+    }
+
+    private static void work() {
         Scanner sc = new Scanner(System.in);
 
         int c = sc.nextInt();
@@ -164,7 +162,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

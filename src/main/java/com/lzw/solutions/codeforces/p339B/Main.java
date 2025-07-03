@@ -23,7 +23,7 @@ public class Main {
                     cnt += d;
                     p = as[i];
                 } else {
-                    //as[i] < p
+                    // as[i] < p
                     int d = n - p + as[i];
                     cnt += d;
                     p = as[i];
@@ -36,5 +36,4 @@ public class Main {
     public static void main(String[] args) {
         new Main().solve();
     }
-
 }

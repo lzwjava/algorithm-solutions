@@ -98,10 +98,9 @@ public class Main {
             int ans = dp(an - 1, bn - 1);
             StringBuilder sb = new StringBuilder();
             print(an - 1, bn - 1, sb);
-//        out.append(String.format("%d\n", ans));
+            //        out.append(String.format("%d\n", ans));
             out.append(String.format("%s\n", sb.toString().trim()));
         }
-
     }
 
     void close() throws IOException {

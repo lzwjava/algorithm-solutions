@@ -37,7 +37,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
+        //        m.test();
         m.close();
     }
 
@@ -97,7 +97,7 @@ public class Main {
         map[i][arrInt(a[i])][toInt(first)] = toInt(ans);
         return ans;
     }
-    
+
     boolean cal(int[] a, int n) {
         this.a = a;
         this.n = n;
@@ -137,5 +137,4 @@ public class Main {
             }
         }
     }
-
 }

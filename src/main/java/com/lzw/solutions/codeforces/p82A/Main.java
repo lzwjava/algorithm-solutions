@@ -26,7 +26,7 @@ public class Main {
     }
 
     void solve() throws IOException {
-        String[] names = new String[]{"Sheldon", "Leonard", "Penny", "Rajesh", "Howard"};
+        String[] names = new String[] {"Sheldon", "Leonard", "Penny", "Rajesh", "Howard"};
         int n = Integer.parseInt(in.readLine());
         int x = (int) (Math.log(n * 1.0 / 5 + 1) / Math.log(2) - 1);
         while (true) {
@@ -45,5 +45,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

@@ -19,8 +19,8 @@ public class Main2 {
         out = new PrintWriter(System.out);
     }
 
-    public static void subSequenceSum(ArrayList<ArrayList<Long>> ans, long a[], ArrayList<Long> temp, long k, int start)
-    {      
+    public static void subSequenceSum(
+            ArrayList<ArrayList<Long>> ans, long a[], ArrayList<Long> temp, long k, int start) {
         if (start > a.length || k < 0) {
             return;
         }
@@ -35,11 +35,10 @@ public class Main2 {
         }
     }
 
-
     long[] nums;
     long total;
     int count;
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -51,13 +50,13 @@ public class Main2 {
                 nums[i] = Long.parseLong(st.nextToken());
                 total += nums[i];
             }
-            
+
             ArrayList<ArrayList<Long>> ans;
-            ans= new ArrayList<ArrayList<Long>>();
-            subSequenceSum(ans, nums, new ArrayList<Long>(), total - 1, 0);                
-            
+            ans = new ArrayList<ArrayList<Long>>();
+            subSequenceSum(ans, nums, new ArrayList<Long>(), total - 1, 0);
+
             count = ans.size();
-            out.append(String.format("%d\n", count));                      
+            out.append(String.format("%d\n", count));
             t--;
         }
     }
@@ -68,14 +67,14 @@ public class Main2 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

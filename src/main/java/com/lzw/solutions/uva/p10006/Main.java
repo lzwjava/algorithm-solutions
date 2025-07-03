@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-public class Main {    
+public class Main {
 
     int cal(int a, int n) {
         int mod = 1;
@@ -19,7 +19,7 @@ public class Main {
         }
         return mod % n;
     }
-   
+
     void solve() throws IOException {
         ArrayList<Integer> primes = new ArrayList<>();
         boolean isp[] = new boolean[65000];
@@ -67,7 +67,7 @@ public class Main {
 
                     // if (mod != a) {
                     //     pass = false;
-                    //     break;                        
+                    //     break;
                     // }
                 }
                 if (pass) {
@@ -81,7 +81,7 @@ public class Main {
             }
         }
         out.flush();
-        
+
         out.close();
         br.close();
     }
@@ -89,7 +89,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

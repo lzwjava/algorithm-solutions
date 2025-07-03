@@ -38,7 +38,6 @@ public class Main {
         }
     }
 
-
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         int[] p = new int[n];
@@ -71,5 +70,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

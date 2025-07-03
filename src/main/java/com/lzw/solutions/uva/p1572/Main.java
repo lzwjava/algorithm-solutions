@@ -15,21 +15,19 @@ public class Main {
     PrintWriter out;
 
     class Molecule {
-        // top right bottom left        
+        // top right bottom left
         String labels[];
 
-        Molecule() {
-
-        }
+        Molecule() {}
 
         Molecule(String[] labels) {
             this.labels = labels;
         }
     }
-    
+
     // top right bottom left
-    int dx[] = { -1, 0, 1, 0 };
-    int dy[] = { 0, 1, 0, -1 };
+    int dx[] = {-1, 0, 1, 0};
+    int dy[] = {0, 1, 0, -1};
     int size;
     int total;
 
@@ -37,7 +35,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     String[] makeLabels(String molecule) {
         assert (molecule.length() == 8);
         String labels[] = new String[4];
@@ -58,14 +56,14 @@ public class Main {
         Molecule m = molecules[x][y];
         for (int i = 0; i < dx.length; i++) {
             int nx = dx[i] + x;
-            int ny = dy[i] + y;            
-            if (inside(nx, ny) &&  molecules[nx][ny] == null) {
+            int ny = dy[i] + y;
+            if (inside(nx, ny) && molecules[nx][ny] == null) {
                 String label = m.labels[i];
                 HashSet<String> typeSet = new HashSet<>();
                 for (int j = 0; j < types.length; j++) {
                     String[] type = types[j];
                     for (int degree = 0; degree < 4; degree++) {
-                        String[] dtype = rotateType(type, degree);                        
+                        String[] dtype = rotateType(type, degree);
                         for (int invert = 0; invert < 2; invert++) {
                             String[] ntype = invertType(dtype, invert);
                             String ntypeString = String.join("", ntype);
@@ -74,14 +72,14 @@ public class Main {
                             }
                             typeSet.add(ntypeString);
                             boolean match = match(ntype, label, i);
-                            if (match) {                                
+                            if (match) {
                                 boolean ok = true;
                                 for (int k = 0; k < dx.length; k++) {
                                     int nnx = nx + dx[k];
                                     int nny = ny + dy[k];
-                                    if (inside(nnx,nny) && nnx != x && nny != y) {
+                                    if (inside(nnx, nny) && nnx != x && nny != y) {
                                         if (molecules[nnx][nny] != null) {
-                                            String nlabel = ntype[k];                                            
+                                            String nlabel = ntype[k];
                                             String[] nntype = molecules[nnx][nny].labels;
                                             boolean nnmatch = match(nntype, nlabel, k);
                                             if (!nnmatch) {
@@ -93,7 +91,7 @@ public class Main {
                                 }
                                 if (ok) {
                                     molecules[nx][ny] = new Molecule(ntype);
-                                    total++;                                    
+                                    total++;
                                     extend(molecules, nx, ny, types);
                                 }
                             }
@@ -106,7 +104,7 @@ public class Main {
 
         // }
     }
-       
+
     private boolean match(String[] ntype, String label, int dir) {
         int ndir;
         if (dir == 0 || dir == 2) {
@@ -184,14 +182,14 @@ public class Main {
             int center = size / 2;
 
             molecules[center][center] = new Molecule(types[0].clone());
-            total++;      
+            total++;
 
             extend(molecules, center, center, types);
 
             if (total == size * size) {
-                System.out.println("unbounded");                
+                System.out.println("unbounded");
             } else {
-                System.out.println("bounded"); 
+                System.out.println("bounded");
             }
         }
     }
@@ -202,14 +200,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

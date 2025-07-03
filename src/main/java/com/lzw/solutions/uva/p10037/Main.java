@@ -88,9 +88,9 @@ public class Main {
             return min;
         }
         int min = Integer.MAX_VALUE;
-//        if (left.size() == 3) {
-//            System.out.println();
-//        }
+        //        if (left.size() == 3) {
+        //            System.out.println();
+        //        }
         if (right.size() == 0 || right.get(0) >= left.get(1)) {
             ArrayList<Integer> nleft = new ArrayList<>(left);
             ArrayList<Integer> nright = new ArrayList<>(right);

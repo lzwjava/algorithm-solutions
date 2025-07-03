@@ -15,9 +15,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         for (int i = 0; i < t; i++) {
@@ -26,16 +26,16 @@ public class Main {
             int d = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
             int u = Integer.parseInt(st.nextToken());
-            out.append(String.format("Case %d: ", i+1));            
-            if (v >= u || u == 0 || v == 0) {                
+            out.append(String.format("Case %d: ", i + 1));
+            if (v >= u || u == 0 || v == 0) {
                 out.append("can't determine\n");
             } else {
-                double dd = d, vv = v, uu = u;                
+                double dd = d, vv = v, uu = u;
                 double x = Math.sqrt(uu * uu - vv * vv);
-                double ans = dd / x - dd / uu;                
-                out.append(String.format("%.3f\n", ans));                
+                double ans = dd / x - dd / uu;
+                out.append(String.format("%.3f\n", ans));
             }
-        }   
+        }
     }
 
     void close() throws IOException {
@@ -44,14 +44,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -23,13 +23,13 @@ public class Main {
             long n = Integer.parseInt(st.nextToken());
             long k = Integer.parseInt(st.nextToken());
             double logSum = 0;
-//            for (long i = n - k + 1; i <= n; i++) {
-//                logSum += Math.log10(i);
-//            }
-//
-//            for (long i = 1; i <= k; i++) {
-//                logSum -= Math.log10(i);
-//            }
+            //            for (long i = n - k + 1; i <= n; i++) {
+            //                logSum += Math.log10(i);
+            //            }
+            //
+            //            for (long i = 1; i <= k; i++) {
+            //                logSum -= Math.log10(i);
+            //            }
 
             if (k > n - k) {
                 for (long i = k + 1; i <= n; i++) {

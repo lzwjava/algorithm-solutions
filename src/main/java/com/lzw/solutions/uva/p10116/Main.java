@@ -17,8 +17,8 @@ public class Main {
     char[][] grid;
     int n, m;
 
-    int[] dx = new int[]{-1, 1, 0, 0};
-    int[] dy = new int[]{0, 0, 1, -1};
+    int[] dx = new int[] {-1, 1, 0, 0};
+    int[] dy = new int[] {0, 0, 1, -1};
 
     void dfs(int sx, int sy, int[][] ds, int dist) {
         ds[sx][sy] = dist;
@@ -31,8 +31,8 @@ public class Main {
             if (ds[nx][ny] == -1) {
                 dfs(nx, ny, ds, dist + 1);
             } else {
-                out.append(String.format("%d step(s) before a loop of %d step(s)\n", ds[nx][ny],
-                    (dist + 1) - ds[nx][ny]));
+                out.append(
+                        String.format("%d step(s) before a loop of %d step(s)\n", ds[nx][ny], (dist + 1) - ds[nx][ny]));
             }
         } else {
             out.append(String.format("%d step(s) to exit\n", dist + 1));

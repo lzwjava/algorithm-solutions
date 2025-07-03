@@ -8,8 +8,6 @@ import java.io.PrintStream;
 
 public class Main {
 
-
-   
     void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
@@ -24,7 +22,7 @@ public class Main {
 
             long sum3 = 0;
             for (int i = 0; i < 3; i++) {
-                sum3 += 2*(sum-i)-1;
+                sum3 += 2 * (sum - i) - 1;
             }
             System.out.println(sum3);
         }
@@ -34,7 +32,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

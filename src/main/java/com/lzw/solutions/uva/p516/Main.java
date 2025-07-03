@@ -16,9 +16,7 @@ public class Main {
         return Integer.parseInt(in.readLine());
     }
 
-    void solve() throws IOException {
-        
-    }
+    void solve() throws IOException {}
 
     void close() throws IOException {
         if (in != null) {

@@ -20,7 +20,7 @@ public class Main1 {
     }
 
     HashMap<Integer, Result> map;
-    
+
     class Result {
         int len;
         Node next;
@@ -30,14 +30,14 @@ public class Main1 {
             this.next = next;
         }
     }
-    
+
     // start with i, max len subsequence
     int dp(ArrayList<Integer> nums, Node root, int i) {
         Result v = map.get(i);
         if (v != null) {
             root.next = v.next;
-            return v.len;                          
-        }     
+            return v.len;
+        }
         // choose i
         int max = 1;
         for (int j = i + 1; j < nums.size(); j++) {
@@ -56,15 +56,14 @@ public class Main1 {
         map.put(i, v);
         return max;
     }
-    
+
     class Node {
         int i;
         Node next;
-        
-        Node() {            
-        }
+
+        Node() {}
     }
-   
+
     void solve() throws IOException {
         ArrayList<Integer> nums = new ArrayList<>();
         while (true) {
@@ -92,7 +91,7 @@ public class Main1 {
         out.append(String.format("%d\n-\n", max));
         print(nums, root);
     }
-    
+
     void print(ArrayList<Integer> nums, Node root) {
         out.append(String.format("%d\n", nums.get(root.i)));
         if (root.next != null) {
@@ -106,14 +105,14 @@ public class Main1 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void Main1(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

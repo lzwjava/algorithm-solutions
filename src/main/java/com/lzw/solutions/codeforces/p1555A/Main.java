@@ -46,5 +46,4 @@ public class Main {
             System.out.println(String.format("%d", time));
         }
     }
-
 }

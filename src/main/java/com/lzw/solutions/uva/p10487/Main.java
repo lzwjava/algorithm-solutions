@@ -16,9 +16,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -38,10 +38,10 @@ public class Main {
                 }
             }
             Collections.sort(sums);
-            
+
             out.append(String.format("Case %d:\n", caseNum));
 
-            int m = Integer.parseInt(in.readLine());            
+            int m = Integer.parseInt(in.readLine());
             for (int i = 0; i < m; i++) {
                 int q = Integer.parseInt(in.readLine());
                 int index = Collections.binarySearch(sums, q);
@@ -77,14 +77,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

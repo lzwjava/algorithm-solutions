@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
-        HashMap<String,Integer> map = new HashMap<String, Integer>(){
+        HashMap<String, Integer> map = new HashMap<String, Integer>() {
             {
                 put("A", 2);
                 put("B", 2);
@@ -36,7 +36,7 @@ public class Main {
                 put("W", 9);
                 put("X", 9);
                 put("Y", 9);
-                put("Z", 9);  
+                put("Z", 9);
             }
         };
         while (sc.hasNext()) {
@@ -59,7 +59,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

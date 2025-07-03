@@ -29,7 +29,7 @@ public class Main {
             if (end) {
                 break;
             }
-            
+
             c++;
         }
     }

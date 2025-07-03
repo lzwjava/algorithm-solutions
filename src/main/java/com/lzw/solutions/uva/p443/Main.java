@@ -24,7 +24,7 @@ public class Main {
         ArrayList<Long> nums = new ArrayList<>();
         PriorityQueue<Long> queue = new PriorityQueue<>();
         queue.add(1L);
-        int[] primes = new int[] { 2, 3, 5, 7 };
+        int[] primes = new int[] {2, 3, 5, 7};
         HashSet<Long> set = new HashSet<>();
         set.add(1L);
         while (!queue.isEmpty()) {

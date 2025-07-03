@@ -28,7 +28,7 @@ public class Main {
                 this.grid[i] = this.grid[i].clone();
             }
         }
-        
+
         int[][] strip(int grid[][]) {
             int nh = grid.length;
             int nw = grid[0].length;
@@ -58,7 +58,7 @@ public class Main {
                     break;
                 }
             }
-            
+
             int w1, w2;
             for (w1 = 0; w1 < nw; w1++) {
                 boolean found = false;
@@ -84,8 +84,8 @@ public class Main {
                     break;
                 }
             }
-            int hlen = h2-h1+1;
-            int wlen = w2-w1+1;
+            int hlen = h2 - h1 + 1;
+            int wlen = w2 - w1 + 1;
             int ngrid[][] = new int[hlen][wlen];
             for (int i = 0; i < hlen; i++) {
                 for (int j = 0; j < wlen; j++) {
@@ -101,9 +101,9 @@ public class Main {
                 return false;
             }
             State o = (State) obj;
-            
+
             int grid1[][] = strip(grid);
-            int grid2[][] = strip(o.grid);         
+            int grid2[][] = strip(o.grid);
             if (grid1.length != grid2.length || grid1[0].length != grid2[0].length) {
                 return false;
             }
@@ -130,7 +130,7 @@ public class Main {
         for (int i = 0; i < grid.length; i++) {
             ngrid[i] = grid[i].clone();
         }
-        return ngrid;        
+        return ngrid;
     }
 
     int[][] horizontalFlip(int grid[][]) {
@@ -165,12 +165,12 @@ public class Main {
 
     int[][] rotateMinus180(int grid[][]) {
         int[][] ngrid = horizontalFlip(grid);
-        return verticalFlip(ngrid);        
+        return verticalFlip(ngrid);
     }
 
     int[][] rotate90(int grid[][]) {
         int nh = grid.length;
-        int nw = grid[0].length;        
+        int nw = grid[0].length;
         // 0,0 -> 0, 2
         int[][] ngrid = new int[nw][nh];
         for (int i = 0; i < nw; i++) {
@@ -192,9 +192,9 @@ public class Main {
         }
         out.append('\n');
     }
-    
+
     // left top right bottom
-    int dx[] = {0, -1, 0, 1}; 
+    int dx[] = {0, -1, 0, 1};
     int dy[] = {-1, 0, 1, 0};
 
     void dfs(int grid[][], boolean vis[][], int i, int j) {
@@ -209,7 +209,7 @@ public class Main {
             }
         }
     }
-    
+
     int calCount(int grid[][]) {
         boolean vis[][] = new boolean[h][w];
         int count = 0;
@@ -238,12 +238,12 @@ public class Main {
             return false;
         }
     }
-    
+
     void permutaion(int pos, int polyominoes) {
         if (pos == w * h) {
             if (polyominoes != n) {
                 return;
-            }            
+            }
             if (!isConnected(grid)) {
                 return;
             }
@@ -252,7 +252,7 @@ public class Main {
             if (states.contains(st)) {
                 return;
             }
-            int[][] grid1 = horizontalFlip(grid);         
+            int[][] grid1 = horizontalFlip(grid);
             if (states.contains(new State(grid1))) {
                 return;
             }
@@ -285,7 +285,7 @@ public class Main {
         }
         int x = pos / w;
         int y = pos % w;
-        if (y == 0 && x>0) {
+        if (y == 0 && x > 0) {
             int ngrid[][] = new int[x][w];
             for (int i = 0; i < x; i++) {
                 for (int j = 0; j < w; j++) {
@@ -297,18 +297,18 @@ public class Main {
                 return;
             }
         }
-        if (polyominoes < n) {        
+        if (polyominoes < n) {
             grid[x][y] = 1;
             permutaion(pos + 1, polyominoes + 1);
 
             grid[x][y] = 0;
-            permutaion(pos + 1, polyominoes);            
+            permutaion(pos + 1, polyominoes);
         } else if (polyominoes == n) {
             grid[x][y] = 0;
-            permutaion(pos+1, polyominoes);            
+            permutaion(pos + 1, polyominoes);
         }
     }
-   
+
     void solve() throws IOException {
         // h = 3;
         // w = 2;
@@ -341,14 +341,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             // outStream = new PrintStream("1.out");

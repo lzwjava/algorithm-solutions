@@ -14,14 +14,14 @@ public class Main {
 
     int divisorSum;
     int divisorN;
-    
+
     void permutation(ArrayList<Prime> primeNums, int i, int n, int cnts[]) {
         if (i == n) {
             int p = 1;
             for (int j = 0; j < n; j++) {
                 Prime prime = primeNums.get(j);
                 if (cnts[j] > 0) {
-                    p *= (int)Math.pow(prime.num,cnts[j]);                    
+                    p *= (int) Math.pow(prime.num, cnts[j]);
                 }
             }
             if (divisorN / p != 1) {
@@ -32,10 +32,10 @@ public class Main {
         Prime prime = primeNums.get(i);
         for (int j = 0; j <= prime.count; j++) {
             cnts[i] = j;
-            permutation(primeNums, i+1, n, cnts);
+            permutation(primeNums, i + 1, n, cnts);
         }
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         ArrayList<Integer> primes = new ArrayList<>();
@@ -96,7 +96,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -12,11 +12,11 @@ public class Main {
         int x;
         int y;
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
-        while(t>0){
+        while (t > 0) {
             int n = sc.nextInt();
             ArrayList<Dot> list = new ArrayList<>();
             for (int i = 0; i < n; i++) {
@@ -43,15 +43,15 @@ public class Main {
                 if (!found) {
                     mx = d.x;
                 } else {
-                    dots.sort(new Comparator<Dot>(){
+                    dots.sort(new Comparator<Dot>() {
                         @Override
                         public int compare(Main.Dot o1, Main.Dot o2) {
                             return o1.x - o2.x;
-                        }                        
+                        }
                     });
                     int dn = dots.size();
                     if (dn % 2 == 0) {
-                        mx = (dots.get(0).x + dots.get(dn-1).x)/2.0;
+                        mx = (dots.get(0).x + dots.get(dn - 1).x) / 2.0;
                     } else {
                         mx = dots.get(dn / 2).x;
                     }
@@ -62,17 +62,17 @@ public class Main {
                     public int compare(Main.Dot o1, Main.Dot o2) {
                         double v1 = Math.abs(o1.x - mx1);
                         double v2 = Math.abs(o2.x - mx1);
-                        if (Math.abs(v1-v2)<1e-10){
+                        if (Math.abs(v1 - v2) < 1e-10) {
                             return 0;
-                        } else if (v1-v2<0){
+                        } else if (v1 - v2 < 0) {
                             return -1;
                         } else {
                             return 1;
                         }
-                    }                                                
+                    }
                 });
                 boolean ok = true;
-                for (int i = 0; i < n;) {
+                for (int i = 0; i < n; ) {
                     Dot dot = list.get(i);
                     double v1 = Math.abs(dot.x - mx);
                     if (v1 < 1e-10) {
@@ -98,17 +98,17 @@ public class Main {
                     System.out.println("YES");
                 } else {
                     System.out.println("NO");
-                }                  
+                }
             }
             t--;
-        }      
+        }
         sc.close();
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("2.out");

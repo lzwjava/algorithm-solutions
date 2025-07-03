@@ -19,7 +19,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Giving {
         String from;
         int money;
@@ -33,7 +33,7 @@ public class Main {
             this.toNames = toNames;
         }
     }
-    
+
     Integer getNetWorth(HashMap<String, Integer> map, String name) {
         Integer netWorth = map.get(name);
         if (netWorth == null) {
@@ -45,10 +45,10 @@ public class Main {
     void setNetWorth(HashMap<String, Integer> map, String name, Integer v) {
         map.put(name, v);
     }
-   
+
     void solve() throws IOException {
-        String line = in.readLine();        
-        while (true) {        
+        String line = in.readLine();
+        while (true) {
             int n = Integer.parseInt(line);
             String[] names = new String[n];
             line = in.readLine();
@@ -80,10 +80,10 @@ public class Main {
             }
             HashMap<String, Integer> map = new HashMap<>();
             for (Giving giving : givings) {
-                Integer netWorth = getNetWorth(map, giving.from);                
+                Integer netWorth = getNetWorth(map, giving.from);
                 int eachMoney = 0;
-                if (giving.toCount>0){
-                    eachMoney= giving.money / giving.toCount;
+                if (giving.toCount > 0) {
+                    eachMoney = giving.money / giving.toCount;
                 }
                 int totalMoney = eachMoney * giving.toCount;
 
@@ -114,14 +114,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -25,7 +25,7 @@ public class Main1 {
         }
         return false;
     }
-    
+
     void calWays(int units[], Integer[] cnts, int cents) {
         if (cents == 0) {
             if (!contains(cnts)) {
@@ -45,13 +45,13 @@ public class Main1 {
             }
         }
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextInt()) {
-            int n = sc.nextInt();            
-            int units[] = new int[] { 1, 5, 10, 25, 50 };
+            int n = sc.nextInt();
+            int units[] = new int[] {1, 5, 10, 25, 50};
             answer = new ArrayList<>();
             Integer[] cnts = new Integer[units.length];
             for (int i = 0; i < units.length; i++) {
@@ -65,14 +65,14 @@ public class Main1 {
                 part = "There is only 1 way";
             }
             System.out.println(String.format("%s to produce %d cents change.", part, n));
-        }        
+        }
         sc.close();
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

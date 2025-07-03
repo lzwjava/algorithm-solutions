@@ -18,7 +18,6 @@ public class Main {
             if (len == 0) {
                 break;
             }
-            
         }
     }
 

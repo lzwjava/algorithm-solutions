@@ -13,7 +13,7 @@ public class Main {
     int verticesNum;
     int edgesNum;
     int[][] graph;
-    ArrayList<Edge> edges;    
+    ArrayList<Edge> edges;
     int slimmest;
 
     private class Edge {
@@ -30,8 +30,8 @@ public class Main {
             }
         }
     }
-    
-    void verify(boolean edgeSelected[]) {        
+
+    void verify(boolean edgeSelected[]) {
         int[][] verifyGraph = new int[verticesNum][verticesNum];
         ArrayList<Edge> selectedEdges = new ArrayList<>();
         for (int i = 0; i < edgesNum; i++) {
@@ -44,7 +44,7 @@ public class Main {
         }
         boolean vis[] = new boolean[verticesNum];
         traverseGraph(vis, 0, verifyGraph);
-        
+
         boolean allVisited = true;
         for (int i = 0; i < verticesNum; i++) {
             if (!vis[i]) {
@@ -52,7 +52,7 @@ public class Main {
                 break;
             }
         }
-        
+
         if (allVisited) {
             int[] weights = new int[selectedEdges.size()];
             for (int i = 0; i < selectedEdges.size(); i++) {
@@ -78,16 +78,16 @@ public class Main {
                 // System.out.println();
                 verify(edgeSelected);
                 return;
-            }            
+            }
             return;
-        }       
+        }
         edgeSelected[i] = false;
         permutation(edgeSelected, i + 1, n, selected, maxSelected);
         edgeSelected[i] = true;
-        permutation(edgeSelected, i+1, n, selected+1, maxSelected);
+        permutation(edgeSelected, i + 1, n, selected + 1, maxSelected);
     }
 
-    void work(){
+    void work() {
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextInt()) {
@@ -97,9 +97,9 @@ public class Main {
             edges = new ArrayList<>();
             slimmest = MAX_SLIMMEST;
 
-            for (int i = 0; i < edgesNum ; i++) {
-                int a = sc.nextInt() -1;
-                int b = sc.nextInt() -1;
+            for (int i = 0; i < edgesNum; i++) {
+                int a = sc.nextInt() - 1;
+                int b = sc.nextInt() - 1;
                 int w = sc.nextInt();
                 graph[a][b] = w;
                 graph[b][a] = w;
@@ -110,7 +110,7 @@ public class Main {
                 edges.add(e);
             }
 
-            boolean [] edgeSelected = new boolean[edgesNum];                        
+            boolean[] edgeSelected = new boolean[edgesNum];
             permutation(edgeSelected, 0, edgesNum, 0, verticesNum - 1);
 
             if (slimmest != MAX_SLIMMEST) {
@@ -121,12 +121,11 @@ public class Main {
         }
         sc.close();
     }
-    
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             // outStream = new PrintStream("1.out");

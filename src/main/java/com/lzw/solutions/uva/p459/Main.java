@@ -19,22 +19,22 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        in.readLine();        
+        in.readLine();
         while (t > 0) {
             String maxNode = in.readLine();
             char maxChar = maxNode.charAt(0);
             int charCount = maxChar - 'A' + 1;
-            ArrayList<Character> nodeList = new ArrayList<>();            
+            ArrayList<Character> nodeList = new ArrayList<>();
             for (int i = 0; i < charCount; i++) {
                 nodeList.add((char) ('A' + i));
             }
             n = nodeList.size();
-            graph = new boolean[n][n];                        
+            graph = new boolean[n][n];
             while (true) {
                 String e = in.readLine();
                 if (e == null || e.isEmpty()) {
@@ -45,7 +45,7 @@ public class Main {
                 int p1 = Collections.binarySearch(nodeList, n1);
                 int p2 = Collections.binarySearch(nodeList, n2);
                 graph[p1][p2] = graph[p2][p1] = true;
-            }        
+            }
             vis = new boolean[n];
             int count = 0;
             for (int i = 0; i < n; i++) {
@@ -55,7 +55,7 @@ public class Main {
                     count++;
                 }
             }
-            out.append(String.format("%d\n", count));            
+            out.append(String.format("%d\n", count));
             t--;
             if (t != 0) {
                 out.append('\n');
@@ -78,14 +78,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

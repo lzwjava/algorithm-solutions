@@ -1,6 +1,5 @@
 package com.lzw.solutions.lintcode.p2502;
 
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class ThreadSafeArrayList extends AbstractArrayList {

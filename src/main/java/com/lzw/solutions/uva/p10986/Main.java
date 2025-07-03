@@ -20,8 +20,7 @@ public class Main {
         int b;
         int w;
 
-        Edge() {
-        }
+        Edge() {}
 
         Edge(int a, int b, int w) {
             this.a = a;
@@ -34,12 +33,12 @@ public class Main {
             return w - o.w;
         }
     }
-    
+
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void solve() throws IOException {
         int N = Integer.parseInt(in.readLine());
         int caseNum = 1;
@@ -51,14 +50,14 @@ public class Main {
             int s = Integer.parseInt(st.nextToken());
             int t = Integer.parseInt(st.nextToken());
 
-            ArrayList<Edge>[] edgeList = new ArrayList[n];            
+            ArrayList<Edge>[] edgeList = new ArrayList[n];
             for (int i = 0; i < m; i++) {
                 str = in.readLine();
                 st = new StringTokenizer(str);
                 int a = Integer.parseInt(st.nextToken());
                 int b = Integer.parseInt(st.nextToken());
                 int w = Integer.parseInt(st.nextToken());
-                
+
                 if (edgeList[a] == null) {
                     edgeList[a] = new ArrayList<>();
                 }
@@ -106,14 +105,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

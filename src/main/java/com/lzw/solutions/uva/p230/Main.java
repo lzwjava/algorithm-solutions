@@ -36,7 +36,7 @@ public class Main {
             }
         }
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         ArrayList<Book> books = new ArrayList<>();
@@ -62,14 +62,14 @@ public class Main {
         shelve.addAll(books);
 
         ArrayList<Book> borrowed = new ArrayList<>();
-        ArrayList<Book> returned = new ArrayList<>();        
+        ArrayList<Book> returned = new ArrayList<>();
         while (true) {
             String record = sc.nextLine();
             if (record.equals("END")) {
                 break;
             }
             int begin = record.indexOf("\"");
-            int end = record.lastIndexOf("\"");            
+            int end = record.lastIndexOf("\"");
             if (begin != -1) {
                 String command = record.substring(0, begin).trim();
                 String title = record.substring(begin + 1, end);
@@ -114,19 +114,19 @@ public class Main {
                     } else {
                         System.out.println(String.format("Put \"%s\" after \"%s\"", b.title, beforeTitle));
                         shelve.add(j, b);
-                    }            
+                    }
                 }
                 System.out.println("END");
                 returned.clear();
             }
-        }        
+        }
         sc.close();
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

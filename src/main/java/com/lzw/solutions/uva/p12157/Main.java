@@ -17,17 +17,17 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     int mile(int seconds) {
         int a = seconds / 30;
         return (a + 1) * 10;
     }
-    
+
     int juice(int seconds) {
         int a = seconds / 60;
         return (a + 1) * 15;
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         for (int k = 0; k < t; k++) {
@@ -47,12 +47,12 @@ public class Main {
             if (m == j) {
                 out.append(String.format("Mile Juice %d", m));
             } else if (m < j) {
-                out.append(String.format("Mile %d", m));                
+                out.append(String.format("Mile %d", m));
             } else {
                 out.append(String.format("Juice %d", j));
             }
             out.append('\n');
-        }      
+        }
     }
 
     void close() throws IOException {
@@ -61,14 +61,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

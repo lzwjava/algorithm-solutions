@@ -25,7 +25,5 @@ public class Main {
         m.solve();
     }
 
-    private void solve() {
-
-    }
+    private void solve() {}
 }

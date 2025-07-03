@@ -19,8 +19,7 @@ public class Main1 {
         int y;
         char ch;
 
-        Pos() {
-        }
+        Pos() {}
 
         Pos(char ch, int x, int y) {
             this.ch = ch;

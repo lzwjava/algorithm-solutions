@@ -30,7 +30,7 @@ public class Main {
         }
         return s;
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
@@ -38,17 +38,17 @@ public class Main {
             String b = sc.nextLine();
             int asum = sum(a);
             int bsum = sum(b);
-            
+
             int am = merge(asum);
             int bm = merge(bsum);
 
             double r;
             if (am <= bm) {
-                r = am * 100.0 / bm;                
+                r = am * 100.0 / bm;
             } else {
-                r = bm * 100.0 / am;                
+                r = bm * 100.0 / am;
             }
-            System.out.println(String.format("%.2f %%",r));
+            System.out.println(String.format("%.2f %%", r));
         }
         sc.close();
     }
@@ -56,7 +56,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

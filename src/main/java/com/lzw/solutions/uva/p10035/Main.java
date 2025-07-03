@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-    
+
     int add(String a, String b) {
         if (a.length() > b.length()) {
             String tmp = a;
@@ -40,7 +40,7 @@ public class Main {
         }
         return carryCount;
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
@@ -51,9 +51,9 @@ public class Main {
             }
             int carryCount = add(a, b);
             if (carryCount == 0) {
-                System.out.println("No carry operation.");                
+                System.out.println("No carry operation.");
             } else if (carryCount == 1) {
-                System.out.println(String.format("%d carry operation.", carryCount));                
+                System.out.println(String.format("%d carry operation.", carryCount));
             } else {
                 System.out.println(String.format("%d carry operations.", carryCount));
             }
@@ -64,7 +64,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

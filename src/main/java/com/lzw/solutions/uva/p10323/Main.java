@@ -16,7 +16,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     long fact(int x) {
         if (x == 0) {
             return 1;
@@ -24,7 +24,7 @@ public class Main {
             return fact(x - 1) * x;
         }
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String s = in.readLine();
@@ -34,10 +34,10 @@ public class Main {
             int n = Integer.parseInt(s);
             // long f = fact(n);
             // System.out.println(f);
-            if(n<0 && n%2==0){
+            if (n < 0 && n % 2 == 0) {
                 out.append("Underflow!\n");
             } else if (n < 0 && n % 2 != 0) {
-                out.append("Overflow!\n");                
+                out.append("Overflow!\n");
             } else {
                 long c = 1;
                 long max = 6227020800L;
@@ -45,7 +45,7 @@ public class Main {
                     c *= i;
                     if (c > max) {
                         break;
-                    }              
+                    }
                 }
                 if (c > max) {
                     out.append("Overflow!\n");
@@ -54,7 +54,7 @@ public class Main {
                 } else {
                     out.append(String.format("%d\n", c));
                 }
-            }           
+            }
         }
     }
 
@@ -64,14 +64,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

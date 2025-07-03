@@ -3,9 +3,9 @@ package com.lzw.solutions.uva.p1583;
 import java.io.FileInputStream;
 import java.util.Scanner;
 
-public class Main {    
+public class Main {
     public static void main(String[] args) throws Exception {
-        FileInputStream inStream = null;        
+        FileInputStream inStream = null;
         if (System.getProperty("os.name").equals("Mac OS X")) {
             inStream = new FileInputStream("1.in");
             System.setIn(inStream);
@@ -13,7 +13,7 @@ public class Main {
 
         int maxNum = 100000;
 
-        int generators[] = new int[maxNum+1];
+        int generators[] = new int[maxNum + 1];
         for (int i = 1; i <= maxNum; i++) {
             String s = String.format("%d", i);
             int digitSum = 0;
@@ -31,7 +31,7 @@ public class Main {
         int T = sc.nextInt();
         for (int i = 0; i < T; i++) {
             int n = sc.nextInt();
-            System.out.println(generators[n]);   
+            System.out.println(generators[n]);
         }
         sc.close();
 

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         ArrayList<Integer> primes = new ArrayList<>();
         for (int i = 2; i <= 100; i++) {
@@ -26,7 +26,7 @@ public class Main {
             if (ok) {
                 primes.add(i);
             }
-        }        
+        }
         Scanner sc = new Scanner(System.in);
         while (true) {
             int n = sc.nextInt();
@@ -70,7 +70,7 @@ public class Main {
                         nums = 0;
                     }
                     System.out.print(String.format("%3d", c));
-                    nums++;                    
+                    nums++;
                 }
             }
             System.out.println();
@@ -81,7 +81,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

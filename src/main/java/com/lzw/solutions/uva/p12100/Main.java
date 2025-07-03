@@ -8,12 +8,12 @@ import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
-    
+
     class Job {
         int pos;
         int priority;
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -22,11 +22,11 @@ public class Main {
             n = sc.nextInt();
             m = sc.nextInt();
             ArrayBlockingQueue<Job> jobs = new ArrayBlockingQueue<>(n);
-            PriorityQueue <Integer> pq = new PriorityQueue<>(new Comparator<Integer>(){
+            PriorityQueue<Integer> pq = new PriorityQueue<>(new Comparator<Integer>() {
                 @Override
                 public int compare(Integer o1, Integer o2) {
-                    return o2-o1;
-                }                
+                    return o2 - o1;
+                }
             });
             for (int i = 0; i < n; i++) {
                 Job job = new Job();
@@ -41,17 +41,17 @@ public class Main {
                 if (j.priority == pq.peek()) {
                     minutes++;
                     jobs.poll();
-                    pq.poll();                    
+                    pq.poll();
                     if (j.pos == m) {
                         System.out.println(minutes);
                         break;
-                    } 
+                    }
                 } else {
                     jobs.poll();
                     jobs.add(j);
                 }
             }
-            t--;            
+            t--;
         }
         sc.close();
     }
@@ -59,7 +59,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

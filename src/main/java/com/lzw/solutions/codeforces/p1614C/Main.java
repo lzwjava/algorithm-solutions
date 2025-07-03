@@ -124,15 +124,15 @@ public class Main {
                 }
             }
         }
-//        out.append(String.format("%d\n", v));
-//        for (int i = 0; i < n; i++) {
-//            out.append(String.format("%d   %3s\n", a[i], Integer.toBinaryString(a[i])));
-//        }
+        //        out.append(String.format("%d\n", v));
+        //        for (int i = 0; i < n; i++) {
+        //            out.append(String.format("%d   %3s\n", a[i], Integer.toBinaryString(a[i])));
+        //        }
         ans = 0;
         for (int len = 1; len <= n; len++) {
             permutation(a, 0, len, 0, n, -1);
         }
-//        out.append(String.format("%d\n", ans));
+        //        out.append(String.format("%d\n", ans));
         return ans;
     }
 
@@ -143,7 +143,10 @@ public class Main {
         }
         BigInteger bi = BigInteger.valueOf(2);
         BigInteger bm = BigInteger.valueOf(mod);
-        int ans = BigInteger.valueOf(x).multiply(bi.modPow(BigInteger.valueOf(n - 1), bm)).mod(bm).intValue();
+        int ans = BigInteger.valueOf(x)
+                .multiply(bi.modPow(BigInteger.valueOf(n - 1), bm))
+                .mod(bm)
+                .intValue();
         return ans;
     }
 

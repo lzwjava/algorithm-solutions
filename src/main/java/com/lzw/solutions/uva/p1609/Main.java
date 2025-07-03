@@ -28,7 +28,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
+        //        m.test();
         m.close();
     }
 
@@ -239,7 +239,7 @@ public class Main {
                 strs[i] = in.readLine();
             }
             List<Pair> pairs = solve1(n, strs);
-//            check(pairs, n / 2, strs);
+            //            check(pairs, n / 2, strs);
             StringBuilder sb = new StringBuilder();
             for (Pair p : pairs) {
                 sb.append(String.format("%d %d\n", p.a + 1, p.b + 1));

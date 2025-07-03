@@ -4,12 +4,9 @@ import java.io.IOException;
 
 public class Main {
 
-    Main() {
-    }
+    Main() {}
 
-    void solve() throws IOException {
-
-    }
+    void solve() throws IOException {}
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();

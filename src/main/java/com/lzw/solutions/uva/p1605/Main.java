@@ -238,5 +238,4 @@ public class Main {
             solve3(n);
         }
     }
-
 }

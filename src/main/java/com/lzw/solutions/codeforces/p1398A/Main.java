@@ -42,7 +42,7 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             int n = Integer.parseInt(in.readLine());
-//            int[] a = new int[n];
+            //            int[] a = new int[n];
             Item[] is = new Item[n];
             StringTokenizer st = new StringTokenizer(in.readLine());
             for (int i = 0; i < n; i++) {
@@ -69,5 +69,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

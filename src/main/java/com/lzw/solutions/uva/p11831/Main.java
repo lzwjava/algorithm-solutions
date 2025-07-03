@@ -18,8 +18,8 @@ public class Main {
     }
 
     String dir = "NLSO";
-    int[] dx = new int[]{-1, 0, 1, 0};
-    int[] dy = new int[]{0, 1, 0, -1};
+    int[] dx = new int[] {-1, 0, 1, 0};
+    int[] dy = new int[] {0, 1, 0, -1};
 
     char turnRight(char d) {
         int i = dir.indexOf(d);

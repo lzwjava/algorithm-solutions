@@ -19,7 +19,7 @@ public class Main {
             } else {
                 String midStr = strs.get(mid);
                 if (midStr.compareTo(target) < 0) {
-                    start = mid+1;
+                    start = mid + 1;
                 } else {
                     end = mid;
                 }
@@ -27,7 +27,7 @@ public class Main {
         }
         return -1;
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> words = new ArrayList<>();
@@ -40,7 +40,7 @@ public class Main {
             for (int m = 1; m <= word.length() - 1; m++) {
                 String part1 = word.substring(0, m);
                 String part2 = word.substring(m);
-                if (binarySearch(words,part1) != -1 && binarySearch(words, part2) != -1) {
+                if (binarySearch(words, part1) != -1 && binarySearch(words, part2) != -1) {
                     System.out.println(word);
                     break;
                 }
@@ -52,7 +52,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

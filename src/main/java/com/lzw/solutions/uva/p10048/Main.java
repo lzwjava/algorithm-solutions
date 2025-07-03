@@ -19,12 +19,11 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Edge implements Comparable<Edge> {
         int c1, c2, d;
 
-        Edge() {
-        }
+        Edge() {}
 
         Edge(int c1, int c2, int d) {
             this.c1 = c1;
@@ -37,7 +36,7 @@ public class Main {
             return d - o.d;
         }
     }
-    
+
     int getGroup(int[] groups, int x) {
         if (groups[x] == x) {
             return x;
@@ -45,7 +44,7 @@ public class Main {
             return getGroup(groups, groups[x]);
         }
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -70,7 +69,7 @@ public class Main {
                 edges.add(edge);
                 // graph[c1][c2] = graph[c2][c1] = d;
             }
-            Collections.sort(edges);            
+            Collections.sort(edges);
             if (caseNum != 1) {
                 out.append('\n');
             }
@@ -107,7 +106,6 @@ public class Main {
             }
             caseNum++;
         }
-
     }
 
     void close() throws IOException {
@@ -116,14 +114,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

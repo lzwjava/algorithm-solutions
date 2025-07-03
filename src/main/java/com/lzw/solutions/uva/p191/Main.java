@@ -90,8 +90,7 @@ public class Main {
 
                     if (!intersect) {
                         double x = (ytop - b) / k;
-                        if (moreOrEq(x, xleft) && lessOrEq(x, xright) &&
-                            moreOrEq(x, xmin) && lessOrEq(x, xmax)) {
+                        if (moreOrEq(x, xleft) && lessOrEq(x, xright) && moreOrEq(x, xmin) && lessOrEq(x, xmax)) {
                             intersect = true;
                         }
                     }
@@ -105,9 +104,9 @@ public class Main {
                 }
             } else {
                 if (moreOrEq(x1, xleft) && lessOrEq(x1, xright)) {
-                    if (moreOrEq(y1, ytop) && lessOrEq(y2, ytop) ||
-                        moreOrEq(y1, ybottom) && lessOrEq(y2, ybottom) ||
-                        lessOrEq(y1, ytop) && moreOrEq(y2, ybottom)) {
+                    if (moreOrEq(y1, ytop) && lessOrEq(y2, ytop)
+                            || moreOrEq(y1, ybottom) && lessOrEq(y2, ybottom)
+                            || lessOrEq(y1, ytop) && moreOrEq(y2, ybottom)) {
                         intersect = true;
                     }
                 }

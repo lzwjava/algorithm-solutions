@@ -19,21 +19,21 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     BigInteger calFactoris(int n) {
-        if (n==0){
+        if (n == 0) {
             return BigInteger.valueOf(1);
         }
         BigInteger bi = factorials.get(n);
         if (bi != null) {
             return bi;
         }
-        bi = calFactoris(n-1);
+        bi = calFactoris(n - 1);
         BigInteger res = bi.multiply(BigInteger.valueOf(n));
         factorials.put(n, res);
         return res;
     }
-   
+
     void solve() throws IOException {
         factorials = new HashMap<>();
         while (true) {
@@ -52,7 +52,7 @@ public class Main {
             out.append(String.format("%d! --\n", n));
             for (int i = 0; i < 10; i++) {
                 out.append(String.format("   (%d)%5d", i, nums[i]));
-                if ((i+1) % 5 == 0) {
+                if ((i + 1) % 5 == 0) {
                     out.append('\n');
                 }
             }
@@ -66,14 +66,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

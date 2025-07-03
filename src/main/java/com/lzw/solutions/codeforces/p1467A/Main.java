@@ -52,5 +52,4 @@ public class Main {
             out.append(String.format("%s\n", ans));
         }
     }
-
 }

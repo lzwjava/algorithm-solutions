@@ -6,10 +6,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
-        while (true) {            
+        while (true) {
             int nums[] = new int[3];
             boolean allZero = true;
             for (int i = 0; i < 3; i++) {
@@ -25,7 +25,7 @@ public class Main {
             if (nums[0] * nums[0] + nums[1] * nums[1] == nums[2] * nums[2]) {
                 System.out.println("right");
             } else {
-                System.out.println("wrong");                
+                System.out.println("wrong");
             }
         }
         sc.close();
@@ -34,7 +34,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

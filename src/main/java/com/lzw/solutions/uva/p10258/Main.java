@@ -21,7 +21,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Submission {
         int contestant;
         int problem;
@@ -39,7 +39,7 @@ public class Main {
             this.id = id;
             penalty = 0;
             solvedProblems = new HashSet<>();
-            tryProblems = new HashMap<>();            
+            tryProblems = new HashMap<>();
         }
 
         @Override
@@ -53,10 +53,10 @@ public class Main {
             }
         }
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        in.readLine();        
+        in.readLine();
         while (t > 0) {
             ArrayList<Submission> submissions = new ArrayList<>();
             while (true) {
@@ -72,15 +72,15 @@ public class Main {
                 s.L = st.nextToken().charAt(0);
                 submissions.add(s);
             }
-            HashMap<Integer, Contestant> contestants = new HashMap<>();            
+            HashMap<Integer, Contestant> contestants = new HashMap<>();
             for (int i = 0; i < submissions.size(); i++) {
                 Submission s = submissions.get(i);
                 Contestant c = contestants.get(s.contestant);
                 if (c == null) {
                     c = new Contestant(s.contestant);
                     contestants.put(s.contestant, c);
-                }                
-                if (s.L == 'I' || s.L == 'C') {                    
+                }
+                if (s.L == 'I' || s.L == 'C') {
                     if (s.L == 'I') {
                         Integer count = c.tryProblems.get(s.problem);
                         if (count == null) {
@@ -102,7 +102,7 @@ public class Main {
                             if (c.solvedProblems.contains(s.problem)) {
                                 continue;
                             } else {
-                                c.tryProblems.remove(s.problem);                                
+                                c.tryProblems.remove(s.problem);
                                 c.solvedProblems.add(s.problem);
                                 int penalty = count * 20 + s.time;
                                 c.penalty += penalty;
@@ -130,14 +130,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

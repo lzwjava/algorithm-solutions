@@ -21,8 +21,7 @@ public class Main {
         int x, y, r;
         double rad;
 
-        Particle() {
-        }
+        Particle() {}
 
         Particle(int x, int y, int r) {
             this.x = x;

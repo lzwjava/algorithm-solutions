@@ -9,7 +9,7 @@ public class Main {
     int ch[][] = new int[5000005][10];
     int val[] = new int[5000005];
     int cnt;
-    
+
     String add(String a, String b) {
         if (a.length() > b.length()) {
             String tmp = a;
@@ -68,7 +68,7 @@ public class Main {
         }
         return val[u];
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         cnt = 1;
@@ -79,7 +79,7 @@ public class Main {
         insert(fb2, 0);
         insert(fb1, 1);
         int n = 2;
-      
+
         for (; n < 100000; n++) {
             if (fb1.length() > 50) {
                 fb1 = fb1.substring(0, fb1.length() - 1);
@@ -87,9 +87,9 @@ public class Main {
             }
             String fb = add(fb1, fb2);
             insert(fb, n);
-        
+
             fb2 = fb1;
-            fb1 = fb;            
+            fb1 = fb;
         }
         int caseNum = 1;
 
@@ -97,7 +97,7 @@ public class Main {
             String str = sc.next();
 
             System.out.print(String.format("Case #%d: ", caseNum));
-            int i = query(str);         
+            int i = query(str);
             if (i != -1) {
                 System.out.println(i);
             } else {
@@ -112,7 +112,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

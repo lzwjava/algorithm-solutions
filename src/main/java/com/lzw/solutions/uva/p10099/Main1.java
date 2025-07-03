@@ -19,27 +19,26 @@ public class Main1 {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Edge implements Comparable<Edge> {
         int c1;
         int c2;
         int p;
 
-        Edge() {
-        }
+        Edge() {}
 
         Edge(int c1, int c2, int p) {
             this.c1 = c1;
             this.c2 = c2;
             this.p = p;
-        }      
+        }
 
         @Override
         public int compareTo(Main1.Edge o) {
             return o.p - p;
         }
     }
-    
+
     int getGroup(int[] groups, int x) {
         if (groups[x] == x) {
             return x;
@@ -57,14 +56,14 @@ public class Main1 {
             }
         }
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
-            StringTokenizer st = new StringTokenizer(readLine());            
+            StringTokenizer st = new StringTokenizer(readLine());
             int n = Integer.parseInt(st.nextToken());
             int r = Integer.parseInt(st.nextToken());
-            if (n == 0 && r == 0) {                
+            if (n == 0 && r == 0) {
                 break;
             }
             ArrayList<Edge> edges = new ArrayList<>();
@@ -89,18 +88,18 @@ public class Main1 {
             Collections.sort(edges);
 
             out.append(String.format("Scenario #%d\n", caseNum));
-        
-            for (Edge e : edges) {                 
+
+            for (Edge e : edges) {
                 int g1 = getGroup(groups, e.c1);
                 int g2 = getGroup(groups, e.c2);
                 if (g1 != g2) {
                     groups[g2] = g1;
                     if (getGroup(groups, s) == getGroup(groups, d)) {
-                        double x = t * 1.0 / (e.p - 1);                        
-                        int trip = (int)Math.ceil(x);
+                        double x = t * 1.0 / (e.p - 1);
+                        int trip = (int) Math.ceil(x);
                         out.append(String.format("Minimum Number of Trips = %d\n", trip));
                         out.append('\n');
-                        break;                        
+                        break;
                     }
                 }
             }
@@ -114,14 +113,14 @@ public class Main1 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

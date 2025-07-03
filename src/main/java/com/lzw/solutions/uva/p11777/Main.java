@@ -16,12 +16,12 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        int caseNum =1;
+        int caseNum = 1;
         while (t > 0) {
             int term1, term2, finalc, attendance;
             int test[] = new int[3];
@@ -41,15 +41,15 @@ public class Main {
             if (total >= 90) {
                 grade = 'A';
             } else if (total >= 80) {
-                grade = 'B';           
-            } else if (total>=70){
+                grade = 'B';
+            } else if (total >= 70) {
                 grade = 'C';
             } else if (total >= 60) {
                 grade = 'D';
             } else {
                 grade = 'F';
             }
-            out.append(String.format("Case %d: %c\n", caseNum, grade));            
+            out.append(String.format("Case %d: %c\n", caseNum, grade));
             caseNum++;
             t--;
         }
@@ -61,14 +61,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

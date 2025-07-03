@@ -33,10 +33,8 @@ public class Main {
             StringBuilder sb = new StringBuilder();
             sb.append("[");
             for (int index = 0; index < rs.length; index++) {
-                if (index != rs.length - 1)
-                    sb.append(rs[index] + ", ");
-                else
-                    sb.append(rs[index] + "]");
+                if (index != rs.length - 1) sb.append(rs[index] + ", ");
+                else sb.append(rs[index] + "]");
             }
             ps.write((sb.toString()).getBytes(StandardCharsets.UTF_8));
             ps.close();

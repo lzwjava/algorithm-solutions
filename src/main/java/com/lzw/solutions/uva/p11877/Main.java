@@ -14,16 +14,16 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         while (true) {
             int n = Integer.parseInt(in.readLine());
             if (n == 0) {
                 break;
             }
-            int empty = n;            
+            int empty = n;
             n = 0;
             int total = 0;
             while (true) {
@@ -40,7 +40,7 @@ public class Main {
                 if (n != 0) {
                     continue;
                 } else {
-                    if (empty == 0){
+                    if (empty == 0) {
                         break;
                     } else if (empty == 2) {
                         total += 1;
@@ -48,7 +48,7 @@ public class Main {
                     } else if (empty == 1) {
                         break;
                     }
-                }          
+                }
             }
             out.append(String.format("%d\n", total));
         }
@@ -60,14 +60,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

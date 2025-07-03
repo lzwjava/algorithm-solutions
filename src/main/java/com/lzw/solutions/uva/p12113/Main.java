@@ -21,7 +21,7 @@ public class Main {
     Set<String> set;
 
     void draw(char[][] g, int v) {
-        char[][] gt = new char[][]{
+        char[][] gt = new char[][] {
             {' ', '_', ' ', '_', ' '},
             {'|', ' ', ' ', ' ', '|'},
             {'|', '_', ' ', '_', '|'}

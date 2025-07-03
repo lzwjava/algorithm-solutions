@@ -18,11 +18,11 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     double cal(double x) {
-        return p * Math.pow(Math.E, -x) + q * Math.sin(x) + r * Math.cos(x) + s * Math.tan(x) + t * Math.pow(x, 2)+u;
+        return p * Math.pow(Math.E, -x) + q * Math.sin(x) + r * Math.cos(x) + s * Math.tan(x) + t * Math.pow(x, 2) + u;
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String str = in.readLine();
@@ -52,10 +52,10 @@ public class Main {
                 }
             }
             mid = (up + low) / 2;
-            if (Math.abs(cal(mid)) <=1e-4) {
+            if (Math.abs(cal(mid)) <= 1e-4) {
                 out.append(String.format("%.4f\n", mid));
             } else {
-                out.append("No solution\n");                
+                out.append("No solution\n");
             }
         }
     }
@@ -66,14 +66,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

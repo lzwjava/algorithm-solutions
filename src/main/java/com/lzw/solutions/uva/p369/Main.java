@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -16,14 +16,14 @@ public class Main {
             }
             long c = 1;
             long k = n - m;
-            System.out.print(String.format("%d things taken %d at a time is ", n,m));            
+            System.out.print(String.format("%d things taken %d at a time is ", n, m));
             while (true) {
-                if (n == 1 && m == 1 && (k==1 || k==0)) {
+                if (n == 1 && m == 1 && (k == 1 || k == 0)) {
                     break;
                 }
                 if (n > 1) {
                     c *= n;
-                    n--;               
+                    n--;
                 }
                 while (c % m == 0 && m > 1) {
                     c /= m;
@@ -42,7 +42,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

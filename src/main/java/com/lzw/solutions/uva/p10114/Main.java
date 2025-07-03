@@ -17,7 +17,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Depreciation {
         int monthNumber;
         double percentage;
@@ -27,7 +27,7 @@ public class Main {
             this.percentage = percentage;
         }
     }
-    
+
     double percentage(Depreciation[] depreciations, int m) {
         int i;
         for (i = 0; i < depreciations.length; i++) {
@@ -38,7 +38,7 @@ public class Main {
         }
         return depreciations[i - 1].percentage;
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -60,21 +60,21 @@ public class Main {
             }
             int i;
             double carWorth = loan + downPayment;
-            double payment = loan / m;                             
-            for (i = 0;; i++) {                
+            double payment = loan / m;
+            for (i = 0; ; i++) {
                 double percentage = percentage(depreciations, i);
                 carWorth = carWorth * (1 - percentage);
                 if (i > 0) {
-                    loan -= payment;                    
+                    loan -= payment;
                 }
                 if (carWorth > loan) {
                     break;
                 }
             }
-            if (i == 1) {                
-                out.append(String.format("%d month\n", i));                
-            } else {                
-                out.append(String.format("%d months\n", i));                
+            if (i == 1) {
+                out.append(String.format("%d month\n", i));
+            } else {
+                out.append(String.format("%d months\n", i));
             }
         }
     }
@@ -85,7 +85,7 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 

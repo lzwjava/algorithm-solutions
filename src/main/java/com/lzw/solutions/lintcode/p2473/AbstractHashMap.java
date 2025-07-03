@@ -11,10 +11,8 @@ public class AbstractHashMap {
     }
 
     public void put(int key, int value) {
-        if (map.containsKey(key))
-            map.replace(key, value);
-        else
-            map.put(key, value);
+        if (map.containsKey(key)) map.replace(key, value);
+        else map.put(key, value);
     }
 
     public int get(int key) {

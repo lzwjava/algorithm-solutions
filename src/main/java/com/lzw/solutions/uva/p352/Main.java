@@ -14,9 +14,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -43,19 +43,19 @@ public class Main {
                 }
             }
             out.append(String.format("Image number %d contains %d war eagles.\n", caseNum, ans));
-            caseNum++;            
+            caseNum++;
         }
     }
 
-    int[] dx = new int[] { -1, 0, 1, -1, 1, -1, 0, 1 };    
-    int[] dy = new int[] { -1, -1, -1, 0, 0, 1, 1, 1 };    
+    int[] dx = new int[] {-1, 0, 1, -1, 1, -1, 0, 1};
+    int[] dy = new int[] {-1, -1, -1, 0, 0, 1, 1, 1};
 
     private void dfs(int n, int[][] grid, boolean[][] vis, int x, int y) {
         vis[x][y] = true;
         for (int d = 0; d < 8; d++) {
             int nx = x + dx[d];
             int ny = y + dy[d];
-            if (nx >= 0 && nx < n && ny >= 0 && ny < n && !vis[nx][ny] && grid[nx][ny] == 1) {                
+            if (nx >= 0 && nx < n && ny >= 0 && ny < n && !vis[nx][ny] && grid[nx][ny] == 1) {
                 dfs(n, grid, vis, nx, ny);
             }
         }
@@ -67,14 +67,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

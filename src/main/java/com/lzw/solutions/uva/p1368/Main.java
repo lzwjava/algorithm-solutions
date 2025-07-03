@@ -17,7 +17,7 @@ public class Main {
         return indexValue != null ? indexValue.intValue() : -1;
     }
 
-    void work(){
+    void work() {
         Scanner sc = new Scanner(System.in);
 
         int t = sc.nextInt();
@@ -28,7 +28,7 @@ public class Main {
             for (int j = 0; j < m; j++) {
                 seqs[j] = sc.next();
             }
-            StringBuilder sb = new StringBuilder();            
+            StringBuilder sb = new StringBuilder();
             for (int j = 0; j < n; j++) {
                 int[] times = new int[4];
                 int maxTime = 0;
@@ -57,18 +57,17 @@ public class Main {
                 }
                 consensusError += dist;
             }
-            
+
             System.out.println(consensus);
             System.out.println(consensusError);
         }
         sc.close();
     }
-    
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

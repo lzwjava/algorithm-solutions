@@ -20,34 +20,34 @@ public class Main1 {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-  
+
     boolean permutation(int[] nums, boolean vis[], int i, int n) {
         if (i == n) {
             ArrayList<String> sortStrs = new ArrayList<>();
-            sortStrs.addAll(strs);           
-            Collections.sort(sortStrs, new Comparator<String>(){
+            sortStrs.addAll(strs);
+            Collections.sort(sortStrs, new Comparator<String>() {
                 @Override
                 public int compare(String o1, String o2) {
                     int len1 = o1.length();
                     int len2 = o2.length();
-                    
-                    int minLen = len1 < len2 ? len1:len2;
-                    for(int i=0;i<minLen;i++){                        
+
+                    int minLen = len1 < len2 ? len1 : len2;
+                    for (int i = 0; i < minLen; i++) {
                         Character ch1 = o1.charAt(i);
                         Character ch2 = o2.charAt(i);
 
-                        if (ch1 != ch2){
+                        if (ch1 != ch2) {
                             int index1 = chList.indexOf(ch1);
                             int index2 = chList.indexOf(ch2);
                             return Integer.compare(nums[index1], nums[index2]);
                         }
                     }
-                    if (len1 < len2) {                        
+                    if (len1 < len2) {
                         return -1;
                     } else {
                         return 1;
                     }
-                }                
+                }
             });
             boolean equal = true;
             for (int j = 0; j < n; j++) {
@@ -85,10 +85,10 @@ public class Main1 {
         }
         return false;
     }
-    
+
     ArrayList<String> strs;
     ArrayList<Character> chList;
-   
+
     void solve() throws IOException {
         strs = new ArrayList<>();
         while (true) {
@@ -109,10 +109,10 @@ public class Main1 {
         chList.addAll(chs);
         Collections.sort(chList);
 
-        int n = chList.size();        
+        int n = chList.size();
         int[] nums = new int[n];
         boolean[] vis = new boolean[n];
-        permutation(nums,vis, 0, n);
+        permutation(nums, vis, 0, n);
     }
 
     void close() throws IOException {
@@ -121,14 +121,14 @@ public class Main1 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void Main1(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -13,8 +13,8 @@ public class Main {
     BufferedReader in;
     PrintWriter out;
 
-    int dx[] = new int[] { -1, -1, -1, 0,  0, 1, 1, 1 };
-    int dy[] = new int[] { -1, 0, 1, -1, 1, -1, 0, 1 };
+    int dx[] = new int[] {-1, -1, -1, 0, 0, 1, 1, 1};
+    int dy[] = new int[] {-1, 0, 1, -1, 1, -1, 0, 1};
 
     char grid[][];
     boolean vis[][];
@@ -25,7 +25,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void dfs(int x, int y) {
         for (int d = 0; d < dx.length; d++) {
             int nx = x + dx[d];
@@ -38,7 +38,7 @@ public class Main {
             }
         }
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -59,7 +59,7 @@ public class Main {
             vis = new boolean[m][n];
             int count = 0;
             for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {                
+                for (int j = 0; j < n; j++) {
                     if (!vis[i][j] && grid[i][j] == '@') {
                         dfs(i, j);
                         count++;
@@ -76,14 +76,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

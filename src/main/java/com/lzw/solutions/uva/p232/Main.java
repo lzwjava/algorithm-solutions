@@ -14,15 +14,15 @@ public class Main {
         }
         Scanner sc = new Scanner(System.in);
         int n = 1;
-        for (;;) {
-            String lines[] = new String[5];            
+        for (; ; ) {
+            String lines[] = new String[5];
             lines[0] = sc.nextLine();
             if (lines[0].equals("Z")) {
                 break;
             }
             char grid[][] = new char[5][5];
             for (int i = 1; i <= 4; i++) {
-                lines[i] = sc.nextLine();                
+                lines[i] = sc.nextLine();
             }
             int xe = 0, ye = 0;
             for (int i = 0; i < 5; i++) {
@@ -35,8 +35,8 @@ public class Main {
                 }
             }
             boolean ok = true;
-            boolean end = false; 
-            for (;;) {
+            boolean end = false;
+            for (; ; ) {
                 if (end) {
                     break;
                 }
@@ -74,13 +74,13 @@ public class Main {
                     ye = ys;
                 }
             }
-            
+
             if (n != 1) {
                 System.out.println();
             }
-            
+
             System.out.println(String.format("Puzzle #%d:", n));
-            if (ok) {                
+            if (ok) {
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
                         if (j != 0) {
@@ -94,7 +94,7 @@ public class Main {
                 System.out.println("This puzzle has no final configuration.");
             }
             n++;
-        }                        
+        }
         sc.close();
 
         if (isLocal) {

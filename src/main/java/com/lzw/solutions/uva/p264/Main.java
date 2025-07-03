@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         ArrayList<Integer> list = new ArrayList<>();
@@ -27,18 +27,18 @@ public class Main {
 
             int os = s - 1;
             int osSum = os * (os + 1) / 2;
-            
+
             int x = n - osSum;
             int i, j;
             if (s % 2 == 0) {
                 // top to down
                 i = x;
-                j = s-(x-1);
+                j = s - (x - 1);
             } else {
                 // down to top
                 i = s - (x - 1);
                 j = x;
-            }            
+            }
             System.out.println(String.format("TERM %d IS %d/%d", n, i, j));
         }
         sc.close();
@@ -47,7 +47,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

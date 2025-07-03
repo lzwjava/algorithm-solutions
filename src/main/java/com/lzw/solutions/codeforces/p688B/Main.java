@@ -32,5 +32,4 @@ public class Main {
         String rs = new StringBuilder(s).reverse().toString();
         out.append(String.format("%s%s\n", s, rs));
     }
-
 }

@@ -70,14 +70,15 @@ public class Main {
                 double d = dist(a, coords[0]);
                 return Double.compare(d, radius) < 0;
             } else if (type == 'r') {
-                return Double.compare(a.x, coords[0].x) > 0 && Double.compare(a.x, coords[1].x) < 0 &&
-                    Double.compare(a.y, coords[0].y) < 0 && Double.compare(a.y, coords[1].y) > 0;
+                return Double.compare(a.x, coords[0].x) > 0
+                        && Double.compare(a.x, coords[1].x) < 0
+                        && Double.compare(a.y, coords[0].y) < 0
+                        && Double.compare(a.y, coords[1].y) > 0;
             } else if (type == 't') {
                 double[] q = new double[3];
                 q[0] = area(coords[0], coords[1], a);
                 q[1] = area(coords[0], coords[2], a);
-                q[2] = area(coords[1], coords[2],
-                    a);
+                q[2] = area(coords[1], coords[2], a);
                 for (int i = 0; i < 3; i++) {
                     if (q[i] < 1e-6) {
                         return false;
@@ -139,9 +140,9 @@ public class Main {
             boolean ok = false;
             for (int i = 0; i < figures.size(); i++) {
                 Figure f = figures.get(i);
-//                if (p == 0 && i == 1) {
-//                    System.out.println();
-//                }
+                //                if (p == 0 && i == 1) {
+                //                    System.out.println();
+                //                }
                 if (f.contains(coord)) {
                     ok = true;
                     out.append(String.format("Point %d is contained in figure %d\n", p + 1, i + 1));
@@ -152,8 +153,8 @@ public class Main {
             }
             p++;
         }
-//        double v = figures.get(0).area(new Coord(0, 2), new Coord(0, 0), new Coord(2, 0));
-//        out.append(String.format("%.3f\n", v));
+        //        double v = figures.get(0).area(new Coord(0, 2), new Coord(0, 0), new Coord(2, 0));
+        //        out.append(String.format("%.3f\n", v));
     }
 
     void close() throws IOException {

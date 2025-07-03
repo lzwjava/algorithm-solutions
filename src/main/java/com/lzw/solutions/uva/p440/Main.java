@@ -15,9 +15,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         while (true) {
             int n = Integer.parseInt(in.readLine());
@@ -25,7 +25,7 @@ public class Main {
                 break;
             }
             int m = 0;
-            for (m = 1;; m++) {
+            for (m = 1; ; m++) {
                 LinkedList<Integer> list = new LinkedList<>();
                 for (int i = 1; i <= n; i++) {
                     list.add(i);
@@ -33,7 +33,7 @@ public class Main {
                 int p = 0;
                 while (list.size() > 1) {
                     list.remove(p);
-                    p = (p + m - 1) % list.size();                    
+                    p = (p + m - 1) % list.size();
                 }
                 if (list.getFirst() == 2) {
                     break;
@@ -49,14 +49,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

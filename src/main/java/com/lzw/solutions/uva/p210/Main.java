@@ -12,7 +12,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class Main {
 
     class RunSystem {
-        final static int queueSize = 100;
+        static final int queueSize = 100;
         HashMap<String, Integer> variables;
         Program lockingProgram;
         LinkedList<Integer> readyQueue;
@@ -27,8 +27,12 @@ public class Main {
     }
 
     enum StatementType {
-        ASSIGNMENT, OUTPUT, BEGIN_MUTUAL_EXCLUSION, END_MUTUAL_EXCLUSION, STOP_EXCLUSION
-    }    
+        ASSIGNMENT,
+        OUTPUT,
+        BEGIN_MUTUAL_EXCLUSION,
+        END_MUTUAL_EXCLUSION,
+        STOP_EXCLUSION
+    }
 
     enum RunResult {
         SUCCESSS,
@@ -36,7 +40,7 @@ public class Main {
         UNLOCKING,
         STOP
     }
-    
+
     class Statement {
         StatementType type;
         String content;
@@ -86,7 +90,7 @@ public class Main {
                     return RunResult.LOCKING;
                 } else {
                     this.system.lockingProgram = program;
-                }           
+                }
             } else if (this.type == StatementType.END_MUTUAL_EXCLUSION) {
                 assert (this.system.lockingProgram != null);
                 this.system.lockingProgram = null;
@@ -96,7 +100,7 @@ public class Main {
                 if (v == null) {
                     v = 0;
                 }
-                System.out.println((program.id + 1) + ": " + v);                
+                System.out.println((program.id + 1) + ": " + v);
             } else if (this.type == StatementType.STOP_EXCLUSION) {
                 return RunResult.STOP;
             }
@@ -110,19 +114,19 @@ public class Main {
         READY,
         STOPPED
     }
-    
+
     class Program {
-        int id;        
+        int id;
         ArrayList<Statement> statements;
-        int currentIndex; // not running now, will run 
+        int currentIndex; // not running now, will run
         int quantum;
         ProgramStatus status;
         RunSystem system;
 
         Program(RunSystem system) {
-            this.system = system;            
+            this.system = system;
         }
-        
+
         void run() {
             if (this.status == ProgramStatus.STOPPED) {
                 return;
@@ -153,15 +157,14 @@ public class Main {
                     break;
                 }
             }
-            if (this.status != ProgramStatus.STOPPED && 
-                this.status != ProgramStatus.BLOCKED) {
+            if (this.status != ProgramStatus.STOPPED && this.status != ProgramStatus.BLOCKED) {
                 // into the ready queue
                 this.status = ProgramStatus.READY;
                 this.system.readyQueue.add(this.id);
             }
         }
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -174,7 +177,7 @@ public class Main {
                 exeTimes[j] = sc.nextInt();
             }
             int quantum = sc.nextInt();
-            
+
             ArrayList<Program> programs = new ArrayList<>();
 
             for (int i = 0; i < programNums; i++) {
@@ -203,15 +206,15 @@ public class Main {
                         break;
                     }
                 }
-                program.statements = statements;                
+                program.statements = statements;
             }
-                     
-            for (;;) {
+
+            for (; ; ) {
                 Integer programId = runSystem.readyQueue.peek();
                 if (programId == null) {
                     break;
                 }
-                runSystem.readyQueue.remove();                                
+                runSystem.readyQueue.remove();
                 Program program = programs.get(programId);
                 program.run();
             }
@@ -226,7 +229,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("2.out");

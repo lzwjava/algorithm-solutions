@@ -20,7 +20,7 @@ public class Main {
                 break;
             }
             int n = Integer.parseInt(line.trim());
-//            double[][] table = new double[n][n];
+            //            double[][] table = new double[n][n];
             double[][][] d = new double[n + 1][n][n];
             for (int i = 0; i < n; i++) {
                 StringTokenizer st = new StringTokenizer(in.readLine());
@@ -32,7 +32,7 @@ public class Main {
                         v = Double.parseDouble(st.nextToken());
                     }
                     d[1][i][j] = v;
-//                    table[i][j] = v;
+                    //                    table[i][j] = v;
                 }
             }
             boolean found = false;

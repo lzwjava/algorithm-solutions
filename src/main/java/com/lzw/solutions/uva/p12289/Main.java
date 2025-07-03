@@ -11,7 +11,7 @@ public class Main {
         String str;
 
         MyString(String str) {
-            this.str = str;            
+            this.str = str;
         }
 
         @Override
@@ -34,7 +34,7 @@ public class Main {
             return true;
         }
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -45,7 +45,7 @@ public class Main {
             list.add(new MyString("two"));
             list.add(new MyString("three"));
             int index = list.indexOf(new MyString(word));
-            System.out.println(index+1);
+            System.out.println(index + 1);
             n--;
         }
         sc.close();
@@ -54,7 +54,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

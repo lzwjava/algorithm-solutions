@@ -16,9 +16,9 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     long cal(long n) {
-        long r = (long) Math.sqrt(2 * n) - 1;        
+        long r = (long) Math.sqrt(2 * n) - 1;
         while (true) {
             long a = r * (r + 1) / 2;
             long b = (r + 1) * (r + 2) / 2;
@@ -26,9 +26,9 @@ public class Main {
                 return r;
             }
             r++;
-        }        
+        }
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -45,14 +45,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -69,5 +69,4 @@ public class MainPlus {
         m.solve();
         m.close();
     }
-
 }

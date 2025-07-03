@@ -45,7 +45,7 @@ public class Main {
                         if (s1 == -1 && e1 == -1) {
                             continue;
                         } else {
-                            
+
                         }
                     }
                 }
@@ -58,5 +58,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

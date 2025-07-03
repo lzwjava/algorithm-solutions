@@ -14,12 +14,11 @@ public class Main2 {
     BufferedReader in;
     PrintWriter out;
 
-
     Main2() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void solve() throws IOException {
         int N = Integer.parseInt(in.readLine());
         int caseNum = 1;
@@ -80,14 +79,14 @@ public class Main2 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

@@ -88,9 +88,7 @@ public class Main1 {
     }
 
     ArrayList<Block> genBlocks(Block b) {
-        int[][] orders = new int[][]{
-            {0, 1, 2}, {0, 2, 1}, {1, 2, 0}
-        };
+        int[][] orders = new int[][] {{0, 1, 2}, {0, 2, 1}, {1, 2, 0}};
         Set<Block> set = new HashSet<Block>();
         for (int i = 0; i < orders.length; i++) {
             int[] dms = b.dms.clone();
@@ -124,21 +122,21 @@ public class Main1 {
             ArrayList<Block> subList = new ArrayList<>();
             for (int i = 0; i < list.size(); i++) {
                 subList.add(list.get(i));
-//                boolean ok = true;
-//                for (int j = i + 1; j < list.size(); j++) {
-//                    if (list.get(i).strictCompareTo(list.get(j)) != -1) {
-//                        ok = false;
-//                        break;
-//                    }
-//                }
-//                if (ok) {
-//                    break;
-//                }
+                //                boolean ok = true;
+                //                for (int j = i + 1; j < list.size(); j++) {
+                //                    if (list.get(i).strictCompareTo(list.get(j)) != -1) {
+                //                        ok = false;
+                //                        break;
+                //                    }
+                //                }
+                //                if (ok) {
+                //                    break;
+                //                }
             }
             for (Block b : subList) {
                 int v = dp(list, b.dms[0], b.dms[1], fa) + b.dms[2];
                 if (v > ans) {
-//                    fa[hashCodePlus(x, y)] = hashCodePlus(nx, ny);
+                    //                    fa[hashCodePlus(x, y)] = hashCodePlus(nx, ny);
                     ans = v;
                 }
             }
@@ -194,15 +192,15 @@ public class Main1 {
             ArrayList<Block> all = new ArrayList<>();
             all.addAll(set);
             int ans = dp(all, maxi, maxi, fa);
-//            int code = hashCodePlus(maxi, maxi);
-//            print(fa, code);
-//            out.append('\n');
-//            System.out.println(caseNum);
-//            int len = all.size();
-//            int[] d = new int[len];
-//            for (int i = 0; i < len; i++) {
-//                d[i] = all.get(i).dms[3];
-//            }
+            //            int code = hashCodePlus(maxi, maxi);
+            //            print(fa, code);
+            //            out.append('\n');
+            //            System.out.println(caseNum);
+            //            int len = all.size();
+            //            int[] d = new int[len];
+            //            for (int i = 0; i < len; i++) {
+            //                d[i] = all.get(i).dms[3];
+            //            }
 
             out.append(String.format("Case %d: maximum height = %d\n", caseNum, ans));
             caseNum++;

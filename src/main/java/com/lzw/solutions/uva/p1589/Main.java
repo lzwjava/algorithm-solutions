@@ -8,22 +8,20 @@ import java.util.Scanner;
 public class Main {
 
     // left, top, right, bottom
-    static final int dx[] = { 0, -1, 0, 1 };
-    static final int dy[] = { -1, 0, 1, 0 };
+    static final int dx[] = {0, -1, 0, 1};
+    static final int dy[] = {-1, 0, 1, 0};
 
-    // horse, left bottom, left top, top left, top right, right top, right bottom, 
+    // horse, left bottom, left top, top left, top right, right top, right bottom,
     // bottom right bottom left
-    static final int hdx[] = { 1, -1, -2, -2, -1, 1, 2, 2};
-    static final int hdy[] = { -2, -2, -1, 1, 2, 2, 1, -1};
+    static final int hdx[] = {1, -1, -2, -2, -1, 1, 2, 2};
+    static final int hdy[] = {-2, -2, -1, 1, 2, 2, 1, -1};
 
     class Piece {
         char ch;
         int x;
         int y;
 
-        Piece() {
-
-        }
+        Piece() {}
 
         Piece(char ch, int x, int y) {
             this.ch = ch;
@@ -50,7 +48,7 @@ public class Main {
             return p.x == this.x && p.y == this.y;
         }
     }
-    
+
     int blocksInY(Piece[] pieces, Piece red, Piece black) {
         assert (black.y == red.y);
         assert (black.x != red.x);
@@ -62,7 +60,7 @@ public class Main {
             smallPiece = red;
             bigPiece = black;
         }
-        
+
         assert (black.x < red.x);
         int cnt = 0;
         for (int i = 0; i < pieces.length; i++) {
@@ -82,7 +80,7 @@ public class Main {
     boolean isBlockedInX(Piece[] pieces, Piece red, Piece black) {
         return blocksInX(pieces, red, black) > 0;
     }
-    
+
     int blocksInX(Piece[] pieces, Piece red, Piece black) {
         assert (red.x == black.x);
         assert (red.y != black.y);
@@ -104,7 +102,7 @@ public class Main {
         }
         return cnt;
     }
-    
+
     Piece[] cleanPieces(Piece[] pieces, Piece red) {
         int n = pieces.length - 1;
         Piece[] pieces1 = new Piece[n];
@@ -126,7 +124,7 @@ public class Main {
         pieces1[n - 1] = black;
         return pieces1;
     }
-    
+
     boolean exists(Piece[] pieces, Piece target) {
         for (int i = 0; i < pieces.length; i++) {
             if (target.equals(pieces[i])) {
@@ -189,7 +187,7 @@ public class Main {
         }
         return false;
     }
-    
+
     boolean checkDelivered(Piece[] pieces, Piece blackGenernal) {
         for (int i = 0; i < pieces.length; i++) {
             Piece p = pieces[i];
@@ -203,7 +201,7 @@ public class Main {
 
     void work() {
         Scanner sc = new Scanner(System.in);
-        for (;;) {
+        for (; ; ) {
             int n = sc.nextInt();
             Piece blackGernal = new Piece();
             blackGernal.x = sc.nextInt();
@@ -260,7 +258,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("3.in");
             outStream = new PrintStream("3.out");

@@ -15,9 +15,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int maxn = 1001;
         BigInteger[] fibs = new BigInteger[maxn];
@@ -25,11 +25,11 @@ public class Main {
         fibs[1] = BigInteger.valueOf(2);
         for (int i = 2; i < maxn; i++) {
             fibs[i] = fibs[i - 1].add(fibs[i - 2]);
-        }        
+        }
         while (true) {
             String line = in.readLine();
-            if (line == null) {                
-                break;                                
+            if (line == null) {
+                break;
             }
             int n = Integer.parseInt(line);
             out.append(String.format("%s\n", fibs[n].toString()));
@@ -42,14 +42,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

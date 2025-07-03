@@ -24,7 +24,7 @@ public class Main {
     int[][] map;
     int n;
     int a, b, c;
-    
+
     int dp(int sum, int index) {
         if (map[sum][index] != -1) {
             return map[sum][index];
@@ -41,7 +41,7 @@ public class Main {
         map[sum][index] = ans;
         return ans;
     }
-    
+
     int valueAtIndex(int index) {
         if (index < a) {
             return 1;
@@ -51,7 +51,7 @@ public class Main {
             return 3;
         }
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -68,24 +68,24 @@ public class Main {
             //     b -= 2;
             //     c -= 2;
             // }
-            // while (a >= b * 2 + c * 3 && a >= 2) {                
+            // while (a >= b * 2 + c * 3 && a >= 2) {
             //     a -= 2;
             // }
-            // while (b * 2 >= a + c * 3 && b >= 2) {                
+            // while (b * 2 >= a + c * 3 && b >= 2) {
             //     b -= 2;
             // }
-            // while (c * 3 >= a + b * 2 && c >= 2) {                
+            // while (c * 3 >= a + b * 2 && c >= 2) {
             //     c -= 2;
             // }
-            n = a+b+c;
+            n = a + b + c;
             nums = new int[n];
-            total = a + 2 * b + c * 3;                      
-            map = new int[total + 5][n+5];
+            total = a + 2 * b + c * 3;
+            map = new int[total + 5][n + 5];
             for (int[] arr : map) {
                 Arrays.fill(arr, -1);
             }
             int ans = dp(0, 0);
-            out.append(String.format("%d\n", ans));            
+            out.append(String.format("%d\n", ans));
             t--;
         }
     }
@@ -96,14 +96,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -14,7 +14,7 @@ public class Main {
         int h;
         int r;
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         ArrayList<Building> bs = new ArrayList<>();
@@ -29,11 +29,11 @@ public class Main {
             xs.add(b.l);
             xs.add(b.r);
         }
-        
+
         ArrayList<Integer> ss = new ArrayList<>();
         ss.addAll(xs);
         Collections.sort(ss);
-    
+
         ArrayList<Integer> heights = new ArrayList<>();
         for (int i = 0; i < ss.size(); i++) {
             heights.add(0);
@@ -72,7 +72,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

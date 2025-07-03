@@ -30,33 +30,32 @@ public class Main {
         boolean isMultiple;
         int depth;
 
-        Result() {
-        }
-        
+        Result() {}
+
         Result(boolean isMultiple, int depth) {
             this.isMultiple = isMultiple;
             this.depth = depth;
         }
     }
-    
+
     Result cal(int nums[], int depth) {
         int sum = 0;
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
         }
-        if (sum < 10 && sum >= 0) {            
+        if (sum < 10 && sum >= 0) {
             if (sum % 9 == 0) {
                 return new Result(true, depth);
             } else {
                 return new Result(false, depth);
             }
         } else {
-            String s = String.format("%d", sum);            
+            String s = String.format("%d", sum);
             int nnums[] = strToNums(s);
             return cal(nnums, depth + 1);
         }
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -66,7 +65,7 @@ public class Main {
             int nums[] = strToNums(line);
             Result res = cal(nums, 0);
             if (res.isMultiple) {
-                out.append(String.format("%s is a multiple of 9 and has 9-degree %d.\n", line, res.depth+1));
+                out.append(String.format("%s is a multiple of 9 and has 9-degree %d.\n", line, res.depth + 1));
             } else {
                 out.append(String.format("%s is not a multiple of 9.\n", line));
             }
@@ -79,14 +78,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

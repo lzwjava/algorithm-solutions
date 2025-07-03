@@ -5,9 +5,9 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void work() {
-        Scanner sc = new Scanner(System.in);    
+        Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int nums[][] = new int[n][n];
         for (int i = 0; i < n * n; i++) {
@@ -31,7 +31,7 @@ public class Main {
                 s += nums[i][j];
                 sum[i][j] = s;
             }
-        }        
+        }
 
         int maxSum = Integer.MIN_VALUE;
         for (int x = 0; x < n; x++) {
@@ -41,16 +41,16 @@ public class Main {
                         if (x == 0 && y == 0 && w == n && h == n) {
                             continue;
                         }
-                        // [x, x+w-1]  [y, y+h-1]                        
+                        // [x, x+w-1]  [y, y+h-1]
 
                         // [0,x-1], [y,y+h-1]
                         int topRightSum = 0;
                         if (x >= 1) {
                             topRightSum += sum[x - 1][y + h - 1];
-                            if (y>=1){
-                                topRightSum -= sum[x-1][y - 1];
+                            if (y >= 1) {
+                                topRightSum -= sum[x - 1][y - 1];
                             }
-                        }                       
+                        }
                         // bottom left sum
                         // [x, x+w-1], [0, y-1]
                         int bottomLeftSum = 0;
@@ -60,7 +60,7 @@ public class Main {
                                 bottomLeftSum -= sum[x - 1][y - 1];
                             }
                         }
-                        
+
                         int s = sum[x + w - 1][y + h - 1];
                         s = s - topRightSum - bottomLeftSum;
                         if (x >= 1 && y >= 1) {
@@ -80,7 +80,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
+        //        m.test();
         m.close();
     }
 
@@ -85,12 +85,12 @@ public class Main {
             int ei = n - 2 * len + 1;
             for (int i = 0; i < ei; i++) {
                 int j = i + len - 1;
-//                 consecutive same
-//                 i+2*len-1<n
-//                 i < n-2*len+1
-//                 if (j + len >= n) {
-//                    break;
-//                 }
+                //                 consecutive same
+                //                 i+2*len-1<n
+                //                 i < n-2*len+1
+                //                 if (j + len >= n) {
+                //                    break;
+                //                 }
                 int k;
                 Map<Integer, Integer> map = new HashMap<>();
                 for (k = i; k <= j; k++) {

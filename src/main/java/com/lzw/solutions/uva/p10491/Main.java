@@ -19,7 +19,6 @@ public class Main {
                 break;
             }
             int m = Integer.parseInt(line);
-            
         }
     }
 

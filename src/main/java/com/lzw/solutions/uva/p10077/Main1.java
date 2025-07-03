@@ -18,9 +18,9 @@ public class Main1 {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Node {
-        int numerator;        
+        int numerator;
         int denominator;
         Node left;
         Node right;
@@ -28,7 +28,7 @@ public class Main1 {
         int level;
 
         Node(int numerator, int denominator) {
-            this.numerator = numerator;            
+            this.numerator = numerator;
             this.denominator = denominator;
         }
     }
@@ -38,8 +38,8 @@ public class Main1 {
         if (node.left == null && node.right == null) {
             Node n1 = null;
             if (type == 1) {
-                // parent must not null 
-                n1 = parent;               
+                // parent must not null
+                n1 = parent;
             } else if (type == 2) {
                 n1 = parent;
             } else {
@@ -55,8 +55,8 @@ public class Main1 {
 
             Node n2 = null;
             if (type == 1) {
-                n2 = parent;                                                
-            } else if (type == 2) {                
+                n2 = parent;
+            } else if (type == 2) {
                 if (parent != null && parent.parent != null) {
                     n2 = parent.parent;
                 } else {
@@ -80,7 +80,7 @@ public class Main1 {
             addLevel(node.right, node, 2, level);
         }
     }
-    
+
     void traverse(Node node, ArrayList<Node>[] nodes) {
         // out.append(String.format("%d/%d ", node.numerator, node.denominator));
         nodes[node.level].add(node);
@@ -91,7 +91,7 @@ public class Main1 {
             traverse(node.right, nodes);
         }
     }
-    
+
     boolean find(Node node, int m, int n, String path) {
         if (node.left == null && node.right == null) {
             if (node.numerator == m && node.denominator == n) {
@@ -110,7 +110,7 @@ public class Main1 {
         }
         return false;
     }
-   
+
     void solve() throws IOException {
         while (true) {
             StringTokenizer st = new StringTokenizer(in.readLine());
@@ -139,8 +139,8 @@ public class Main1 {
                 boolean ok = find(root, m, n, "");
                 if (ok) {
                     break;
-                }                
-            }         
+                }
+            }
         }
     }
 
@@ -150,7 +150,7 @@ public class Main1 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 

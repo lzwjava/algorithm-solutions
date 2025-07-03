@@ -7,11 +7,10 @@ import java.util.Scanner;
 
 public class Main {
 
-   
     void work() {
         Scanner sc = new Scanner(System.in);
         int region = 1;
-        for (;;) {
+        for (; ; ) {
             int m = sc.nextInt();
             int n = sc.nextInt();
             if (m == 0 && n == 0) {
@@ -21,7 +20,7 @@ public class Main {
             int elevations[] = new int[total];
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
-                    int e = sc.nextInt();        
+                    int e = sc.nextInt();
                     elevations[i * n + j] = e;
                 }
             }
@@ -30,7 +29,7 @@ public class Main {
             int submergeCount = 0;
             double h = elevations[0];
             while (water > 0) {
-                int nextSubmergeCount = submergeCount + 1;                
+                int nextSubmergeCount = submergeCount + 1;
                 if (nextSubmergeCount >= total) {
                     h += water / (m * n * 100);
                     water = 0;
@@ -52,17 +51,18 @@ public class Main {
             }
             System.out.println(String.format("Region %d", region));
             System.out.println(String.format("Water level is %.2f meters.", h));
-            System.out.println(String.format("%.2f percent of the region is under water.", submergeCount * 100.0 / total));
+            System.out.println(
+                    String.format("%.2f percent of the region is under water.", submergeCount * 100.0 / total));
             System.out.println();
-            region++;            
-        }        
+            region++;
+        }
         sc.close();
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             // outStream = new PrintStream("1.out");

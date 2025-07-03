@@ -21,7 +21,7 @@ public class Main {
     int cal(int k) {
         int n = 2 * k;
         int m;
-        for (m = 1;; m++) {
+        for (m = 1; ; m++) {
             ArrayList<Integer> nums = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 nums.add(i + 1);
@@ -44,7 +44,7 @@ public class Main {
     }
 
     void solve() throws IOException {
-        int[] ans = new int[] { 0, 2, 7, 5, 30, 169, 441, 1872, 7632, 1740, 93313, 459901, 1358657, 2504881 };
+        int[] ans = new int[] {0, 2, 7, 5, 30, 169, 441, 1872, 7632, 1740, 93313, 459901, 1358657, 2504881};
         // for (int k = 1; k < 14; k++) {
         // int m = cal(k);
         // out.append(String.format("%d,", m));

@@ -16,7 +16,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     int d(int n) {
         int sum = n;
         while (n != 0) {
@@ -25,10 +25,10 @@ public class Main {
         }
         return sum;
     }
-   
+
     void solve() throws IOException {
         int maxn = 1000000;
-        boolean[] generated = new boolean[maxn+1];
+        boolean[] generated = new boolean[maxn + 1];
         for (int i = 1; i <= maxn; i++) {
             int x = i;
             while (x <= maxn) {
@@ -55,14 +55,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

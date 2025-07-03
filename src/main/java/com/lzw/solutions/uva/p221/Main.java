@@ -22,7 +22,7 @@ public class Main {
         boolean cover(double mx) {
             int ax1 = x;
             int ax2 = x + w;
-            return ax1 <= mx + 1e-10 && mx - 1e-10 <= ax2;          
+            return ax1 <= mx + 1e-10 && mx - 1e-10 <= ax2;
         }
 
         boolean visibleAt(ArrayList<Building> buildings, double mx) {
@@ -40,12 +40,12 @@ public class Main {
             }
             return true;
         }
-    }  
-   
+    }
+
     void work() {
         Scanner sc = new Scanner(System.in);
-        int num=1;
-        for (;;) {
+        int num = 1;
+        for (; ; ) {
             int n = sc.nextInt();
             if (n == 0) {
                 break;
@@ -68,7 +68,7 @@ public class Main {
             ArrayList<Integer> xsList = new ArrayList<>();
             xsList.addAll(xs);
             Collections.sort(xsList);
-            ArrayList<Building> visibles = new ArrayList<>();            
+            ArrayList<Building> visibles = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 Building b = buildings.get(i);
                 for (int j = 0; j < xsList.size() - 1; j++) {
@@ -84,7 +84,7 @@ public class Main {
                 @Override
                 public int compare(Main.Building o1, Main.Building o2) {
                     if (o1.x != o2.x) {
-                        return o1.x - o2.x;                 
+                        return o1.x - o2.x;
                     } else {
                         return o1.y - o2.y;
                     }
@@ -105,14 +105,14 @@ public class Main {
             num++;
             System.out.println();
         }
-       
+
         sc.close();
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("2.out");

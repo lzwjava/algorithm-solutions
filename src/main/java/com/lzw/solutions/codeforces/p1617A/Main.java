@@ -70,5 +70,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

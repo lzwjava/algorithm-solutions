@@ -20,7 +20,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Edge {
         int from, to, cap, flow;
 
@@ -60,7 +60,7 @@ public class Main {
 
         int maxFlow(int s, int t) {
             int flow = 0;
-            for (;;) {
+            for (; ; ) {
                 Arrays.fill(a, 0);
                 ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<>(n * 2);
                 queue.add(s);
@@ -91,7 +91,7 @@ public class Main {
             return flow;
         }
     }
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -101,8 +101,8 @@ public class Main {
             }
             String str = in.readLine();
             StringTokenizer st = new StringTokenizer(str);
-            int s = Integer.parseInt(st.nextToken()) - 1;            
-            int t = Integer.parseInt(st.nextToken()) - 1;            
+            int s = Integer.parseInt(st.nextToken()) - 1;
+            int t = Integer.parseInt(st.nextToken()) - 1;
             int c = Integer.parseInt(st.nextToken());
             EdmondsKarp edmondsKarp = new EdmondsKarp(n);
             for (int i = 0; i < c; i++) {
@@ -113,9 +113,9 @@ public class Main {
                 b = Integer.parseInt(st.nextToken());
                 edmondsKarp.addEdge(x - 1, y - 1, b);
             }
-            int maxBandwidth = edmondsKarp.maxFlow(s, t);                   
-            out.append(String.format("Network %d\n", caseNum));                         
-            out.append(String.format("The bandwidth is %d.\n", maxBandwidth));            
+            int maxBandwidth = edmondsKarp.maxFlow(s, t);
+            out.append(String.format("Network %d\n", caseNum));
+            out.append(String.format("The bandwidth is %d.\n", maxBandwidth));
             out.append('\n');
             caseNum++;
         }
@@ -127,14 +127,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

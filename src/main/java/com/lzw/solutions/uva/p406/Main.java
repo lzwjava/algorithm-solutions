@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Main {
-   
+
     void solve() throws IOException {
         ArrayList<Integer> primes = new ArrayList<>();
         for (int i = 2; i <= 1000; i++) {
@@ -50,7 +50,7 @@ public class Main {
                 start = i / 2 - c + 1;
             } else {
                 c2 = c * 2 - 1;
-                start  = i / 2  - c +1;
+                start = i / 2 - c + 1;
             }
             if (start < 0) {
                 start = 0;
@@ -65,7 +65,7 @@ public class Main {
                 System.out.print(primes.get(j));
             }
             System.out.println();
-            System.out.println();            
+            System.out.println();
         }
         br.close();
     }
@@ -73,7 +73,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

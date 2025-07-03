@@ -35,8 +35,8 @@ public class Main {
     }
 
     // {n,e,s, w}
-    int[] dx = new int[]{0, 1, 0, -1};
-    int[] dy = new int[]{1, 0, -1, 0};
+    int[] dx = new int[] {0, 1, 0, -1};
+    int[] dy = new int[] {1, 0, -1, 0};
 
     int maxn = 500;
     int base = 250;
@@ -168,10 +168,9 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-//        System.setOut(new PrintStream(new FileOutputStream("1.out")));
+        //        System.setOut(new PrintStream(new FileOutputStream("1.out")));
         Main main = new Main();
         main.solve();
         main.close();
     }
-
 }

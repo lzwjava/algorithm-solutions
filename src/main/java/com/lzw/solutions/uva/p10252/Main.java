@@ -22,16 +22,16 @@ public class Main {
         }
         return chs;
     }
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
             String a = sc.nextLine();
             String b = sc.nextLine();
-            
+
             HashMap<Character, Integer> achs = cal(a);
             HashMap<Character, Integer> bchs = cal(b);
-            
+
             ArrayList<Character> list = new ArrayList<>();
             for (Character ch : achs.keySet()) {
                 if (bchs.containsKey(ch)) {
@@ -57,7 +57,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

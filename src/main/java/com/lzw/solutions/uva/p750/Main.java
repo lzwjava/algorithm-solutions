@@ -39,7 +39,7 @@ public class Main {
                         continue;
                     }
                 }
-                boolean ok = true;                
+                boolean ok = true;
                 for (int j = 0; j < cur; j++) {
                     int jrow = rows[j];
                     if (j + jrow == cur + i) {
@@ -62,20 +62,20 @@ public class Main {
             }
         }
     }
-    
+
     int total = 0;
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             in.readLine();
             String line = in.readLine();
             StringTokenizer st = new StringTokenizer(line);
-            int x = Integer.parseInt(st.nextToken())-1;
-            int y = Integer.parseInt(st.nextToken())-1;
+            int x = Integer.parseInt(st.nextToken()) - 1;
+            int y = Integer.parseInt(st.nextToken()) - 1;
             boolean[] vis = new boolean[8];
             int[] rows = new int[8];
-            out.append("SOLN       COLUMN\n");            
+            out.append("SOLN       COLUMN\n");
             out.append(String.format("%2s", "#"));
             out.append(String.format("%6s", ""));
             for (int i = 0; i < 8; i++) {
@@ -90,7 +90,7 @@ public class Main {
             permutation(rows, vis, 0, x, y);
             t--;
             if (t != 0) {
-                out.append('\n');                
+                out.append('\n');
             }
         }
     }
@@ -101,14 +101,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

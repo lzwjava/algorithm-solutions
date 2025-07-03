@@ -23,8 +23,7 @@ public class Main {
         int a;
         int b;
 
-        Friend() {
-        }
+        Friend() {}
 
         Friend(int a, int b) {
             this.a = a;

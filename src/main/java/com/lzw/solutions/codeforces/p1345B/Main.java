@@ -27,7 +27,7 @@ public class Main {
         while (t > 0) {
             t--;
             int n = Integer.parseInt(in.readLine());
-            //2,5,8,11
+            // 2,5,8,11
             int m = 25820;
             int[] a = new int[m];
             a[0] = 2;
@@ -63,5 +63,4 @@ public class Main {
         m.solve();
         m.close();
     }
-
 }

@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
-        while(sc.hasNextInt()) {
+        while (sc.hasNextInt()) {
             int n = sc.nextInt();
             int m = sc.nextInt();
             int table[][] = new int[n][m];
@@ -25,7 +25,7 @@ public class Main {
                 for (int j = 0; j < m; j++) {
                     Integer k = map.get(strs[j]);
                     if (k != null) {
-                        table[i][j] = k;                        
+                        table[i][j] = k;
                     } else {
                         map.put(strs[j], num);
                         table[i][j] = num;
@@ -35,7 +35,7 @@ public class Main {
             }
             boolean found = false;
             int c1 = 0, c2 = 0;
-            for (c1 = 0; c1 < m - 1; c1++) {            
+            for (c1 = 0; c1 < m - 1; c1++) {
                 for (c2 = c1 + 1; c2 < m; c2++) {
                     HashMap<String, Integer> rows = new HashMap<>();
                     for (int r = 0; r < n; r++) {
@@ -58,9 +58,9 @@ public class Main {
                 if (found) {
                     break;
                 }
-            }       
+            }
             if (!found) {
-                System.out.println("YES");                             
+                System.out.println("YES");
             }
         }
         sc.close();
@@ -69,7 +69,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

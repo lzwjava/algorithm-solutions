@@ -18,7 +18,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     String fixWord(String word) {
         char fch = word.charAt(0);
         if (vowels.indexOf(fch) != -1) {
@@ -28,7 +28,7 @@ public class Main {
         }
         return word;
     }
-   
+
     void solve() throws IOException {
         int len = 100000000;
         char cbuf[] = new char[len];
@@ -65,14 +65,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

@@ -48,7 +48,6 @@ public class Main {
         }
     }
 
-
     void solve() {
         calPrimes();
         Scanner in = new Scanner(System.in);
@@ -70,5 +69,4 @@ public class Main {
     public static void main(String[] args) {
         new Main().solve();
     }
-
 }

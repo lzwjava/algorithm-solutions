@@ -7,15 +7,14 @@ import java.util.Stack;
 
 public class Main {
 
-   
     void work() {
         Scanner sc = new Scanner(System.in);
-        for (;;) {
+        for (; ; ) {
             int n = sc.nextInt();
             if (n == 0) {
                 break;
             }
-            for (;;) {
+            for (; ; ) {
                 int nums[] = new int[n];
                 nums[0] = sc.nextInt();
                 if (nums[0] == 0) {
@@ -25,7 +24,7 @@ public class Main {
                     nums[i] = sc.nextInt();
                 }
                 int train = 1;
-                Stack<Integer> stack = new Stack<>();        
+                Stack<Integer> stack = new Stack<>();
                 int i = 0;
                 while (i < n) {
                     if (stack.size() == 0) {
@@ -38,7 +37,7 @@ public class Main {
                     }
                     if (nums[i] == stack.peek()) {
                         stack.pop();
-                        i++;                       
+                        i++;
                     } else {
                         if (train <= n) {
                             stack.push(train);
@@ -54,7 +53,7 @@ public class Main {
                     System.out.println("No");
                 }
             }
-            System.out.println();           
+            System.out.println();
         }
         sc.close();
     }
@@ -62,7 +61,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

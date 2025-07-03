@@ -15,7 +15,7 @@ public class Main {
             Scanner in = new Scanner(new FileReader(inputPath));
             PrintStream ps = new PrintStream(outputPath);
 
-            //Editable
+            // Editable
             int out = 0;
             List<Integer> list = new ArrayList<>();
 

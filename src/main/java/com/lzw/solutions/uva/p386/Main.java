@@ -25,8 +25,7 @@ public class Main {
         int c;
         int d;
 
-        Pair() {
-        }
+        Pair() {}
 
         Pair(int a, int b, int c, int d) {
             this.a = a;

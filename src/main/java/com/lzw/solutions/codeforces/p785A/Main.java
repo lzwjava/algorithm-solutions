@@ -6,8 +6,8 @@ public class Main {
 
     void solve() {
         Scanner in = new Scanner(System.in);
-        String[] ss = new String[]{"Tetrahedron", "Cube", "Octahedron", "Dodecahedron", "Icosahedron"};
-        int[] fs = new int[]{4, 6, 8, 12, 20};
+        String[] ss = new String[] {"Tetrahedron", "Cube", "Octahedron", "Dodecahedron", "Icosahedron"};
+        int[] fs = new int[] {4, 6, 8, 12, 20};
         int n = in.nextInt();
         int c = 0;
         while (n > 0) {
@@ -27,5 +27,4 @@ public class Main {
     public static void main(String[] args) {
         new Main().solve();
     }
-
 }

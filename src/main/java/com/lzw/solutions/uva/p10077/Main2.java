@@ -19,7 +19,7 @@ public class Main2 {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     class Node {
         Fraction f;
         Node left;
@@ -29,7 +29,7 @@ public class Main2 {
             this.f = f;
         }
     }
-    
+
     class Fraction {
         int numerator;
         int denominator;
@@ -44,7 +44,7 @@ public class Main2 {
             return String.format("%d/%d", numerator, denominator);
         }
     }
-    
+
     void solve() throws IOException {
         while (true) {
             StringTokenizer st = new StringTokenizer(in.readLine());
@@ -57,7 +57,7 @@ public class Main2 {
             fractions.add(new Fraction(0, 1));
             fractions.add(new Fraction(1, 1));
             fractions.add(new Fraction(1, 0));
-            for (int i = 0;; i++) {
+            for (int i = 0; ; i++) {
                 ArrayList<Fraction> newFractions = new ArrayList<>();
                 newFractions.add(fractions.get(0));
                 for (int j = 0; j < fractions.size() - 1; j++) {
@@ -81,12 +81,12 @@ public class Main2 {
                     break;
                 }
             }
-            fractions = new ArrayList<>(fractions.subList(1, fractions.size() - 1));            
+            fractions = new ArrayList<>(fractions.subList(1, fractions.size() - 1));
             Node root = buildTree(fractions);
             find(root, m, n, "");
         }
     }
-    
+
     boolean find(Node node, int m, int n, String path) {
         if (node.left == null && node.right == null) {
             if (node.f.numerator == m && node.f.denominator == n) {
@@ -101,11 +101,11 @@ public class Main2 {
                 find(node.left, m, n, path + "L");
             } else {
                 find(node.right, m, n, path + "R");
-            }       
+            }
         }
         return false;
     }
-    
+
     Node buildTree(List<Fraction> fractions) {
         assert (fractions.size() % 2 == 1);
         int mid = fractions.size() / 2;
@@ -117,7 +117,7 @@ public class Main2 {
             Node left = buildTree(leftList);
             Node right = buildTree(righList);
             node.left = left;
-            node.right = right;            
+            node.right = right;
         }
         return node;
     }
@@ -128,7 +128,7 @@ public class Main2 {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 

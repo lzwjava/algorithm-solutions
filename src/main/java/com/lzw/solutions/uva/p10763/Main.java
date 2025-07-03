@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -35,7 +35,7 @@ public class Main {
                 }
                 int count = routes.get(route);
                 int middle = route.indexOf(",");
-                String reversed =route.substring(middle + 1)  + "," + route.substring(0, middle);
+                String reversed = route.substring(middle + 1) + "," + route.substring(0, middle);
                 Integer reversedCount = routes.get(reversed);
                 if (reversedCount == null || count != reversedCount) {
                     ok = false;
@@ -56,7 +56,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             // outStream = new PrintStream("2.out");

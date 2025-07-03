@@ -13,16 +13,14 @@ import java.util.Collections;
 public class Main {
 
     BufferedReader in;
-    PrintWriter out;    
+    PrintWriter out;
     int n;
 
     class Division implements Comparable<Division> {
         String numerator;
         String denominator;
 
-        Division() {
-
-        }
+        Division() {}
 
         Division(String numerator, String denominator) {
             this.numerator = numerator;
@@ -33,9 +31,8 @@ public class Main {
         public int compareTo(Main.Division o) {
             return numerator.compareTo(o.numerator);
         }
-        
     }
-    
+
     ArrayList<Division> divisions;
 
     Main() {
@@ -45,12 +42,12 @@ public class Main {
 
     String numsToStr(int nums[], int start, int end) {
         StringBuilder sb = new StringBuilder();
-        for (int i = end-1; i >=start; i--) {
+        for (int i = end - 1; i >= start; i--) {
             sb.append(nums[i]);
         }
         return sb.toString();
     }
-    
+
     void permutation(int nums[], boolean vis[], int i) {
         if (i >= 1) {
             String str2 = numsToStr(nums, 0, i);
@@ -60,7 +57,7 @@ public class Main {
             int len = str1.length();
             int min = i < len ? i : len;
             boolean vis1[] = new boolean[10];
-            for (int j = 0; j < min; j++) {            
+            for (int j = 0; j < min; j++) {
                 char ch = str1.charAt(len - 1 - j);
                 int num = ch - '0';
                 if (vis[num]) {
@@ -76,14 +73,14 @@ public class Main {
             String str2 = numsToStr(nums, 0, i);
             int a2 = Integer.parseInt(str2);
             int a1 = n * a2;
-            String str1 = String.format("%d", a1);        
+            String str1 = String.format("%d", a1);
             if (str1.length() > 5 || str1.length() < 4) {
                 return;
             }
             if (str1.length() == 4) {
                 str1 = "0" + str1;
             }
-            int nnums[] = Arrays.copyOf(nums, 10);            
+            int nnums[] = Arrays.copyOf(nums, 10);
             for (int j = 0; j < str1.length(); j++) {
                 char ch = str1.charAt(j);
                 int num = ch - '0';
@@ -112,10 +109,10 @@ public class Main {
                 nums[i] = j;
                 permutation(nums, vis, i + 1);
                 vis[j] = false;
-            }            
+            }
         }
     }
-   
+
     void solve() throws IOException {
         boolean first = true;
         while (true) {
@@ -135,7 +132,7 @@ public class Main {
             if (divisions.size() > 0) {
                 Collections.sort(divisions);
                 for (Division d : divisions) {
-                    out.append(String.format("%s / %s = %d\n", d.numerator, d.denominator, n));                    
+                    out.append(String.format("%s / %s = %d\n", d.numerator, d.denominator, n));
                 }
             } else {
                 out.append(String.format("There are no solutions for %d.\n", n));
@@ -149,14 +146,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

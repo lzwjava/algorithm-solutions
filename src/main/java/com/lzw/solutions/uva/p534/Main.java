@@ -111,7 +111,7 @@ public class Main {
             }
 
             out.append(String.format("Scenario #%d\n", caseNum));
-//            double d = Math.hypot(nodes[0].x - nodes[1].x, nodes[0].y - nodes[1].y);
+            //            double d = Math.hypot(nodes[0].x - nodes[1].x, nodes[0].y - nodes[1].y);
             out.append(String.format("Frog Distance = %.3f\n\n", ans));
 
             caseNum++;

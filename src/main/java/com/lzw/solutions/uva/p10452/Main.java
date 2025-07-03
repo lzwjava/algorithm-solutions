@@ -19,8 +19,8 @@ public class Main {
     int n;
 
     // forth, ,left, right
-    int[] dx = new int[]{-1, 1, 0, 0};
-    int[] dy = new int[]{0, 0, -1, 1};
+    int[] dx = new int[] {-1, 1, 0, 0};
+    int[] dy = new int[] {0, 0, -1, 1};
 
     boolean dfs(int sx, int sy, int tx, int ty, int p, ArrayList<Integer> path) {
         if (sx == tx && sy == ty) {
@@ -67,7 +67,7 @@ public class Main {
             ArrayList<Integer> path = new ArrayList<Integer>();
             dfs(sx, sy, tx, ty, 0, path);
             for (int i = 0; i < path.size(); i++) {
-                String[] strs = new String[]{"forth", "", "left", "right"};
+                String[] strs = new String[] {"forth", "", "left", "right"};
                 String str = strs[path.get(i)];
                 if (i != 0) {
                     out.append(' ');

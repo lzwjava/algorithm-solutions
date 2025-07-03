@@ -21,9 +21,9 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    int[] dx = { -1, 0, 1, 0 };    
-    int[] dy = { 0, 1, 0, -1 };    
-    
+    int[] dx = {-1, 0, 1, 0};
+    int[] dy = {0, 1, 0, -1};
+
     void dfs(char[][] grid, boolean[][] vis, int h, int w, int i, int j) {
         vis[i][j] = true;
         char ch = grid[i][j];
@@ -53,7 +53,7 @@ public class Main {
             return Character.compare(ch, o.ch);
         }
     }
-   
+
     void solve() throws IOException {
         int n = Integer.parseInt(in.readLine());
         for (int i = 0; i < n; i++) {
@@ -69,7 +69,7 @@ public class Main {
                 }
             }
             boolean[][] vis = new boolean[h][w];
-            HashMap<Character, Integer> map = new HashMap<>();            
+            HashMap<Character, Integer> map = new HashMap<>();
             for (int j = 0; j < h; j++) {
                 for (int k = 0; k < w; k++) {
                     if (!vis[j][k]) {
@@ -103,14 +103,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

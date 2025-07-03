@@ -20,7 +20,7 @@ public class Main {
     }
 
     int parent[];
-    
+
     int find(int x) {
         if (x == parent[x]) {
             return x;
@@ -28,16 +28,16 @@ public class Main {
             return find(parent[x]);
         }
     }
-    
+
     void union(int x, int y) {
         int px = find(x);
         int py = find(y);
         if (px == py) {
             return;
         }
-        parent[py] = px;        
+        parent[py] = px;
     }
-    
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -76,14 +76,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

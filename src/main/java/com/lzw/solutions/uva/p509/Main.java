@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-
 public class Main {
 
     String binaryToHex(String binaryStr) {
@@ -18,8 +17,8 @@ public class Main {
         }
         return hexStr;
     }
-    
-    String hexToBinary(String hexStr) {                
+
+    String hexToBinary(String hexStr) {
         int decimal = Integer.parseInt(hexStr, 16);
         String binaryStr = Integer.toString(decimal, 2);
         return binaryStr;
@@ -30,17 +29,17 @@ public class Main {
         System.out.println(binaryToHex("110000111100"));
     }
 
-    void work() {    
+    void work() {
         Scanner sc = new Scanner(System.in);
         int n = 1;
-        for (;;) {
+        for (; ; ) {
             int d = sc.nextInt();
             if (d == 0) {
                 break;
             }
             int s = sc.nextInt();
             int b = sc.nextInt();
-            
+
             String parity = sc.next();
             int parityNum;
             if (parity.equals("E")) {
@@ -107,7 +106,7 @@ public class Main {
                             }
                         }
                         if (i % d == xColumn) {
-                            // parity error 
+                            // parity error
                             // broken = true;
                             // break;
                             continue;
@@ -118,7 +117,7 @@ public class Main {
                                 int v1, v0;
                                 if (m == xColumn) {
                                     v1 = 1;
-                                    v0 = 0;                                                                                                          
+                                    v0 = 0;
                                 } else {
                                     int v = diskTable[i][m].charAt(k) - '0';
                                     v1 = v;
@@ -130,7 +129,7 @@ public class Main {
                                 } else {
                                     oneBit = oneBit ^ v1;
                                     zeroBit = zeroBit ^ v0;
-                                }                                
+                                }
                             }
                             int bitAtX = 0;
                             if (oneBit == parityNum) {
@@ -143,11 +142,11 @@ public class Main {
 
                             String origin = diskTable[i][xColumn];
 
-                            diskTable[i][xColumn] = origin.substring(0, k) + 
-                                    bitAtX + origin.substring(k + 1, origin.length());
+                            diskTable[i][xColumn] =
+                                    origin.substring(0, k) + bitAtX + origin.substring(k + 1, origin.length());
                         }
                     } else {
-                        int v = diskTable[i][0].charAt(k) -'0';
+                        int v = diskTable[i][0].charAt(k) - '0';
                         for (int m = 1; m < d; m++) {
                             int kv = diskTable[i][m].charAt(k) - '0';
                             v = v ^ kv;
@@ -161,8 +160,8 @@ public class Main {
                 if (broken) {
                     break;
                 }
-            }                                   
-            
+            }
+
             if (broken) {
                 System.out.println(String.format("Disk set %d is invalid.", n));
                 n++;
@@ -170,7 +169,7 @@ public class Main {
             }
 
             String hex = "";
-            String binary = "";            
+            String binary = "";
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < d; j++) {
                     if (i % d != j) {
@@ -189,7 +188,7 @@ public class Main {
                 }
                 hex += binaryToHex(binary);
             }
-            
+
             System.out.println(String.format("Disk set %d is valid, contents are: %s", n, hex));
             n++;
         }
@@ -199,7 +198,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             // outStream = new PrintStream("1.out");

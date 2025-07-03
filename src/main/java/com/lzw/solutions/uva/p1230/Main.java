@@ -16,9 +16,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int c = Integer.parseInt(in.readLine());
         while (c > 0) {
@@ -26,8 +26,10 @@ public class Main {
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
-            int z = BigInteger.valueOf(x).modPow(BigInteger.valueOf(y), BigInteger.valueOf(n)).intValue();
-            out.append(String.format("%d\n", z));            
+            int z = BigInteger.valueOf(x)
+                    .modPow(BigInteger.valueOf(y), BigInteger.valueOf(n))
+                    .intValue();
+            out.append(String.format("%d\n", z));
             c--;
         }
     }
@@ -38,7 +40,7 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
-   
+
     void solve() {
         Scanner sc = new Scanner(System.in);
 
@@ -23,11 +23,11 @@ public class Main {
             int m;
             int numslen = nums.size();
             if (numslen % 2 == 0) {
-                m = (nums.get(numslen / 2) + nums.get(numslen/2 - 1))/2;
+                m = (nums.get(numslen / 2) + nums.get(numslen / 2 - 1)) / 2;
             } else {
                 m = nums.get(numslen / 2);
-            }    
-            System.out.println(m);            
+            }
+            System.out.println(m);
         }
         sc.close();
     }
@@ -35,7 +35,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

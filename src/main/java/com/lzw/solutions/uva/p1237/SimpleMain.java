@@ -101,7 +101,7 @@ public class SimpleMain {
                     } else {
                         ans = "UNDETERMINED";
                     }
-//                    ans = getName(counts, makers, index);
+                    //                    ans = getName(counts, makers, index);
                 } else {
                     int ri = -(index + 1);
                     if (ri == size || ri == 0) {
@@ -111,9 +111,9 @@ public class SimpleMain {
                         ans = getName(counts, makers, ci);
                     }
                 }
-//                if (ans.equals("Morgan")) {
-//                    System.out.println();
-//                }
+                //                if (ans.equals("Morgan")) {
+                //                    System.out.println();
+                //                }
                 out.append(String.format("%s\n", ans));
             }
             t--;

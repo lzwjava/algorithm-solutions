@@ -17,11 +17,11 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int maxn = 1000000;
-        
-        int sx = (int)Math.sqrt(maxn);
+
+        int sx = (int) Math.sqrt(maxn);
 
         boolean[] notPrime = new boolean[maxn];
         notPrime[0] = notPrime[1] = true;
@@ -50,14 +50,14 @@ public class Main {
             }
             digitCounts[i] = count;
         }
-        
+
         int n = Integer.parseInt(in.readLine());
         while (n > 0) {
             StringTokenizer st = new StringTokenizer(in.readLine());
             int t1 = Integer.parseInt(st.nextToken());
             int t2 = Integer.parseInt(st.nextToken());
 
-            out.append(String.format("%d\n", digitCounts[t2] - digitCounts[t1 - 1]));            
+            out.append(String.format("%d\n", digitCounts[t2] - digitCounts[t1 - 1]));
             n--;
         }
     }
@@ -68,14 +68,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("2.in");
             outStream = new PrintStream("1.out");

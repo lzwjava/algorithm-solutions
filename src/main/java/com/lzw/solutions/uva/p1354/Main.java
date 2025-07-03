@@ -18,20 +18,17 @@ public class Main {
         Node left;
         Node right;
 
-        Node() {
-        }
+        Node() {}
 
         Node(int v) {
             this.v = v;
         }
     }
 
-    void makeTree(int nums[]) {
-                
-    }
-    
+    void makeTree(int nums[]) {}
+
     void permutation(int nums[], boolean vis[], int i, int n) {
-        if (i == n) {       
+        if (i == n) {
             return;
         }
         for (int j = 0; j < n; j++) {
@@ -46,9 +43,9 @@ public class Main {
 
     Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);        
+        out = new PrintWriter(System.out);
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -59,7 +56,7 @@ public class Main {
                 ws[i] = Integer.parseInt(in.readLine());
             }
             t--;
-        }    
+        }
     }
 
     void close() throws IOException {
@@ -68,14 +65,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

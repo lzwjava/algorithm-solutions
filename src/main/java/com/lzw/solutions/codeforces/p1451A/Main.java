@@ -114,7 +114,7 @@ public class Main {
             return Integer.min(v1, v2);
         }
     }
-    
+
     void permutation(List<Factor> fs, List<Integer> ps, int cur, int n, int product) {
         if (cur == n) {
             if (product != 1) {
@@ -128,7 +128,6 @@ public class Main {
         }
     }
 
-
     void solve() throws IOException {
         calPrimes();
         int t = Integer.parseInt(in.readLine());
@@ -139,5 +138,4 @@ public class Main {
             out.append(String.format("%d\n", ans));
         }
     }
-
 }

@@ -129,8 +129,8 @@ public class Main {
             if (closest == null || distant == null) {
                 out.append("There are no adjacent primes.\n");
             } else {
-                out.append(String.format("%d,%d are closest, %d,%d are most distant.\n", closest.a, closest.b,
-                    distant.a, distant.b));
+                out.append(String.format(
+                        "%d,%d are closest, %d,%d are most distant.\n", closest.a, closest.b, distant.a, distant.b));
             }
         }
     }

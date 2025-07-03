@@ -18,14 +18,14 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void dfs(int s, int dist, boolean[] vis, int[] d) {
         if (dist > maxDist || (dist == maxDist && s < maxEnd)) {
             maxDist = dist;
             maxEnd = s;
         }
         for (int i = 0; i < n; i++) {
-            if (!vis[i] && grid[s][i] && dist + 1 > d[i]) {                
+            if (!vis[i] && grid[s][i] && dist + 1 > d[i]) {
                 vis[i] = true;
                 d[i] = dist + 1;
                 dfs(i, dist + 1, vis, d);
@@ -33,12 +33,12 @@ public class Main {
             }
         }
     }
-    
+
     boolean[][] grid;
     int n;
     int maxDist;
     int maxEnd;
-   
+
     void solve() throws IOException {
         int caseNum = 1;
         while (true) {
@@ -47,7 +47,7 @@ public class Main {
                 break;
             }
             int s = Integer.parseInt(in.readLine().trim()) - 1;
-            
+
             grid = new boolean[n][n];
             while (true) {
                 String line = in.readLine();
@@ -69,10 +69,11 @@ public class Main {
             d[s] = 0;
             dfs(s, 0, vis, d);
 
-            out.append(String.format("Case %d: The longest path from %d has length %d, finishing at %d.\n",
-                    caseNum, s + 1, maxDist, maxEnd + 1));                    
+            out.append(String.format(
+                    "Case %d: The longest path from %d has length %d, finishing at %d.\n",
+                    caseNum, s + 1, maxDist, maxEnd + 1));
             out.append('\n');
-            caseNum++;                    
+            caseNum++;
         }
     }
 
@@ -82,14 +83,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

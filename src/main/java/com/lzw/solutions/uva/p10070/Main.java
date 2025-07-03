@@ -17,23 +17,23 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     int mod(BigInteger year, int x) {
         return year.mod(BigInteger.valueOf(x)).intValue();
     }
-    
+
     boolean leap(BigInteger year) {
         return (mod(year, 4) == 0 && mod(year, 100) != 0) || mod(year, 400) == 0;
     }
-    
+
     boolean huluculu(BigInteger year) {
         return mod(year, 15) == 0;
     }
-    
-    boolean bulukulu(BigInteger year) {        
+
+    boolean bulukulu(BigInteger year) {
         return leap(year) && mod(year, 55) == 0;
     }
-   
+
     void solve() throws IOException {
         boolean first = true;
         while (true) {
@@ -72,14 +72,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

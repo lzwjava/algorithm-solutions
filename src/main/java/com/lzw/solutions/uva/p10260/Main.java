@@ -16,17 +16,9 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     int charToNum(char ch) {
-        String strs[] = new String[] {
-                "AEIOUHWY",            
-                "BFPV", 
-                "CGJKQSXZ",
-                "DT",
-                "L",
-                "MN",
-                "R"
-        };                
+        String strs[] = new String[] {"AEIOUHWY", "BFPV", "CGJKQSXZ", "DT", "L", "MN", "R"};
         for (int i = 0; i < strs.length; i++) {
             if (strs[i].indexOf(ch) >= 0) {
                 return i;
@@ -34,7 +26,7 @@ public class Main {
         }
         return -1;
     }
-   
+
     void solve() throws IOException {
         while (true) {
             String s = in.readLine();
@@ -63,14 +55,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

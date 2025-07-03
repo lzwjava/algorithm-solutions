@@ -17,7 +17,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     char[][] subGrid(int s, int num) {
         int rows = 2 * s + 3;
         int cols = s + 2;
@@ -25,9 +25,9 @@ public class Main {
         if (num == 0) {
             for (int i = 0; i < rows; i++) {
                 if (i == 0 || i == rows - 1) {
-                    draw1(grid, cols, i);              
+                    draw1(grid, cols, i);
                 } else if (i == s + 1) {
-                    draw2(grid, cols, i);                   
+                    draw2(grid, cols, i);
                 } else {
                     draw3(grid, cols, i);
                 }
@@ -35,17 +35,17 @@ public class Main {
         } else if (num == 1) {
             for (int i = 0; i < rows; i++) {
                 if (i == 0 || i == rows - 1 || i == s + 1) {
-                    draw2(grid, cols, i);                    
+                    draw2(grid, cols, i);
                 } else {
-                    draw4(grid, cols, i);               
+                    draw4(grid, cols, i);
                 }
             }
         } else if (num == 2) {
             for (int i = 0; i < rows; i++) {
                 if (i == 0 || i == rows - 1 || i == s + 1) {
-                    draw1(grid, cols, i);                
+                    draw1(grid, cols, i);
                 } else if (i >= 1 && i < s + 1) {
-                    draw4(grid, cols, i);                    
+                    draw4(grid, cols, i);
                 } else {
                     draw5(grid, cols, i);
                 }
@@ -53,7 +53,7 @@ public class Main {
         } else if (num == 3) {
             for (int i = 0; i < rows; i++) {
                 if (i == 0 || i == rows - 1 || i == s + 1) {
-                    draw1(grid, cols, i);               
+                    draw1(grid, cols, i);
                 } else {
                     draw4(grid, cols, i);
                 }
@@ -61,21 +61,21 @@ public class Main {
         } else if (num == 4) {
             for (int i = 0; i < rows; i++) {
                 if (i == 0 || i == rows - 1) {
-                    draw2(grid, cols, i);                    
+                    draw2(grid, cols, i);
                 } else if (i == s + 1) {
                     draw1(grid, cols, i);
                 } else if (i < s + 1) {
-                    draw3(grid, cols, i);            
+                    draw3(grid, cols, i);
                 } else {
-                    draw4(grid, cols, i);                                
+                    draw4(grid, cols, i);
                 }
             }
         } else if (num == 5) {
             for (int i = 0; i < rows; i++) {
                 if (i == 0 || i == rows - 1 || i == s + 1) {
-                    draw1(grid, cols, i);                    
+                    draw1(grid, cols, i);
                 } else if (i < s + 1) {
-                    draw5(grid, cols, i);                    
+                    draw5(grid, cols, i);
                 } else {
                     draw4(grid, cols, i);
                 }
@@ -83,9 +83,9 @@ public class Main {
         } else if (num == 6) {
             for (int i = 0; i < rows; i++) {
                 if (i == 0 || i == rows - 1 || i == s + 1) {
-                    draw1(grid, cols, i);                    
+                    draw1(grid, cols, i);
                 } else if (i < s + 1) {
-                    draw5(grid, cols, i);                    
+                    draw5(grid, cols, i);
                 } else {
                     draw3(grid, cols, i);
                 }
@@ -93,35 +93,35 @@ public class Main {
         } else if (num == 7) {
             for (int i = 0; i < rows; i++) {
                 if (i == rows - 1 || i == s + 1) {
-                    draw2(grid, cols, i);                    
-                } else if (i ==0) {
-                    draw1(grid, cols, i);                    
+                    draw2(grid, cols, i);
+                } else if (i == 0) {
+                    draw1(grid, cols, i);
                 } else {
                     draw4(grid, cols, i);
                 }
             }
         } else if (num == 8) {
             for (int i = 0; i < rows; i++) {
-                if (i == 0 || i == rows - 1 || i == s + 1) {                    
-                    draw1(grid, cols, i);              
+                if (i == 0 || i == rows - 1 || i == s + 1) {
+                    draw1(grid, cols, i);
                 } else {
                     draw3(grid, cols, i);
                 }
-            }            
+            }
         } else if (num == 9) {
             for (int i = 0; i < rows; i++) {
-                if (i == 0 || i == rows - 1 || i == s + 1) {                    
-                    draw1(grid, cols, i);              
-                } else if (i<s+1){
+                if (i == 0 || i == rows - 1 || i == s + 1) {
+                    draw1(grid, cols, i);
+                } else if (i < s + 1) {
                     draw3(grid, cols, i);
                 } else {
-                    draw4(grid, cols, i);                    
+                    draw4(grid, cols, i);
                 }
-            }               
+            }
         }
         return grid;
     }
-    
+
     // " -- "
     void draw1(char[][] grid, int cols, int i) {
         for (int j = 0; j < cols; j++) {
@@ -161,7 +161,7 @@ public class Main {
             }
         }
     }
-    
+
     // "|   "
     void draw5(char[][] grid, int cols, int i) {
         for (int j = 0; j < cols; j++) {
@@ -170,9 +170,9 @@ public class Main {
             } else {
                 grid[i][j] = ' ';
             }
-        }    
-    }    
-   
+        }
+    }
+
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
@@ -185,7 +185,7 @@ public class Main {
             String ns = String.format("%d", n);
             int len = ns.length();
             int rows = 2 * s + 3;
-            int cols = (s + 2) * len + (len-1);            
+            int cols = (s + 2) * len + (len - 1);
             char[][] grid = new char[rows][cols];
             for (int i = 0; i < len; i++) {
                 char ch = ns.charAt(i);
@@ -221,14 +221,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             outStream = new PrintStream("1.out");

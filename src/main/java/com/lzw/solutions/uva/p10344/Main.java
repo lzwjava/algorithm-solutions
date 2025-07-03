@@ -40,16 +40,16 @@ public class Main {
             int m3 = cal(m2, gens[3], ops[2]);
             int m4 = cal(m3, gens[4], ops[3]);
             if (m4 == 23) {
-                possible = true;                                
+                possible = true;
             }
             return;
         }
         for (int i = 0; i < 3; i++) {
             ops[cur] = i;
-            permutationOperator(gens, ops, cur + 1, n);            
+            permutationOperator(gens, ops, cur + 1, n);
         }
     }
-    
+
     void permutation(int[] nums, int[] gens, int cur, int n) {
         if (possible) {
             return;
@@ -79,9 +79,9 @@ public class Main {
             }
         }
     }
-    
+
     boolean possible;
-   
+
     void solve() throws IOException {
         while (true) {
             int[] nums = new int[5];
@@ -116,14 +116,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

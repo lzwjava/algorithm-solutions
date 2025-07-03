@@ -37,7 +37,7 @@ public class Main {
         }
         return i;
     }
-    
+
     String convertToAddress(String binary) {
         StringBuilder address = new StringBuilder();
         for (int i = 0; i < 4; i++) {
@@ -50,7 +50,7 @@ public class Main {
         }
         return address.toString();
     }
-   
+
     void work() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextInt()) {
@@ -63,7 +63,7 @@ public class Main {
             }
             int len = lengthOfLongestCommonSubstring(binaryAddresses, 32);
             int rest = 32 - len;
-            
+
             StringBuilder mask = new StringBuilder();
             for (int i = 0; i < len; i++) {
                 mask.append("1");
@@ -87,7 +87,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

@@ -58,8 +58,8 @@ public class Main {
     }
 
     // top, bottom, left, right
-    int[] dx = new int[]{-1, 1, 0, 0};
-    int[] dy = new int[]{0, 0, -1, 1};
+    int[] dx = new int[] {-1, 1, 0, 0};
+    int[] dy = new int[] {0, 0, -1, 1};
 
     int[][] grid;
     int ans;

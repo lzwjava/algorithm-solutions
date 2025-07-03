@@ -15,9 +15,7 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    void solve() {
-
-    }
+    void solve() {}
 
     void close() throws IOException {
         in.close();

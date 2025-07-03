@@ -27,7 +27,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
+        //        m.test();
         m.close();
     }
 
@@ -45,18 +45,18 @@ public class Main {
             int n = random.nextInt(8) + 1;
             String a = randBinary(n);
             String b = randBinary(n);
-//            a = "01";
-//            b = "10";
-//            a = "0000111";
-//            b = "0011001";
+            //            a = "01";
+            //            b = "10";
+            //            a = "0000111";
+            //            b = "0011001";
             n = a.length();
             int a1 = solveInside(n, a, b);
             int a2 = solve1Inside(n, a, b, true);
-//            out.flush();
+            //            out.flush();
             assert (a1 == a2);
-//            if (a1 != a2) {
-//                break;
-//            }
+            //            if (a1 != a2) {
+            //                break;
+            //            }
         }
     }
 
@@ -197,5 +197,4 @@ public class Main {
             out.append(String.format("%d\n", ans));
         }
     }
-
 }

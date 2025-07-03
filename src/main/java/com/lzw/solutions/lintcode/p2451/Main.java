@@ -1,8 +1,7 @@
 package com.lzw.solutions.lintcode.p2451;
 
-import java.util.*;
 import java.io.*;
-import java.lang.*;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class Main {
@@ -41,7 +40,8 @@ public class Main {
                 nums_sum += nums.get(i);
             }
             if (nums_sum != (1 + n) * n / 2 && nums.size() != 10) {
-                Exception exception = new Exception("You should use 10 threads to calculate the answer and wait until all threads are finished.");
+                Exception exception = new Exception(
+                        "You should use 10 threads to calculate the answer and wait until all threads are finished.");
                 throw exception;
             }
             if (nums.size() != 10) {

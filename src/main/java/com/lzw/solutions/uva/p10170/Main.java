@@ -21,7 +21,7 @@ public class Main {
     void solve() throws IOException {
         while (true) {
             String line = in.readLine();
-            if (line == null) {                
+            if (line == null) {
                 break;
             }
             StringTokenizer st = new StringTokenizer(line);
@@ -47,14 +47,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

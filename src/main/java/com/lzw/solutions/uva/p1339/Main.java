@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static void work(){
+    private static void work() {
         Scanner sc = new Scanner(System.in);
 
-        for (;;) {
+        for (; ; ) {
             if (!sc.hasNext()) {
                 break;
             }
@@ -26,7 +26,7 @@ public class Main {
             ArrayList<Integer> encryptedList = new ArrayList<>();
             for (int num : encryptedNums) {
                 if (num > 0) {
-                    encryptedList.add(num);                    
+                    encryptedList.add(num);
                 }
             }
 
@@ -38,7 +38,7 @@ public class Main {
             ArrayList<Integer> originList = new ArrayList<>();
             for (int num : originNums) {
                 if (num > 0) {
-                    originList.add(num);                    
+                    originList.add(num);
                 }
             }
 
@@ -59,7 +59,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

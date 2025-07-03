@@ -13,7 +13,7 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void solve() throws IOException {
         while (true) {
             StringTokenizer st = new StringTokenizer(in.readLine());

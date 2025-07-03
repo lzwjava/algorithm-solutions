@@ -5,8 +5,7 @@ public class ThreadSafeLinkedList {
     private ListNode left;
     private ListNode right;
 
-    public ThreadSafeLinkedList() {
-    }
+    public ThreadSafeLinkedList() {}
 
     private void create(int element) {
         ListNode node = new ListNode(element);

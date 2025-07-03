@@ -18,16 +18,16 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     String reverse(String s) {
         StringBuilder sb = new StringBuilder();
         int len = s.length();
         for (int i = 0; i < len; i++) {
-            sb.append(s.charAt(len-1-i));
+            sb.append(s.charAt(len - 1 - i));
         }
         return sb.toString();
     }
-   
+
     void solve() throws IOException {
         String ns = in.readLine();
         int n = Integer.parseInt(ns);
@@ -49,14 +49,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");

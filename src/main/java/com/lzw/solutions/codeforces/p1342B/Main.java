@@ -27,7 +27,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
-//        m.test();
+        //        m.test();
         m.close();
     }
 
@@ -85,9 +85,9 @@ public class Main {
         if (mink == 1) {
             return;
         }
-//        if (cnt > 3000) {
-//            return;
-//        }
+        //        if (cnt > 3000) {
+        //            return;
+        //        }
         if (i == m) {
             String ns = new String(chs);
             if (subsequence(ns, t)) {
@@ -155,7 +155,10 @@ public class Main {
             for (String p : ps) {
                 String start = makeLen(p, k, n);
                 Item is = count(start);
-                if ((it.c0 > 0 && is.c0 == 0) || (it.c1 > 0 && is.c1 == 0) || (it.c0 == 0 && is.c0 > 0) || (it.c1 == 0 && is.c1 > 0)) {
+                if ((it.c0 > 0 && is.c0 == 0)
+                        || (it.c1 > 0 && is.c1 == 0)
+                        || (it.c0 == 0 && is.c0 > 0)
+                        || (it.c1 == 0 && is.c1 > 0)) {
                     continue;
                 }
                 if (subsequence(start, t)) {
@@ -221,5 +224,4 @@ public class Main {
         }
         return minks;
     }
-
 }

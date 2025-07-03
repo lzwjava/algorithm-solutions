@@ -42,7 +42,6 @@ public class Main {
             return r - l + 1;
         }
 
-
         @Override
         public int compareTo(Segment o) {
             if (l != o.l) {

@@ -48,7 +48,7 @@ public class Main1 {
         }
         int cnt = q - p + 1;
 
-        int[] counts = new int[]{r1, r2, cnt};
+        int[] counts = new int[] {r1, r2, cnt};
         Arrays.sort(counts);
         cc = counts[2];
         map.put(key, cc);
@@ -98,9 +98,9 @@ public class Main1 {
         boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
         if (isLocal) {
             inStream = new FileInputStream("1.in");
-//            outStream = new PrintStream("1.out");
+            //            outStream = new PrintStream("1.out");
             System.setIn(inStream);
-//            System.setOut(outStream);
+            //            System.setOut(outStream);
         }
 
         Main1 main = new Main1();

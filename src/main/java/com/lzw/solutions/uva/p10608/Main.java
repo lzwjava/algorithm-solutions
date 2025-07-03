@@ -21,17 +21,17 @@ public class Main {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
-    
+
     void dfs(int i) {
         for (int j = 0; j < n; j++) {
             if (graph[i][j] && !vis[j]) {
-                count++;                
+                count++;
                 vis[j] = true;
                 dfs(j);
             }
         }
     }
-   
+
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
@@ -48,7 +48,7 @@ public class Main {
                 int b = Integer.parseInt(st.nextToken());
                 graph[a - 1][b - 1] = graph[b - 1][a - 1] = true;
             }
-            int max = 0;            
+            int max = 0;
             for (int i = 0; i < n; i++) {
                 if (!vis[i]) {
                     vis[i] = true;
@@ -70,14 +70,14 @@ public class Main {
         }
         if (out != null) {
             out.flush();
-            out.close();              
+            out.close();
         }
     }
 
     public static void main(String[] args) throws Exception {
         FileInputStream inStream = null;
         PrintStream outStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");        
+        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
         if (isLocal) {
             inStream = new FileInputStream("1.in");
             // outStream = new PrintStream("1.out");
