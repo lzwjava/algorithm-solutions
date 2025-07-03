@@ -27,7 +27,7 @@ class UvaTestRunner {
     }
 
     private List<Class<?>> discoverUvaSolutionClasses() throws Exception {
-        String basePackage = "com.algorithm.solutions.uva";
+        String basePackage = "com.lzw.solutions.uva";
         Path classLocation = Paths.get("target/classes", basePackage.replace('.', '/'));
 
         return Files.walk(classLocation)
