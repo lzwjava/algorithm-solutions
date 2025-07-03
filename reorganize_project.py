@@ -1,6 +1,7 @@
 import os
 import shutil
 from pathlib import Path
+import uuid
 
 def add_package_declaration(java_file, package):
     """Add package declaration to the top of a Java file if not already present."""
@@ -54,21 +55,22 @@ def reorganize_project():
                 target_java_dir.mkdir(exist_ok=True)
                 target_resource_dir.mkdir(exist_ok=True)
 
-                main_java = problem_dir / 'src' / 'Main.java'
-                if main_java.exists():
-                    target_java = target_java_dir / 'Main.java'
-                    shutil.move(str(main_java), str(target_java))
-                    print(f'Moved {main_java} to {target_java}')
-                    add_package_declaration(target_java, f'com.algorithm.solutions.uva.p{problem}')
-                else:
-                    print(f'No Main.java found in {problem_dir}/src')
+                # Handle all *.java files in src directory
+                src_dir = problem_dir / 'src'
+                if src_dir.exists():
+                    for java_file in src_dir.glob('*.java'):
+                        target_java = target_java_dir / java_file.name
+                        shutil.move(str(java_file), str(target_java))
+                        print(f'Moved {java_file} to {target_java}')
+                        add_package_declaration(target_java, f'com.algorithm.solutions.uva.p{problem}')
+                    else:
+                        print(f'No Java files found in {src_dir}')
 
                 for input_file in problem_dir.glob('*.in'):
                     target_input = target_resource_dir / input_file.name
                     shutil.move(str(input_file), str(target_input))
                     print(f'Moved {input_file} to {target_input}')
 
-                src_dir = problem_dir / 'src'
                 if src_dir.exists() and not any(src_dir.iterdir()):
                     src_dir.rmdir()
                     print(f'Removed empty directory {src_dir}')
