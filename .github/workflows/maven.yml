@@ -14,7 +14,7 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: dev
 
     steps:
       # Checkout the repository
