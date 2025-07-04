@@ -119,13 +119,10 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.5.0</version>
                 <configuration>
-                    <executable>java</executable>
+                    <executable>bash</executable>
                     <arguments>
-                        <argument>-cp</argument>
-                        <argument>${project.build.directory}/classes</argument>
-                        <argument>com.lzw.solutions.uva.${problem}.Main</argument>
-                        <argument>&lt;</argument>
-                        <argument>src/main/resources/uva/${problem}/1.in</argument>
+                        <argument>-c</argument>
+                        <argument>java -cp ${project.build.directory}/classes com.lzw.solutions.uva.${problem}.Main &lt; src/main/resources/uva/${problem}/1.in</argument>
                     </arguments>
                 </configuration>
             </plugin>
