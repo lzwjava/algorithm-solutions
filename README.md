@@ -1,5 +1,9 @@
 # Algorithm Problem Solutions
 
+[![Compile](https://github.com/lzwjava/algorithm-solutions/actions/workflows/maven.yml/badge.svg)](https://github.com/lzwjava/algorithm-solutions/actions/workflows/maven.yml)
+
+
+
 Problem solutions of some algorithm problems from online judge platforms.
 
 | platform | problems solved | 
