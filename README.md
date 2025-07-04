@@ -59,6 +59,14 @@ Each subdirectory within the `nowcoder` directory is named after a problem and i
 - `Test.java`: Test class file for the problem.
 - `TreeNode.java`: (If applicable) TreeNode class file for problems involving tree structures.
 
+
+### Run Scripts
+
+```bash
+mvn exec:exec -Dproblem=p138 -X
+python scripts/generate_run_xml.py 138
+```
+
 ### UVa
 
 Solved: 568, Submissions: 1776

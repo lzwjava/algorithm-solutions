@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+        <option name="MAIN_CLASS_NAME" value="com.lzw.solutions.uva.p140.Main" />
+        <module name="algorithm-solutions" />
+        <option name="REDIRECT_INPUT" value="true" />
+        <option name="INPUT_FILE" value="$PROJECT_DIR$/src/main/resources/uva/p140/1.in" />
+        <extension name="coverage">
+            <pattern>
+                <option name="PATTERN" value="com.lzw.solutions.uva.p140.*" />
+                <option name="ENABLED" value="true" />
+            </pattern>
+        </extension>
+        <method v="2">
+            <option name="Make" enabled="true" />
+        </method>
+    </configuration>
+</component>
