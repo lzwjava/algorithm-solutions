@@ -19,3 +19,4 @@ gen
 ref*
 !ref*.cpp
 *.class
+.run
