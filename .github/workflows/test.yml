@@ -1,0 +1,31 @@
+name: Compile
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+
+    steps:
+      # Checkout the repository
+      - uses: actions/checkout@v4
+
+      # Set up JDK 21
+      - name: Set up JDK 24
+        uses: actions/setup-java@v4
+        with:
+          java-version: '24'
+          distribution: 'temurin'
+          cache: maven
+          cache-dependency-path: pom.xml
+
+      # Build with Maven
+      - name: Compile with Maven
+        run: mvn test -f pom.xml
+

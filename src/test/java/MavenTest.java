@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections; // For emptyList()
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Pattern; // Import Pattern
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DynamicTest;
@@ -26,38 +27,46 @@ import org.junit.jupiter.api.TestFactory;
 
 public class MavenTest {
 
-    // Removed the hardcoded PROBLEMS list
-
     // Define the number of threads for the ExecutorService
     private static final int MAX_THREADS = 10;
     // Define the timeout for each test
     private static final Duration TEST_TIMEOUT = Duration.ofSeconds(3);
 
+    // Regex pattern to match "p" followed by only digits
+    private static final Pattern PROBLEM_DIR_PATTERN = Pattern.compile("p\\d+");
+
     // Method to dynamically discover problem names
     private static List<String> discoverProblemNames() {
-        // The base package for UVA solutions
         String basePackagePath = "com/lzw/solutions/uva/";
         Path uvaSolutionsPath = null;
 
         try {
-            // Get the URL for the package directory within the classpath
-            // This works whether running from IDE or jar
             URL resource = Thread.currentThread().getContextClassLoader().getResource(basePackagePath);
             if (resource == null) {
                 System.err.println("Could not find resource path: " + basePackagePath);
                 return Collections.emptyList();
             }
 
-            // Convert URL to Path, handling different URL schemes (e.g., jar:file:/...)
-            // For simple file system, this is usually enough
+            // Handle JAR paths correctly. If it's in a JAR, resource.toURI() will be "jar:file:/..."
+            // We need to resolve the actual file system path if running from an unzipped structure,
+            // or return an empty list if it's purely in a JAR and cannot be listed as a directory.
+            if ("jar".equals(resource.getProtocol())) {
+                System.err.println(
+                        "Cannot discover problems dynamically from within a JAR file. Please ensure 'src/main/java' is accessible on the file system during testing.");
+                // In a real scenario, you might have a pre-defined list for JAR runs,
+                // or expect tests to be run against expanded directories.
+                return Collections.emptyList();
+            }
+
             uvaSolutionsPath = Paths.get(resource.toURI());
+
         } catch (URISyntaxException e) {
             System.err.println("Error converting resource URL to URI: " + e.getMessage());
             return Collections.emptyList();
         }
 
         if (uvaSolutionsPath == null || !Files.exists(uvaSolutionsPath)) {
-            System.err.println("UVA Solutions directory not found: " + uvaSolutionsPath);
+            System.err.println("UVA Solutions directory not found or not a directory: " + uvaSolutionsPath);
             return Collections.emptyList();
         }
 
@@ -66,8 +75,9 @@ public class MavenTest {
         File[] problemDirs = uvaDir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File current, String name) {
-                // Ensure it's a directory and starts with 'p' (e.g., p100, p140)
-                return new File(current, name).isDirectory() && name.startsWith("p");
+                // Ensure it's a directory AND matches the "p" + digits pattern
+                return new File(current, name).isDirectory()
+                        && PROBLEM_DIR_PATTERN.matcher(name).matches();
             }
         });
 
