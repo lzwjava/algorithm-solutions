@@ -28,7 +28,7 @@ jobs:
       - name: Verify JAVA_HOME
         run: |
           echo "JAVA_HOME is set to: $JAVA_HOME"
-          
+
       # Run Maven tests
       - name: Run Maven Tests
         # This command will execute your project's tests.
