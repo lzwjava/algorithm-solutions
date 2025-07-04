@@ -16,7 +16,7 @@ jobs:
       # Checkout the repository
       - uses: actions/checkout@v4
 
-      # Set up JDK 21
+      # Set up JDK 24
       - name: Set up JDK 24
         uses: actions/setup-java@v4
         with:
@@ -25,7 +25,11 @@ jobs:
           cache: maven
           cache-dependency-path: pom.xml
 
-      # Build with Maven
-      - name: Compile with Maven
-        run: mvn test -f pom.xml
+      # Verify JAVA_HOME is set
+      - name: Verify JAVA_HOME
+        run: echo "JAVA_HOME is set to: $JAVA_HOME"
 
+      # Run Maven tests
+      - name: Run Maven Tests
+        # This command will execute your project's tests.
+        run: mvn test -f pom.xml
