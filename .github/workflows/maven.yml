@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  compile:
     runs-on: ubuntu-latest
     environment: dev
 
