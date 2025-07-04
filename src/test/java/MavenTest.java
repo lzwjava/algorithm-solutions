@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
-public class MavenTestRunner {
+public class MavenTest {
 
     private static final List<String> PROBLEMS =
             Arrays.asList("p138", "p140"); // Add more problems here as needed: "p141", "p152"
