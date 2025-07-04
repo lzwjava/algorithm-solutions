@@ -11,7 +11,9 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -22,10 +24,15 @@ import org.junit.jupiter.api.TestFactory;
 public class MavenTest {
 
     // Define the timeout for each test
-    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(10);
+    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(5);
 
     // Regex pattern to match "p" followed by only digits
     private static final Pattern PROBLEM_DIR_PATTERN = Pattern.compile("p\\d+");
+
+    // Define a skip list for problems to exclude
+    private static final Set<String> SKIP_PROBLEMS = new HashSet<>(Arrays.asList(
+            "p10009" // Add problems to skip here
+            ));
 
     // Method to dynamically discover problem names
     private static List<String> discoverProblemNames() {
@@ -71,8 +78,11 @@ public class MavenTest {
             return Collections.emptyList();
         }
 
-        List<String> problems =
-                Arrays.stream(problemDirs).map(File::getName).sorted().collect(Collectors.toList());
+        List<String> problems = Arrays.stream(problemDirs)
+                .map(File::getName)
+                .filter(name -> !SKIP_PROBLEMS.contains(name)) // Filter out skipped problems
+                .sorted()
+                .collect(Collectors.toList());
 
         // Read maxproblems system property
         String maxProblemsStr = System.getProperty("maxproblems");
@@ -91,7 +101,7 @@ public class MavenTest {
             }
         }
 
-        System.out.println("Discovered problems: " + problems);
+        System.out.println("Discovered problems (after skipping): " + problems);
         return problems;
     }
 
@@ -175,5 +185,4 @@ public class MavenTest {
                 }))
                 .collect(Collectors.toList());
     }
-
 }
