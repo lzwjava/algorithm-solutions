@@ -176,24 +176,4 @@ public class MavenTest {
                 .collect(Collectors.toList());
     }
 
-    private static class TestResult {
-        String problemName;
-        boolean success;
-        String output;
-        String errorOutput;
-        Throwable exception;
-
-        public TestResult(String problemName, boolean success, String output, String errorOutput, Throwable exception) {
-            this.problemName = problemName;
-            this.success = success;
-            this.output = output;
-            this.errorOutput = errorOutput;
-            this.exception = exception;
-        }
-
-        @Override
-        public String toString() {
-            return problemName;
-        }
-    }
 }
