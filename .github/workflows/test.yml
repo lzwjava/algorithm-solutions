@@ -19,7 +19,9 @@ jobs:
     steps:
       # Checkout the repository
       - uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 5
+          
       # Set up JDK 24
       - name: Set up JDK 24
         uses: actions/setup-java@v4
