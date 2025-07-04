@@ -123,7 +123,7 @@
                     <executable>bash</executable>
                     <arguments>
                         <argument>-c</argument>
-                        <argument>java -cp ${project.build.directory}/classes com.lzw.solutions.uva.${problem}.Main &lt; src/main/resources/uva/${problem}/1.in</argument>
+                        <argument>/opt/homebrew/Cellar/openjdk/24.0.1/bin/java -cp ${project.build.directory}/classes com.lzw.solutions.uva.${problem}.Main &lt;src/main/resources/uva/${problem}/1.in</argument>
                     </arguments>
                 </configuration>
             </plugin>
