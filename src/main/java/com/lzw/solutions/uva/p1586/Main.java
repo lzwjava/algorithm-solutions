@@ -1,6 +1,5 @@
 package com.lzw.solutions.uva.p1586;
 
-import java.io.FileInputStream;
 import java.util.Scanner;
 
 public class Main {
@@ -18,12 +17,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        FileInputStream inStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
-        if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            System.setIn(inStream);
-        }
+
         double weight[] = new double[] {12.01, 1.008, 16.00, 14.01};
 
         Scanner sc = new Scanner(System.in);
@@ -70,9 +64,5 @@ public class Main {
             System.out.println(String.format("%.3f", mass));
         }
         sc.close();
-
-        if (isLocal) {
-            inStream.close();
-        }
     }
 }

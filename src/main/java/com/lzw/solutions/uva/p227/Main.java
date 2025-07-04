@@ -1,17 +1,11 @@
 package com.lzw.solutions.uva.p227;
 
-import java.io.FileInputStream;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        FileInputStream inStream = null;
-        boolean isLocal = System.getProperty("os.name").equals("Mac OS X");
-        if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            System.setIn(inStream);
-        }
+
         Scanner sc = new Scanner(System.in);
         int n = 1;
         for (; ; ) {
@@ -96,9 +90,5 @@ public class Main {
             n++;
         }
         sc.close();
-
-        if (isLocal) {
-            inStream.close();
-        }
     }
 }

@@ -218,15 +218,6 @@ public class Main1 {
     }
 
     public static void main(String[] args) throws Exception {
-        FileInputStream inStream = null;
-        PrintStream outStream = null;
-        boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
-        if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            outStream = new PrintStream("1.out");
-            System.setIn(inStream);
-            System.setOut(outStream);
-        }
 
         Main1 main = new Main1();
         main.solve();
