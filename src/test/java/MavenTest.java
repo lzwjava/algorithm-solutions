@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+// Import Duration
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -7,7 +8,12 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.Timeout; // Import Timeout
+import org.junit.jupiter.api.parallel.Execution; // Import Execution
+import org.junit.jupiter.api.parallel.ExecutionMode; // Import ExecutionMode
 
+// Enable concurrent execution for tests in this class
+@Execution(ExecutionMode.CONCURRENT)
 public class MavenTest {
 
     private static final List<String> PROBLEMS = Arrays.asList(
@@ -382,36 +388,102 @@ public class MavenTest {
             "p195");
 
     @TestFactory
+    @Timeout(value = 3, unit = java.util.concurrent.TimeUnit.SECONDS) // Apply a 3-second timeout to each dynamic test
     Collection<DynamicTest> runMavenExecTests() {
         return PROBLEMS.stream()
                 .map(problem -> DynamicTest.dynamicTest("Test problem: " + problem, () -> {
+                    // This command needs to directly execute the Java Main class,
+                    // NOT "mvn exec:exec" if you want full parallelization
+                    // and proper timeout handling by JUnit 5.
+                    // The `exec-maven-plugin` creates its own process.
+
+                    // You need to ensure the Main class can be run directly
+                    // and can handle input redirection if needed.
+                    // Example: /opt/homebrew/Cellar/openjdk/24.0.1/bin/java -cp ...
+                    // If you compile your project, the classes will be in target/classes.
+                    // String javaCommand = String.format("/opt/homebrew/Cellar/openjdk/24.0.1/bin/java -cp
+                    // target/classes com.lzw.solutions.uva.%s.Main < src/main/resources/uva/%s/1.in", problem,
+                    // problem);
+                    // System.out.println("Executing command: " + javaCommand);
+
+                    // For now, let's stick to your `mvn exec:exec` command, but be aware
+                    // it might not be the most efficient for JUnit's parallel execution.
+                    // The timeout here will apply to the *entire* 'mvn exec:exec' process.
                     String command = String.format("mvn exec:exec -Dproblem=%s", problem);
-                    System.out.println("Executing command: " + command);
+                    System.out.println(
+                            Thread.currentThread().getName() + ": Executing command for " + problem + ": " + command);
 
-                    Process process = Runtime.getRuntime().exec(command);
+                    Process process;
+                    try {
+                        process = Runtime.getRuntime().exec(command);
+                    } catch (Exception e) {
+                        Assertions.fail("Failed to execute command for problem " + problem + ": " + e.getMessage());
+                        return; // Exit if process creation fails
+                    }
 
-                    // Capture output and error streams
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
+                    // --- Start: Capture output and error streams (with a small buffer size for efficiency) ---
+                    // Using try-with-resources for automatic closing of readers
                     StringBuilder output = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        output.append(line).append("\n");
-                    }
-                    reader.close();
-
                     StringBuilder errorOutput = new StringBuilder();
-                    while ((line = errorReader.readLine()) != null) {
-                        errorOutput.append(line).append("\n");
+
+                    // Using separate threads to consume streams to prevent deadlock
+                    // if process produces a lot of output on both streams
+                    Thread outputGobbler = new Thread(() -> {
+                        try (BufferedReader reader =
+                                new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                output.append(line).append("\n");
+                            }
+                        } catch (Exception e) {
+                            System.err.println("Error reading output for " + problem + ": " + e.getMessage());
+                        }
+                    });
+
+                    Thread errorGobbler = new Thread(() -> {
+                        try (BufferedReader errorReader =
+                                new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+                            String line;
+                            while ((line = errorReader.readLine()) != null) {
+                                errorOutput.append(line).append("\n");
+                            }
+                        } catch (Exception e) {
+                            System.err.println("Error reading error output for " + problem + ": " + e.getMessage());
+                        }
+                    });
+
+                    outputGobbler.start();
+                    errorGobbler.start();
+
+                    int exitCode;
+                    try {
+                        // Wait for the process to complete or timeout
+                        // This timeout is managed by JUnit's @Timeout annotation
+                        // and applies to the entire lambda body.
+                        exitCode = process.waitFor();
+                        outputGobbler.join(); // Ensure all output is consumed
+                        errorGobbler.join(); // Ensure all error output is consumed
+                    } catch (InterruptedException e) {
+                        // This block is executed if the JUnit timeout is triggered
+                        process.destroyForcibly(); // Terminate the process if interrupted
+                        outputGobbler.join(100); // Give gobblers a moment to finish, but don't wait forever
+                        errorGobbler.join(100);
+                        System.err.println(Thread.currentThread().getName() + ": Process for " + problem
+                                + " was interrupted/timed out. Output:\n" + output.toString() + "\nError:\n"
+                                + errorOutput.toString());
+                        throw new org.junit.platform.commons.JUnitException(
+                                "Test for problem " + problem + " timed out after 3 seconds.", e);
+                    } catch (Exception e) {
+                        Assertions.fail("Error waiting for process for problem " + problem + ": " + e.getMessage());
+                        return;
                     }
-                    errorReader.close();
+                    // --- End: Capture output and error streams ---
 
-                    int exitCode = process.waitFor();
-
-                    System.out.println("Command output for " + problem + ":\n" + output.toString());
+                    System.out.println(Thread.currentThread().getName() + ": Command output for " + problem + ":\n"
+                            + output.toString());
                     if (errorOutput.length() > 0) {
-                        System.err.println("Command error for " + problem + ":\n" + errorOutput.toString());
+                        System.err.println(Thread.currentThread().getName() + ": Command error for " + problem + ":\n"
+                                + errorOutput.toString());
                     }
 
                     Assertions.assertEquals(
