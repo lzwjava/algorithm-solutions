@@ -12,11 +12,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -26,8 +21,6 @@ import org.junit.jupiter.api.TestFactory;
 
 public class MavenTest {
 
-    // Define the number of threads for the ExecutorService
-    private static final int MAX_THREADS = 10;
     // Define the timeout for each test
     private static final Duration TEST_TIMEOUT = Duration.ofSeconds(30);
 
@@ -107,143 +100,80 @@ public class MavenTest {
 
     @TestFactory
     Collection<DynamicTest> runMavenExecTests() {
-        final ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
+        return PROBLEMS.stream()
+                .map(problem -> DynamicTest.dynamicTest("Test problem: " + problem, () -> {
+                    String command = String.format("mvn exec:exec -Dproblem=%s", problem);
+                    System.out.println("Executing command for " + problem + ": " + command);
 
-        List<Future<TestResult>> futures = PROBLEMS.stream()
-                .map(problem -> {
-                    Callable<TestResult> task = () -> {
-                        Thread.currentThread().setName("Problem-Runner-" + problem);
-                        String command = String.format("mvn exec:exec -Dproblem=%s", problem);
-                        System.out.println(Thread.currentThread().getName() + ": Executing command for " + problem
-                                + ": " + command);
-
-                        Process process;
-                        try {
-                            process = Runtime.getRuntime().exec(command);
-                        } catch (Exception e) {
-                            return new TestResult(
-                                    problem, false, "", "Failed to execute command: " + e.getMessage(), e);
-                        }
-
-                        StringBuilder output = new StringBuilder();
-                        StringBuilder errorOutput = new StringBuilder();
-
-                        Thread outputGobbler = new Thread(() -> {
-                            try (BufferedReader reader =
-                                    new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                                String line;
-                                while ((line = reader.readLine()) != null) {
-                                    output.append(line).append("\n");
-                                }
-                            } catch (Exception e) {
-                                System.err.println(Thread.currentThread().getName() + ": Error reading output for "
-                                        + problem + ": " + e.getMessage());
-                            }
-                        });
-
-                        Thread errorGobbler = new Thread(() -> {
-                            try (BufferedReader errorReader =
-                                    new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                                String line;
-                                while ((line = errorReader.readLine()) != null) {
-                                    errorOutput.append(line).append("\n");
-                                }
-                            } catch (Exception e) {
-                                System.err.println(Thread.currentThread().getName()
-                                        + ": Error reading error output for " + problem + ": " + e.getMessage());
-                            }
-                        });
-
-                        outputGobbler.start();
-                        errorGobbler.start();
-
-                        boolean completed;
-                        try {
-                            completed = process.waitFor(TEST_TIMEOUT.toSeconds(), TimeUnit.SECONDS);
-                            outputGobbler.join(100);
-                            errorGobbler.join(100);
-                        } catch (InterruptedException e) {
-                            process.destroyForcibly();
-                            outputGobbler.join(100);
-                            errorGobbler.join(100);
-                            Thread.currentThread().interrupt();
-                            return new TestResult(problem, false, output.toString(), "Test interrupted", e);
-                        }
-
-                        if (!completed) {
-                            process.destroy();
-                            if (process.isAlive()) {
-                                process.destroyForcibly();
-                            }
-                            outputGobbler.join(100);
-                            errorGobbler.join(100);
-                            return new TestResult(
-                                    problem,
-                                    false,
-                                    output.toString(),
-                                    "Process timed out after " + TEST_TIMEOUT.toSeconds() + " seconds",
-                                    null);
-                        }
-
-                        int exitCode;
-                        try {
-                            exitCode = process.exitValue();
-                        } catch (IllegalThreadStateException e) {
-                            process.destroyForcibly();
-                            return new TestResult(
-                                    problem, false, output.toString(), "Process did not terminate properly", e);
-                        }
-
-                        boolean success = (exitCode == 0);
-                        return new TestResult(problem, success, output.toString(), errorOutput.toString(), null);
-                    };
-                    return executor.submit(task);
-                })
-                .collect(Collectors.toList());
-
-        Collection<DynamicTest> dynamicTests = futures.stream()
-                .map(future -> DynamicTest.dynamicTest("Test problem: " + future.toString(), () -> {
-                    TestResult result = null;
+                    Process process;
                     try {
-                        result = future.get();
-
-                        System.out.println("Test " + result.problemName + " completed. Output:\n" + result.output);
-                        if (!result.errorOutput.isEmpty()) {
-                            System.err.println("Test " + result.problemName + " error output:\n" + result.errorOutput);
-                        }
-
-                        Assertions.assertTrue(
-                                result.success,
-                                "Maven command failed for problem: " + result.problemName + "\nError output:\n"
-                                        + result.errorOutput);
-
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        Assertions.fail(
-                                "Test for problem " + (result != null ? result.problemName : "unknown")
-                                        + " was interrupted.",
-                                e);
-                    } catch (ExecutionException e) {
-                        Throwable cause = e.getCause();
-                        Assertions.fail(
-                                "An error occurred during execution for problem "
-                                        + (result != null ? result.problemName : "unknown") + ": " + cause.getMessage(),
-                                cause);
+                        process = Runtime.getRuntime().exec(command);
+                    } catch (Exception e) {
+                        Assertions.fail("Failed to execute command for " + problem + ": " + e.getMessage(), e);
+                        return;
                     }
+
+                    StringBuilder output = new StringBuilder();
+                    StringBuilder errorOutput = new StringBuilder();
+
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            output.append(line).append("\n");
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Error reading output for " + problem + ": " + e.getMessage());
+                    }
+
+                    try (BufferedReader errorReader =
+                            new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+                        String line;
+                        while ((line = errorReader.readLine()) != null) {
+                            errorOutput.append(line).append("\n");
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Error reading error output for " + problem + ": " + e.getMessage());
+                    }
+
+                    boolean completed;
+                    try {
+                        completed = process.waitFor(TEST_TIMEOUT.toSeconds(), TimeUnit.SECONDS);
+                    } catch (InterruptedException e) {
+                        process.destroyForcibly();
+                        Thread.currentThread().interrupt();
+                        Assertions.fail("Test for problem " + problem + " was interrupted.", e);
+                        return;
+                    }
+
+                    if (!completed) {
+                        process.destroy();
+                        if (process.isAlive()) {
+                            process.destroyForcibly();
+                        }
+                        Assertions.fail(
+                                "Process timed out for " + problem + " after " + TEST_TIMEOUT.toSeconds() + " seconds");
+                        return;
+                    }
+
+                    int exitCode;
+                    try {
+                        exitCode = process.exitValue();
+                    } catch (IllegalThreadStateException e) {
+                        process.destroyForcibly();
+                        Assertions.fail("Process did not terminate properly for " + problem, e);
+                        return;
+                    }
+
+                    System.out.println("Test " + problem + " completed. Output:\n" + output);
+                    if (!errorOutput.isEmpty()) {
+                        System.err.println("Test " + problem + " error output:\n" + errorOutput);
+                    }
+
+                    Assertions.assertTrue(
+                            exitCode == 0,
+                            "Maven command failed for problem: " + problem + "\nError output:\n" + errorOutput);
                 }))
                 .collect(Collectors.toList());
-
-        executor.shutdown();
-        try {
-            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                executor.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            executor.shutdownNow();
-            Thread.currentThread().interrupt();
-        }
-
-        return dynamicTests;
     }
 
     private static class TestResult {
