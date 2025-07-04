@@ -63,10 +63,5 @@ public class Main {
         } catch (IOException e) {
 
         }
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

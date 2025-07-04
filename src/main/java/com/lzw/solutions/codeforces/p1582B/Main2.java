@@ -85,10 +85,5 @@ public class Main2 {
         Main2 main = new Main2();
         main.solve();
         main.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

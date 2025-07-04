@@ -1,10 +1,8 @@
 package com.lzw.solutions.uva.p10077;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -155,23 +153,9 @@ public class Main1 {
     }
 
     public static void Main1(String[] args) throws Exception {
-        FileInputStream inStream = null;
-        PrintStream outStream = null;
-        boolean isLocal = System.getenv("LOCAL_JUDGE") != null;
-        if (isLocal) {
-            inStream = new FileInputStream("1.in");
-            // outStream = new PrintStream("1.out");
-            System.setIn(inStream);
-            // System.setOut(outStream);
-        }
 
         Main1 main1 = new Main1();
         main1.solve();
         main1.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

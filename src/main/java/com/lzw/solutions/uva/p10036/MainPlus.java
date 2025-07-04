@@ -86,10 +86,5 @@ public class MainPlus {
         MainPlus main = new MainPlus();
         main.solve();
         main.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

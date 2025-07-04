@@ -67,9 +67,5 @@ public class Main {
             // System.setOut(outStream);
         }
         new Main().solve();
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

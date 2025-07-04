@@ -110,10 +110,5 @@ public class Main {
         main.solve();
         // main.test();
         main.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

@@ -171,10 +171,5 @@ public class Main {
         }
 
         work();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

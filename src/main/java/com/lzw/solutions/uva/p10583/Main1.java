@@ -104,10 +104,5 @@ public class Main1 {
         Main main = new Main();
         main.solve();
         main.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

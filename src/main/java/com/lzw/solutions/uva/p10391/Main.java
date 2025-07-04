@@ -68,10 +68,5 @@ public class Main {
         // System.out.println(new Main().binarySearch(list, "b"));
 
         new Main().work();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

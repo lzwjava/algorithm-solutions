@@ -77,10 +77,5 @@ public class Main {
         }
 
         new Main().solve();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

@@ -67,10 +67,5 @@ public class Main2 {
         }
 
         new Main().work();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

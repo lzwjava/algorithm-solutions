@@ -45,10 +45,5 @@ public class Gen {
         Gen main = new Gen();
         main.solve();
         main.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

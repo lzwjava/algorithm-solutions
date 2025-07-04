@@ -114,10 +114,5 @@ public class Main1 {
         }
 
         new Main().solve();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

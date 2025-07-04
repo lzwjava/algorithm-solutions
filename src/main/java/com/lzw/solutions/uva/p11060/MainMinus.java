@@ -118,10 +118,5 @@ public class MainMinus {
         MainMinus main = new MainMinus();
         main.solve();
         main.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

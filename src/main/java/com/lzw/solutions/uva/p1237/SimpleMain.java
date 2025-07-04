@@ -147,10 +147,5 @@ public class SimpleMain {
         SimpleMain main = new SimpleMain();
         main.solve();
         main.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

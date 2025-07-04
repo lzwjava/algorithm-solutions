@@ -70,10 +70,5 @@ public class Main1 {
         }
 
         new Main().work();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }

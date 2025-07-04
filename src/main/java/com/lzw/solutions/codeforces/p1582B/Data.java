@@ -49,10 +49,5 @@ public class Data {
         Data main = new Data();
         main.solve();
         main.close();
-
-        if (isLocal) {
-            inStream.close();
-            // outStream.close();
-        }
     }
 }
