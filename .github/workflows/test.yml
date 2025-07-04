@@ -25,10 +25,10 @@ jobs:
           cache: maven
           cache-dependency-path: pom.xml
 
-      # Verify JAVA_HOME is set
       - name: Verify JAVA_HOME
-        run: echo "JAVA_HOME is set to: $JAVA_HOME"
-
+        run: |
+          echo "JAVA_HOME is set to: $JAVA_HOME"
+          
       # Run Maven tests
       - name: Run Maven Tests
         # This command will execute your project's tests.
