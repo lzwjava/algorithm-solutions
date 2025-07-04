@@ -1,22 +1,25 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-// Import Duration
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.junit.jupiter.api.Timeout; // Import Timeout
-import org.junit.jupiter.api.parallel.Execution; // Import Execution
-import org.junit.jupiter.api.parallel.ExecutionMode; // Import ExecutionMode
 
-// Enable concurrent execution for tests in this class
-@Execution(ExecutionMode.CONCURRENT)
 public class MavenTest {
 
     private static final List<String> PROBLEMS = Arrays.asList(
+            // ... (Your existing long list of problems) ...
             "p100",
             "p102",
             "p104",
@@ -385,113 +388,182 @@ public class MavenTest {
             "p1673",
             "p190",
             "p191",
-            "p195");
+            "p195"
+            // ... (End of your existing list) ...
+            );
+
+    // Define the number of threads for the ExecutorService
+    private static final int MAX_THREADS = 10;
+    // Define the timeout for each test
+    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(3);
 
     @TestFactory
-    @Timeout(value = 3, unit = java.util.concurrent.TimeUnit.SECONDS) // Apply a 3-second timeout to each dynamic test
     Collection<DynamicTest> runMavenExecTests() {
-        return PROBLEMS.stream()
-                .map(problem -> DynamicTest.dynamicTest("Test problem: " + problem, () -> {
-                    // This command needs to directly execute the Java Main class,
-                    // NOT "mvn exec:exec" if you want full parallelization
-                    // and proper timeout handling by JUnit 5.
-                    // The `exec-maven-plugin` creates its own process.
+        // Create a fixed-size thread pool
+        final ExecutorService executor = Executors.newFixedThreadPool(MAX_THREADS);
 
-                    // You need to ensure the Main class can be run directly
-                    // and can handle input redirection if needed.
-                    // Example: /opt/homebrew/Cellar/openjdk/24.0.1/bin/java -cp ...
-                    // If you compile your project, the classes will be in target/classes.
-                    // String javaCommand = String.format("/opt/homebrew/Cellar/openjdk/24.0.1/bin/java -cp
-                    // target/classes com.lzw.solutions.uva.%s.Main < src/main/resources/uva/%s/1.in", problem,
-                    // problem);
-                    // System.out.println("Executing command: " + javaCommand);
+        // A list to hold the Futures of each submitted task
+        List<Future<TestResult>> futures = PROBLEMS.stream()
+                .map(problem -> {
+                    // Create a Callable for each problem
+                    Callable<TestResult> task = () -> {
+                        Thread.currentThread().setName("Problem-Runner-" + problem); // Name thread for better logging
+                        String command = String.format("mvn exec:exec -Dproblem=%s", problem);
+                        System.out.println(Thread.currentThread().getName() + ": Executing command for " + problem
+                                + ": " + command);
 
-                    // For now, let's stick to your `mvn exec:exec` command, but be aware
-                    // it might not be the most efficient for JUnit's parallel execution.
-                    // The timeout here will apply to the *entire* 'mvn exec:exec' process.
-                    String command = String.format("mvn exec:exec -Dproblem=%s", problem);
-                    System.out.println(
-                            Thread.currentThread().getName() + ": Executing command for " + problem + ": " + command);
-
-                    Process process;
-                    try {
-                        process = Runtime.getRuntime().exec(command);
-                    } catch (Exception e) {
-                        Assertions.fail("Failed to execute command for problem " + problem + ": " + e.getMessage());
-                        return; // Exit if process creation fails
-                    }
-
-                    // --- Start: Capture output and error streams (with a small buffer size for efficiency) ---
-                    // Using try-with-resources for automatic closing of readers
-                    StringBuilder output = new StringBuilder();
-                    StringBuilder errorOutput = new StringBuilder();
-
-                    // Using separate threads to consume streams to prevent deadlock
-                    // if process produces a lot of output on both streams
-                    Thread outputGobbler = new Thread(() -> {
-                        try (BufferedReader reader =
-                                new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                            String line;
-                            while ((line = reader.readLine()) != null) {
-                                output.append(line).append("\n");
-                            }
+                        Process process;
+                        try {
+                            process = Runtime.getRuntime().exec(command);
                         } catch (Exception e) {
-                            System.err.println("Error reading output for " + problem + ": " + e.getMessage());
+                            // If process execution itself fails
+                            return new TestResult(
+                                    problem, false, "", "Failed to execute command: " + e.getMessage(), e);
                         }
-                    });
 
-                    Thread errorGobbler = new Thread(() -> {
-                        try (BufferedReader errorReader =
-                                new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                            String line;
-                            while ((line = errorReader.readLine()) != null) {
-                                errorOutput.append(line).append("\n");
+                        StringBuilder output = new StringBuilder();
+                        StringBuilder errorOutput = new StringBuilder();
+
+                        // Use separate threads to consume streams to prevent deadlock
+                        Thread outputGobbler = new Thread(() -> {
+                            try (BufferedReader reader =
+                                    new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    output.append(line).append("\n");
+                                }
+                            } catch (Exception e) {
+                                System.err.println(Thread.currentThread().getName() + ": Error reading output for "
+                                        + problem + ": " + e.getMessage());
                             }
+                        });
+
+                        Thread errorGobbler = new Thread(() -> {
+                            try (BufferedReader errorReader =
+                                    new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+                                String line;
+                                while ((line = errorReader.readLine()) != null) {
+                                    errorOutput.append(line).append("\n");
+                                }
+                            } catch (Exception e) {
+                                System.err.println(Thread.currentThread().getName()
+                                        + ": Error reading error output for " + problem + ": " + e.getMessage());
+                            }
+                        });
+
+                        outputGobbler.start();
+                        errorGobbler.start();
+
+                        int exitCode;
+                        try {
+                            exitCode = process.waitFor();
+                            outputGobbler.join(); // Ensure all output is consumed
+                            errorGobbler.join(); // Ensure all error output is consumed
+                        } catch (InterruptedException e) {
+                            process.destroyForcibly(); // Ensure subprocess is terminated if interrupted
+                            outputGobbler.join(100); // Give gobblers a moment, but don't hang
+                            errorGobbler.join(100);
+                            Thread.currentThread().interrupt(); // Restore interrupted status
+                            return new TestResult(
+                                    problem, false, output.toString(), "Test interrupted (likely timed out)", e);
                         } catch (Exception e) {
-                            System.err.println("Error reading error output for " + problem + ": " + e.getMessage());
+                            return new TestResult(
+                                    problem,
+                                    false,
+                                    output.toString(),
+                                    "Error waiting for process: " + e.getMessage(),
+                                    e);
                         }
-                    });
 
-                    outputGobbler.start();
-                    errorGobbler.start();
+                        boolean success = (exitCode == 0);
+                        return new TestResult(problem, success, output.toString(), errorOutput.toString(), null);
+                    };
+                    return executor.submit(task); // Submit the task to the executor
+                })
+                .collect(Collectors.toList());
 
-                    int exitCode;
+        // Create DynamicTests to check the results of the submitted tasks
+        Collection<DynamicTest> dynamicTests = futures.stream()
+                .map(future -> DynamicTest.dynamicTest("Test problem: " + future.toString(), () -> {
+                    TestResult result = null;
                     try {
-                        // Wait for the process to complete or timeout
-                        // This timeout is managed by JUnit's @Timeout annotation
-                        // and applies to the entire lambda body.
-                        exitCode = process.waitFor();
-                        outputGobbler.join(); // Ensure all output is consumed
-                        errorGobbler.join(); // Ensure all error output is consumed
+                        // Wait for each task to complete with the defined timeout
+                        result = future.get(TEST_TIMEOUT.toSeconds(), TimeUnit.SECONDS);
+
+                        System.out.println("Test " + result.problemName + " completed. Output:\n" + result.output);
+                        if (!result.errorOutput.isEmpty()) {
+                            System.err.println("Test " + result.problemName + " error output:\n" + result.errorOutput);
+                        }
+
+                        Assertions.assertTrue(
+                                result.success,
+                                "Maven command failed for problem: " + result.problemName + "\nError output:\n"
+                                        + result.errorOutput);
+
+                    } catch (TimeoutException e) {
+                        // This handles the case where the Callable itself exceeds the timeout
+                        future.cancel(true); // Attempt to interrupt the running task
+                        Assertions.fail(
+                                "Test for problem " + (result != null ? result.problemName : "unknown")
+                                        + " timed out after " + TEST_TIMEOUT.toSeconds() + " seconds.",
+                                e);
                     } catch (InterruptedException e) {
-                        // This block is executed if the JUnit timeout is triggered
-                        process.destroyForcibly(); // Terminate the process if interrupted
-                        outputGobbler.join(100); // Give gobblers a moment to finish, but don't wait forever
-                        errorGobbler.join(100);
-                        System.err.println(Thread.currentThread().getName() + ": Process for " + problem
-                                + " was interrupted/timed out. Output:\n" + output.toString() + "\nError:\n"
-                                + errorOutput.toString());
-                        throw new org.junit.platform.commons.JUnitException(
-                                "Test for problem " + problem + " timed out after 3 seconds.", e);
-                    } catch (Exception e) {
-                        Assertions.fail("Error waiting for process for problem " + problem + ": " + e.getMessage());
-                        return;
+                        Thread.currentThread().interrupt(); // Restore interrupt status
+                        Assertions.fail(
+                                "Test for problem " + (result != null ? result.problemName : "unknown")
+                                        + " was interrupted.",
+                                e);
+                    } catch (ExecutionException e) {
+                        // The actual exception thrown by the Callable is wrapped here
+                        Throwable cause = e.getCause();
+                        Assertions.fail(
+                                "An error occurred during execution for problem "
+                                        + (result != null ? result.problemName : "unknown") + ": " + cause.getMessage(),
+                                cause);
                     }
-                    // --- End: Capture output and error streams ---
-
-                    System.out.println(Thread.currentThread().getName() + ": Command output for " + problem + ":\n"
-                            + output.toString());
-                    if (errorOutput.length() > 0) {
-                        System.err.println(Thread.currentThread().getName() + ": Command error for " + problem + ":\n"
-                                + errorOutput.toString());
-                    }
-
-                    Assertions.assertEquals(
-                            0,
-                            exitCode,
-                            "Maven command failed for problem: " + problem + "\nError output:\n"
-                                    + errorOutput.toString());
                 }))
                 .collect(Collectors.toList());
+
+        // Crucial: Shut down the executor after all tests have been processed
+        // For a @TestFactory, this is a bit tricky as the tests are returned, not run immediately.
+        // The safest place to shut down is after collecting all dynamic tests, or in an @AfterAll method.
+        // However, @AfterAll needs the ExecutorService to be static.
+        // For simple test runs, `shutdownNow()` is often acceptable here.
+        executor.shutdown();
+        try {
+            // Wait for existing tasks to terminate
+            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                executor.shutdownNow(); // Forcefully terminate if not done in time
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt(); // Restore interrupt status
+        }
+
+        return dynamicTests;
+    }
+
+    // A simple record/class to encapsulate test results
+    private static class TestResult {
+        String problemName;
+        boolean success;
+        String output;
+        String errorOutput;
+        Throwable exception; // To store any exception from the callable
+
+        // Primary constructor
+        public TestResult(String problemName, boolean success, String output, String errorOutput, Throwable exception) {
+            this.problemName = problemName;
+            this.success = success;
+            this.output = output;
+            this.errorOutput = errorOutput;
+            this.exception = exception;
+        }
+
+        @Override
+        public String toString() {
+            // Used by DynamicTest.dynamicTest() to name the test
+            return problemName;
+        }
     }
 }
