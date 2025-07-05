@@ -16,6 +16,7 @@
         <maven.compiler.target>24</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <problem>p140</problem>
+        <codeforcesProblem>p71A</codeforcesProblem>
     </properties>
 
     <dependencies>
@@ -31,7 +32,6 @@
             <version>6.0.0-M1</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -108,7 +108,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -117,21 +116,47 @@
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.5.1</version>
-                <configuration>
-                    <executable>bash</executable>
-                    <arguments>
-                        <argument>-c</argument>
-                        <!-- Updated to use $JAVA_HOME/bin/java -->
-                        <argument>"$JAVA_HOME/bin/java" -cp ${project.build.directory}/classes com.lzw.solutions.uva.${problem}.Main &lt;src/main/resources/uva/${problem}/1.in</argument>
-                    </arguments>
-                </configuration>
+                <executions>
+                    <!-- UVA Execution -->
+                    <execution>
+                        <id>run-uva</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${java.home}/bin/java</executable>
+                            <arguments>
+                                <argument>-cp</argument>
+                                <argument>${project.build.directory}/classes</argument>
+                                <argument>com.lzw.solutions.uva.${problem}.Main</argument>
+                                <argument>&lt; src/main/resources/uva/${problem}/1.in</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <!-- Codeforces Execution -->
+                    <execution>
+                        <id>run-codeforces</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${java.home}/bin/java</executable>
+                            <arguments>
+                                <argument>-cp</argument>
+                                <argument>${project.build.directory}/classes</argument>
+                                <argument>com.lzw.solutions.codeforces.${codeforcesProblem}.Main</argument>
+                                <argument>&lt; src/main/resources/codeforces/${codeforcesProblem}/1.in</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>
