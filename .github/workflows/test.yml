@@ -38,4 +38,4 @@ jobs:
       # Run Maven tests
       - name: Run Maven Tests
         # This command will execute your project's tests.
-        run: mvn test -f pom.xml
+        run: mvn test -Dmaxproblems=100 -f pom.xml
