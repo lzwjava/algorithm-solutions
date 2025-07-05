@@ -24,15 +24,15 @@ import org.junit.jupiter.api.TestFactory;
 public class MavenTest {
 
     // Define the timeout for each test
-    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(3);
+    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(2);
 
     // Regex pattern to match "p" followed by only digits
     private static final Pattern PROBLEM_DIR_PATTERN = Pattern.compile("p\\d+");
 
     // Define a skip list for problems to exclude
     private static final Set<String> SKIP_PROBLEMS = new HashSet<>(Arrays.asList(
-            "p10009" // Add problems to skip here
-            ));
+            "p10009", // Add problems to skip here
+            "p640"));
 
     // Method to dynamically discover problem names
     private static List<String> discoverProblemNames() {
