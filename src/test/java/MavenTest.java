@@ -24,7 +24,7 @@ import org.junit.jupiter.api.TestFactory;
 public class MavenTest {
 
     // Define the timeout for each test
-    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(5);
+    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(3);
 
     // Regex pattern to match "p" followed by only digits
     private static final Pattern PROBLEM_DIR_PATTERN = Pattern.compile("p\\d+");
