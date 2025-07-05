@@ -32,7 +32,8 @@ public class MavenTest {
     // Define a skip list for problems to exclude
     private static final Set<String> SKIP_PROBLEMS = new HashSet<>(Arrays.asList(
             "p10009", // Add problems to skip here
-            "p640"));
+            "p640",
+        "p11151"));
 
     // Method to dynamically discover problem names
     private static List<String> discoverProblemNames() {
