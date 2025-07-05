@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -117,25 +116,26 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.5.1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <!-- UVA Execution -->
                     <execution>
                         <id>run-uva</id>
                         <phase>verify</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
-                            <executable>${java.home}/bin/java</executable>
-                            <arguments>
-                                <argument>-cp</argument>
-                                <argument>${project.build.directory}/classes</argument>
-                                <argument>com.lzw.solutions.uva.${problem}.Main</argument>
-                                <argument>&lt; src/main/resources/uva/${problem}/1.in</argument>
-                            </arguments>
+                            <target>
+                                <echo message="Running UVA solution for ${problem}..." />
+                                <java classname="com.lzw.solutions.uva.${problem}.Main"
+                                    classpath="${project.build.directory}/classes" fork="true" failonerror="true">
+                                    <jvmarg value="-Djava.awt.headless=true" />
+                                    <redirector input="${basedir}/src/main/resources/uva/${problem}/1.in" />
+                                </java>
+                            </target>
                         </configuration>
                     </execution>
                     <!-- Codeforces Execution -->
@@ -143,16 +143,18 @@
                         <id>run-codeforces</id>
                         <phase>verify</phase>
                         <goals>
-                            <goal>exec</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
-                            <executable>${java.home}/bin/java</executable>
-                            <arguments>
-                                <argument>-cp</argument>
-                                <argument>${project.build.directory}/classes</argument>
-                                <argument>com.lzw.solutions.codeforces.${codeforcesProblem}.Main</argument>
-                                <argument>&lt; src/main/resources/codeforces/${codeforcesProblem}/1.in</argument>
-                            </arguments>
+                            <target>
+                                <echo message="Running Codeforces solution for ${codeforcesProblem}..." />
+                                <java classname="com.lzw.solutions.codeforces.${codeforcesProblem}.Main"
+                                    classpath="${project.build.directory}/classes" fork="true" failonerror="true">
+                                    <jvmarg value="-Djava.awt.headless=true" />
+                                    <redirector
+                                        input="${basedir}/src/main/resources/codeforces/${codeforcesProblem}/1.in" />
+                                </java>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
