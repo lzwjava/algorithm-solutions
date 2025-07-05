@@ -112,7 +112,7 @@ public class MavenTest {
     Collection<DynamicTest> runMavenExecTests() {
         return PROBLEMS.stream()
                 .map(problem -> DynamicTest.dynamicTest("Test problem: " + problem, () -> {
-                    String command = String.format("mvn exec:exec -Dproblem=%s", problem);
+                    String command = String.format("mvn antrun:run@run-uva -Dproblem=%s", problem);
                     System.out.println("Executing command for " + problem + ": " + command);
 
                     Process process;
