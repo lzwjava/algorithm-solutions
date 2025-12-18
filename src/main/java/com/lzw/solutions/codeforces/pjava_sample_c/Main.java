@@ -7,10 +7,10 @@ import java.io.PrintWriter;
 
 public class Main {
 
-    BufferedReader in;
-    PrintWriter out;
+    private BufferedReader in;
+    private PrintWriter out;
 
-    Main() {
+    public Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
@@ -21,12 +21,12 @@ public class Main {
         m.close();
     }
 
-    void close() {
+    private void close() {
         out.flush();
         out.close();
     }
 
-    void solve() throws IOException {
+    private void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t > 0) {
             t--;
