@@ -21,6 +21,13 @@ def main():
     except:
         pass  # Ignore if dedent fails
 
+    # Remove package declaration if present
+    lines = code.splitlines()
+    if lines and lines[0].strip().startswith('package '):
+        lines.pop(0)
+        code = '\n'.join(lines) + '\n'
+        print('Removed package declaration')
+
     # Check if it's Java code
     if 'public class' not in code:
         print('Not Java code')
