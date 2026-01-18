@@ -1,4 +1,4 @@
-package com.lzw.solutions.codeforces.p2190B;
+package com.lzw.solutions.codeforces.p2190B1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
