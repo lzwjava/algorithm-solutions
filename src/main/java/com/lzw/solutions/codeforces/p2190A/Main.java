@@ -19,7 +19,13 @@ public class Main {
     }
 
     void solve() throws IOException {
-        
+        int t = Integer.parseInt(in.readLine());
+        while (t-->0){
+            int n = Integer.parseInt(in.readLine());
+            String s = in.readLine();
+            assert (s.length() == n);
+            System.out.println(s);
+        }
     }
 
     void close() throws IOException {
