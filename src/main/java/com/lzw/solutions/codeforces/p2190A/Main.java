@@ -19,7 +19,7 @@ public class Main {
     }
 
     void solve() throws IOException {
-
+        
     }
 
     void close() throws IOException {
