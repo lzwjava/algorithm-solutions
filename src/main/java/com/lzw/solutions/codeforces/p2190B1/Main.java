@@ -13,6 +13,10 @@ public class Main {
     // (())
     // ((()))
     // (()())
+    // (())()
+    // (())()
+    // (()(()))
+    // (()()(()))
 
     private static void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
@@ -20,7 +24,17 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
             assert (s.length() == n);
-            out.println(s);
+            int ans;
+            if (n == 2) {
+                ans = -1;
+            } else {
+                if (s.contains("()((")) {
+                    ans = n - 2;
+                } else {
+                    ans = -1;
+                }
+            }
+            out.println(ans);
         }
     }
 

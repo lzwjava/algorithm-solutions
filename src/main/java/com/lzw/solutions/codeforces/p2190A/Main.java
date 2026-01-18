@@ -49,7 +49,7 @@ public class Main {
                     }
                 }
                 if (positions.size() == 0) {
-                    out.print("Bob");
+                    out.println("Bob");
                 } else {
                     out.println("Alice");
                     int size = positions.size();
