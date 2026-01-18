@@ -28,9 +28,10 @@ public class Main {
 
     private void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
-        while (t > 0) {
-            t--;
+        while (t-- > 0) {
             int n = Integer.parseInt(in.readLine());
+            String s = in.readLine();
+            out.println(s);
         }
     }
 }
