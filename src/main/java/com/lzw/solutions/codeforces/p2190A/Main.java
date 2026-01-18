@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 
@@ -41,6 +43,24 @@ public class Main {
                 out.println("Bob");
             } else {
                 out.println("Alice");
+                char[] chars = s.toCharArray();
+                char[] sortedChars = chars.clone();
+                Arrays.sort(sortedChars);
+                ArrayList<Integer> positions = new ArrayList<>();
+                for (i = 0; i < n; i++) {
+                    if (chars[i] != sortedChars[i]) {
+                        positions.add(i);
+                    }
+                }
+                int size = positions.size();
+                out.println(size);
+                for (i = 0; i < size; i++) {
+                    if (i != 0) {
+                        out.print(' ');
+                    }
+                    out.print(positions.get(i) + 1);
+                }
+                out.println();
             }
         }
     }
