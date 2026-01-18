@@ -17,6 +17,18 @@ public class Main {
     // (())()
     // (()(()))
     // (()()(()))
+    // ((())((())))
+    // (((())))
+
+    private static void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            if (i != 0) {
+                out.print(' ');
+            }
+            out.print(array[i]);
+        }
+        out.println();
+    }
 
     private static void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
@@ -28,11 +40,22 @@ public class Main {
             if (n == 2) {
                 ans = -1;
             } else {
-                if (s.contains("()((")) {
-                    ans = n - 2;
-                } else {
-                    ans = -1;
+//                if (s.contains("()((")) {
+//                    ans = n - 2;
+//                } else {
+                int[] array = new int[n];
+                int acc = 0;
+                for (int i = 0; i < n; i++) {
+                    if (s.charAt(i) == '(') {
+                        acc--;
+                    } else {
+                        acc++;
+                    }
+                    array[i] = acc;
                 }
+                printArray(array);
+                ans = 0;
+//                }
             }
             out.println(ans);
         }
