@@ -24,8 +24,7 @@ public class Main {
         int t = Integer.parseInt(in.readLine());
         while (t-- > 0) {
             int n = Integer.parseInt(in.readLine());
-            String s = in.readLine();
-            assert (s.length() == n);
+            String s = in.readLine().trim();
             int i;
             int zero = 0, one = 0;
             for (i = 0; i < n; i++) {
@@ -38,7 +37,6 @@ public class Main {
             if (zero == n || one == n) {
                 out.println("Bob");
             } else {
-                out.println("Alice");
                 ArrayList<Integer> positions = new ArrayList<>();
                 for (i = 0; i < n; i++) {
                     char target;
@@ -51,15 +49,20 @@ public class Main {
                         positions.add(i);
                     }
                 }
-                int size = positions.size();
-                out.println(size);
-                for (i = 0; i < size; i++) {
-                    if (i != 0) {
-                        out.print(' ');
+                if (positions.size() == 0) {
+                    out.print("Bob");
+                } else {
+                    out.println("Alice");
+                    int size = positions.size();
+                    out.println(size);
+                    for (i = 0; i < size; i++) {
+                        if (i != 0) {
+                            out.print(' ');
+                        }
+                        out.print(positions.get(i) + 1);
                     }
-                    out.print(positions.get(i) + 1);
+                    out.println();
                 }
-                out.println();
             }
         }
     }
