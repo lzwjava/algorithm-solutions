@@ -31,6 +31,7 @@ public class Main {
         while (t-- > 0) {
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
+            assert (s.length() == n);
             out.println(s);
         }
     }
