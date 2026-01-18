@@ -9,6 +9,11 @@ public class Main {
     private static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     private static final PrintWriter out = new PrintWriter(System.out, true);
 
+    // (()(()))
+    // (())
+    // ((()))
+    // (()())
+
     private static void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t-- > 0) {
