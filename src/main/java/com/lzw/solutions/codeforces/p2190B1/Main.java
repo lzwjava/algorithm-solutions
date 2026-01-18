@@ -6,27 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 public class Main {
+    private static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    private static final PrintWriter out = new PrintWriter(System.out, true);
 
-    private BufferedReader in;
-    private PrintWriter out;
-
-    public Main() {
-        in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);
-    }
-
-    public static void main(String[] args) throws IOException {
-        Main m = new Main();
-        m.solve();
-        m.close();
-    }
-
-    private void close() {
-        out.flush();
-        out.close();
-    }
-
-    private void solve() throws IOException {
+    private static void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t-- > 0) {
             int n = Integer.parseInt(in.readLine());
@@ -34,5 +17,10 @@ public class Main {
             assert (s.length() == n);
             out.println(s);
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        solve();
+        out.close();
     }
 }
