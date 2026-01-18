@@ -21,8 +21,6 @@ public class MainPlus {
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
         while (t-- > 0) {
-            int n = Integer.parseInt(in.readLine());
-            String s = in.readLine();
             out.println("Alice");
         }
     }
