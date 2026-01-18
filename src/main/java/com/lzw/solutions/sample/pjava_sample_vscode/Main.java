@@ -1,4 +1,4 @@
-package com.lzw.solutions.uva.pjava_sample_vscode;
+package com.lzw.solutions.sample.pjava_sample_vscode;
 
 import java.io.BufferedReader;
 import java.io.IOException;

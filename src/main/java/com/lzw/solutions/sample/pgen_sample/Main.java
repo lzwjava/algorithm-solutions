@@ -1,4 +1,4 @@
-package com.lzw.solutions.uva.pjava_sample;
+package com.lzw.solutions.sample.pgen_sample;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,23 +7,25 @@ import java.io.PrintWriter;
 
 public class Main {
 
-    private final BufferedReader in;
-    private final PrintWriter out;
+    BufferedReader in;
+    PrintWriter out;
 
-    public Main() {
+    Main() {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = new PrintWriter(System.out);
     }
 
-    private void close() throws IOException {
+    void solve() {}
+
+    void close() throws IOException {
         in.close();
+        out.flush();
         out.close();
     }
 
     public static void main(String[] args) throws IOException {
         Main m = new Main();
         m.solve();
+        m.close();
     }
-
-    private void solve() {}
 }

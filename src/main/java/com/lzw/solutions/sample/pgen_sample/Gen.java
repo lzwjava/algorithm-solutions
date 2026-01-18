@@ -1,4 +1,4 @@
-package com.lzw.solutions.uva.pgen_sample;
+package com.lzw.solutions.sample.pgen_sample;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

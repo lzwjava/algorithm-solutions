@@ -1,4 +1,4 @@
-package com.lzw.solutions.uva.pjava_sample_sc;
+package com.lzw.solutions.sample.pjava_sample_sc;
 
 import java.util.Scanner;
 

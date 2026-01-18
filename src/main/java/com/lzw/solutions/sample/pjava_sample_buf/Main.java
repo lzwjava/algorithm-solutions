@@ -1,6 +1,9 @@
-package com.lzw.solutions.uva.pjava_sample_buf;
+package com.lzw.solutions.sample.pjava_sample_buf;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 public class Main {
 
