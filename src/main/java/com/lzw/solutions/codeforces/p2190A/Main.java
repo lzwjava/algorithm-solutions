@@ -15,8 +15,8 @@ public class Main {
         out = new PrintWriter(System.out);
     }
 
-    // 100100,            100101
-    // 000011(1,4,5,6)    000111(1,4,5)
+    // 100100          100101         10  01  100   101   101010
+    // 000011(1456)    000111(145)    01  01  001   011   000111(1346)
 
     void solve() throws IOException {
         int t = Integer.parseInt(in.readLine());
