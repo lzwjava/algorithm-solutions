@@ -26,29 +26,28 @@ public class Main {
             int n = Integer.parseInt(in.readLine());
             String s = in.readLine();
             assert (s.length() == n);
-            boolean allZeros = true;
             int i;
-            for (i = 0; i < n; i++) {
-                if (s.charAt(i) == '1') {
-                    allZeros = false;
-                }
-            }
-            boolean allOnes = true;
+            int zero = 0, one = 0;
             for (i = 0; i < n; i++) {
                 if (s.charAt(i) == '0') {
-                    allOnes = false;
+                    zero++;
+                } else {
+                    one++;
                 }
             }
-            if (allZeros || allOnes) {
+            if (zero == n || one == n) {
                 out.println("Bob");
             } else {
                 out.println("Alice");
-                char[] chars = s.toCharArray();
-                char[] sortedChars = chars.clone();
-                Arrays.sort(sortedChars);
                 ArrayList<Integer> positions = new ArrayList<>();
                 for (i = 0; i < n; i++) {
-                    if (chars[i] != sortedChars[i]) {
+                    char target;
+                    if (i < zero) {
+                        target = '0';
+                    } else {
+                        target = '1';
+                    }
+                    if (s.charAt(i) != target) {
                         positions.add(i);
                     }
                 }
