@@ -1,3 +1,4 @@
+// grok
 package com.lzw.solutions.codeforces.p2190B1;
 
 import java.util.Scanner;
