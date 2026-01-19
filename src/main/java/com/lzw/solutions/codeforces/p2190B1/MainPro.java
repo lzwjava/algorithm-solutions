@@ -6,57 +6,60 @@ import java.util.Scanner;
 public class MainPro {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-
-        for (int test = 0; test < t; test++) {
+        int T = sc.nextInt();
+        for (int cas = 0; cas < T; cas++) {
             int n = sc.nextInt();
             String s = sc.next();
 
-            // prefix[i] = balance after first i characters (0-based)
-            int[] prefix = new int[n + 1];
-            for (int i = 0; i < n; i++) {
-                prefix[i + 1] = prefix[i] + (s.charAt(i) == '(' ? 1 : -1);
-            }
-
             int ans = -1;
 
-            // Try each possible first differing position i (0-based)
-            // where s[i] == ')' and we pretend it is '(' instead
-            for (int i = 0; i < n; i++) {
-                if (s.charAt(i) != ')') continue;
+            for (int split = 1; split <= n; split += 2) {  // possible lengths of t
+                // check if we can form a regular seq of length 'split' that is better than s
+                // i.e. first difference position has ( in t, ) in s
 
-                // balance just before i
-                int balBefore = prefix[i];
+                int open = 0;
+                boolean foundDiff = false;
+                boolean ok = true;
 
-                // if we put '(' instead of ')' at position i
-                int balAfterChange = balBefore + 1;
+                for (int i = 0; i < split; i++) {
+                    char want = (open > 0 && i + 1 < split) ? ')' : '(';
+                    // but we prefer to follow s as long as possible
 
-                // prefix must stay non-negative
-                if (balAfterChange < 0) continue;
+                    if (!foundDiff) {
+                        if (s.charAt(i) == '(') {
+                            open++;
+                        } else {
+                            // s has ), we can choose to put ( here → this becomes the diff point
+                            if (open > 0) {
+                                // we could close, but we decide to open instead
+                                foundDiff = true;
+                                open++;  // pretend we put (
+                            } else {
+                                open--;  // forced to follow s
+                            }
+                        }
+                    } else {
+                        // after difference, freely choose to make it valid
+                        if (open > 0 && i + 1 < split) {
+                            open--;  // prefer close if possible
+                        } else {
+                            open++;  // open
+                        }
+                    }
 
-                // now try to take as many characters as possible from i+1 onwards
-                int current = balAfterChange;
-                int length = i + 1;  // 0..i inclusive
-
-                boolean canContinue = true;
-                for (int j = i + 1; j < n; j++) {
-                    current += (s.charAt(j) == '(' ? 1 : -1);
-                    if (current < 0) {
-                        canContinue = false;
+                    if (open < 0) {
+                        ok = false;
                         break;
                     }
-                    length++;
                 }
 
-                // must end at balance 0
-                if (canContinue && current == 0) {
-                    ans = Math.max(ans, length);
+                if (ok && open == 0 && foundDiff) {
+                    ans = Math.max(ans, split);
                 }
             }
 
             System.out.println(ans);
         }
-
         sc.close();
     }
 }
