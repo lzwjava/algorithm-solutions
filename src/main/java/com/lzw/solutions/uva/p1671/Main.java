@@ -6,36 +6,15 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 public class Main {
+    private static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    private static final PrintWriter out = new PrintWriter(System.out, true);
 
-    BufferedReader in;
-    PrintWriter out;
-
-    Main() {
-        in = new BufferedReader(new InputStreamReader(System.in));
-        out = new PrintWriter(System.out);
+    private static void solve() throws IOException {
+        // your code here
     }
 
-    int readInt() throws IOException {
-        return Integer.parseInt(in.readLine());
-    }
-
-    void solve() throws IOException {
-    }
-
-    void close() throws IOException {
-        if (in != null) {
-            in.close();
-        }
-        if (out != null) {
-            out.flush();
-            out.close();
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        Main main = new Main();
-        main.solve();
-        main.close();
+    public static void main(String[] args) throws IOException {
+        solve();
+        out.close();
     }
 }
