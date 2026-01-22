@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "args": [
+                "<",
+                "${workspaceFolder}/src/main/resources/uva/p1671/1.in"
+            ],
+        }
+    ]
+}

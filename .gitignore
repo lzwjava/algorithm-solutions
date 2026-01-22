@@ -7,7 +7,8 @@ data
 out
 *.in
 !1.in
-.vscode
+.vscode/launch.json
+.vscode/settings.json
 *.spj
 *.stderr
 *.stdout
