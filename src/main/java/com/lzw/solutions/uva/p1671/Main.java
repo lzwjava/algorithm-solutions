@@ -37,6 +37,7 @@ public class Main {
                     bx[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
+            in.readLine();
         }
     }
 
