@@ -16,15 +16,25 @@ public class Main {
             if (t == 0) {
                 break;
             }
-            int n = Integer.parseInt(in.readLine());
-            int[][] x = new int[n][t];
-            int[] f = new int[n];
+            int an = Integer.parseInt(in.readLine());
+            int[][] ax = new int[an][t];
+            int[] af = new int[an];
             int i, j;
-            for (i = 0; i < n; i++) {
+            for (i = 0; i < an; i++) {
                 StringTokenizer st = new StringTokenizer(in.readLine());
-                f[i] = Integer.parseInt(st.nextToken());
+                af[i] = Integer.parseInt(st.nextToken());
                 for (j = 0; j < t; j++) {
-                    x[i][j] = Integer.parseInt(st.nextToken());
+                    ax[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
+            int bn = Integer.parseInt(in.readLine());
+            int[][] bx = new int[bn][t];
+            int[] bf = new int[bn];
+            for (i = 0; i < bn; i++) {
+                StringTokenizer st = new StringTokenizer(in.readLine());
+                bf[i] = Integer.parseInt(st.nextToken());
+                for (j = 0; j < t; j++) {
+                    bx[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
         }
