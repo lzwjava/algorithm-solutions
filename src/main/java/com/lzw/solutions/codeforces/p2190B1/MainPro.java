@@ -13,7 +13,7 @@ public class MainPro {
 
             int ans = -1;
 
-            for (int split = 1; split <= n; split += 2) {  // possible lengths of t
+            for (int split = 1; split <= n; split += 2) { // possible lengths of t
                 // check if we can form a regular seq of length 'split' that is better than s
                 // i.e. first difference position has ( in t, ) in s
 
@@ -33,17 +33,17 @@ public class MainPro {
                             if (open > 0) {
                                 // we could close, but we decide to open instead
                                 foundDiff = true;
-                                open++;  // pretend we put (
+                                open++; // pretend we put (
                             } else {
-                                open--;  // forced to follow s
+                                open--; // forced to follow s
                             }
                         }
                     } else {
                         // after difference, freely choose to make it valid
                         if (open > 0 && i + 1 < split) {
-                            open--;  // prefer close if possible
+                            open--; // prefer close if possible
                         } else {
-                            open++;  // open
+                            open++; // open
                         }
                     }
 

@@ -43,9 +43,9 @@ public class Main {
             if (n == 2) {
                 ans = -1;
             } else {
-//                if (s.contains("()((")) {
-//                    ans = n - 2;
-//                } else {
+                //                if (s.contains("()((")) {
+                //                    ans = n - 2;
+                //                } else {
                 int[] array = new int[n];
                 int acc = 0;
                 for (int i = 0; i < n; i++) {
@@ -58,7 +58,7 @@ public class Main {
                 }
                 printArray(array);
                 ans = 0;
-//                }
+                //                }
             }
             out.println(ans);
         }

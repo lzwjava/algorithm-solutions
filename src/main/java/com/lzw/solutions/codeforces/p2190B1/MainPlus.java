@@ -32,11 +32,11 @@ public class MainPlus {
 
                 // now add the changed '('
                 bal += 1;
-                if (bal < 0) continue;  // though unlikely here
+                if (bal < 0) continue; // though unlikely here
 
                 // now from i+1 to end, greedily take as far as possible
                 // while keeping bal >= 0, and stop when bal returns to 0
-                int len = i + 1;           // 0-based: positions 0..i
+                int len = i + 1; // 0-based: positions 0..i
                 int startBal = bal;
 
                 for (int j = i + 1; j < n; j++) {
@@ -46,7 +46,7 @@ public class MainPlus {
                     if (bal == 0) {
                         // found a valid completion
                         ans = Math.max(ans, len);
-                        break;  // no need to go further — longer won't be prefix-equal
+                        break; // no need to go further — longer won't be prefix-equal
                     }
                 }
             }
