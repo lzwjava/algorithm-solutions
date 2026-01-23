@@ -10,11 +10,32 @@ public class Main {
     private static final PrintWriter out = new PrintWriter(System.out, true);
 
     private static void solve() throws IOException {
-        // your code here
+        String[] first = in.readLine().split(" ");
+        int n = Integer.parseInt(first[0]);
+        int h = Integer.parseInt(first[1]);
+        int l = Integer.parseInt(first[2]);
+
+        String[] line = in.readLine().split(" ");
+        int cntRow = 0;
+        int cntCol = 0;
+
+        for (String s : line) {
+            int x = Integer.parseInt(s);
+            if (x <= h) cntRow++;
+            if (x <= l) cntCol++;
+        }
+
+        int maxPairs = Math.min(cntRow, cntCol);
+        maxPairs = Math.min(maxPairs, n / 2);
+
+        out.println(maxPairs);
     }
 
     public static void main(String[] args) throws IOException {
-        solve();
+        int t = Integer.parseInt(in.readLine());
+        while (t-- > 0) {
+            solve();
+        }
         out.close();
     }
 }
