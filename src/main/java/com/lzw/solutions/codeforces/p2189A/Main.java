@@ -1,41 +1,49 @@
 package com.lzw.solutions.codeforces.p2189A;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    private static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-    private static final PrintWriter out = new PrintWriter(System.out, true);
-
-    private static void solve() throws IOException {
-        String[] first = in.readLine().split(" ");
-        int n = Integer.parseInt(first[0]);
-        int h = Integer.parseInt(first[1]);
-        int l = Integer.parseInt(first[2]);
-
-        String[] line = in.readLine().split(" ");
-        int cntRow = 0;
-        int cntCol = 0;
-
-        for (String s : line) {
-            int x = Integer.parseInt(s);
-            if (x <= h) cntRow++;
-            if (x <= l) cntCol++;
-        }
-
-        int maxPairs = Math.min(cntRow, cntCol);
-        maxPairs = Math.min(maxPairs, n / 2);
-
-        out.println(maxPairs);
-    }
-
     public static void main(String[] args) throws IOException {
-        int t = Integer.parseInt(in.readLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(System.out);
+
+        int t = Integer.parseInt(br.readLine().trim());
+
         while (t-- > 0) {
-            solve();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int n = Integer.parseInt(st.nextToken());
+            int h = Integer.parseInt(st.nextToken());
+            int l = Integer.parseInt(st.nextToken());
+
+            int minHL = Math.min(h, l);
+
+            int cntRow = 0;
+            int cntCol = 0;
+            int cntBoth = 0;
+
+            st = new StringTokenizer(br.readLine());
+            while (st.hasMoreTokens()) {
+                int x = Integer.parseInt(st.nextToken());
+                if (x <= minHL) {
+                    cntBoth++;
+                    cntRow++;
+                    cntCol++;
+                } else if (x <= h) {
+                    cntRow++;
+                } else if (x <= l) {
+                    cntCol++;
+                }
+            }
+
+            int usable = cntRow + cntCol - cntBoth;
+            int ans = usable / 2;
+            ans = Math.min(ans, cntRow);
+            ans = Math.min(ans, cntCol);
+
+            out.println(ans);
         }
+
         out.close();
     }
 }
