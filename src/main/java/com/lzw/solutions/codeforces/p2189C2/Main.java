@@ -1,3 +1,4 @@
+// grok-4.1-thinking
 package com.lzw.solutions.codeforces.p2189C2;
 
 import java.io.*;
