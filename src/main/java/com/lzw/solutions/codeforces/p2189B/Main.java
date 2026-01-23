@@ -1,3 +1,5 @@
+// grok-4.1-thinking
+
 package com.lzw.solutions.codeforces.p2189B;
 
 import java.io.BufferedReader;

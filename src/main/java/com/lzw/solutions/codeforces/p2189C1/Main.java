@@ -1,4 +1,6 @@
-package com.lzw.solutions.codeforces.p2198C;
+// grok-4.1-thinking
+
+package com.lzw.solutions.codeforces.p2198C1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
