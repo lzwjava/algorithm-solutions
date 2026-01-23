@@ -1,3 +1,4 @@
+// grok-4.1-thinking
 package com.lzw.solutions.codeforces.p2189C2;
 
 import java.io.*;
@@ -13,23 +14,20 @@ public class Main {
         for (int test = 0; test < t; test++) {
             int n = Integer.parseInt(br.readLine());
 
-            if ((n & (n - 1)) == 0) {  // power of 2
+            // If n is power of 2, impossible
+            if ((n & (n - 1)) == 0) {
                 pw.println(-1);
                 continue;
             }
 
-            TreeSet<Integer> available = new TreeSet<>(Comparator.reverseOrder());  // largest first
+            TreeSet<Integer> available = new TreeSet<>();
             for (int i = 1; i <= n; i++) {
                 available.add(i);
             }
 
-            boolean[] isAvail = new boolean[n + 2];
-            Arrays.fill(isAvail, 1, n + 1, true);
-
             int[] p = new int[n + 1];
             p[n] = n;
             available.remove(n);
-            isAvail[n] = false;
 
             boolean ok = true;
             for (int pos = n - 1; pos >= 1; pos--) {
@@ -38,10 +36,10 @@ public class Main {
                 while (it.hasNext()) {
                     int v = it.next();
                     int w = v ^ pos;
-                    if (w >= 1 && w <= n && !isAvail[w]) {
+                    // Only accept if w is valid and already placed
+                    if (w >= 1 && w <= n && !available.contains(w)) {
                         p[pos] = v;
                         available.remove(v);
-                        isAvail[v] = false;
                         found = true;
                         break;
                     }
