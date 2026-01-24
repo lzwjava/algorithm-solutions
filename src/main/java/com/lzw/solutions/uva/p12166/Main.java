@@ -10,7 +10,8 @@ public class Main {
     private static final PrintWriter out = new PrintWriter(System.out, true);
 
     private static void solve() throws IOException {
-        // your code here
+        int t = Integer.parseInt(in.readLine());
+        
     }
 
     public static void main(String[] args) throws IOException {
