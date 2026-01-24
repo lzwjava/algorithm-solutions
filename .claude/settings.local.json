@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(chmod:*)",
-      "Bash(\"/Users/lzwjava/projects/algorithm-solutions/scripts/clean_submit_code.py\")"
+      "Bash(\"/Users/lzwjava/projects/algorithm-solutions/scripts/clean_submit_code.py\")",
+      "Bash(python3 -m py_compile:*)"
     ]
   }
 }

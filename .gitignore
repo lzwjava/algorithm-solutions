@@ -21,3 +21,4 @@ ref*
 !ref*.cpp
 *.class
 .run
+*.pyc

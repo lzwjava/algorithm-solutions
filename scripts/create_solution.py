@@ -6,16 +6,16 @@ import subprocess
 
 def main():
     if len(sys.argv) != 3:
-        print(&quot;Usage: python create_solution.py &lt;platform&gt; &lt;problem_id&gt;&quot;)
-        print(&quot;Example: python create_solution.py uva 12166&quot;)
-        print(&quot;platform: uva or codeforces&quot;)
+        print("Usage: python create_solution.py <platform> <problem_id>")
+        print("Example: python create_solution.py uva 12166")
+        print("platform: uva or codeforces")
         sys.exit(1)
 
     platform = sys.argv[1]
     problem_id = sys.argv[2].strip()
 
     if platform not in ['uva', 'codeforces']:
-        print(&quot;Invalid platform. Use 'uva' or 'codeforces'.&quot;)
+        print("Invalid platform. Use 'uva' or 'codeforces'.")
         sys.exit(1)
 
     # Assume running from project root
@@ -23,7 +23,7 @@ def main():
     src_java = os.path.join(base_dir, 'src', 'main', 'java', 'com', 'lzw', 'solutions', 'sample', 'pjava_sample_buf', 'Main.java')
 
     if not os.path.exists(src_java):
-        print(f&quot;Template not found: {src_java}&quot;)
+        print(f"Template not found: {src_java}")
         sys.exit(1)
 
     target_java_dir = os.path.join(base_dir, 'src', 'main', 'java', 'com', 'lzw', 'solutions', platform, f'p{problem_id}')
@@ -55,14 +55,14 @@ def main():
         if clipboard_content:
             with open(input_file, 'w') as f:
                 f.write(clipboard_content)
-            print(f&quot;✅ Created {target_java}&quot;)
-            print(f&quot;✅ Created {input_file} from clipboard&quot;)
+            print(f"[OK] Created {target_java}")
+            print(f"[OK] Created {input_file} from clipboard")
         else:
-            print(f&quot;⚠️  Created {target_java}, but clipboard empty - add 1.in manually&quot;)
+            print(f"[WARN]  Created {target_java}, but clipboard empty - add 1.in manually")
     except subprocess.CalledProcessError:
-        print(f&quot;❌ Failed to read clipboard. Created {target_java}, add {input_file} manually.&quot;)
+        print(f"[ERR] Failed to read clipboard. Created {target_java}, add {input_file} manually.")
     except Exception as e:
-        print(f&quot;❌ Error with clipboard: {e}. Created {target_java}, add {input_file} manually.&quot;)
+        print(f"[ERR] Error with clipboard: {e}. Created {target_java}, add {input_file} manually.")
 
 if __name__ == '__main__':
     main()
